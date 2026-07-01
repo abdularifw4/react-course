@@ -27,14 +27,16 @@
     <main class="lg:ml-72">
         <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">⚡ Chapter 10</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 10</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Performance &amp; Best Practices</h1></div>
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 10</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Performance &amp; Best Practices</h1><p class="text-gray-400 text-lg">App kamu udah jalan, tapi... kok lambat ya? 😅</p><p class="text-gray-400">Tenang, di chapter ini kita bakal bahas gimana bikin React app kamu tetap cepat biarpun udah gede. Nggak perlu jadi expert — yang penting paham mental model-nya.</p></div>
             
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. React.memo &amp; useMemo — Hindari Re-render Tidak Perlu</h3>
-                <p class="text-gray-300 mb-3">React default-nya me-re-render semua child saat parent berubah. React.memo dan useMemo membantu menghentikan re-render yang tidak perlu.</p>
+                <h3 class="text-xl font-bold text-white mb-4">🧠 MEMO — STOP RE-RENDER YANG NGGAK PERLU</h3>
+                <p class="text-gray-300 mb-3">Pernah ngalamin yang namanya ngetik di search bar, terus seluruh list di bawahnya re-render? Padahal cuma ngetik huruf "a"? <strong>Itu bikin app terasa lambat, bro.</strong></p>
+                <p class="text-gray-300 mb-3">Masalahnya, React itu default-nya re-render SEMUA child component pas parent-nya berubah. Bener-bener semua. Nggak peduli itu perubahan cuma di satu tempat kecil.</p>
+                <p class="text-gray-300 mb-3">Bayangin kamu lagi ngumpet di rumah, terus ibu kamu manggil dari dapur. Semua adik-adik kamu langsung keluar kamar — padahal yang dipanggil cuma kamu doang. 😂 Nah, <code class="text-accent">React.memo</code> itu kayak ngasih tahu adik-adik kamu: "Eits, yang dipanggil cuma kakak. Kalian stay di kamar aja."</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { memo, useMemo, useState } from &#x27;react&#x27;;
 
-// React.memo: skip re-render jika props sama
+// React.memo: "Aku nggak bakal re-render kalau props-nya masih sama!"
 const UserCard = memo(function UserCard({ name, avatar }) {
   console.log(&#x27;UserCard rendered&#x27;);
   return (
@@ -47,6 +49,7 @@ const UserCard = memo(function UserCard({ name, avatar }) {
 
 function UserList() {
   const [search, setSearch] = useState(&#x27;&#x27;);
+  // useMemo: "Aku nggak bakal hitung ulang kalau search-nya masih sama"
   const users = useMemo(() =&gt; getFilteredUsers(search), [search]);
 
   return (
@@ -64,14 +67,17 @@ const ExpensiveCard = memo(
   function Card({ data }) { return &lt;div&gt;{data.title}&lt;/div&gt;; },
   (prev, next) =&gt; prev.data.id === next.data.id // Custom equality
 );</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> React.memo itu seperti skip button di video. Kalau isinya sama (props tidak berubah), skip saja — jangan re-render. Tapi jangan memo semua! Hanya komponen yang benar-benar mahal untuk render.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> <code class="text-accent">React.memo</code> bikin komponen "lupa" re-render kalau props-nya nggak berubah. Sedangkan <code class="text-accent">useMemo</code> nge-cache hasil kalkulasi biar nggak dihitung ulang. Tapi hati-hati — jangan memo semuanya ya! Memo itu sendiri juga butuh "biaya". Pake buat komponen yang bener-bener berat aja.</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan kebablasan!</strong> Kalo kamu memo semua komponen, malah bikin app lebih lambat karena React harus ngecek "ini sama atau beda?" di setiap render. Ibarat nge-encrypt pesan "hai" — overkill banget kan? 😅</p></div>
             </section>
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Code Splitting &amp; Lazy Loading</h3>
-                <p class="text-gray-300 mb-3">Code splitting memecah bundle JavaScript menjadi chunk kecil yang dimuat sesuai kebutuhan. Ini drastis mengurangi initial load time.</p>
+                <h3 class="text-xl font-bold text-white mb-4">📦 CODE SPLITTING — JANGAN BAWA SEMUANYA SEKALIGUS</h3>
+                <p class="text-gray-300 mb-3">Coba bayangin kamu mau pindah rumah. Kamu bawa SEMUA barang kamu sekaligus — mulai dari baju, buku, kulkas, sampe koleksi mainan dari SD. Pasti berat banget kan?</p>
+                <p class="text-gray-300 mb-3">Nah, bundle JavaScript kamu juga gitu. Default-nya, React bakal bundle SEMUA code kamu jadi SATU file gede. Padahal user mungkin cuma butuh halaman Home doang, tapi dia harus nunggu download code untuk halaman Settings, Analytics, Profile — yang mungkin dia nggak bakal kunjungi sama sekali.</p>
+                <p class="text-gray-300 mb-3"><strong>Oh ternyata gitu!</strong> Code splitting itu solusinya — memecah bundle jadi beberapa chunk kecil, terus cuma load yang dibutuhkan. Kayak pindahan rumah yang terorganisir: bawa barang penting dulu, sisanya menyusul. 🚚</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { lazy, Suspense } from &#x27;react&#x27;;
 
-// Lazy load route-level components
+// Lazy load: "Aku nggak mau load sekarang, nanti aja pas butuh"
 const Dashboard = lazy(() =&gt; import(&#x27;./pages/Dashboard&#x27;));
 const Settings = lazy(() =&gt; import(&#x27;./pages/Settings&#x27;));
 const Analytics = lazy(() =&gt; import(&#x27;./pages/Analytics&#x27;));
@@ -96,16 +102,18 @@ function App() {
 // Preload on hover (advanced)
 function NavItem() {
   const handleMouseEnter = () =&gt; {
-    // Mulai load sebelum user klik
+    // Mulai load sebelum user klik — biar pas diklik udah siap!
     import(&#x27;./pages/Analytics&#x27;);
   };
   return &lt;div onMouseEnter={handleMouseEnter}&gt;Analytics&lt;/div&gt;;
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Code splitting itu seperti memecah buku jadi beberapa bab. Kamu nggak perlu bawa semua bab sekaligus — cukup bawa bab yang sedang dibaca. Ini mengurangi ukuran initial load drastis.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Mental model:</strong> <code class="text-accent">lazy()</code> itu kayak kamu bilang ke React, "Eh, code-nya jangan didownload sekarang. Nanti aja pas komponen ini beneran ditampilkan." Terus <code class="text-accent">Suspense</code> itu kayak pesan "Tunggu bentar ya..." yang muncul selama code-nya belum selesai download. Mantap kan? 🎯</p></div>
             </section>
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. Virtualization dengan react-window</h3>
-                <p class="text-gray-300 mb-3">Virtualization hanya merender item yang terlihat di viewport. Untuk list dengan ratusan atau ribuan item, ini bisa mengubah performa dari lambat jadi instant.</p>
+                <h3 class="text-xl font-bold text-white mb-4">🪟 VIRTUALIZATION — RENDER 10,000 ITEM TANPA NANGIS</h3>
+                <p class="text-gray-300 mb-3">Pernah diminta bikin list yang isinya 10,000 item? Terus kamu map array-nya langsung di JSX, dan... browser-nya langsung nangis. 💀</p>
+                <p class="text-gray-300 mb-3">Masalahnya bukan datanya — tapi DOM-nya. Setiap item di list itu jadi satu DOM node. Bayangin 10,000 div di dalam satu container. Browser-nya kewalahan render semua itu sekaligus.</p>
+                <p class="text-gray-300 mb-3"><strong>Oh ternyata gitu!</strong> Virtualization itu konsepnya simpel: <strong>kamu cuma render item yang KELIHATAN di layar.</strong> Yang di atas dan di bawah viewport? Virtual doang — nggak ada di DOM. Scroll ke bawah? Yang di atas dihapus, yang baru muncul dirender. Hasilnya? 10,000 item tapi cuma ada ~15 DOM node di layar. 🤯</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { FixedSizeList as List } from &#x27;react-window&#x27;;
 
 // 10,000 items — tapi hanya render yang terlihat!
@@ -133,35 +141,50 @@ function BigList({ items }) {
 // Dengan 10,000 items:
 // Tanpa virtualization: render 10,000 DOM nodes = LAMBAT
 // Dengan virtualization: render ~15 DOM nodes = INSTANT</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Virtualization itu seperti layar kaca — kamu hanya bisa lihat apa yang ada di depan mata, tapi di belakangnya masih ada ribuan item. react-window hanya bikin DOM untuk yang terlihat, sisanya virtual.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Virtualization itu kayak kaca pembesar — kamu cuma lihat sebagian kecil dari data yang sebenarnya gede banget. Library <code class="text-accent">react-window</code> (atau <code class="text-accent">react-virtuoso</code>) nge-handle semua math-nya buat kamu. Tinggal pasang, dan boom — list apapun jadi smooth. 🚀</p></div>
             </section>
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">4. React DevTools Profiler &amp; Best Practices</h3>
-                <p class="text-gray-300 mb-3">React DevTools Profiler membantu mengidentifikasi komponen yang lambat. Gabungkan dengan best practices untuk aplikasi yang optimal.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Best Practices Checklist:
+                <h3 class="text-xl font-bold text-white mb-4">🔧 PROFILER &amp; BEST PRACTICES — JANGAN OPTIMIZE SECARA BUTA</h3>
+                <p class="text-gray-300 mb-3">Oke, sekarang kamu udah tau tool-tool performance-nya. Tapi sebelum kamu mulai memo semua komponen dan lazy load segalanya... <strong>berhenti dulu. 🛑</strong></p>
+                <p class="text-gray-300 mb-3">Masalah terbesar developer itu bukan nggak bisa optimize — tapi <strong>optimize hal yang salah.</strong> Kayak orang diet tapi cuma nggak makan nasi, padahal yang bikin gemuk itu gorengan setiap malam. 😂</p>
+                <p class="text-gray-300 mb-3">Golden rule di dunia performance: <strong>"Measure first, optimize second."</strong> Pakai React DevTools Profiler buat lihat mana komponen yang benar-bener lambat, baru deh optimize yang itu aja.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// 📋 BEST PRACTICES CHECKLIST — Bookmark ini!
 //
-// ✅ 1. Gunakan key yang stabil (bukan index array)
-// ❌ &lt;li key={index}&gt; — error-prone saat reorder
-// ✅ &lt;li key={item.id}&gt; — stabil
+// ✅ 1. KEY yang stabil (BUKAN index array!)
+// ❌ {items.map((item, index) =&gt; &lt;Card key={index} /&gt;)}
+//    → Kalau list berubah urutannya, React bingung
+// ✅ {items.map(item =&gt; &lt;Card key={item.id} /&gt;)}
+//    → ID unik = React tenang, DOM stabil
 //
-// ✅ 2. Hindari inline object/array creation di JSX
-// ❌ style={{ color: &#x27;red&#x27; }} — object baru setiap render
+// ✅ 2. Jangan bikin object/function baru di setiap render
+// ❌ style={{ color: &#x27;red&#x27; }}  → object baru tiap render
 // ✅ const style = useMemo(() =&gt; ({ color: &#x27;red&#x27; }), [])
 //
-// ✅ 3. Hindari function creation di JSX (untuk child yang memo)
-// ❌ onClick={() =&gt; doSomething()} — fungsi baru setiap render
-// ✅ onClick={handleClick} — referensi stabil
+
+// ❌ onClick={() =&gt; doSomething(id)}  → function baru tiap render
+// ✅ const handleClick = useCallback(() =&gt; doSomething(id), [id])
 //
-// ✅ 4. Lazy load heavy components
-// ✅ 5. Use production build
-// ✅ 6. Measure before optimizing (Profiler!)
-// ✅ 7. Avoid unnecessary state updates
-// ✅ 8. Keep component tree flat</code></pre>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Warning:</strong> Golden rule: &#x27;Measure first, optimize second&#x27;. Jangan optimasi berdasarkan feeling — buka Profiler, lihat flame chart, cari komponen yang lambat, baru optimasi yang benar-benar perlu.</p></div>
+// ✅ 3. Lazy load komponen yang berat
+//    → Dashboard boleh eager, tapi Analytics/laporan? Lazy!
+// ✅ 4. Pakai production build
+//    → npm run build, bukan npm start untuk perform
+// ✅ 5. Measure dulu, baru optimize
+//    → Buka Profiler → Record → Cari yang lambat → Fix!
+// ✅ 6. Jangan update state kalau valuenya sama
+//    → React tetap re-render meski state-nya sama value
+// ✅ 7. Jaga component tree tetap flat
+//    → Semakin dalam nesting-nya, semakin banyak re-render</code></pre>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Warning serius nih:</strong> Premature optimization is the root of all evil. Kalau app kamu cuma punya 50 komponen, nggak perlu memo-memoan. Fokus dulu ke fitur dan user experience. Performance optimization itu buat pas app kamu udah beneran mulai kerasa lambat — bukan sebelumnya. Nggak percaya? Coba ukur pake Profiler dulu. Data nggak pernah bohong. 📊</p></div>
             </section>
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 10</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang performance &amp; best practices. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
+                <h3 class="text-xl font-bold text-accent mb-4">📝 RINGKASAN — YANG HARUS KAMU BAWA PULANG</h3>
+                <p class="text-gray-300 mb-6">Oke, chapter ini emang agak berat, tapi ini salah satu chapter paling penting di seluruh course. Kenapa? Karena nggak peduli sekeren apa arsitektur app kamu — kalau performanya jelek, user bakal kabur. 🏃💨</p>
+                <div class="space-y-3 mb-6">
+                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">1.</span><p class="text-gray-300"><strong>React.memo &amp; useMemo</strong> — kayak skip button di YouTube. Skip re-render kalau nggak perlu. Tapi jangan kebablasan!</p></div>
+                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">2.</span><p class="text-gray-300"><strong>Code Splitting &amp; Lazy Loading</strong> — kayak pindahan rumah terorganisir. Bawa yang penting dulu, sisanya menyusul.</p></div>
+                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">3.</span><p class="text-gray-300"><strong>Virtualization</strong> — render item yang kelihatan doang. 10,000 item? No problem.</p></div>
+                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">4.</span><p class="text-gray-300"><strong>Measure first, optimize second</strong> — jangan optimize secara buta. Pakai Profiler, lihat data, baru ambil aksi.</p></div>
+                </div>
                 <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-9.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a></div>
             </section>
