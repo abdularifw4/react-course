@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bab 7: Next.js Fundamentals - React Course</title>
+    <title>Bab 7: Next.js — React Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,8 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>
-        tailwind.config = {
+    <script>tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -22,148 +21,152 @@
                         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     },
                     colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
-                        muted: '#666666',
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
+                        muted: { DEFAULT: '#666666', light: '#999999' },
                         lavender: '#F3F0FA',
                         cream: '#FAF8F1',
+                        surface: '#FAFAFA',
                     },
                 }
             }
-        }
-    </script>
+        }</script>
     <style>
-        * { -webkit-font-smoothing: antialiased; }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { font-family: 'Inter', system-ui, sans-serif; }
-        .tracking-tighter-2 { letter-spacing: -0.04em; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
-        .lesson-card { transition: all 0.2s ease; }
-        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .nav-link { transition: all 0.15s ease; }
+        :root {
+            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
+            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
+            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
+        }
+        h1, h2, h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
+        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
+        .shadow-soft { box-shadow: var(--shadow-sm); }
+        .press { transition: transform 0.15s ease; }
+        .press:active { transform: scale(0.96); }
+        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
+        .lesson-card:hover { box-shadow: var(--shadow-md); }
+        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
         .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
-        h2 { text-wrap: balance; }
-        .fade-in { animation: fadeIn 0.4s ease both; }
+        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
+        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
+        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
         .fade-in-d1 { animation-delay: 80ms; }
         .fade-in-d2 { animation-delay: 160ms; }
         .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
         .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
         button:active { transform: scale(0.96); }
         @media print { .no-print { display: none !important; } }
-    </style>
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
 </head>
-<body class="bg-white text-ink min-h-screen antialiased">
+<body class="bg-white text-ink min-h-screen">
 
-    <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
-        <div class="p-5 border-b border-black/10">
-            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/[0.06]">
+            <a href="../index.html" class="flex items-center gap-2.5">
                 <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
-                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
-                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
+                <span class="text-[15px] font-semibold tracking-tight">react course</span>
             </a>
         </div>
-        <div class="p-4">
+        <div class="p-3">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+                <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
-        <div class="px-4 pb-4">
-            <div class="bg-[#F5F4F1] rounded-lg p-3">
+        <div class="px-3 pb-3">
+            <div class="bg-surface rounded-lg p-3">
                 <div class="flex justify-between text-xs text-muted mb-2">
                     <span>Progress</span>
-                    <span id="progressText">0/10</span>
+                    <span id="progressText" class="tabular-nums">0/10</span>
                 </div>
-                <div class="w-full bg-black/5 rounded-full h-2">
-                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-black/5 rounded-full h-1.5">
+                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
-        <nav class="px-3 pb-6">
-            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
-                Dasar JavaScript
+        <nav class="px-2 pb-6 space-y-0.5">
+            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
+                JS Dasar
             </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
                 React Dasar
             </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
                 Hooks Dasar
             </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
                 Hooks Advanced
             </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
-                Advanced Patterns
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
+                Patterns
             </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
-                React & TypeScript
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
+                TypeScript
             </a>
-            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
-                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">7</span>
-                Next.js Fundamentals
+            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
+                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
+                Next.js
             </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
-                State Management
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
+                State Mgmt
             </a>
-            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
-                React Testing
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
+                Testing
             </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
-                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
+                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
                 Performance
             </a>
         </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="lg:ml-72 min-h-screen">
-        
-
-        <!-- Top Bar -->
-        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/10">
-            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 h-16">
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-[#F5F4F1] transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                    <button onclick="toggleSidebar()" class="lg:hidden press p-2 rounded-lg hover:bg-black/5 transition-colors flex items-center justify-center" style="min-width:40px;min-height:40px">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    <div>
-                        <h1 class="text-xl lg:text-2xl font-bold text-ink">Bab 7: Next.js Fundamentals</h1>
-                        <p class="text-sm text-muted mt-0.5">3 pelajaran &middot; ~21 menit</p>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-xs font-mono text-muted tabular-nums">Ch.07</span>
+                        <h1 class="text-base lg:text-lg font-semibold tracking-tight">Next.js Fundamentals</h1>
                     </div>
                 </div>
-                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
-                    Bab Selanjutnya
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <a href="chapter-8.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                    Bab 8
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
             </div>
         </header>
 
-        <!-- Content Area -->
-        <div class="px-4 lg:px-8 py-8 max-w-4xl">
+        <!-- Content -->
+        <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
-            
-<!-- Lesson 1: Routing (App Router) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
     <div class="flex items-start gap-4 mb-6">
         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
         <div class="flex-1">
@@ -199,8 +202,8 @@
     </div></div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
 </section>
-<!-- Lesson 2: Server vs Client Components -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
     <div class="flex items-start gap-4 mb-6">
         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
         <div class="flex-1">
@@ -244,8 +247,8 @@ function LikeButton({ postId }: { postId: string }) {
     </div></div>
     <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
 </section>
-<!-- Lesson 3: Data Fetching & API Routes -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
     <div class="flex items-start gap-4 mb-6">
         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
         <div class="flex-1">
@@ -298,7 +301,6 @@ export async function POST(request: NextRequest) {
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
 </section>
 
-            <!-- Chapter Summary -->
             <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -326,17 +328,18 @@ export async function POST(request: NextRequest) {
                     </a>
                 </div>
             </section>
-</section>
 
+            
         </div>
     </main>
 
-    <!-- Back to Top Button -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-ink-soft z-30">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    <!-- Back to top -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
     <script>
+
         // Sidebar Toggle
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -433,7 +436,7 @@ export async function POST(request: NextRequest) {
 
         // Init
         renderGlobalProgress();
+    
     </script>
-
-    </body>
+</body>
 </html>

@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Course — Belajar React dari Nol Bahasa Indonesia</title>
-    <meta name="description" content="Kursus React lengkap dalam Bahasa Indonesia. 10 chapter dengan penjelasan detail, contoh kode, dan analogi.">
-    <!-- Inter font -->
+    <title>React Course — Belajar React dari Nol</title>
+    <meta name="description" content="Kursus React lengkap dalam Bahasa Indonesia. 10 chapter, 83 lessons, analogi kehidupan sehari-hari.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
@@ -26,172 +23,178 @@
                         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     },
                     colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
-                        muted: '#666666',
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
+                        muted: { DEFAULT: '#666666', light: '#999999' },
                         lavender: '#F3F0FA',
                         cream: '#FAF8F1',
+                        surface: '#FAFAFA',
                     },
                 }
             }
         }
     </script>
     <style>
-        * { -webkit-font-smoothing: antialiased; }
+        /* ===== DESIGN TOKENS ===== */
+        :root {
+            /* Layered shadow system — transparent, adapts to any background */
+            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
+            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
+            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
+            --shadow-lg: 0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px -4px rgba(0,0,0,0.08), 0 16px 48px -8px rgba(0,0,0,0.06);
+            --shadow-xl: 0 0 0 1px rgba(0,0,0,0.06), 0 12px 32px -4px rgba(0,0,0,0.1), 0 24px 64px -12px rgba(0,0,0,0.08);
+        }
+
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { font-family: 'Inter', system-ui, sans-serif; }
-        .tracking-tighter-2 { letter-spacing: -0.04em; }
-        .fade-in { animation: fadeIn 0.6s ease-out both; }
-        .fade-in-d1 { animation: fadeIn 0.6s ease-out 0.1s both; }
-        .fade-in-d2 { animation: fadeIn 0.6s ease-out 0.2s both; }
-        .fade-in-d3 { animation: fadeIn 0.6s ease-out 0.3s both; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .chapter-row { transition: all 0.2s ease; }
-        .chapter-row:hover { background: #F8F7F4; }
-        .nav-link { transition: color 0.15s ease; }
-        .nav-link:hover { color: #0B0B0B; }
-        .copy-btn { transition: opacity 0.15s ease; }
-        .copy-btn:hover { opacity: 70%; }
-        /* mobile menu */
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+
+        /* ===== UTILITIES ===== */
+        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
+        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
+        .shadow-soft { box-shadow: var(--shadow-sm); }
+        .shadow-lifted { box-shadow: var(--shadow-lg); }
+        .shadow-window { box-shadow: var(--shadow-xl); }
+
+        /* Press feedback */
+        .press { transition: transform 0.15s ease; }
+        .press:active { transform: scale(0.96); }
+
+        /* ===== ENTER ANIMATIONS — staggered ===== */
+        .stagger > * { opacity: 0; transform: translateY(16px); animation: enter 0.5s cubic-bezier(0.2,0,0,1) forwards; }
+        .stagger > *:nth-child(1) { animation-delay: 0ms; }
+        .stagger > *:nth-child(2) { animation-delay: 60ms; }
+        .stagger > *:nth-child(3) { animation-delay: 120ms; }
+        .stagger > *:nth-child(4) { animation-delay: 180ms; }
+        .stagger > *:nth-child(5) { animation-delay: 240ms; }
+        .stagger > *:nth-child(6) { animation-delay: 300ms; }
+        .stagger > *:nth-child(7) { animation-delay: 360ms; }
+        .stagger > *:nth-child(8) { animation-delay: 420ms; }
+        .stagger > *:nth-child(9) { animation-delay: 480ms; }
+        .stagger > *:nth-child(10) { animation-delay: 540ms; }
+        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
+
+        .enter { opacity: 0; transform: translateY(16px); animation: enter 0.5s cubic-bezier(0.2,0,0,1) forwards; }
+        .enter-d1 { animation-delay: 80ms; }
+        .enter-d2 { animation-delay: 160ms; }
+        .enter-d3 { animation-delay: 240ms; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+
+        /* ===== NAV ===== */
+        .nav-underline { position: relative; }
+        .nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #0B0B0B; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
+        .nav-underline:hover::after { transform: scaleX(1); }
+
+        /* ===== CODE BLOCK ===== */
+        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
+
+        /* Mobile menu */
         .mobile-menu { transition: max-height 0.3s ease; max-height: 0; overflow: hidden; }
         .mobile-menu.open { max-height: 500px; }
-        /* progress dots */
-        .dot { width: 6px; height: 6px; border-radius: 50%; }
-        /* app mockup animation */
-        .mockup-float { animation: floatUp 0.8s ease-out both 0.4s; }
-        @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
         @media print { .no-print { display: none !important; } }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
 </head>
-<body class="bg-white text-ink min-h-screen antialiased">
+<body class="bg-white text-ink min-h-screen">
 
     <!-- ==================== NAVBAR ==================== -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-black/5 no-print">
+    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-black/[0.06] no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Left: Brand -->
-                <div class="flex items-center gap-2">
+                <!-- Brand -->
+                <a href="index.html" class="flex items-center gap-2.5 press">
                     <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </div>
-                    <span class="text-base font-semibold tracking-tight text-ink">react course</span>
-                </div>
+                    <span class="text-[15px] font-semibold tracking-tight">react course</span>
+                </a>
 
-                <!-- Center: Nav Links -->
+                <!-- Center nav -->
                 <div class="hidden md:flex items-center gap-1">
-                    <div class="relative group">
-                        <button class="nav-link flex items-center gap-0.5 px-3 py-2 text-sm text-muted">
-                            Chapters
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <!-- Dropdown -->
-                        <div class="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-black/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <a href="#chapters" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">All Chapters</a>
-                            <a href="chapters/chapter-1.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">JavaScript Basics</a>
-                            <a href="chapters/chapter-7.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">Next.js</a>
-                            <a href="chapters/chapter-9.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">Testing</a>
-                        </div>
-                    </div>
-                    <div class="relative group">
-                        <button class="nav-link flex items-center gap-0.5 px-3 py-2 text-sm text-muted">
-                            Topics
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-black/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <a href="chapters/chapter-3.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">Hooks</a>
-                            <a href="chapters/chapter-5.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">Patterns</a>
-                            <a href="chapters/chapter-6.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">TypeScript</a>
-                            <a href="chapters/chapter-8.html" class="block px-3 py-2 text-sm text-muted hover:text-ink hover:bg-lavender rounded-lg">State Management</a>
-                        </div>
-                    </div>
-                    <a href="#resources" class="nav-link px-3 py-2 text-sm text-muted">Resources</a>
-                    <a href="#about" class="nav-link px-3 py-2 text-sm text-muted">About</a>
-                    <a href="#faq" class="nav-link px-3 py-2 text-sm text-muted">FAQ</a>
+                    <a href="#chapters" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Chapters</a>
+                    <a href="#features" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Features</a>
+                    <a href="#resources" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Resources</a>
+                    <a href="#faq" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">FAQ</a>
                 </div>
 
-                <!-- Right: Actions -->
+                <!-- Right actions -->
                 <div class="flex items-center gap-3">
-                    <!-- GitHub stars -->
-                    <a href="https://github.com/abdularifw4/react-course" target="_blank" class="hidden sm:flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors">
+                    <a href="https://github.com/abdularifw4/react-course" target="_blank" class="hidden sm:flex items-center gap-1.5 text-[13px] text-muted hover:text-ink transition-colors press">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        <span class="font-medium">1.2k</span>
+                        <span class="font-medium tabular-nums">1.2k</span>
                     </a>
-                    <a href="#contact" class="hidden sm:block text-sm text-muted hover:text-ink transition-colors">Contact</a>
-                    <!-- Download/Start button -->
-                    <a href="chapters/chapter-1.html" class="group relative inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-3.5 pr-2.5 py-2 rounded-lg hover:bg-ink-soft transition-colors">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12l0 6a2 2 0 0 0 2 2l14 0a2 2 0 0 0 2 -2l0 -6M12 3l0 12M7 10l5 5l5 -5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        Start Learning
-                        <kbd class="bg-white/15 text-white/70 text-[10px] font-mono px-1.5 py-0.5 rounded">D</kbd>
+                    <a href="chapters/chapter-1.html" class="press inline-flex items-center gap-2 bg-ink text-white text-[13px] font-medium pl-3.5 pr-3 py-2 rounded-lg hover:bg-ink-soft transition-colors">
+                        Start
+                        <kbd class="bg-white/15 text-white/60 text-[10px] font-mono px-1.5 py-0.5 rounded">D</kbd>
                     </a>
-                    <!-- Mobile menu toggle -->
-                    <button id="mobileToggle" class="md:hidden p-2 -mr-2" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
-                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <button id="mobileToggle" class="md:hidden p-2 -mr-2 press" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                 </div>
             </div>
-            <!-- Mobile menu -->
             <div id="mobileMenu" class="mobile-menu md:hidden">
-                <div class="py-4 space-y-1 border-t border-black/5">
-                    <a href="#chapters" class="block px-3 py-2 text-sm text-muted hover:text-ink">Chapters</a>
-                    <a href="#topics" class="block px-3 py-2 text-sm text-muted hover:text-ink">Topics</a>
-                    <a href="#resources" class="block px-3 py-2 text-sm text-muted hover:text-ink">Resources</a>
-                    <a href="#about" class="block px-3 py-2 text-sm text-muted hover:text-ink">About</a>
-                    <a href="#faq" class="block px-3 py-2 text-sm text-muted hover:text-ink">FAQ</a>
+                <div class="py-3 space-y-0.5 border-t border-black/[0.06]">
+                    <a href="#chapters" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Chapters</a>
+                    <a href="#features" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Features</a>
+                    <a href="#faq" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">FAQ</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 lg:pt-24 lg:pb-16">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <!-- Right Column: Subtext (positioned at top on desktop, aligned right) -->
-            <div class="lg:col-span-4 lg:col-start-9 lg:pt-2 order-1 lg:order-2 fade-in-d1">
-                <p class="text-sm text-muted leading-relaxed max-w-md">
-                    Kursus React open-source dalam Bahasa Indonesia. 10 chapter mendalam — dari JavaScript dasar sampai performance optimization. Dibuat dengan analogi kehidupan sehari-hari, contoh kode praktis, dan approach conversational yang bikin ngerti buat pemula maupun yang udah intermediate.
+    <!-- ==================== HERO ==================== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 lg:pt-28 lg:pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            <!-- Right subtext (top on mobile, right on desktop) -->
+            <div class="lg:col-span-4 lg:col-start-9 lg:pt-3 order-1 lg:order-2 enter enter-d1">
+                <p class="text-[15px] text-muted leading-relaxed max-w-md">
+                    Open-source kursus React dalam Bahasa Indonesia. 10 chapter dari JavaScript dasar sampai performance optimization — analogi kehidupan sehari-hari, contoh kode praktis, gaya conversational.
                 </p>
-                <div class="flex items-center gap-4 mt-5 text-xs text-muted">
-                    <span class="flex items-center gap-1.5">
-                        <span class="dot bg-green-500"></span> 10 Chapters
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <span class="dot bg-blue-500"></span> 83 Lessons
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <span class="dot bg-purple-500"></span> Free
-                    </span>
+                <div class="flex items-center gap-5 mt-6">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span class="text-[13px] font-medium text-muted tabular-nums">10 Chapters</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span class="text-[13px] font-medium text-muted tabular-nums">83 Lessons</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-violet-500"></span>
+                        <span class="text-[13px] font-medium text-muted">Free</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Left Column: Main Title -->
+            <!-- Left headline -->
             <div class="lg:col-span-8 lg:col-start-1 order-2 lg:order-1">
-                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter-2 text-ink leading-[1.05] fade-in">
-                    Dari nol sampai jago,<br>
-                    <span class="text-muted">dengan React.</span>
+                <h1 class="text-[2.5rem] sm:text-6xl lg:text-[5rem] font-bold tracking-[-0.04em] leading-[1.02] enter">
+                    Dari nol sampai<br>
+                    <span class="text-muted">jago dengan React.</span>
                 </h1>
 
-                <!-- CTA Row -->
-                <div class="flex flex-wrap items-center gap-3 mt-8 fade-in-d2">
-                    <!-- Composite pill -->
-                    <div class="inline-flex items-center rounded-full border border-black/10 overflow-hidden shadow-sm">
-                        <!-- Left: Start button -->
-                        <a href="chapters/chapter-1.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-medium px-5 py-2.5 hover:bg-ink-soft transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                            Mulai Belajar
+                <!-- CTA -->
+                <div class="flex flex-wrap items-center gap-4 mt-10 enter enter-d2">
+                    <div class="inline-flex items-center rounded-full shadow-soft overflow-hidden">
+                        <a href="chapters/chapter-1.html" class="press inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-4 pr-3.5 py-2.5 hover:bg-ink-soft transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l3-3m0 0l-3-3m3 3H6m6-10a9 9 0 100 18 9 9 0 000-18z"/></svg>
+                            <span class="pr-1">Mulai Belajar</span>
                         </a>
-                        <!-- Right: Terminal command -->
-                        <div class="inline-flex items-center gap-2 bg-cream px-4 py-2.5">
-                            <code class="text-sm text-ink font-mono">$ npm install react</code>
-                            <button onclick="copyCommand(this)" data-cmd="npm install react" class="copy-btn ml-1 text-muted hover:text-ink" title="Copy command">
+                        <div class="inline-flex items-center gap-2.5 bg-cream px-4 py-2.5">
+                            <span class="text-sm font-mono text-ink/70">$ npm i react</span>
+                            <button onclick="copyCommand(this)" data-cmd="npm install react" class="press text-muted hover:text-ink transition-colors">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                             </button>
                         </div>
                     </div>
-                    <!-- Underlined link -->
                     <a href="#contact" class="text-sm text-muted underline decoration-1 underline-offset-4 hover:text-ink hover:decoration-ink transition-colors">
                         Contact Sales
                     </a>
@@ -200,133 +203,92 @@
         </div>
     </section>
 
-    <!-- ==================== PRODUCT PREVIEW SHOWCASE ==================== -->
+    <!-- ==================== MOCKUP SHOWCASE ==================== -->
     <section class="bg-lavender py-16 lg:py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Mockup Window Frame -->
-            <div class="mockup-float bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.12)] border border-black/5 overflow-hidden max-w-5xl mx-auto">
-                <!-- Header Bar -->
-                <div class="flex items-center justify-center relative px-4 py-3 border-b border-black/5 bg-[#FBFBFA]">
-                    <!-- Window controls (left) -->
+            <div class="bg-white rounded-2xl shadow-window overflow-hidden max-w-5xl mx-auto enter enter-d3">
+                <!-- Title bar -->
+                <div class="flex items-center justify-center relative px-4 py-3 border-b border-black/[0.06] bg-[#FBFBFA]">
                     <div class="absolute left-4 flex items-center gap-2">
                         <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
                         <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
                         <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
                     </div>
-                    <!-- Center label -->
-                    <span class="text-sm text-muted font-medium">React Course — Desktop</span>
+                    <span class="text-[13px] text-muted font-medium">React Course — Desktop</span>
                 </div>
 
-                <!-- Two-Column Interface -->
-                <div class="flex h-[420px] sm:h-[480px]">
-                    <!-- Left Sidebar -->
-                    <aside class="w-56 sm:w-64 bg-[#F5F4F1] border-r border-black/5 flex flex-col overflow-hidden shrink-0">
-                        <!-- Search + Add -->
+                <div class="flex h-[400px] sm:h-[460px]">
+                    <!-- Sidebar -->
+                    <aside class="w-52 sm:w-60 bg-[#F7F6F3] border-r border-black/[0.06] flex flex-col overflow-hidden shrink-0">
                         <div class="p-3 flex items-center gap-2">
                             <div class="flex-1 relative">
-                                <svg class="w-3.5 h-3.5 text-muted absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                                <input type="text" placeholder="Search lessons..." class="w-full bg-white border border-black/5 rounded-lg pl-8 pr-3 py-1.5 text-xs text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20">
+                                <svg class="w-3.5 h-3.5 text-muted absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <input type="text" placeholder="Search..." class="w-full bg-white border border-black/[0.06] rounded-lg pl-8 pr-2 py-1.5 text-xs text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20">
                             </div>
-                            <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors shrink-0">
+                            <button class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors shrink-0">
                                 <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                             </button>
                         </div>
-                        <!-- Session list -->
                         <div class="flex-1 overflow-y-auto px-2 pb-2">
-                            <div class="text-[10px] font-semibold text-muted uppercase tracking-wider px-2 py-2">Chapters</div>
-
-                            <a href="chapters/chapter-1.html" class="chapter-row flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer">
-                                <div class="w-6 h-6 rounded bg-yellow-100 flex items-center justify-center text-xs shrink-0">🟨</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">JavaScript Basics</div>
-                                    <div class="text-[10px] text-muted">14 lessons</div>
+                            <div class="text-[10px] font-semibold text-muted-light uppercase tracking-wider px-2 py-2">Chapters</div>
+                            <div class="space-y-0.5">
+                                <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-black/[0.03] transition-colors">
+                                    <div class="w-5 h-5 rounded bg-yellow-50 flex items-center justify-center text-[10px]">🟨</div>
+                                    <span class="text-xs font-medium text-ink truncate">JavaScript Basics</span>
                                 </div>
-                            </a>
-
-                            <a href="chapters/chapter-3.html" class="chapter-row flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer">
-                                <div class="w-6 h-6 rounded bg-blue-50 flex items-center justify-center text-xs shrink-0">🪝</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">React Hooks Dasar</div>
-                                    <div class="text-[10px] text-muted">7 lessons</div>
+                                <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-black/[0.03] transition-colors">
+                                    <div class="w-5 h-5 rounded bg-blue-50 flex items-center justify-center text-[10px]">🪝</div>
+                                    <span class="text-xs font-medium text-muted truncate">Hooks Dasar</span>
                                 </div>
-                            </a>
-
-                            <!-- Active session -->
-                            <a href="chapters/chapter-5.html" class="flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer bg-black/[0.04] border border-black/5">
-                                <div class="w-6 h-6 rounded bg-orange-50 flex items-center justify-center text-xs shrink-0">🏗️</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">Advanced Patterns</div>
-                                    <div class="text-[10px] text-muted">9 lessons</div>
+                                <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer bg-black/[0.04] border border-black/[0.06]">
+                                    <div class="w-5 h-5 rounded bg-orange-50 flex items-center justify-center text-[10px]">🏗️</div>
+                                    <span class="text-xs font-semibold text-ink truncate">Advanced Patterns</span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-auto"></span>
                                 </div>
-                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
-                            </a>
-
-                            <a href="chapters/chapter-7.html" class="chapter-row flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer">
-                                <div class="w-6 h-6 rounded bg-purple-50 flex items-center justify-center text-xs shrink-0">🚀</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">Next.js Fundamental</div>
-                                    <div class="text-[10px] text-muted">7 lessons</div>
+                                <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-black/[0.03] transition-colors">
+                                    <div class="w-5 h-5 rounded bg-purple-50 flex items-center justify-center text-[10px]">🚀</div>
+                                    <span class="text-xs font-medium text-muted truncate">Next.js</span>
                                 </div>
-                            </a>
-
-                            <a href="chapters/chapter-8.html" class="chapter-row flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer">
-                                <div class="w-6 h-6 rounded bg-green-50 flex items-center justify-center text-xs shrink-0">🗃️</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">State Management</div>
-                                    <div class="text-[10px] text-muted">6 lessons</div>
+                                <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-black/[0.03] transition-colors">
+                                    <div class="w-5 h-5 rounded bg-green-50 flex items-center justify-center text-[10px]">🗃️</div>
+                                    <span class="text-xs font-medium text-muted truncate">State Management</span>
                                 </div>
-                            </a>
-
-                            <a href="chapters/chapter-9.html" class="chapter-row flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer">
-                                <div class="w-6 h-6 rounded bg-red-50 flex items-center justify-center text-xs shrink-0">🧪</div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-xs font-medium text-ink truncate">React Testing</div>
-                                    <div class="text-[10px] text-muted">6 lessons</div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </aside>
 
-                    <!-- Main Application Panel -->
+                    <!-- Main panel -->
                     <div class="flex-1 bg-white flex flex-col overflow-hidden">
-                        <!-- Active Session Tab -->
-                        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-black/5 bg-[#FBFBFA]">
-                            <div class="inline-flex items-center gap-2 bg-ink text-white px-3 py-1 rounded-lg">
-                                <div class="w-4 h-4 bg-white/15 rounded flex items-center justify-center text-[10px]">🏗️</div>
-                                <span class="text-xs font-medium">Advanced React Patterns</span>
+                        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-black/[0.06] bg-[#FBFBFA]">
+                            <div class="inline-flex items-center gap-2 bg-ink text-white px-2.5 py-1 rounded-md">
+                                <span class="text-[10px]">🏗️</span>
+                                <span class="text-xs font-medium">Advanced Patterns</span>
                             </div>
-                            <span class="text-xs text-muted ml-1">Chapter 5 — Lesson 3</span>
+                            <span class="text-xs text-muted ml-1">Ch 5 — Lesson 3</span>
                         </div>
-
-                        <!-- Content Area -->
                         <div class="flex-1 overflow-y-auto p-6 lg:p-8">
-                            <div class="max-w-2xl">
+                            <div class="max-w-lg">
                                 <div class="text-[10px] font-semibold text-muted uppercase tracking-wider mb-2">Compound Components</div>
-                                <h3 class="text-lg font-bold text-ink mb-3">Pattern: Compound Components</h3>
+                                <h3 class="text-base font-bold text-ink mb-2">Pattern: Compound Components</h3>
                                 <p class="text-sm text-muted leading-relaxed mb-4">
-                                    Bayangin lo punya remote TV. Tiap tombol di remote itu nggak peduli sama TV-nya — tapi remote-nya sendiri yang koordinasi. Nah, Compound Components itu persis kayak gitu...
+                                    Bayangin remote TV. Tiap tombol nggak peduli sama TV-nya — remote-nya yang koordinasi. Compound Components persis kayak gitu.
                                 </p>
-
-                                <!-- Code block -->
-                                <div class="bg-[#1a1b26] rounded-xl overflow-hidden">
-                                    <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5">
-                                        <div class="w-2.5 h-2.5 rounded-full bg-[#FF5F57]"></div>
-                                        <div class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></div>
-                                        <div class="w-2.5 h-2.5 rounded-full bg-[#28C840]"></div>
+                                <div class="bg-[#1a1b26] rounded-lg overflow-hidden">
+                                    <div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/5">
+                                        <div class="w-2 h-2 rounded-full bg-[#FF5F57]"></div>
+                                        <div class="w-2 h-2 rounded-full bg-[#FFBD2E]"></div>
+                                        <div class="w-2 h-2 rounded-full bg-[#28C840]"></div>
                                         <span class="text-[10px] text-gray-500 font-mono ml-2">patterns.tsx</span>
                                     </div>
-                                    <pre class="p-4 text-xs font-mono text-gray-300 overflow-x-auto leading-relaxed"><code class="language-tsx">// Compound Components pattern
-&lt;Select&gt;
+                                    <pre class="p-3 text-[11px] font-mono text-gray-300 overflow-x-auto leading-relaxed"><code class="language-tsx">&lt;Select&gt;
   &lt;SelectTrigger /&gt;
   &lt;SelectContent&gt;
     &lt;SelectItem value="apple" /&gt;
-    &lt;SelectItem value="banana" /&gt;
   &lt;/SelectContent&gt;
 &lt;/Select&gt;</code></pre>
                                 </div>
-
-                                <div class="mt-4 p-3 border-l-2 border-green-500 bg-green-50 rounded-r-lg">
-                                    <p class="text-xs text-ink"><strong>💡 Oh ternyata gitu!</strong> Setiap komponen "anak" berkomunikasi lewat Context, bukan props drilling.</p>
+                                <div class="mt-4 p-3 border-l-2 border-ink bg-lavender rounded-r-lg">
+                                    <p class="text-xs text-ink"><strong>💡 Tip:</strong> Setiap komponen "anak" berkomunikasi lewat Context, bukan props drilling.</p>
                                 </div>
                             </div>
                         </div>
@@ -336,103 +298,100 @@
         </div>
     </section>
 
-    <!-- ==================== CHAPTERS LIST ==================== -->
-    <section id="chapters" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div class="mb-12">
-            <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Curriculum</div>
-            <h2 class="text-3xl lg:text-5xl font-bold tracking-tighter-2 text-ink">Daftar Chapter</h2>
-            <p class="text-muted mt-3 max-w-xl">10 chapter terstruktur — dari JavaScript dasar sampai React production-ready.</p>
+    <!-- ==================== CHAPTERS ==================== -->
+    <section id="chapters" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="mb-14">
+            <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Curriculum</div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Daftar Chapter</h2>
+            <p class="text-muted mt-4 max-w-lg">10 chapter terstruktur — dari JavaScript dasar sampai React production-ready.</p>
         </div>
 
-        <!-- Chapter table -->
-        <div class="border-t border-black/10">
-            <div id="chaptersList"></div>
-        </div>
+        <div class="space-y-3 stagger" id="chaptersList"></div>
     </section>
 
-    <!-- ==================== RESOURCES / FEATURES ==================== -->
-    <section id="resources" class="bg-lavender py-16 lg:py-24">
+    <!-- ==================== FEATURES ==================== -->
+    <section id="features" class="bg-lavender py-20 lg:py-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
-                <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Why This Course</div>
-                <h2 class="text-3xl lg:text-5xl font-bold tracking-tighter-2 text-ink">Bukan kursus biasa.</h2>
+            <div class="mb-14">
+                <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Why This Course</div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Bukan kursus biasa.</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <div class="w-10 h-10 bg-ink rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-ink mb-2">100+ Contoh Kode</h3>
-                    <p class="text-sm text-muted leading-relaxed">Setiap konsep dijelaskan dengan kode nyata yang bisa langsung lo copy-paste dan eksekusi. Bukan teori doang.</p>
-                </div>
-                <div>
-                    <div class="w-10 h-10 bg-ink rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-ink mb-2">Analogi Sehari-hari</h3>
-                    <p class="text-sm text-muted leading-relaxed">Setiap topik dibungkus dengan analogi yang relate — dari koper travel sampai remote TV. Bikin gampang ngerti.</p>
-                </div>
-                <div>
-                    <div class="w-10 h-10 bg-ink rounded-lg flex items-center justify-center mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger">
+                <div class="bg-white rounded-2xl p-6 shadow-soft">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-ink mb-2">Bahasa Indonesia</h3>
-                    <p class="text-sm text-muted leading-relaxed">Full Bahasa Indonesia dengan gaya conversational — kayak ngobrol sama teman, bukan baca dokumentasi kaku.</p>
+                    <h3 class="text-base font-semibold mb-1.5">100+ Contoh Kode</h3>
+                    <p class="text-sm text-muted leading-relaxed">Setiap konsep dijelaskan dengan kode nyata yang bisa langsung lo copy-paste dan eksekusi.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-soft">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="text-base font-semibold mb-1.5">Analogi Sehari-hari</h3>
+                    <p class="text-sm text-muted leading-relaxed">Dari koper travel sampai remote TV. Bikin konsep abstract jadi gampang dicerna.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-soft">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                    </div>
+                    <h3 class="text-base font-semibold mb-1.5">Bahasa Indonesia</h3>
+                    <p class="text-sm text-muted leading-relaxed">Full conversational — kayak ngobrol sama teman, bukan baca dokumentasi kaku.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== FAQ ==================== -->
-    <section id="faq" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+    <section id="faq" class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div class="mb-12">
-            <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">FAQ</div>
-            <h2 class="text-3xl lg:text-5xl font-bold tracking-tighter-2 text-ink">Pertanyaan Umum</h2>
+            <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">FAQ</div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Pertanyaan Umum</h2>
         </div>
-        <div class="space-y-1">
-            <details class="group border-b border-black/10 py-5">
-                <summary class="flex items-center justify-between cursor-pointer list-none">
-                    <span class="text-base font-medium text-ink">Apakah kursus ini gratis?</span>
-                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        <div class="space-y-2">
+            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
+                    <span class="text-[15px] font-medium">Apakah kursus ini gratis?</span>
+                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </summary>
-                <p class="mt-3 text-sm text-muted leading-relaxed">Ya, 100% gratis dan open source. Semua materi tersedia di GitHub. Lo bisa belajar kapan saja, di mana saja.</p>
+                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">100% gratis dan open source di GitHub. Belajar kapan saja.</div>
             </details>
-            <details class="group border-b border-black/10 py-5">
-                <summary class="flex items-center justify-between cursor-pointer list-none">
-                    <span class="text-base font-medium text-ink">Apa prerequisite yang dibutuhkan?</span>
-                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
+                    <span class="text-[15px] font-medium">Prerequisite yang dibutuhkan?</span>
+                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </summary>
-                <p class="mt-3 text-sm text-muted leading-relaxed">Dasar HTML dan CSS cukup. Chapter 1 ngajar JavaScript dasar yang dibutuhkan React, jadi pemula JavaScript pun bisa ikut.</p>
+                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Dasar HTML dan CSS cukup. Chapter 1 ngajar JavaScript dasar.</div>
             </details>
-            <details class="group border-b border-black/10 py-5">
-                <summary class="flex items-center justify-between cursor-pointer list-none">
-                    <span class="text-base font-medium text-ink">Ada sertifikat?</span>
-                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
+                    <span class="text-[15px] font-medium">Ada sertifikat?</span>
+                    <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </summary>
-                <p class="mt-3 text-sm text-muted leading-relaxed">Nggak ada sertifikat resmi, tapi pengetahuan yang lo dapet jauh lebih berharga. Selesaikan semua chapter dan siap kerja sebagai React Developer.</p>
+                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Nggak ada sertifikat resmi. Tapi pengetahuan yang lo dapet jauh lebih berharga.</div>
             </details>
         </div>
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer id="about" class="border-t border-black/10">
+    <footer class="border-t border-black/[0.06]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-start gap-8">
                 <div>
-                    <div class="flex items-center gap-2 mb-3">
+                    <div class="flex items-center gap-2.5 mb-3">
                         <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         </div>
-                        <span class="text-base font-semibold tracking-tight text-ink">react course</span>
+                        <span class="text-[15px] font-semibold tracking-tight">react course</span>
                     </div>
                     <p class="text-sm text-muted max-w-xs">Kursus React gratis dalam Bahasa Indonesia. Dibuat dengan ❤️ untuk developer Indonesia.</p>
                 </div>
-                <div class="flex items-start gap-12">
+                <div class="flex gap-10">
                     <div>
                         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Course</div>
                         <div class="space-y-2">
                             <a href="#chapters" class="block text-sm text-muted hover:text-ink">Chapters</a>
-                            <a href="#resources" class="block text-sm text-muted hover:text-ink">Features</a>
+                            <a href="#features" class="block text-sm text-muted hover:text-ink">Features</a>
                             <a href="#faq" class="block text-sm text-muted hover:text-ink">FAQ</a>
                         </div>
                     </div>
@@ -440,71 +399,65 @@
                         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Links</div>
                         <div class="space-y-2">
                             <a href="https://github.com/abdularifw4/react-course" target="_blank" class="block text-sm text-muted hover:text-ink">GitHub</a>
-                            <a href="https://abdularifw4.github.io/react-course/" target="_blank" class="block text-sm text-muted hover:text-ink">Live Site</a>
                             <a href="https://englishwitharif.my.id" target="_blank" class="block text-sm text-muted hover:text-ink">English with Arif</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-12 pt-6 border-t border-black/5 flex flex-col sm:flex-row justify-between items-center gap-3">
-                <p class="text-xs text-muted">© 2026 React Course Indonesia. Open source.</p>
-                <p class="text-xs text-muted">Built with Tailwind + Inter + ☕</p>
+            <div class="mt-10 pt-6 border-t border-black/[0.04] flex justify-between items-center">
+                <p class="text-xs text-muted">© 2026 React Course Indonesia</p>
+                <p class="text-xs text-muted">Tailwind + Inter</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // ===== Chapter Data =====
         const chapters = [
-            { num: 1, title: "Dasar JavaScript untuk React", desc: "Variabel, tipe data, arrow functions, destructuring, spread/rest, Promise/Async-Await, ES Modules", lessons: 14, icon: "🟨", tag: "Basics" },
-            { num: 2, title: "React Dasar Fundamental", desc: "Virtual DOM, JSX, Komponen & Props, State, Event Handling, Conditional Rendering", lessons: 11, icon: "⚛️", tag: "Core" },
-            { num: 3, title: "React Hooks Dasar", desc: "useState, useEffect, useRef, useMemo, useCallback, useContext dan common pitfalls", lessons: 7, icon: "🪝", tag: "Hooks" },
-            { num: 4, title: "React Hooks Advanced", desc: "useReducer, Custom Hooks, useTransition, useDeferredValue, useSyncExternalStore", lessons: 8, icon: "🧠", tag: "Hooks" },
-            { num: 5, title: "Advanced React Patterns", desc: "HOC, Render Props, Compound Components, Provider Pattern, Props Getters, Polymorphic", lessons: 9, icon: "🏗️", tag: "Patterns" },
-            { num: 6, title: "React & TypeScript", desc: "Setup, typing Props & State, Generics, Events, Refs, Utility Types, Discriminated Unions", lessons: 8, icon: "📘", tag: "TypeScript" },
-            { num: 7, title: "Next.js Fundamentals", desc: "App Router, Layouts, Server vs Client Components, Data Fetching, API Routes, SEO", lessons: 7, icon: "🚀", tag: "Framework" },
-            { num: 8, title: "State Management", desc: "Context API, Zustand, Redux Toolkit, Jotai — dan kapan pakai masing-masing", lessons: 6, icon: "🗃️", tag: "Architecture" },
-            { num: 9, title: "React Testing", desc: "Jest, React Testing Library, testing hooks, async components, MSW, E2E Playwright", lessons: 6, icon: "🧪", tag: "Testing" },
-            { num: 10, title: "Performance & Best Practices", desc: "Profiler, Code Splitting, React.memo, Virtualization, Bundle Analysis, Server Components", lessons: 7, icon: "⚡", tag: "Production" },
+            { num: 1, title: "Dasar JavaScript untuk React", desc: "Variabel, arrow functions, destructuring, Promise/Async-Await, ES Modules", lessons: 14, tag: "Basics" },
+            { num: 2, title: "React Dasar Fundamental", desc: "Virtual DOM, JSX, Komponen & Props, State, Event Handling", lessons: 11, tag: "Core" },
+            { num: 3, title: "React Hooks Dasar", desc: "useState, useEffect, useRef, useMemo, useCallback, useContext", lessons: 7, tag: "Hooks" },
+            { num: 4, title: "React Hooks Advanced", desc: "useReducer, Custom Hooks, useTransition, useSyncExternalStore", lessons: 8, tag: "Hooks" },
+            { num: 5, title: "Advanced React Patterns", desc: "HOC, Render Props, Compound Components, Provider Pattern", lessons: 9, tag: "Patterns" },
+            { num: 6, title: "React & TypeScript", desc: "Typing Props & State, Generics, Events, Utility Types", lessons: 8, tag: "TypeScript" },
+            { num: 7, title: "Next.js Fundamentals", desc: "App Router, Server vs Client Components, Data Fetching, SEO", lessons: 7, tag: "Framework" },
+            { num: 8, title: "State Management", desc: "Context API, Zustand, Redux Toolkit, Jotai", lessons: 6, tag: "Architecture" },
+            { num: 9, title: "React Testing", desc: "Jest, React Testing Library, MSW, E2E Playwright", lessons: 6, tag: "Testing" },
+            { num: 10, title: "Performance & Best Practices", desc: "Profiler, Code Splitting, React.memo, Server Components", lessons: 7, tag: "Production" },
         ];
 
-        // ===== Render Chapters as Minimal Table Rows =====
         const list = document.getElementById('chaptersList');
         const progress = JSON.parse(localStorage.getItem('react-course-progress') || '{}');
 
-        chapters.forEach((ch, i) => {
+        chapters.forEach(ch => {
             const completed = progress[`ch${ch.num}`];
             const row = document.createElement('a');
             row.href = `chapters/chapter-${ch.num}.html`;
-            row.className = 'chapter-row group flex items-center gap-4 sm:gap-6 px-3 sm:px-4 py-5 border-b border-black/10 cursor-pointer';
+            row.className = 'press shadow-card group flex items-center gap-4 sm:gap-5 bg-white rounded-2xl p-4 sm:p-5 block cursor-pointer';
             row.innerHTML = `
-                <span class="text-sm font-mono text-muted w-8 shrink-0">${String(ch.num).padStart(2, '0')}</span>
-                <div class="w-10 h-10 rounded-lg bg-lavender flex items-center justify-center text-xl shrink-0">${ch.icon}</div>
+                <div class="w-12 h-12 rounded-xl bg-lavender flex items-center justify-center text-xl shrink-0">${ch.icon || ''}</div>
                 <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 mb-0.5">
-                        <h3 class="text-base sm:text-lg font-semibold text-ink truncate">${ch.title}</h3>
-                        ${completed ? '<span class="text-[10px] text-green-600 font-medium shrink-0">✓ Selesai</span>' : ''}
+                    <div class="flex items-center gap-2.5 mb-0.5">
+                        <span class="text-xs font-mono text-muted-light tabular-nums">${String(ch.num).padStart(2, '0')}</span>
+                        <h3 class="text-[15px] sm:text-base font-semibold truncate">${ch.title}</h3>
+                        ${completed ? '<span class="text-[10px] text-emerald-600 font-medium shrink-0">✓</span>' : ''}
                     </div>
                     <p class="text-sm text-muted truncate hidden sm:block">${ch.desc}</p>
                 </div>
                 <span class="hidden md:inline-flex items-center text-[10px] font-medium text-muted bg-lavender px-2.5 py-1 rounded-full shrink-0">${ch.tag}</span>
-                <span class="text-xs text-muted shrink-0 hidden sm:block">${ch.lessons} lessons</span>
-                <svg class="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-xs text-muted tabular-nums shrink-0 hidden sm:block">${ch.lessons} lessons</span>
+                <svg class="w-4 h-4 text-muted-light shrink-0 group-hover:text-ink group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             `;
             list.appendChild(row);
         });
 
-        // ===== Copy Command =====
         function copyCommand(btn) {
-            const cmd = btn.dataset.cmd;
-            navigator.clipboard.writeText(cmd).then(() => {
+            navigator.clipboard.writeText(btn.dataset.cmd).then(() => {
                 const original = btn.innerHTML;
-                btn.innerHTML = '<svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+                btn.innerHTML = '<svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
                 setTimeout(() => { btn.innerHTML = original; }, 1500);
             });
         }
 
-        // ===== Highlight Code =====
         hljs.highlightAll();
     </script>
 </body>
