@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Course - Belajar React dari Nol Bahasa Indonesia</title>
+    <meta name="description" content="Kursus React lengkap dalam Bahasa Indonesia. 10 chapter dengan penjelasan detail, contoh kode, dan analogi.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .chapter-card { transition: all 0.3s ease; }
+        .chapter-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(39,216,144,0.15); }
+        .progress-bar { transition: width 0.5s ease; }
+        .nav-link { transition: all 0.2s ease; }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.5rem; font-size: 0.875rem; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .search-highlight { background: rgba(39,216,144,0.3); border-radius: 2px; }
+        @media print { .no-print { display: none !important; } }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-6 border-b border-dark-600">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.31 0-.592.058-.838.178C4.764 2.387 4.2 5.03 4.71 8.553c-2.557.95-4.21 2.27-4.21 3.447 0 1.18 1.657 2.503 4.222 3.454-.51 3.52.052 6.157 1.645 6.94.247.12.528.178.838.178 1.346 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.31 0 .592-.058.838-.178 1.593-.783 2.156-3.42 1.645-6.94 2.565-.95 4.222-2.273 4.222-3.454 0-1.177-1.657-2.497-4.216-3.447.509-3.523-.053-6.167-1.646-6.95a1.87 1.87 0 0 0-.837-.178zM12 18.247c-3.44 0-6.247-2.806-6.247-6.247S8.56 5.753 12 5.753 18.247 8.56 18.247 12 15.44 18.247 12 18.247z"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white">React Course</h1>
+                    <p class="text-xs text-gray-400">Bahasa Indonesia</p>
+                </div>
+            </a>
+        </div>
+        <!-- Search -->
+        <div class="p-4">
+            <div class="relative">
+                <input id="searchInput" type="text" placeholder="Cari materi..." class="w-full bg-dark-700 text-gray-200 text-sm rounded-lg px-4 py-2.5 pl-9 border border-dark-600 focus:border-accent focus:outline-none placeholder-gray-500">
+                <svg class="w-4 h-4 text-gray-500 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <div id="searchResults" class="mt-2 hidden"></div>
+        </div>
+        <!-- Progress -->
+        <div class="px-4 pb-3">
+            <div class="flex justify-between text-xs text-gray-400 mb-1">
+                <span>Progress</span>
+                <span id="progressText">0/10</span>
+            </div>
+            <div class="w-full bg-dark-700 rounded-full h-2">
+                <div id="progressBar" class="bg-accent h-2 rounded-full progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+        <!-- Nav -->
+        <nav class="p-2">
+            <a href="index.html" class="nav-link active flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Beranda
+            </a>
+            <div class="mt-4 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Chapters</div>
+            <div id="chapterNav"></div>
+        </nav>
+    </aside>
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <!-- Main -->
+    <main class="lg:ml-72">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600 no-print">
+            <div class="flex items-center justify-between px-4 py-3 lg:px-8">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h2 class="text-sm text-gray-400">📚 Kursus React Lengkap</h2>
+                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-dark-700" title="Toggle theme">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+        </header>
+        <!-- Content -->
+        <div class="px-4 py-8 lg:px-8 max-w-5xl mx-auto fade-in">
+            <!-- Hero -->
+            <section class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 bg-accent/10 text-accent text-sm px-4 py-1.5 rounded-full mb-6">
+                    <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                    Gratis & Open Source
+                </div>
+                <h1 class="text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                    Belajar React<br>
+                    <span class="text-accent">dari Nol</span>
+                </h1>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
+                    Kursus React lengkap dalam Bahasa Indonesia. 10 chapter mendalam dengan penjelasan detail, contoh kode, analogi mudah dipahami, dan latihan praktis.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        10 Chapter
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        100+ Contoh Kode
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                        Bahasa Indonesia
+                    </div>
+                </div>
+            </section>
+            <!-- Chapters Grid -->
+            <section id="chaptersList">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center text-accent text-sm">📖</span>
+                    Daftar Chapter
+                </h2>
+                <div class="grid gap-6" id="chaptersGrid"></div>
+            </section>
+            <!-- FAQ -->
+            <section class="mt-20">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center text-accent text-sm">❓</span>
+                    Pertanyaan Umum
+                </h2>
+                <div class="space-y-4">
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-600">
+                        <h3 class="font-semibold text-white mb-2">Apakah kursus ini gratis?</h3>
+                        <p class="text-gray-400 text-sm">Ya, 100% gratis! Semua materi tersedia secara open source di GitHub. Anda bisa belajar kapan saja, di mana saja.</p>
+                    </div>
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-600">
+                        <h3 class="font-semibold text-white mb-2">Apa prerequisite yang dibutuhkan?</h3>
+                        <p class="text-gray-400 text-sm">Anda perlu memahami dasar HTML dan CSS. Chapter 1 akan membahas JavaScript dasar yang dibutuhkan React, jadi pemula JavaScript pun bisa mengikuti.</p>
+                    </div>
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-600">
+                        <h3 class="font-semibold text-white mb-2">Apakah sertifikat disediakan?</h3>
+                        <p class="text-gray-400 text-sm">Tidak ada sertifikat resmi, tapi pengetahuan yang Anda dapatkan jauh lebih berharga. Selesaikan semua chapter dan Anda akan siap kerja sebagai React Developer!</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <footer class="border-t border-dark-600 mt-20 px-4 py-8 lg:px-8">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>© 2026 React Course Indonesia. Dibuat dengan ❤️ untuk developer Indonesia.</p>
+                <a href="https://github.com/abdularifw4/react-course" target="_blank" class="flex items-center gap-2 hover:text-accent transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </footer>
+    </main>
+    <!-- Back to Top -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 hover:bg-accent-light no-print">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
+    <script>
+        // Chapter data
+        const chapters = [
+            { num: 1, title: "Dasar JavaScript untuk React", desc: "Variabel, tipe data, arrow functions, destructuring, spread/rest operator, array methods, Promise/Async-Await, ES Modules, closures, dan lainnya.", lessons: 14, icon: "🟨" },
+            { num: 2, title: "React Dasar Fundamental", desc: "Apa itu React, Virtual DOM, JSX, Komponen & Props, State, Event Handling, Conditional Rendering, List & Keys, Fragment, dan Styling.", lessons: 11, icon: "⚛️" },
+            { num: 3, title: "React Hooks Dasar", desc: "useState, useEffect, useRef, useMemo, useCallback, useContext, dan kesalahan umum saat menggunakan hooks.", lessons: 7, icon: "🪝" },
+            { num: 4, title: "React Hooks Advanced", desc: "useReducer, Custom Hooks, Hook Rules, useImmer, useTransition, useDeferredValue, useSyncExternalStore, dan Hook Composition.", lessons: 8, icon: "🧠" },
+            { num: 5, title: "Advanced React Patterns", desc: "HOC, Render Props, Compound Components, Provider Pattern, Container vs Presentational, Props Getters, dan Polymorphic Components.", lessons: 9, icon: "🏗️" },
+            { num: 6, title: "React & TypeScript", desc: "Setup, typing Props & State, Generics, Events, Refs, Custom Hooks, Utility Types, dan Discriminated Unions.", lessons: 8, icon: "📘" },
+            { num: 7, title: "Next.js Fundamentals", desc: "App Router, Layouts, Server vs Client Components, Data Fetching, API Routes, Metadata & SEO.", lessons: 7, icon: "🚀" },
+            { num: 8, title: "State Management", desc: "Context API, Zustand, Redux Toolkit, Jotai, dan kapan menggunakan masing-masing.", lessons: 6, icon: "🗃️" },
+            { num: 9, title: "React Testing", desc: "Jest, React Testing Library, testing hooks, async components, MSW, dan E2E dengan Playwright.", lessons: 6, icon: "🧪" },
+            { num: 10, title: "Performance & Best Practices", desc: "Profiler, Code Splitting, React.memo, Virtualization, Bundle Analysis, Image Optimization, Server Components.", lessons: 7, icon: "⚡" }
+        ];
+
+        // Render chapters
+        const grid = document.getElementById('chaptersGrid');
+        const nav = document.getElementById('chapterNav');
+        const progress = JSON.parse(localStorage.getItem('react-course-progress') || '{}');
+
+        chapters.forEach(ch => {
+            const completed = progress[`ch${ch.num}`];
+            const card = `
+                <a href="chapters/chapter-${ch.num}.html" class="chapter-card bg-dark-800 rounded-xl p-6 border border-dark-600 block hover:border-accent/40">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-dark-700 rounded-xl flex items-center justify-center text-2xl shrink-0">${ch.icon}</div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs font-mono text-accent">Chapter ${ch.num}</span>
+                                ${completed ? '<span class="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">✓ Selesai</span>' : ''}
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-1">${ch.title}</h3>
+                            <p class="text-sm text-gray-400 mb-3">${ch.desc}</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+                                <span class="flex items-center gap-1">📄 ${ch.lessons} lessons</span>
+                                <span class="flex items-center gap-1">⏱️ ~${ch.lessons * 15} menit</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-600 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </div>
+                </a>`;
+            grid.insertAdjacentHTML('beforeend', card);
+
+            const navItem = `
+                <a href="chapters/chapter-${ch.num}.html" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-gray-400" data-chapter="${ch.num}">
+                    <span class="w-6 h-6 rounded bg-dark-700 flex items-center justify-center text-xs ${completed ? 'bg-accent/20 text-accent' : ''}">${completed ? '✓' : ch.num}</span>
+                    <span class="truncate">${ch.title}</span>
+                </a>`;
+            nav.insertAdjacentHTML('beforeend', navItem);
+        });
+
+        // Update progress bar
+        const completedCount = Object.values(progress).filter(Boolean).length;
+        document.getElementById('progressText').textContent = `${completedCount}/10`;
+        document.getElementById('progressBar').style.width = `${(completedCount / 10) * 100}%`;
+
+        // Sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Back to top
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) { btn.classList.remove('opacity-0', 'pointer-events-none'); }
+            else { btn.classList.add('opacity-0', 'pointer-events-none'); }
+        });
+
+        // Search
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            const results = document.getElementById('searchResults');
+            if (!query) { results.classList.add('hidden'); results.innerHTML = ''; return; }
+            const matched = chapters.filter(ch => 
+                ch.title.toLowerCase().includes(query) || ch.desc.toLowerCase().includes(query)
+            );
+            if (matched.length) {
+                results.innerHTML = matched.map(ch => `
+                    <a href="chapters/chapter-${ch.num}.html" class="block px-3 py-2 text-sm text-gray-300 hover:bg-dark-700 rounded-lg">
+                        ${ch.icon} Ch.${ch.num}: ${ch.title}
+                    </a>`).join('');
+                results.classList.remove('hidden');
+            } else {
+                results.innerHTML = '<p class="text-xs text-gray-500 px-3 py-2">Tidak ditemukan</p>';
+                results.classList.remove('hidden');
+            }
+        });
+
+        // Highlight code
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

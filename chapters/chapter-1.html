@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 1: Pengenalan React - React Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in-delay-1 { animation-delay: 100ms; }
+        .fade-in-delay-2 { animation-delay: 200ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
+        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        button:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
+        <!-- Logo -->
+        <div class="p-5 border-b border-dark-600">
+            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
+                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="text-lg font-bold text-white">React Course</span>
+            </a>
+        </div>
+
+        <!-- Search -->
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="px-4 pb-4">
+            <div class="bg-dark-700 rounded-xl p-3">
+                <div class="flex justify-between text-xs text-gray-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-dark-900 rounded-full h-2">
+                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="px-3 pb-6">
+            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">1</span>
+                Pengenalan React
+            </a>
+            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                JSX & Elemen React
+            </a>
+            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Komponen & Props
+            </a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                State & Lifecycle
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Event Handling
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                Conditional Rendering
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Lists & Keys
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                Hooks (useState, useEffect)
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Router
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Project Akhir
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-72 min-h-screen">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 1: Pengenalan React</h1>
+                        <p class="text-sm text-gray-400 mt-0.5">4 pelajaran &middot; ~30 menit</p>
+                    </div>
+                </div>
+                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    Bab Selanjutnya
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="px-4 lg:px-8 py-8 max-w-4xl">
+
+            <!-- Lesson 1: Apa Itu React? -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">01</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Apa Itu React?</h2>
+                            <input type="checkbox" id="check-1-1" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Dasar-dasar &middot; 5 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>React adalah sebuah <strong class="text-white">library JavaScript</strong> yang digunakan untuk membangun antarmuka pengguna (user interface). React dikembangkan oleh Meta (sebelumnya Facebook) dan pertama kali dirilis pada tahun 2013. Sejak itu, React menjadi salah satu library frontend yang paling populer di dunia dengan jutaan developer yang menggunakannya setiap hari.</p>
+
+                    <p>Keunggulan utama React terletak pada konsep <strong class="text-accent">component-based architecture</strong>. Dalam React, kamu membangun UI dari komponen-komponen kecil yang bisa dipisah-pisahkan dan digunakan ulang. Setiap komponen mengelola state-nya sendiri dan merender dirinya secara independen. Pendekatan ini membuat kode lebih terorganisir, mudah diuji, dan skalabel.</p>
+
+                    <p>React menggunakan <strong class="text-white">Virtual DOM</strong> — representasi ringan dari DOM sesungguhnya di memori. Ketika ada perubahan data, React menghitung perbedaan (diffing) antara Virtual DOM lama dan baru, lalu hanya memperbarui bagian DOM yang benar-benar berubah. Ini membuat aplikasi React sangat cepat dan efisien dibandingkan manipulasi DOM langsung.</p>
+
+                    <p>React bersifat <em>declarative</em>, artinya kamu cukup mendeskripsikan tampilan yang diinginkan berdasarkan state, dan React akan menangani cara memperbarui DOM-nya. Ini berbeda dengan pendekatan <em>imperative</em> di mana kamu harus menuliskan langkah-langkah detail untuk memanipulasi DOM secara manual.</p>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> Bayangkan React seperti sebuah restoran. <em>State</em> adalah pesanan pelanggan, <em>Virtual DOM</em> adalah kertas pesanan yang diperbarui, dan <em>Koki</em> (React) hanya membuat ulang makanan yang berubah — bukan seluruh pesanan dari awal. Efisien, bukan?</p>
+                </div>
+            </section>
+
+            <!-- Lesson 2: Instalasi & Environment Setup -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">02</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Instalasi & Environment Setup</h2>
+                            <input type="checkbox" id="check-1-2" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Praktik &middot; 10 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Sebelum mulai coding dengan React, kamu perlu menyiapkan environment development. Prasyarat utama adalah memiliki <strong class="text-white">Node.js</strong> (versi 18 atau lebih baru) terinstal di komputermu. Node.js menyertakan npm (Node Package Manager) yang akan kita gunakan untuk mengelola dependensi proyek.</p>
+
+                    <p>Cara paling cepat dan direkomendasikan untuk membuat proyek React baru adalah menggunakan <strong class="text-accent">Vite</strong>. Vite adalah build tool modern yang jauh lebih cepat dari Create React App (yang kini sudah deprecated). Vite menggunakan ES modules secara native, sehingga proses build dan hot reload terasa hampir instan.</p>
+
+                    <p>Setelah proyek terbentuk, kamu bisa langsung menjalankan development server. Vite akan secara otomatis membuka browser dan menampilkan aplikasi React default. Setiap perubahan yang kamu buat pada kode akan langsung tercermin di browser tanpa perlu refresh manual — ini disebut <em>Hot Module Replacement (HMR)</em>.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Terminal - Membuat Proyek React dengan Vite</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-bash"># Install Node.js terlebih dahulu (kalau belum ada)
+# Lalu buat proyek React baru dengan Vite
+npm create vite@latest my-react-app -- --template react
+
+# Masuk ke folder proyek
+cd my-react-app
+
+# Install semua dependensi
+npm install
+
+# Jalankan development server
+npm run dev
+
+# Buka browser di http://localhost:5173</code></pre>
+                    </div>
+
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Struktur Folder Proyek React</span>
+                        </div>
+                        <pre><code class="language-bash">my-react-app/
+├── node_modules/       # Dependensi proyek
+├── public/             # File statis (favicon, dll)
+├── src/
+│   ├── App.jsx         # Komponen utama
+│   ├── App.css         # Styling komponen utama
+│   ├── main.jsx        # Entry point aplikasi
+│   └── index.css       # Global styles
+├── index.html          # Template HTML utama
+├── package.json        # Konfigurasi & dependensi
+├── vite.config.js      # Konfigurasi Vite
+└── README.md</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Perhatian:</strong> Pastikan kamu menggunakan Node.js versi 18 atau lebih baru. Cek versimu dengan perintah <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">node --version</code>. Versi lama mungkin menyebabkan error saat instalasi.</p>
+                </div>
+            </section>
+
+            <!-- Lesson 3: Konsep Virtual DOM -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">03</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Konsep Virtual DOM</h2>
+                            <input type="checkbox" id="check-1-3" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Konsep inti &middot; 8 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Untuk memahami mengapa React begitu cepat, kamu perlu memahami <strong class="text-white">Virtual DOM</strong>. DOM (Document Object Model) adalah representasi tree dari halaman web yang digunakan browser. Manipulasi DOM langsung itu mahal — setiap perubahan bisa memicu reflow dan repaint yang membuat halaman menjadi lambat.</p>
+
+                    <p>React menyelesaikan masalah ini dengan membuat salinan DOM di dalam memori, yang disebut <strong class="text-accent">Virtual DOM</strong>. Ketika state berubah, React membuat Virtual DOM baru, lalu membandingkannya dengan versi sebelumnya menggunakan algoritma <em>diffing</em>. React kemudian hanya memperbarui node-node DOM yang benar-benar berubah — proses ini disebut <strong class="text-white">reconciliation</strong>.</p>
+
+                    <p>Prosesnya bisa disederhanakan menjadi tiga langkah: (1) State berubah, (2) React membuat Virtual DOM baru, (3) React membandingkan Virtual DOM lama dan baru, lalu menerapkan perubahan minimal ke DOM sesungguhnya. Pendekatan ini sangat efisien karena manipulasi DOM sesungguhnya diminimalkan.</p>
+
+                    <p>Satu konsep penting lainnya adalah <strong class="text-white">one-way data flow</strong>. Data dalam React mengalir dari atas ke bawah — dari komponen parent ke komponen child melalui props. Ini membuat alur data lebih mudah diprediksi dan di-debug dibandingkan two-way binding yang digunakan framework lain.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Ilustrasi: Cara Kerja Virtual DOM</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Contoh sederhana: tanpa Virtual DOM (cara lama)
+// Setiap perubahan langsung memanipulasi DOM
+document.getElementById('title').textContent = 'Halo Baru';
+document.getElementById('counter').textContent = '1';
+// Repaint terjadi 2 kali ❌
+
+// Dengan React Virtual DOM:
+// React menghitung diff lalu memperbarui sekaligus
+function App() {
+  const [title, setTitle] = useState('Halo');
+  const [count, setCount] = useState(0);
+
+  // State berubah → Virtual DOM di-update → 
+  // React hitung diff → DOM aktual di-update sekali ✅
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{title}&lt;/h1&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Tambah
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> Virtual DOM itu seperti draf foto di Photoshop. Alih-alih mengubah foto asli berkali-kali (yang lambat dan merusak kualitas), kamu buat salinan virtual, edit sebanyak mungkin di layer-layer, lalu <em>flatten</em> sekali saja ke gambar asli. Hasilnya lebih cepat dan lebih bersih!</p>
+                </div>
+            </section>
+
+            <!-- Lesson 4: Hello World Pertamamu -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">04</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Hello World Pertamamu</h2>
+                            <input type="checkbox" id="check-1-4" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Praktik &middot; 7 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Sekarang saatnya menulis kode React pertamamu! Kita akan membuat komponen sederhana yang menampilkan "Hello World" dan sedikit interaksi. Buka file <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">src/App.jsx</code> di proyek yang sudah kamu buat, dan ganti isinya.</p>
+
+                    <p>Komponen React pada dasarnya adalah <strong class="text-white">fungsi JavaScript</strong> yang mengembalikan elemen UI (dalam format JSX yang akan kita pelajari di Bab 2). Setiap komponen bisa menerima data dari luar melalui <em>props</em> dan memiliki data internalnya sendiri melalui <em>state</em>.</p>
+
+                    <p>Dalam contoh di bawah, kita menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> — sebuah React Hook yang memungkinkan komponen fungsional memiliki state. Hook ini mengembalikan array dengan dua elemen: nilai state saat ini dan fungsi untuk mengubahnya. Ini adalah fondasi dari interaktivitas di React.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">src/App.jsx — Hello World dengan Interaksi</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+import './App.css';
+
+function App() {
+  // State untuk menyimpan nama
+  const [nama, setNama] = useState('Dunia');
+  // State untuk menghitung klik
+  const [klik, setKlik] = useState(0);
+
+  const handleClick = () => {
+    setKlik(klik + 1);
+  };
+
+  const handleNameChange = (e) => {
+    setNama(e.target.value);
+  };
+
+  return (
+    &lt;div style={{ padding: '2rem', textAlign: 'center' }}&gt;
+      &lt;h1 style={{ color: '#27d890', fontSize: '2.5rem' }}&gt;
+        Halo, {nama}! 🎉
+      &lt;/h1&gt;
+      &lt;p style={{ color: '#9ca3af', marginTop: '1rem' }}&gt;
+        Ini adalah aplikasi React pertamamu.
+      &lt;/p&gt;
+
+      &lt;div style={{ marginTop: '2rem' }}&gt;
+        &lt;input
+          type="text"
+          value={nama}
+          onChange={handleNameChange}
+          placeholder="Ketik namamu..."
+          style={{
+            padding: '0.75rem 1rem',
+            borderRadius: '0.75rem',
+            border: '2px solid #243056',
+            background: '#111827',
+            color: '#f3f4f6',
+            fontSize: '1rem',
+            width: '250px'
+          }}
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div style={{ marginTop: '1.5rem' }}&gt;
+        &lt;button
+          onClick={handleClick}
+          style={{
+            padding: '0.75rem 1.5rem',
+            borderRadius: '0.75rem',
+            background: '#27d890',
+            color: '#0a0f2c',
+            fontWeight: 'bold',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '1rem'
+          }}
+        &gt;
+          Klik aku! ({klik} kali)
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      {klik >= 10 && (
+        &lt;p style={{ color: '#f59e0b', marginTop: '1rem' }}&gt;
+          🎯 Kamu sudah klik {klik} kali! Semangat belajar React!
+        &lt;/p&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Kesalahan Umum:</strong> Jangan lupa mengimpor <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> dari <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">'react'</code> sebelum menggunakannya. Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu pastikan baris import ada di atas file.</p>
+                </div>
+            </section>
+
+            <!-- Chapter Summary -->
+            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 1</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>React adalah library JavaScript untuk membangun UI dengan pendekatan berbasis komponen</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>Cara membuat proyek React baru menggunakan Vite (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">npm create vite@latest</code>)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>Virtual DOM membuat React cepat dengan meminimalkan manipulasi DOM sesungguhnya</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>Komponen React adalah fungsi yang mengembalikan elemen UI</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>Hook <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> digunakan untuk menambahkan state ke komponen fungsional</span>
+                    </li>
+                </ul>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="markChapterComplete(1)" id="completeBtn1" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Tandai Bab Selesai
+                    </button>
+                    <a href="chapter-2.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        Lanjut ke Bab 2
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+                btn.classList.remove('opacity-100');
+            }
+        });
+
+        // Highlight Code
+        hljs.highlightAll();
+
+        // Copy Code
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        // Progress Tracking
+        function getProgress() {
+            const saved = localStorage.getItem('react-course-progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        function saveProgress(data) {
+            localStorage.setItem('react-course-progress', JSON.stringify(data));
+        }
+
+        function updateProgress() {
+            const progress = getProgress();
+            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            progress['chapter-1'] = { completed: checked, total: totalChecks };
+            saveProgress(progress);
+            renderGlobalProgress();
+        }
+
+        function renderGlobalProgress() {
+            const progress = getProgress();
+            let totalCompleted = 0;
+            let totalLessons = 0;
+            for (let i = 1; i <= 10; i++) {
+                const ch = progress[`chapter-${i}`];
+                if (ch) {
+                    totalCompleted += ch.completed;
+                    totalLessons += ch.total;
+                }
+            }
+            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
+        }
+
+        function markChapterComplete(ch) {
+            const progress = getProgress();
+            const checks = document.querySelectorAll(`.lesson-checkbox`);
+            checks.forEach(c => c.checked = true);
+            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(progress);
+            renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) {
+                btn.textContent = '✓ Bab Selesai!';
+                btn.classList.add('opacity-75');
+                btn.disabled = true;
+            }
+        }
+
+        // Restore checkbox states
+        function restoreChecks() {
+            const progress = getProgress();
+            const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => {
+                if (c.checked) c.checked = true;
+            });
+        }
+
+        // Init
+        renderGlobalProgress();
+    </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 2: JSX & Elemen React - React Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0.1), color 0.2s cubic-bezier(0.2,0,0.1); }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in-delay-1 { animation-delay: 100ms; }
+        .fade-in-delay-2 { animation-delay: 200ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
+        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        button:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
+        <div class="p-5 border-b border-dark-600">
+            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
+                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="text-lg font-bold text-white">React Course</span>
+            </a>
+        </div>
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+        <div class="px-4 pb-4">
+            <div class="bg-dark-700 rounded-xl p-3">
+                <div class="flex justify-between text-xs text-gray-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-dark-900 rounded-full h-2">
+                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        <nav class="px-3 pb-6">
+            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Pengenalan React
+            </a>
+            <a href="chapter-2.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">2</span>
+                JSX & Elemen React
+            </a>
+            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Komponen & Props
+            </a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                State & Lifecycle
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Event Handling
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                Conditional Rendering
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Lists & Keys
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                Hooks (useState, useEffect)
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Router
+            </a>
+            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Project Akhir
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-72 min-h-screen">
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 2: JSX & Elemen React</h1>
+                        <p class="text-sm text-gray-400 mt-0.5">4 pelajaran &middot; ~35 menit</p>
+                    </div>
+                </div>
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="chapter-1.html" class="flex items-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-4 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Bab Sebelumnya
+                    </a>
+                    <a href="chapter-3.html" class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                        Bab Selanjutnya
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="px-4 lg:px-8 py-8 max-w-4xl">
+
+            <!-- Lesson 1: Memahami JSX -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">01</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Memahami JSX</h2>
+                            <input type="checkbox" id="check-2-1" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Konsep inti &middot; 8 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p><strong class="text-accent">JSX</strong> (JavaScript XML) adalah ekstensi sintaks JavaScript yang memungkinkan kamu menulis elemen-elemen UI langsung di dalam kode JavaScript. JSX bukanlah HTML biasa — meskipun terlihat sangat mirip, JSX memiliki aturan dan perilaku khusus yang berbeda dari HTML. Di balik layar, JSX akan dikompilasi menjadi fungsi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> oleh Babel.</p>
+
+                    <p>Keuntungan utama JSX adalah kamu bisa menulis struktur UI yang kompleks dengan cara yang intuitif dan mudah dibaca. Daripada menulis fungsi pemanggilan yang bertumpuk, JSX memungkinkan kamu menulis "template HTML" yang sebenarnya adalah kode JavaScript murni. Ini membuat developer bisa memahami struktur komponen hanya dengan melihat kodenya.</p>
+
+                    <p>Perlu diingat bahwa JSX memiliki beberapa aturan penting: (1) Selalu kembalikan <strong class="text-white">satu elemen root</strong> tunggal — jika ada beberapa elemen, bungkus dengan fragment atau <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;div&gt;</code>. (2) Gunakan <strong class="text-white">camelCase</strong> untuk atribut — <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> bukan <code>class</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> bukan <code>for</code>. (3) Tag self-closing memerlukan slash di akhir: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;img /&gt;</code>.</p>
+
+                    <p>JSX juga mendukung <strong class="text-white">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Kamu bisa memasukkan variabel, panggilan fungsi, operasi matematika, ternary operator, dan bahkan render komponen lain di dalam JSX. Ini membuat JSX sangat fleksibel dan powerful.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">JSX vs React.createElement()</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Cara LAMA: tanpa JSX (sulit dibaca)
+const element = React.createElement(
+  'h1',
+  { className: 'greeting' },
+  'Halo, ',
+  React.createElement('span', null, 'Dunia')
+);
+
+// Cara BARU: dengan JSX (mudah dibaca ✅)
+const element = (
+  &lt;h1 className="greeting"&gt;
+    Halo, &lt;span&gt;Dunia&lt;/span&gt;
+  &lt;/h1&gt;
+);
+
+// Keduanya menghasilkan output yang SAMA persis!
+// JSX hanya "syntax sugar" di atas React.createElement()</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> JSX itu seperti menulis resep masakan dalam bahasa Indonesia, sementara <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> adalah instruksi mesin yang kompleks. Keduanya menghasilkan makanan yang sama, tapi JSX jauh lebih mudah dibaca oleh manusia!</p>
+                </div>
+            </section>
+
+            <!-- Lesson 2: Aturan JSX -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">02</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Aturan-Aturan JSX</h2>
+                            <input type="checkbox" id="check-2-2" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Fundamental &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Menguasai JSX berarti memahami aturan-aturannya. Meskipun JSX mirip HTML, ada perbedaan penting yang jika diabaikan akan menyebabkan error. Berikut adalah aturan-aturan kunci yang harus selalu kamu ingat saat menulis JSX.</p>
+
+                    <p><strong class="text-white">Aturan 1: Satu Root Element.</strong> Setiap komponen React harus mengembalikan tepat satu elemen induk. Jika kamu perlu mengembalikan beberapa elemen, gunakan <strong class="text-accent">Fragment</strong> (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code>) agar tidak menambahkan node DOM ekstra.</p>
+
+                    <p><strong class="text-white">Aturan 2: Semua Tag Harus Ditutup.</strong> Di HTML, beberapa tag seperti <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> tidak perlu ditutup. Tapi di JSX, <em>semua</em> tag harus ditutup — baik dengan closing tag maupun self-closing slash.</p>
+
+                    <p><strong class="text-white">Aturan 3: camelCase untuk Atribut.</strong> Karena JSX adalah JavaScript, semua atribut mengikuti konvensi JavaScript. Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> (bukan class), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> (bukan for), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">onClick</code> (bukan onclick), dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">tabIndex</code> (bukan tabindex).</p>
+
+                    <p><strong class="text-white">Aturan 4: Ekspresi JavaScript dalam Kurung Kurawal.</strong> Untuk menyisipkan variabel, fungsi, atau operasi JavaScript ke dalam JSX, bungkus dengan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Tanpa kurung kurawal, JSX akan memperlakukannya sebagai string biasa.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Contoh Aturan JSX yang Benar dan Salah</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+function ProfilPengguna({ nama, umur, isOnline }) {
+  // ✅ Aturan 1: Satu root element (menggunakan Fragment)
+  return (
+    &lt;&gt;
+      {isOnline &amp;&amp; &lt;span className="badge"&gt;● Online&lt;/span&gt;}
+      
+      {/* ✅ Aturan 2: Semua tag ditutup */}
+      &lt;img src="/avatar.jpg" alt="Avatar" /&gt;
+      
+      {/* ✅ Aturan 3: camelCase untuk atribut */}
+      &lt;h2 className="text-xl font-bold"&gt;{nama}&lt;/h2&gt;
+      &lt;label htmlFor="umur"&gt;Umur:&lt;/label&gt;
+      
+      {/* ✅ Aturan 4: Ekspresi JS dalam {} */}
+      &lt;p&gt;Umur: {umur} tahun (lahir ~{2026 - umur})&lt;/p&gt;
+      
+      &lt;button onClick={() =&gt; alert(`Halo ${nama}!`)}&gt;
+        Klik
+      &lt;/button&gt;
+      
+      {/* Ternary operator juga berfungsi */}
+      &lt;p&gt;Status: {umur &gt;= 17 ? 'Dewasa' : 'Belum dewasa'}&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+
+// ❌ KESALAHAN UMUM:
+// return &lt;div&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;B&lt;/p&gt;  // Tidak ada root element!
+// return &lt;img src="a.jpg"&gt;                  // Tag tidak ditutup!
+// return &lt;div class="box"&gt;                 // Harus className!
+// return &lt;div&gt;{nama}&lt;/div&gt; tanpa import   // Variabel harus didefinisikan</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Perhatian:</strong> Komentar di JSX menggunakan sintaks <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{/* komentar */}</code>, BUKAN <code>//</code> atau <code>&lt;!-- --&gt;</code>. Komentar HTML biasa akan ditampilkan sebagai teks di halaman!</p>
+                </div>
+            </section>
+
+            <!-- Lesson 3: Embedding Expressions -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">03</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Menyisipkan Ekspresi & Variabel</h2>
+                            <input type="checkbox" id="check-2-3" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Praktik &middot; 8 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Salah satu fitur paling powerful dari JSX adalah kemampuan menyisipkan <strong class="text-white">ekspresi JavaScript</strong> langsung di dalam template UI. Dengan kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>, kamu bisa menampilkan variabel, memanggil fungsi, melakukan operasi matematika, dan bahkan menulis kondisi logika.</p>
+
+                    <p>Yang BISA kamu masukkan dalam kurung kurawal: variabel, angka, string, boolean (meskipun boolean tidak ditampilkan), ekspresi matematika, pemanggilan fungsi, ternary operator, array (yang akan dirender item per item), dan komponen React lainnya. Yang TIDAK BISA: pernyataan <code>if/else</code>, perulangan <code>for</code>, dan <code>var/let/const</code>.</p>
+
+                    <p>Untuk kondisi yang lebih kompleks dari ternary, gunakan pendekatan "render di luar JSX" — hitung hasilnya terlebih dahulu dalam variabel, lalu masukkan variabel tersebut ke dalam JSX. Ini membuat kode lebih bersih dan mudah dibaca.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Beragam Cara Menyisipkan Ekspresi di JSX</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+function DaftarBelanja() {
+  const [items, setItems] = useState([
+    { nama: 'Beras', harga: 15000, jumlah: 2 },
+    { nama: 'Telur', harga: 28000, jumlah: 1 },
+    { nama: 'Minyak', harga: 18000, jumlah: 1 },
+  ]);
+  const [diskon, setDiskon] = useState(10);
+
+  // Hitung di luar JSX untuk kondisi kompleks
+  const totalHarga = items.reduce((sum, item) => 
+    sum + (item.harga * item.jumlah), 0
+  );
+  const hargaDiskon = totalHarga * (1 - diskon / 100);
+
+  // Fungsi helper
+  const formatRupiah = (angka) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency', currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(angka);
+  };
+
+  return (
+    &lt;div className="p-6"&gt;
+      &lt;h2 className="text-2xl font-bold mb-4"&gt;🛒 Daftar Belanja&lt;/h2&gt;
+      
+      {/* Render array dengan .map() */}
+      {items.map((item, index) =&gt; (
+        &lt;div key={index} className="flex justify-between p-3 border-b"&gt;
+          &lt;span&gt;{item.nama} × {item.jumlah}&lt;/span&gt;
+          {/* Ekspresi matematika */}
+          &lt;span&gt;{formatRupiah(item.harga * item.jumlah)}&lt;/span&gt;
+        &lt;/div&gt;
+      ))}
+      
+      &lt;div className="mt-4 p-4 bg-gray-800 rounded-lg"&gt;
+        &lt;p&gt;Total: {formatRupiah(totalHarga)}&lt;/p&gt;
+        &lt;p&gt;Diskon ({diskon}%): -{formatRupiah(totalHarga * diskon / 100)}&lt;/p&gt;
+        &lt;p className="text-xl font-bold text-green-400"&gt;
+          Bayar: {formatRupiah(hargaDiskon)}
+        &lt;/p&gt;
+        
+        {/* Ternary operator untuk kondisi */}
+        {totalHarga &gt; 50000 ? (
+          &lt;p className="text-yellow-400"&gt;🎉 Belanja di atas 50rb!&lt;/p&gt;
+        ) : (
+          &lt;p className="text-gray-400"&gt;Tambah lagi yuk!&lt;/p&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default DaftarBelanja;</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Tips:</strong> Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">Intl.NumberFormat</code> untuk memformat angka menjadi mata uang Rupiah. Ini fitur bawaan JavaScript yang sangat berguna dan mendukung berbagai mata uang internasional!</p>
+                </div>
+            </section>
+
+            <!-- Lesson 4: Styling di JSX -->
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent font-bold text-sm">04</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-white">Styling di JSX</h2>
+                            <input type="checkbox" id="check-2-4" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-gray-500">Praktik &middot; 9 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Ada tiga cara utama untuk memberi style pada elemen JSX: <strong class="text-accent">Inline Styles</strong> (objek JavaScript), <strong class="text-accent">CSS Modules</strong> (file CSS terpisah yang di-scope otomatis), dan <strong class="text-accent">CSS-in-JS Libraries</strong> (styled-components, Emotion). Masing-masing memiliki kelebihan untuk use case yang berbeda.</p>
+
+                    <p>Untuk <strong class="text-white">inline styles</strong> di JSX, kamu menggunakan objek JavaScript (bukan string CSS). Nama properti menggunakan camelCase: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code> bukan <code>background-color</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code> bukan <code>font-size</code>. Nilai harus berupa string, kecuali untuk angka (yang akan otomatis ditambahkan <code>px</code>).</p>
+
+                    <p><strong class="text-white">CSS Modules</strong> adalah pilihan populer untuk proyek skala menengah hingga besar. Dengan CSS Modules, nama kelas CSS secara otomatis di-generate menjadi nama unik saat build, sehingga tidak ada konflik kelas antar komponen. File CSS diberi nama dengan akhiran <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.module.css</code> dan di-import sebagai objek JavaScript.</p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="code-block rounded-xl overflow-hidden">
+                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
+                            <span class="text-xs text-gray-400 font-medium">Tiga Cara Styling di React</span>
+                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ====== CARA 1: Inline Styles ======
+function KartuInline() {
+  const [hovered, setHovered] = useState(false);
+  
+  const cardStyle = {
+    padding: '1.5rem',
+    borderRadius: '1rem',
+    backgroundColor: hovered ? '#1a2240' : '#111827',
+    border: '1px solid #243056',
+    // angka otomatis ditambah 'px'
+    fontSize: 16,  
+    color: '#f3f4f6',
+    transition: 'background-color 0.3s ease',
+    boxShadow: hovered 
+      ? '0 8px 30px rgba(39,216,144,0.15)' 
+      : 'none',
+  };
+
+  return (
+    &lt;div 
+      style={cardStyle}
+      onMouseEnter={() =&gt; setHovered(true)}
+      onMouseLeave={() =&gt; setHovered(false)}
+    &gt;
+      &lt;h3 style={{ color: '#27d890', marginBottom: '0.5rem' }}&gt;
+        Kartu Inline Style
+      &lt;/h3&gt;
+      &lt;p&gt;Style ditulis sebagai objek JavaScript.&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ====== CARA 2: CSS Modules ======
+// File: Kartu.module.css
+// .kartu { padding: 1.5rem; border-radius: 1rem; }
+// .judul { color: #27d890; margin-bottom: 0.5rem; }
+
+// import styles from './Kartu.module.css';
+function KartuModule() {
+  return (
+    &lt;div className={styles.kartu}&gt;
+      &lt;h3 className={styles.judul}&gt;Kartu CSS Module&lt;/h3&gt;
+      &lt;p&gt;Kelas CSS otomatis unik, tidak ada konflik!&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ====== CARA 3: Conditional Class Names ======
+function TombolStatus({ isActive }) {
+  return (
+    &lt;button className={`px-4 py-2 rounded-lg font-bold transition-colors
+      ${isActive 
+        ? 'bg-green-500 text-white' 
+        : 'bg-gray-700 text-gray-400'}
+    `}&gt;
+      {isActive ? 'Aktif ✓' : 'Nonaktif'}
+    &lt;/button&gt;
+  );
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Kesalahan Umum:</strong> Jangan lupa bahwa di inline style, properti CSS menggunakan <strong>camelCase</strong>. Menulis <code>background-color</code> (dengan dash) akan menyebabkan error karena dash tidak valid dalam nama properti JavaScript. Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code> sebagai gantinya.</p>
+                </div>
+            </section>
+
+            <!-- Chapter Summary -->
+            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 2</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                    </div>
+                </div>
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>JSX adalah syntax sugar untuk <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> yang memudahkan penulisan UI</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Aturan JSX: satu root element, tag harus ditutup, camelCase, dan {} untuk ekspresi JS</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> memungkinkan menyisipkan variabel, fungsi, ternary, dan array</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Tiga cara styling: inline styles (objek JS), CSS Modules, dan conditional class names</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Fragment <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code> untuk mengembalikan beberapa elemen tanpa wrapper div</span></li>
+                </ul>
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Tandai Bab Selesai
+                    </button>
+                    <a href="chapter-3.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        Lanjut ke Bab 3
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) { btn.classList.remove('opacity-0','pointer-events-none'); btn.classList.add('opacity-100'); }
+            else { btn.classList.add('opacity-0','pointer-events-none'); btn.classList.remove('opacity-100'); }
+        });
+        hljs.highlightAll();
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+        function getProgress() { const s = localStorage.getItem('react-course-progress'); return s ? JSON.parse(s) : {}; }
+        function saveProgress(d) { localStorage.setItem('react-course-progress', JSON.stringify(d)); }
+        function updateProgress() {
+            const p = getProgress();
+            const total = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            p['chapter-2'] = { completed: checked, total };
+            saveProgress(p); renderGlobalProgress();
+        }
+        function renderGlobalProgress() {
+            const p = getProgress(); let tc = 0, tl = 0;
+            for (let i = 1; i <= 10; i++) { const ch = p[`chapter-${i}`]; if (ch) { tc += ch.completed; tl += ch.total; } }
+            const pct = tl > 0 ? Math.round((tc/tl)*100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${tc}/${tl}`;
+        }
+        function markChapterComplete(ch) {
+            const p = getProgress(); const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => c.checked = true);
+            p[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(p); renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) { btn.textContent = '✓ Bab Selesai!'; btn.classList.add('opacity-75'); btn.disabled = true; }
+        }
+        renderGlobalProgress();
+    </script>
+</body>
+</html>
