@@ -29,11 +29,11 @@
         ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
         .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
         .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
-        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0.1), color 0.2s cubic-bezier(0.2,0,0.1); }
         .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
         pre code { border-radius: 0.75rem; font-size: 0.875rem; }
         h2 { text-wrap: balance; }
-        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0.1) both; }
         .fade-in-delay-1 { animation-delay: 100ms; }
         .fade-in-delay-2 { animation-delay: 200ms; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -160,7 +160,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Apa Itu React?</h2>
+                            <h2 class="text-xl font-bold text-white">Apa Itu React? 🤔</h2>
                             <input type="checkbox" id="check-1-1" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-1-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -169,17 +169,21 @@
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>React adalah sebuah <strong class="text-white">library JavaScript</strong> yang digunakan untuk membangun antarmuka pengguna (user interface). React dikembangkan oleh Meta (sebelumnya Facebook) dan pertama kali dirilis pada tahun 2013. Sejak itu, React menjadi salah satu library frontend yang paling populer di dunia dengan jutaan developer yang menggunakannya setiap hari.</p>
+                    <p>Pernah ngalamin moment pas lagi bikin website, terus kamu ubah satu elemen kecil doang — misalnya ganti warna tombol — tapi tiba-tiba seluruh halaman jadi <strong class="text-white">ngeload ulang</strong>? Atau pas kode JavaScript-nya udah makin panjang, makin berantakan, dan kamu sendiri bingung mana yang ngubah mana? 😫</p>
 
-                    <p>Keunggulan utama React terletak pada konsep <strong class="text-accent">component-based architecture</strong>. Dalam React, kamu membangun UI dari komponen-komponen kecil yang bisa dipisah-pisahkan dan digunakan ulang. Setiap komponen mengelola state-nya sendiri dan merender dirinya secara independen. Pendekatan ini membuat kode lebih terorganisir, mudah diuji, dan skalabel.</p>
+                    <p>Nah, <strong class="text-accent">React</strong> lahir dari masalah itu. React itu <strong class="text-white">library JavaScript</strong> buat bikin user interface yang dibikin oleh Meta (dulu namanya Facebook). Diperkenalin pertama kali tahun 2013, dan sekarang udah dipake jutaan developer di seluruh dunia — termasuk di perusahaan-perusahaan besar kayak Netflix, Airbnb, dan Instagram.</p>
 
-                    <p>React menggunakan <strong class="text-white">Virtual DOM</strong> — representasi ringan dari DOM sesungguhnya di memori. Ketika ada perubahan data, React menghitung perbedaan (diffing) antara Virtual DOM lama dan baru, lalu hanya memperbarui bagian DOM yang benar-benar berubah. Ini membuat aplikasi React sangat cepat dan efisien dibandingkan manipulasi DOM langsung.</p>
+                    <p>Tapi yang bikin React beda dari yang lain? 🔑 <strong class="text-accent">Component-based architecture</strong>. Maksudnya apa?</p>
 
-                    <p>React bersifat <em>declarative</em>, artinya kamu cukup mendeskripsikan tampilan yang diinginkan berdasarkan state, dan React akan menangani cara memperbarui DOM-nya. Ini berbeda dengan pendekatan <em>imperative</em> di mana kamu harus menuliskan langkah-langkah detail untuk memanipulasi DOM secara manual.</p>
+                    <p>Bayangin kamu lagi bikin LEGO 🧱. Kamu nggak langsung bikin istana raksasa sekaligus kan? Kamu mulai dari bata-bata kecil dulu — satu per satu, lalu disusun jadi bentuk yang lebih besar. Nah, di React, <strong class="text-white">komponen</strong> itu kayak bata LEGO-nya. Kamu bikin komponen-komponen kecil yang masing-masing punya tugas sendiri, terus kamu gabung-gabungin jadi halaman yang kompleks.</p>
+
+                    <p>Setiap komponen ngurus dirinya sendiri — punya data sendiri (state), punya tampilan sendiri, dan nggak nyangkut dengan komponen lainnya. Kodenya jadi rapi, gampang di-test, dan yang paling penting: <strong class="text-accent">bisa dipake ulang!</strong> 🔄</p>
+
+                    <p>Oh iya, satu lagi yang penting: React itu <em>declarative</em>. Artinya, kamu cukup <strong class="text-white">ngomongin "mau kayak gimana"</strong>, bukan "langkah demi langkah harus ngapain". Kamu deskripsikan tampilan UI berdasarkan data/state, terus React yang urus bagaimana cara render-nya ke layar. Keren, kan? 😎</p>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> Bayangkan React seperti sebuah restoran. <em>State</em> adalah pesanan pelanggan, <em>Virtual DOM</em> adalah kertas pesanan yang diperbarui, dan <em>Koki</em> (React) hanya membuat ulang makanan yang berubah — bukan seluruh pesanan dari awal. Efisien, bukan?</p>
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 OH TERNYATA GITU!</strong> React itu bukan framework ya — dia itu <em>library</em>. Kenapa beda? Karena React fokus ke satu hal aja: <strong>rendering UI</strong>. Buat routing, state management global, dan hal-hal lainnya, React serahin ke ekosistem (React Router, Zustand, Redux, dll). Jadi React tuh kayak mesin mobil — performa intinya ada di situ, tapi body, AC, dan audio system-nya kamu pilih sendiri 🚗</p>
                 </div>
             </section>
 
@@ -191,7 +195,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Instalasi & Environment Setup</h2>
+                            <h2 class="text-xl font-bold text-white">Setup Environment — Gass Keun! 🛠️</h2>
                             <input type="checkbox" id="check-1-2" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-1-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -200,27 +204,29 @@
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Sebelum mulai coding dengan React, kamu perlu menyiapkan environment development. Prasyarat utama adalah memiliki <strong class="text-white">Node.js</strong> (versi 18 atau lebih baru) terinstal di komputermu. Node.js menyertakan npm (Node Package Manager) yang akan kita gunakan untuk mengelola dependensi proyek.</p>
+                    <p>Oke, sebelum kita mulai ngoding, kita perlu siapin senjatanya dulu. Yang kamu butuhkan cuma satu: <strong class="text-white">Node.js</strong> versi 18 ke atas. Node.js itu kayak mesin runtime yang bikin JavaScript bisa jalan di luar browser — dan dia juga bawa <strong class="text-accent">npm</strong> (Node Package Manager) buat ngelola semua dependensi proyek kita.</p>
 
-                    <p>Cara paling cepat dan direkomendasikan untuk membuat proyek React baru adalah menggunakan <strong class="text-accent">Vite</strong>. Vite adalah build tool modern yang jauh lebih cepat dari Create React App (yang kini sudah deprecated). Vite menggunakan ES modules secara native, sehingga proses build dan hot reload terasa hampir instan.</p>
+                    <p>Dulu, cara bikin proyek React pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">create-react-app</code>. Tapi sayang, tool itu udah <em>deprecated</em> — artinya udah nggak dianjurkan lagi. Sekarang yang jadi bintang baru itu <strong class="text-accent">Vite</strong> ⚡</p>
 
-                    <p>Setelah proyek terbentuk, kamu bisa langsung menjalankan development server. Vite akan secara otomatis membuka browser dan menampilkan aplikasi React default. Setiap perubahan yang kamu buat pada kode akan langsung tercermin di browser tanpa perlu refresh manual — ini disebut <em>Hot Module Replacement (HMR)</em>.</p>
+                    <p>Vite itu build tool modern yang super cepat. Kenapa? Karena dia pake ES modules secara native, jadi proses build dan hot reload tuh <em>hampir instan</em>. Bener-bener beda 180 derajat sama Create React App yang dulu sering lama banget pas pertama kali jalan. 💨</p>
+
+                    <p>Setelah proyeknya jadi, kamu tinggal jalanin development server-nya. Vite bakal auto-open browser dan nampilin aplikasi React default. Terus setiap kali kamu ubah kode — <strong class="text-white">BAM!</strong> — perubahannya langsung keupdate di browser tanpa perlu refresh manual. Fitur ini namanya <em>Hot Module Replacement (HMR)</em>, dan trust me, ini bikin pengalaman development terasa jauh lebih smooth 🧈</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Terminal - Membuat Proyek React dengan Vite</span>
+                            <span class="text-xs text-gray-400 font-medium">Terminal — Bikin Proyek React Baru dengan Vite</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
-                        <pre><code class="language-bash"># Install Node.js terlebih dahulu (kalau belum ada)
-# Lalu buat proyek React baru dengan Vite
+                        <pre><code class="language-bash"># Install Node.js dulu kalau belum ada ya!
+# Terus bikin proyek React baru pake Vite
 npm create vite@latest my-react-app -- --template react
 
 # Masuk ke folder proyek
 cd my-react-app
 
-# Install semua dependensi
+# Install semua dependensinya
 npm install
 
 # Jalankan development server
@@ -231,25 +237,29 @@ npm run dev
 
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Struktur Folder Proyek React</span>
+                            <span class="text-xs text-gray-400 font-medium">Struktur Folder Proyek React — Kenalan Yuk!</span>
                         </div>
                         <pre><code class="language-bash">my-react-app/
-├── node_modules/       # Dependensi proyek
-├── public/             # File statis (favicon, dll)
+├── node_modules/       # Semua dependensi (jangan diotak-atik!)
+├── public/             # File statis kayak favicon dll
 ├── src/
-│   ├── App.jsx         # Komponen utama
-│   ├── App.css         # Styling komponen utama
-│   ├── main.jsx        # Entry point aplikasi
+│   ├── App.jsx         # Komponen utama — ini rumah utamamu
+│   ├── App.css         # Styling buat komponen utama
+│   ├── main.jsx        # Entry point — kode pertama yang jalan
 │   └── index.css       # Global styles
 ├── index.html          # Template HTML utama
-├── package.json        # Konfigurasi & dependensi
+├── package.json        # Info proyek & daftar dependensi
 ├── vite.config.js      # Konfigurasi Vite
 └── README.md</code></pre>
                     </div>
                 </div>
 
-                <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Perhatian:</strong> Pastikan kamu menggunakan Node.js versi 18 atau lebih baru. Cek versimu dengan perintah <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">node --version</code>. Versi lama mungkin menyebabkan error saat instalasi.</p>
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">📁 CATATAN CEPAT:</strong> Folder <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">src/</code> itu tempat kamu bakal nghabisin paling banyak waktu. Di situlah semua komponen, hooks, styles, dan logika aplikasimu tinggal. Sementara <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">node_modules/</code>? Biarin aja — itu kayak gudang bawaan Vite, nggak perlu disentuh 😄</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ HEY, WAIT!</strong> Pastikan Node.js kamu versi 18 atau ke atas ya. Cek pake perintah <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">node --version</code>. Kalau versimu lebih lama, bisa-bisa nanti ada error aneh pas instalasi. Update dulu ke versi terbaru di <a href="https://nodejs.org" class="text-accent underline">nodejs.org</a> 👍</p>
                 </div>
             </section>
 
@@ -261,7 +271,7 @@ npm run dev
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Konsep Virtual DOM</h2>
+                            <h2 class="text-xl font-bold text-white">Virtual DOM — Rahasia React yang Bikin Cepat ⚡</h2>
                             <input type="checkbox" id="check-1-3" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-1-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -270,34 +280,46 @@ npm run dev
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Untuk memahami mengapa React begitu cepat, kamu perlu memahami <strong class="text-white">Virtual DOM</strong>. DOM (Document Object Model) adalah representasi tree dari halaman web yang digunakan browser. Manipulasi DOM langsung itu mahal — setiap perubahan bisa memicu reflow dan repaint yang membuat halaman menjadi lambat.</p>
+                    <p>Okay, ini bagian yang sering bikin orang "oh ternyata gitu!" 🤯 Jadi dulu sebelum React, pas kita mau update halaman web, kita langsung utik-utik DOM-nya. Masalahnya? <strong class="text-white">DOM itu MAHAL.</strong></p>
 
-                    <p>React menyelesaikan masalah ini dengan membuat salinan DOM di dalam memori, yang disebut <strong class="text-accent">Virtual DOM</strong>. Ketika state berubah, React membuat Virtual DOM baru, lalu membandingkannya dengan versi sebelumnya menggunakan algoritma <em>diffing</em>. React kemudian hanya memperbarui node-node DOM yang benar-benar berubah — proses ini disebut <strong class="text-white">reconciliation</strong>.</p>
+                    <p>Setiap kali kamu ngubah satu elemen doang di DOM, browser harus nge-<em>reflow</em> dan nge-<em>repaint</em> seluruh halaman. Bayangin kamu punya form dengan 50 input, terus tiap ketik satu huruf, browser harus re-calculate layout SEMUA elemen. Hasilnya? Aplikasi jadi <strong class="text-white">lag dan lemot</strong>. 🐌</p>
 
-                    <p>Prosesnya bisa disederhanakan menjadi tiga langkah: (1) State berubah, (2) React membuat Virtual DOM baru, (3) React membandingkan Virtual DOM lama dan baru, lalu menerapkan perubahan minimal ke DOM sesungguhnya. Pendekatan ini sangat efisien karena manipulasi DOM sesungguhnya diminimalkan.</p>
+                    <p>Nah, di sinilah <strong class="text-accent">Virtual DOM</strong> jadi pahlawan! 💪</p>
 
-                    <p>Satu konsep penting lainnya adalah <strong class="text-white">one-way data flow</strong>. Data dalam React mengalir dari atas ke bawah — dari komponen parent ke komponen child melalui props. Ini membuat alur data lebih mudah diprediksi dan di-debug dibandingkan two-way binding yang digunakan framework lain.</p>
+                    <p>Gini cara kerjanya: React bikin salinan DOM di memori — ini yang disebut Virtual DOM. Salinan ini super ringan karena cuma objek JavaScript biasa, bukan DOM asli yang berat. Setiap kali <em>state</em> berubah, React bikin Virtual DOM baru, lalu bandingin sama versi sebelumnya. Proses nyari perbedaan ini namanya <strong class="text-white">diffing</strong>.</p>
+
+                    <p>Setelah tau bedanya di mana, React baru <strong class="text-accent">update bagian DOM yang bener-bener berubah doang</strong> — nggak semuanya. Proses ini disebut <strong class="text-white">reconciliation</strong>. Hasilnya? Update yang super efisien! 🎯</p>
+
+                    <p><strong class="text-white">TL;DR dari prosesnya:</strong></p>
+                    <ol class="list-decimal list-inside space-y-2 ml-2">
+                        <li>State berubah 🔄</li>
+                        <li>React bikin Virtual DOM baru 📋</li>
+                        <li>React bandingin Virtual DOM lama vs baru, cari bedanya 🔍</li>
+                        <li>Hanya DOM yang beda yang di-update di layar ✨</li>
+                    </ol>
+
+                    <p>Satu konsep penting lagi yang perlu kamu tahu: <strong class="text-white">one-way data flow</strong>. Di React, data itu mengalir dari atas ke bawah — dari komponen <em>parent</em> ke komponen <em>child</em> lewat sesuatu yang namanya <em>props</em>. Ini bikin alur datanya gampang ditebak dan gampang di-debug, dibanding framework yang pake two-way binding yang kadang bikin bingung "ini datanya berubah dari mana sih?!" 😅</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Ilustrasi: Cara Kerja Virtual DOM</span>
+                            <span class="text-xs text-gray-400 font-medium">Perbandingan: Cara Lama vs Cara React</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
-                        <pre><code class="language-javascript">// Contoh sederhana: tanpa Virtual DOM (cara lama)
-// Setiap perubahan langsung memanipulasi DOM
+                        <pre><code class="language-javascript">// ❌ Cara lama — langsung utik DOM manual
+// Setiap perubahan trigger repaint
 document.getElementById('title').textContent = 'Halo Baru';
 document.getElementById('counter').textContent = '1';
-// Repaint terjadi 2 kali ❌
+// Repaint terjadi 2 kali — boros! 😤
 
-// Dengan React Virtual DOM:
-// React menghitung diff lalu memperbarui sekaligus
+// ✅ Cara React — Virtual DOM ngurus semuanya
+// React hitung diff, lalu update DOM sekali aja
 function App() {
   const [title, setTitle] = useState('Halo');
   const [count, setCount] = useState(0);
 
-  // State berubah → Virtual DOM di-update → 
+  // State berubah → Virtual DOM di-update →
   // React hitung diff → DOM aktual di-update sekali ✅
   return (
     &lt;div&gt;
@@ -313,7 +335,7 @@ function App() {
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> Virtual DOM itu seperti draf foto di Photoshop. Alih-alih mengubah foto asli berkali-kali (yang lambat dan merusak kualitas), kamu buat salinan virtual, edit sebanyak mungkin di layer-layer, lalu <em>flatten</em> sekali saja ke gambar asli. Hasilnya lebih cepat dan lebih bersih!</p>
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 ANALOGI GAMBLANG:</strong> Virtual DOM itu kayak <strong>draft di aplikasi edit foto</strong>. Coba bayangin: kamu mau edit foto, tapi alih-alih edit langsung di foto asli, kamu buat salinan virtual-nya dulu. Di salinan virtual itu kamu bisa edit sana-sini sesuka hati — crop, ganti warna, tambah teks — tanpa ngaruh ke foto asli. Setelah kamu puas, barulah hasil akhirnya di-<em>flatten</em> ke foto asli. <strong>Satu kali apply, semua berubah.</strong> Itu yang dilakuin React sama DOM! 📸</p>
                 </div>
             </section>
 
@@ -325,7 +347,7 @@ function App() {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Hello World Pertamamu</h2>
+                            <h2 class="text-xl font-bold text-white">Hello World Pertamamu! 🎉</h2>
                             <input type="checkbox" id="check-1-4" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-1-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -334,26 +356,28 @@ function App() {
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Sekarang saatnya menulis kode React pertamamu! Kita akan membuat komponen sederhana yang menampilkan "Hello World" dan sedikit interaksi. Buka file <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">src/App.jsx</code> di proyek yang sudah kamu buat, dan ganti isinya.</p>
+                    <p>Sekarang waktunya seru-seruannya! Kita bakal nulis kode React pertamamu. Beneran, langsung coba! 💻</p>
 
-                    <p>Komponen React pada dasarnya adalah <strong class="text-white">fungsi JavaScript</strong> yang mengembalikan elemen UI (dalam format JSX yang akan kita pelajari di Bab 2). Setiap komponen bisa menerima data dari luar melalui <em>props</em> dan memiliki data internalnya sendiri melalui <em>state</em>.</p>
+                    <p>Buka file <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">src/App.jsx</code> di proyek Vite yang tadi kamu bikin, terus ganti semua isinya dengan kode di bawah ini.</p>
 
-                    <p>Dalam contoh di bawah, kita menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> — sebuah React Hook yang memungkinkan komponen fungsional memiliki state. Hook ini mengembalikan array dengan dua elemen: nilai state saat ini dan fungsi untuk mengubahnya. Ini adalah fondasi dari interaktivitas di React.</p>
+                    <p>Tapi sebelum itu, ada baiknya kamu paham dulu mindset-nya. Komponen React itu pada dasarnya cuma <strong class="text-white">fungsi JavaScript biasa</strong> yang nge-return elemen UI. Yap, sesimpel itu! Kamu udah bisa JavaScript? Kamu udah selangkah lebih deket sama React 🎯</p>
+
+                    <p>Di contoh ini, kita bakal pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> — ini adalah <strong class="text-accent">React Hook</strong> yang bikin komponen fungsional kita punya <em>state</em> (memori). Hook ini nge-return dua hal: nilai state-nya sekarang, dan fungsi buat ngubahnya. Ini fondasi dari semua interaktivitas di React!</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">src/App.jsx — Hello World dengan Interaksi</span>
+                            <span class="text-xs text-gray-400 font-medium">src/App.jsx — Hello World + Interaksi</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
 import './App.css';
 
 function App() {
-  // State untuk menyimpan nama
+  // State buat nyimpan nama — defaultnya "Dunia"
   const [nama, setNama] = useState('Dunia');
-  // State untuk menghitung klik
+  // State buat ngitung berapa kali user klik
   const [klik, setKlik] = useState(0);
 
   const handleClick = () => {
@@ -370,7 +394,7 @@ function App() {
         Halo, {nama}! 🎉
       &lt;/h1&gt;
       &lt;p style={{ color: '#9ca3af', marginTop: '1rem' }}&gt;
-        Ini adalah aplikasi React pertamamu.
+        Ini aplikasi React pertamamu. Keren, kan?
       &lt;/p&gt;
 
       &lt;div style={{ marginTop: '2rem' }}&gt;
@@ -378,7 +402,7 @@ function App() {
           type="text"
           value={nama}
           onChange={handleNameChange}
-          placeholder="Ketik namamu..."
+          placeholder="Ketik namamu di sini..."
           style={{
             padding: '0.75rem 1rem',
             borderRadius: '0.75rem',
@@ -409,9 +433,9 @@ function App() {
         &lt;/button&gt;
       &lt;/div&gt;
 
-      {klik >= 10 && (
+      {klik >= 10 &amp;&amp; (
         &lt;p style={{ color: '#f59e0b', marginTop: '1rem' }}&gt;
-          🎯 Kamu sudah klik {klik} kali! Semangat belajar React!
+          🎯 Wah kamu udah klik {klik} kali! Semangat belajar React!
         &lt;/p&gt;
       )}
     &lt;/div&gt;
@@ -422,8 +446,28 @@ export default App;</code></pre>
                     </div>
                 </div>
 
-                <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Kesalahan Umum:</strong> Jangan lupa mengimpor <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> dari <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">'react'</code> sebelum menggunakannya. Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu pastikan baris import ada di atas file.</p>
+                <div class="space-y-4 text-gray-300 leading-relaxed mt-6">
+                    <p><strong class="text-white">GIMANA? KEREN NGGAK?! 🤩</strong> Coba kamu perhatiin beberapa hal keren dari kode di atas:</p>
+
+                    <p><strong class="text-accent">1. Reaktivitas Otomatis.</strong> Pas kamu ketik nama di input, teks "Halo, {nama}!" langsung berubah. Nggak perlu manual update DOM — React ngurus semuanya. Itu kekuatan state!</p>
+
+                    <p><strong class="text-accent">2. Conditional Rendering.</strong> Lihat bagian <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{klik >= 10 && (...)}</code>? Itu artinya pesan kuning cuma muncul kalau kamu udah klik 10 kali atau lebih. JavaScript biasa yang langsung jadi logika UI!</p>
+
+                    <p><strong class="text-accent">3. Fungsi sebagai Komponen.</strong> Lihat? <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">function App()</code> — cuma fungsi biasa yang nge-return JSX. Simpel banget!</p>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-gray-300"><strong class="text-accent">🧪 COBA UTIK-UTIK!</strong> Sekarang coba beberapa eksperimen ini biar makin ngerasain React:</p>
+                    <ul class="mt-2 space-y-1 text-sm text-gray-300 list-disc list-inside ml-2">
+                        <li>Ganti default name dari <code class="bg-dark-700 px-1 py-0.5 rounded text-accent text-xs">'Dunia'</code> jadi nama kamu sendiri</li>
+                        <li>Tambahin state baru buat nge-tracking warna favorit</li>
+                        <li>Ubah threshold dari 10 klik jadi 50 klik — lihat apa yang berubah</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-400">Nggak perlu takut error — itu bagian dari belajar! 🚀</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ KESALAHAN YANG SERING TERJADI:</strong> Lupa import <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> dari <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">'react'</code>? Wajar banget, hampir semua developer pernah ngalamin ini 😂 Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu cek baris import di atas file ya!</p>
                 </div>
             </section>
 
@@ -434,31 +478,35 @@ export default App;</code></pre>
                         <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 1</h2>
-                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 1 ✅</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang udah kamu pelajari hari ini</p>
                     </div>
                 </div>
 
                 <ul class="space-y-3 text-gray-300">
                     <li class="flex items-start gap-3">
                         <span class="text-accent mt-1">✓</span>
-                        <span>React adalah library JavaScript untuk membangun UI dengan pendekatan berbasis komponen</span>
+                        <span>React itu library JavaScript buat bikin UI — bukan framework. Fokusnya cuma rendering!</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-accent mt-1">✓</span>
-                        <span>Cara membuat proyek React baru menggunakan Vite (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">npm create vite@latest</code>)</span>
+                        <span>Komponen React itu kayak bata LEGO — kecil-kecil, bisa dipake ulang, digabung jadi sesuatu yang besar 🧱</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-accent mt-1">✓</span>
-                        <span>Virtual DOM membuat React cepat dengan meminimalkan manipulasi DOM sesungguhnya</span>
+                        <span>Bikin proyek React pake Vite — <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">npm create vite@latest</code> — cepat dan modern ⚡</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-accent mt-1">✓</span>
-                        <span>Komponen React adalah fungsi yang mengembalikan elemen UI</span>
+                        <span>Virtual DOM bikin React cepat — kayak draft foto yang cuma di-apply sekali ke foto asli 📸</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-accent mt-1">✓</span>
-                        <span>Hook <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> digunakan untuk menambahkan state ke komponen fungsional</span>
+                        <span>Komponen React = fungsi JavaScript yang nge-return UI. Udah bisa JS? Kamu udah siap!</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent mt-1">✓</span>
+                        <span>Hook <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">useState</code> itu senjata rahasia buat bikin komponen jadi interaktif</span>
                     </li>
                 </ul>
 
