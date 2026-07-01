@@ -16,62 +16,85 @@
 <body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
+        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">&#x269B;&#xFE0F;</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
         <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
         <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
         <nav class="px-3 pb-6">
             <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance & Best Practices</span></a></div>
+            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React &amp; TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance &amp; Best Practices</span></a></div>
         </nav>
     </aside>
     <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🧪 Chapter 9</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">&#x1F9EA; Chapter 9</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 9</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React Testing</h1></div>
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 9</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">&#x1F9EA; React Testing</h1><p class="text-gray-400 text-lg">Pernah ngoding sampe jam 3 pagi, commit, terus di production... <strong class="text-white">BOOM</strong>? &#x1F480; Yeah, kita semua pernah di situ. Nah, chapter ini bakal bikin kamu tidur nyenyak.</p></div>
             
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. Jest &amp; React Testing Library Fundamentals</h3>
-                <p class="text-gray-300 mb-3">Jest adalah testing framework, React Testing Library (RTL) adalah library untuk testing komponen React dengan cara yang mendekati cara user menggunakan app.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Sum.test.tsx — contoh Jest
-import { render, screen, fireEvent } from &#x27;@testing-library/react&#x27;;
-import Counter from &#x27;./Counter&#x27;;
+                <h3 class="text-xl font-bold text-white mb-4">&#x1F914; KENAPA SIH HARUS NGETEST?</h3>
+                <p class="text-gray-300 mb-3">Oke, jujur. Dulu aku juga ngerasa testing itu buang-buang waktu. "Kan udah aku cek manual, jalan kok." Eits, kata siapa?</p>
+                <p class="text-gray-300 mb-3">Bayangin gini: kamu punya counter sederhana. Tinggal tombol + dan -. Gampang kan? Terus satu bulan kemudian, kamu refactor, nambah fitur, ubah state management... dan tiba-tiba counter-nya <strong class="text-red-400">nggak ke-reset pas user logout</strong>. User komplen. Kamu panik di jam 12 malam.</p>
+                <p class="text-gray-300 mb-3"><strong class="text-accent">Nah, itulah kenapa testing itu penting.</strong> Bukan buang waktu &mdash; tapi INVESTASI. Sekali tulis test, dia jaga kode kamu 24/7. Kayak security guard yang nggak pernah tidur &#x1F3E0;</p>
+                <p class="text-gray-300 mb-3">Di dunia React, ada dua tools utama yang bakal jadi best friend kamu:</p>
+                <ul class="list-none text-gray-300 mb-3 space-y-2">
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">Jest</strong> &mdash; si "hakim" yang jalanin test dan ngasih tau lulus atau nggak</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">React Testing Library (RTL)</strong> &mdash; si "pengguna palsu" yang ngetes komponen kamu kayak user asli</span></li>
+                </ul>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Analogi mudahnya:</strong> Jest itu kayak ruang ujian + pengawasnya. RTL itu kayak murid yang lagi ujian &mdash; dia buka komponen, klik tombol, baca teks, persis kayak user beneran. Kalau hasilnya sesuai ekspektasi, &#x1F44F; LULUS!</p></div>
+            </section>
 
-describe(&#x27;Counter&#x27;, () =&gt; {
-  test(&#x27;renders initial count&#x27;, () =&gt; {
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">&#x26A1; JEST + RTL: DYNAMIC DUO TESTIMU</h3>
+                <p class="text-gray-300 mb-3">Yuk langsung liat contoh nyata. Misal kita punya komponen Counter yang super simpel &mdash; ada angka, tombol "Tambah", tombol "Kurang". Kita mau ngetes: <strong class="text-white">apakah dia beneran berfungsi?</strong></p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Counter.test.tsx &mdash; test pertamamu! &#x1F389;
+import { render, screen, fireEvent } from '@testing-library/react';
+import Counter from './Counter';
+
+describe('Counter', () =&gt; {
+  test('renders initial count', () =&gt; {
     render(&lt;Counter /&gt;);
-    expect(screen.getByText(&#x27;Count: 0&#x27;)).toBeInTheDocument();
+    expect(screen.getByText('Count: 0')).toBeInTheDocument();
   });
 
-  test(&#x27;increments count on click&#x27;, () =&gt; {
+  test('increments count on click', () =&gt; {
     render(&lt;Counter /&gt;);
-    const button = screen.getByText(&#x27;Tambah&#x27;);
+    const button = screen.getByText('Tambah');
     fireEvent.click(button);
-    expect(screen.getByText(&#x27;Count: 1&#x27;)).toBeInTheDocument();
+    expect(screen.getByText('Count: 1')).toBeInTheDocument();
   });
 
-  test(&#x27;decrements count on click&#x27;, () =&gt; {
+  test('decrements count on click', () =&gt; {
     render(&lt;Counter /&gt;);
-    fireEvent.click(screen.getByText(&#x27;Kurang&#x27;));
-    expect(screen.getByText(&#x27;Count: -1&#x27;)).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Kurang'));
+    expect(screen.getByText('Count: -1')).toBeInTheDocument();
   });
 });</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Testing philosophy RTL: &#x27;Test behavior, not implementation&#x27;. Jangan test apakah useState dipanggil, tapi test apakah angka di layar berubah saat tombol diklik. Ini membuat test lebih robust terhadap refactoring.</p></div>
+                <p class="text-gray-300 mb-3">Gimana, nggak serem kan? &#x1F973; Mari kita bedah pelan-pelan:</p>
+                <ul class="list-none text-gray-300 mb-3 space-y-2">
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">render()</strong> &mdash; kayak nyalain TV. Komponen kamu tampil di "layar virtual" yang bisa dites</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">screen</strong> &mdash; kayak mata kamu. Bisa cari teks, tombol, input &mdash; apa aja yang ada di "layar virtual"</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">fireEvent.click()</strong> &mdash; kayak jari kamu ngetuk layar hp. Mensimulasikan aksi user</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2726;</span><span><strong class="text-white">expect()</strong> &mdash; kayak kamu bilang, "Eh, harusnya gini ya..." kalau nggak sesuai, Jest bakal njerimin &#x1F4A5;</span></li>
+                </ul>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x26A0;&#xFE0F; HAL YANG SERING SALAH:</strong> Jangan ngetest <em>implementation detail</em>! Contoh: ngetes apakah useState dipanggil, atau apakah fungsi internal ke-trigger. Itu membleeeeet. Fokusnya: <strong class="text-white">"Apa yang user liat dan lakuin?"</strong> Bukan bagaimana kode-nya kerja di dalam.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Mindset RTL:</strong> <em>"Test behavior, not implementation."</em> Kamu itu jadi user, bukan developer. User nggak peduli kamu pake useState atau useReducer. Yang penting: klik tombol &rarr; angka berubah. Titik. &#x2705;</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Testing Async Components &amp; MSW</h3>
-                <p class="text-gray-300 mb-3">Komponen yang fetch data butuh pendekatan khusus. MSW (Mock Service Worker) memungkinkan mocking API di level network, sehingga test lebih realistis.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// UserList.test.tsx
-import { render, screen, waitFor } from &#x27;@testing-library/react&#x27;;
-import { rest } from &#x27;msw&#x27;;
-import { setupServer } from &#x27;msw/node&#x27;;
-import UserList from &#x27;./UserList&#x27;;
 
-// Mock API
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">&#x1F310; TEST KOMPONEN ASYNC (YANG FETCH DATA)</h3>
+                <p class="text-gray-300 mb-3">Nah, ini yang sering bikin pusing &#x1F635;&#x200D;&#x1F4AB; Komponen kamu fetch data dari API. Pas dijalanin di test... <strong class="text-white">GAGAL</strong>. Karena kan nggak ada API-nya di environment test!</p>
+                <p class="text-gray-300 mb-3">Dulu orang pake mock manual, atau jest.mock. Tapi itu ribet dan fragile. Sekarang ada cara yang lebih keren: <strong class="text-accent">MSW (Mock Service Worker)</strong>.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// UserList.test.tsx &mdash; ngetes yang fetch data
+import { render, screen, waitFor } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import UserList from './UserList';
+
+// Setup "server palsu" yang jawab API request
 const server = setupServer(
-  rest.get(&#x27;/api/users&#x27;, (req, res, ctx) =&gt; {
+  rest.get('/api/users', (req, res, ctx) =&gt; {
     return res(ctx.json([
-      { id: &#x27;1&#x27;, name: &#x27;Arif&#x27; },
-      { id: &#x27;2&#x27;, name: &#x27;Budi&#x27; }
+      { id: '1', name: 'Arif' },
+      { id: '2', name: 'Budi' }
     ]));
   })
 );
@@ -80,60 +103,83 @@ beforeAll(() =&gt; server.listen());
 afterEach(() =&gt; server.resetHandlers());
 afterAll(() =&gt; server.close());
 
-test(&#x27;renders user list&#x27;, async () =&gt; {
+test('renders user list', async () =&gt; {
   render(&lt;UserList /&gt;);
 
-  // Loading state
-  expect(screen.getByText(&#x27;Loading...&#x27;)).toBeInTheDocument();
+  // Loading... (user liat ini dulu)
+  expect(screen.getByText('Loading...')).toBeInTheDocument();
 
-  // Tunggu data
+  // Tunggu data dateng, terus cek nama muncul
   await waitFor(() =&gt; {
-    expect(screen.getByText(&#x27;Arif&#x27;)).toBeInTheDocument();
+    expect(screen.getByText('Arif')).toBeInTheDocument();
   });
-  expect(screen.getByText(&#x27;Budi&#x27;)).toBeInTheDocument();
+  expect(screen.getByText('Budi')).toBeInTheDocument();
 });</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> MSW itu seperti menyuapi komponen makanan tiruan (mock data) di level network. Bedanya dengan axios mock, MSW bekerja di service worker — artinya mock-nya berlaku untuk semua library HTTP, bahkan fetch() bawaan browser!</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Kenapa MSW keren banget?</strong> Bayangin MSW itu kayak <em>prank caller</em> yang pura-pura jadi server API kamu &#x1F602; Dia intercept semua HTTP request di level network &mdash; artinya nggak peduli kamu pake axios, fetch, atau library apa pun, mock-nya tetep jalan! Bedanya sama axios mock yang cuma nge-mock library-nya doang.</p></div>
+                <p class="text-gray-300 mb-3">Perhatikan juga <code class="text-accent bg-dark-700 px-2 py-0.5 rounded">waitFor()</code> &mdash; itu kayak kamu bilang, "Tunggu dulu sampe ini muncul, kalau lebih dari 5 detik baru gagal." Karena fetch data itu butuh waktu (meski cuma beberapa milidetik di test), kita perlu kasih dia waktu &#x231B;</p>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. E2E Testing dengan Playwright</h3>
-                <p class="text-gray-300 mb-3">End-to-end testing menguji aplikasi dari sudut pandang user nyata. Playwright adalah tool E2E modern yang support multiple browser, auto-wait, dan screenshot on failure.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-typescript">// tests/user-flow.spec.ts
-import { test, expect } from &#x27;@playwright/test&#x27;;
 
-test(&#x27;user login flow&#x27;, async ({ page }) =&gt; {
-  // Navigate
-  await page.goto(&#x27;/login&#x27;);
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-white mb-4">&#x1F3AD; E2E TESTING DENGAN PLAYWRIGHT</h3>
+                <p class="text-gray-300 mb-3">Oke, unit test sama integration test udah. Tapi ada satu level lagi yang bikin kamu makin pede: <strong class="text-accent">End-to-End (E2E) Testing</strong>.</p>
+                <p class="text-gray-300 mb-3">Analoginya gini: unit test itu kayak ngetes mesin mobil satu per satu &mdash; engine oke? rem oke? lampu oke? E2E test itu... <strong class="text-white">kamu beneran nyetir mobilnya keliling kota</strong> &#x1F697;&#x1F4A8;</p>
+                <p class="text-gray-300 mb-3">Playwright adalah tool E2E yang lagi hype banget (dan beneran bagus). Dia buka browser beneran, klik, ketik, scroll &mdash; persis kayak user. Support Chrome, Firefox, Safari. Dan yang paling asik: kalau test gagal, dia auto-screenshot biar kamu tau salahnya di mana &#x1F4F8;</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-typescript">// tests/user-flow.spec.ts &mdash; nyetir "mobil" &#x1F697;
+import { test, expect } from '@playwright/test';
 
-  // Fill form
-  await page.fill(&#x27;[name=&quot;email&quot;]&#x27;, &#x27;arif@example.com&#x27;);
-  await page.fill(&#x27;[name=&quot;password&quot;]&#x27;, &#x27;password123&#x27;);
+test('user login flow', async ({ page }) =&gt; {
+  // Buka halaman login
+  await page.goto('/login');
 
-  // Submit
-  await page.click(&#x27;button[type=&quot;submit&quot;]&#x27;);
+  // Isi form kayak user beneran
+  await page.fill('[name="email"]', 'arif@example.com');
+  await page.fill('[name="password"]', 'password123');
 
-  // Verify
-  await expect(page).toHaveURL(&#x27;/dashboard&#x27;);
-  await expect(page.locator(&#x27;h1&#x27;)).toContainText(&#x27;Dashboard&#x27;);
+  // Klik tombol submit
+  await page.click('button[type="submit"]');
+
+  // Cek: udah pindah ke dashboard?
+  await expect(page).toHaveURL('/dashboard');
+  await expect(page.locator('h1')).toContainText('Dashboard');
 });
 
-// Visual regression
-import { test, expect } from &#x27;@playwright/test&#x27;;
-
-test(&#x27;homepage visual&#x27;, async ({ page }) =&gt; {
-  await page.goto(&#x27;/&#x27;);
-  await expect(page).toHaveScreenshot(&#x27;homepage.png&#x27;);
+// Visual regression test &mdash; cek tampilan nggak berubah drastis
+test('homepage visual', async ({ page }) =&gt; {
+  await page.goto('/');
+  await expect(page).toHaveScreenshot('homepage.png');
 });</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> E2E testing itu seperti menjadi QA tester. Kamu buka browser (virtual), klik, ketik, scroll — persis seperti user. Kalau ada yang salah, Playwright bakal kasih screenshot error-nya!</p></div>
+                <p class="text-gray-300 mb-3">Yang terakhir itu <code class="text-accent bg-dark-700 px-2 py-0.5 rounded">toHaveScreenshot()</code> &mdash; ini fitur visual regression yang <strong class="text-white">sangat berguna</strong>. Playwright nyimpen screenshot, terus tiap kali test dijalanin, dia bandingkan sama screenshot sebelumnya. Kalau ada perbedaan (misalnya layout hancur), test gagal dan kamu bisa liat diff-nya. Asik kan? &#x1F60E;</p>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x26A0;&#xFE0F; Jangan kebanyakan E2E!</strong> E2E test itu lambat dan mahal (resource-nya). Pake unit test + integration test untuk sebagian besar logic, dan E2E cuma untuk <strong class="text-white">critical user flows</strong> kayak login, checkout, registrasi. Kira-kira 10-20% dari total test kamu aja.</p></div>
             </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-white mb-4">&#x1F9E0; TESTING PYRAMID: PETA JALAN TEST KAMU</h3>
+                <p class="text-gray-300 mb-3">Sebelum lanjut, ada satu konsep penting yang bakal ngasih kamu clarity soal "test apa yang harus ditulis." Namanya <strong class="text-accent">Testing Pyramid</strong>.</p>
+                <p class="text-gray-300 mb-3">Bayangin piramida... beneran piramida ya &#x1F447;</p>
+                <ul class="list-none text-gray-300 mb-3 space-y-3">
+                    <li class="flex items-start gap-3"><span class="text-3xl">&#x1F9F1;</span><div><strong class="text-white">BAGIAN BAWAH (paling banyak): Unit Test</strong><br>Test fungsi/helper/hook kecil. Cepat, murah, reliable. Pakai Jest + RTL. Ini fondasi test kamu.</div></li>
+                    <li class="flex items-start gap-3"><span class="text-3xl">&#x1F3F2;</span><div><strong class="text-white">BAGIAN TENGAH: Integration Test</strong><br>Test beberapa komponen yang kerja bareng. Misalnya form + validation + API call. Masih pakai Jest + RTL + MSW.</div></li>
+                    <li class="flex items-start gap-3"><span class="text-3xl">&#x1F3D4;&#xFE0F;</span><div><strong class="text-white">PUNCAK (paling sedikit): E2E Test</strong><br>Test flow user utama dari awal sampe akhir. Pakai Playwright. Lambat tapi bikin pede banget.</div></li>
+                </ul>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Rule of thumb:</strong> Kalau kamu bingung harus nulis test apa, tanya ke diri sendiri: <em>"Kalau bagian ini rusak, user bakal paling kena dampak di mana?"</em> Itu yang prioritas duluan ditest.</p></div>
+            </section>
+
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 9</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang react testing. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-8.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-10.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
+                <h3 class="text-xl font-bold text-accent mb-4">&#x1F4DD; RECAP: YANG HARUS KAMU BAWA PALING</h3>
+                <ul class="list-none text-gray-300 mb-6 space-y-2">
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2705;</span><span><strong class="text-white">Testing itu investasi</strong>, bukan buang waktu. Satu jam nulis test bisa selamatin kamu dari bug 3 jam di production</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2705;</span><span><strong class="text-white">Jest + RTL</strong> adalah combo utama buat test komponen React. Test behavior, bukan implementation!</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2705;</span><span><strong class="text-white">MSW</strong> itu cara modern mock API &mdash; intercept di level network, jadi bisa dipake library HTTP apa aja</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2705;</span><span><strong class="text-white">Playwright</strong> buat E2E test &mdash; buka browser beneran, test critical user flows aja</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent shrink-0">&#x2705;</span><span><strong class="text-white">Testing Pyramid</strong> &mdash; banyak unit test di bawah, sedikit E2E di atas. Jangan kebalik!</span></li>
+                </ul>
+                <p class="text-gray-400 text-sm mb-4">Sekarang kamu udah punya senjata buat bikin kode yang nggak cuma jalan, tapi juga <strong class="text-white">terbukti jalan</strong>. Selamat tidur nyenyak &#x1F4A4;&#x1F6CC;</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai &#x2705;</button>
+                <div class="flex gap-4 mt-4"><a href="chapter-8.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">&larr; Chapter sebelumnya</a><a href="chapter-10.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya &rarr;</a></div>
             </section>
         </div>
     </main>
     <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-    <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
+    <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='&#x2705; Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='&#x2705; Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
 </body>
 </html>
