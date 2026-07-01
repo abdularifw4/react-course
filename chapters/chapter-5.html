@@ -27,12 +27,14 @@
     <main class="lg:ml-72">
         <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🏗️ Chapter 5</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 5</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Advanced React Patterns</h1></div>
-            
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 5</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Advanced React Patterns</h1><p class="text-gray-400 text-lg">Pernah ngerasa nulis component yang sama berulang-ulang? 🤯 Nah, chapter ini bakal bikin kamu ngeh &ldquo;oh ternyata gitu caranya!&rdquo; &mdash; kita bakal bahas pola-pola React yang dipake pro di production.</p></div>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. Higher-Order Components (HOC)</h3>
-                <p class="text-gray-300 mb-3">HOC adalah fungsi yang menerima komponen dan mengembalikan komponen baru dengan kemampuan tambahan. Pattern ini banyak dipakai sebelum hooks muncul, tapi masih relevan untuk cross-cutting concerns.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// HOC: withAuth
+                <h3 class="text-xl font-bold text-white mb-4">🧥 HIGHER-ORDER COMPONENTS (HOC)</h3>
+                <p class="text-gray-300 mb-3">Bayangin kamu punya jaket anti-apa. Kamu bisa pakai jaket itu ke mana aja &mdash; ke kantor, ke mall, ke gym. Jaket-nya nambahin fungsi (perlindungan) tanpa ngubah badan kamu di dalemnya.</p>
+                <p class="text-gray-300 mb-3">Nah, <strong class="text-accent">HOC itu persis kayak jaket</strong>. Dia itu fungsi yang nge-wrap component kamu, terus ngereturn component baru yang udah ditambahin &ldquo;kekuatan&rdquo; &mdash; bisa auth, loading state, tracking, atau apapun.</p>
+                <p class="text-gray-300 mb-3">Kapan kita butuh HOC? Pas kamu ngerasa <em>&ldquo;Eh, ini logic ngecek auth-nya aku copy-paste ke 10 component nih&rdquo;</em>. Stop! 🛑 Itu tandanya kamu butuh HOC.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// HOC: withAuth &mdash; jaket keamanan buat component kamu
 function withAuth(Component) {
   return function AuthenticatedComponent(props) {
     const { user, isLoading } = useAuth();
@@ -44,11 +46,12 @@ function withAuth(Component) {
   };
 }
 
-// Pakai HOC
+// Tinggal pakai jaket-nya ke component mana aja!
 const ProtectedDashboard = withAuth(Dashboard);
 const ProtectedSettings = withAuth(Settings);
+const ProtectedProfile = withAuth(Profile);
 
-// HOC: withLoading
+// HOC: withLoading &mdash; jaket loading buat data fetching
 function withLoading(Component, fetchDataFn) {
   return function EnhancedComponent(props) {
     const [data, setData] = useState(null);
@@ -67,12 +70,15 @@ function withLoading(Component, fetchDataFn) {
     return &lt;Component data={data} {...props} /&gt;;
   };
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> HOC itu seperti jaket — kamu pakai jaket (HOC) di atas baju (component). Jaket memberikan fungsi tambahan (auth, loading, tracking) tanpa mengubah baju di dalamnya.</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Heads up!</strong> Sejak hooks muncul di React 16.8, HOC udah nggak sesering dulu dipake. Tapi jangan salah &mdash; library besar kayak <code class="text-accent">react-redux</code> dan <code class="text-accent">react-router</code> masih pake HOC (remember <code class="text-accent">connect()</code> dan <code class="text-accent">withRouter()</code>?). Jadi tetap worth to know!</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Render Props</h3>
-                <p class="text-gray-300 mb-3">Render props pattern memberikan kontrol penuh ke parent tentang bagaimana child harus dirender. Daripada hardcode UI di dalam child, child menerima fungsi sebagai prop yang mengembalikan JSX.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Render Props: MouseTracker
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">🎨 RENDER PROPS &mdash; KAMU YANG MASAK!</h3>
+                <p class="text-gray-300 mb-3">Pernah ke restoran yang menu-nya fix? Mau pesan ayam bakar tapi level pedasnya udah ditentuin chef. Annoying kan? 🤨</p>
+                <p class="text-gray-300 mb-3">Render props itu kebalikannya. Dia ngasih kamu <strong class="text-accent">bahan mentah (data)</strong>, terus <strong class="text-accent">kamu sendiri yang masak (render)</strong>. Jadi kamu punya kontrol penuh soal tampilan, sementara logic-nya diurus sama component yang provide data.</p>
+                <p class="text-gray-300 mb-3">Kapan pake render props? Pas kamu butuh component yang <em>logic-nya sama tapi tampilannya beda-beda</em>. Contoh: mouse tracker yang bisa render cursor custom, atau data fetcher yang bisa nampilin data dalam bentuk card, table, atau list.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Render Props: MouseTracker &mdash; dia cuma kasih data posisi mouse
 function MouseTracker({ render }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -82,39 +88,49 @@ function MouseTracker({ render }) {
     return () =&gt; window.removeEventListener(&#x27;mousemove&#x27;, handler);
   }, []);
 
+  // &quot;Ini bahan-bahannya, silakan masak sendiri ya!&quot;
   return render(position);
 }
 
-// Parent yang tentukan rendering
+// Parent yang tentukan rendering &mdash; ini yang namanya freedom! 🆓
 function App() {
   return (
     &lt;MouseTracker render={({ x, y }) =&gt; (
-      &lt;h1&gt;Mouse: {x}, {y}&lt;/h1&gt;
+      &lt;h1&gt;Kursor kamu di posisi: {x}, {y}&lt;/h1&gt;
     )} /&gt;
   );
 }
 
-// Versi children prop (lebih umum)
+// Versi children prop &mdash; lebih natural lagi kayak nulis HTML biasa
 function DataFetcher({ url, children }) {
   const [data, setData] = useState(null);
   useEffect(() =&gt; { fetch(url).then(r =&gt; r.json()).then(setData); }, [url]);
+
+  // Kirim data ke children sebagai fungsi
   return children(data);
 }
 
+// Pakai-nya enak banget, kayak compose React biasa!
 &lt;DataFetcher url=&#x27;/api/users&#x27;&gt;
-  {(users) =&gt; users.map(u =&gt; &lt;div key={u.id}&gt;{u.name}&lt;/div&gt;)}
+  {(users) =&gt; (
+    users ? users.map(u =&gt; &lt;div key={u.id}&gt;{u.name}&lt;/div&gt;)
+         : &lt;p&gt;Loading...&lt;/p&gt;
+  )}
 &lt;/DataFetcher&gt;</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Render props itu seperti restoran — kamu pesan bahan mentah (data), tapi kamu sendiri yang masak (render) sesuai selera. Lebih fleksibel daripada komponen yang sudah fix tampilannya.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata!</strong> Kamu udah sering pake render props tanpa sadar. Remember <code class="text-accent">&lt;Route&gt;</code> dari react-router yang pake <code class="text-accent">element</code> prop? Itu render props! Juga <code class="text-accent">children as function</code> pattern yang dipake banyak library modern. Mental model-nya gampang: <strong>&ldquo;aku kasih data, kamu yang decide mau render apa.&rdquo;</strong></p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. Compound Components</h3>
-                <p class="text-gray-300 mb-3">Compound components memungkinkan sekumpulan komponen bekerja sama untuk menyelesaikan satu tugas. Parent mengatur state, child mengakses state via context. Contoh klasik: select/option, tabs, accordion.</p>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-white mb-4">🧱 COMPOUND COMPONENTS &mdash; SET LEGO!</h3>
+                <p class="text-gray-300 mb-3">Pernah main LEGO? Satu blok sendiri nggak terlalu menarik. Tapi kalau dirangkai bareng blok-blok lain &mdash; wuis! Jadi kastil, pesawat, atau robot yang keren. 🏰</p>
+                <p class="text-gray-300 mb-3"><strong class="text-accent">Compound components</strong> itu kerjaannya sama kayak LEGO. Beberapa component yang keliatan terpisah, tapi sebenarnya mereka <em>berkomunikasi lewat context</em> dan ngerjain satu tugas bareng-bareng.</p>
+                <p class="text-gray-300 mb-3">Contoh paling klasik? <code class="text-accent">&lt;select&gt;</code> dan <code class="text-accent">&lt;option&gt;</code> di HTML. Mereka dua komponen beda, tapi saling ngerti. Nah kita bisa bikin kayak gitun di React!</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from &#x27;react&#x27;;
 
-// 1. Context untuk share state
+// 1. Context buat &quot;secret channel&quot; antar komponen
 const TabsContext = createContext();
 
-// 2. Parent: manage state
+// 2. Parent (Tabs) &mdash; dia bos-nya, dia pegang state
 function Tabs({ children, defaultValue }) {
   const [activeTab, setActiveTab] = useState(defaultValue);
   return (
@@ -124,7 +140,7 @@ function Tabs({ children, defaultValue }) {
   );
 }
 
-// 3. Child: akses shared state
+// 3. Child components &mdash; akses state lewat context
 function TabList({ children }) {
   return &lt;div className=&#x27;flex gap-2&#x27;&gt;{children}&lt;/div&gt;;
 }
@@ -136,7 +152,9 @@ function Tab({ value, children }) {
     &lt;button
       onClick={() =&gt; setActiveTab(value)}
       className={isActive ? &#x27;bg-accent text-dark-900&#x27; : &#x27;bg-dark-700 text-gray-300&#x27;}
-    &gt;{children}&lt;/button&gt;
+    &gt;
+      {children}
+    &lt;/button&gt;
   );
 }
 
@@ -146,39 +164,54 @@ function TabPanel({ value, children }) {
   return &lt;div&gt;{children}&lt;/div&gt;;
 }
 
-// Pakai
+// Pakai-nya super natural &mdash; kayak nulis HTML biasa!
 function App() {
   return (
-    &lt;Tabs defaultValue=&#x27;tab1&#x27;&gt;
+    &lt;Tabs defaultValue=&#x27;profil&#x27;&gt;
       &lt;TabList&gt;
-        &lt;Tab value=&#x27;tab1&#x27;&gt;Profil&lt;/Tab&gt;
-        &lt;Tab value=&#x27;tab2&#x27;&gt;Settings&lt;/Tab&gt;
+        &lt;Tab value=&#x27;profil&#x27;&gt;Profil&lt;/Tab&gt;
+        &lt;Tab value=&#x27;settings&#x27;&gt;Settings&lt;/Tab&gt;
+        &lt;Tab value=&#x27;notifikasi&#x27;&gt;Notifikasi&lt;/Tab&gt;
       &lt;/TabList&gt;
-      &lt;TabPanel value=&#x27;tab1&#x27;&gt;&lt;ProfilForm /&gt;&lt;/TabPanel&gt;
-      &lt;TabPanel value=&#x27;tab2&#x27;&gt;&lt;SettingsForm /&gt;&lt;/TabPanel&gt;
+      &lt;TabPanel value=&#x27;profil&#x27;&gt;&lt;ProfilForm /&gt;&lt;/TabPanel&gt;
+      &lt;TabPanel value=&#x27;settings&#x27;&gt;&lt;SettingsForm /&gt;&lt;/TabPanel&gt;
+      &lt;TabPanel value=&#x27;notifikasi&#x27;&gt;&lt;NotifSettings /&gt;&lt;/TabPanel&gt;
     &lt;/Tabs&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Compound components itu seperti set LEGO — setiap blok punya fungsi sendiri, tapi kalau dirangkai jadi satu, membentuk sesuatu yang utuh. API-nya natural: &lt;Tabs&gt;&lt;Tab /&gt;&lt;TabPanel /&gt;&lt;/Tabs&gt;.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kenapa ini keren?</strong> Karena API-nya super readable! Siapapun baca kode <code class="text-accent">&lt;Tabs&gt;&lt;Tab /&gt;&lt;TabPanel /&gt;&lt;/Tabs&gt;</code> langsung paham maksudnya. Nggak perlu baca dokumentasi panjang. Ini yang bikin library kayak Radix UI dan Headless UI populer &mdash; API-nya intuitive banget!</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">4. Container vs Presentational Pattern</h3>
-                <p class="text-gray-300 mb-3">Memisahkan komponen yang mengurus logic (container) dari yang mengurus tampilan (presentational). Ini membuat kode lebih terorganisir dan reusable.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Presentational: fokus tampilan saja, data dari props
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-white mb-4">👨‍🍳 CONTAINER vs PRESENTATIONAL &mdash; CHEF &amp; PELAYAN</h3>
+                <p class="text-gray-300 mb-3">Di restoran ada dua orang penting: <strong>chef</strong> yang masak di dapur (urus resep, bahan, teknik), dan <strong>pelayan</strong> yang sajikan makanan ke meja (urus tampilan, kerapian).</p>
+                <p class="text-gray-300 mb-3">Di React, konsepnya sama:</p>
+                <ul class="text-gray-300 mb-3 space-y-2 ml-4">
+                    <li>🍳 <strong class="text-white">Container</strong> = komponen yang urus logic &mdash; fetch data, manage state, handle events</li>
+                    <li>🍽️ <strong class="text-white">Presentational</strong> = komponen yang cuma nampilin UI &mdash; menerima data dari props, nggak punya state sendiri</li>
+                </ul>
+                <p class="text-gray-300 mb-3">Kenapa pisah? Supaya komponen presentational-nya <strong class="text-accent">bisa di-reuse</strong>. Component list user yang sama bisa dipake di halaman dashboard, halaman admin, atau halaman search &mdash; tinggal ganti container-nya!</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// 🍽️ Presentational: cuma nampilin, nggak ngurus data dari mana
+// Fokusnya: &quot;kalau aku dikasih data begini, aku render gini&quot;
 function UserList({ users, onSelect, isLoading }) {
-  if (isLoading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (isLoading) return &lt;div&gt;Memuat data...&lt;/div&gt;;
   return (
-    &lt;ul&gt;
+    &lt;ul className=&#x27;space-y-2&#x27;&gt;
       {users.map(user =&gt; (
-        &lt;li key={user.id} onClick={() =&gt; onSelect(user.id)}&gt;
-          {user.name} - {user.email}
+        &lt;li
+          key={user.id}
+          onClick={() =&gt; onSelect(user.id)}
+          className=&#x27;p-3 hover:bg-dark-700 rounded-lg cursor-pointer&#x27;
+        &gt;
+          {user.name} &mdash; {user.email}
         &lt;/li&gt;
       ))}
     &lt;/ul&gt;
   );
 }
 
-// Container: fokus logic, data fetching
+// 🍳 Container: urus logic &amp; data, terus &quot;sajikan&quot; ke presentational
+// Fokusnya: &quot;dari mana data-nya? apa yang terjadi kalau user klik?&quot;
 function UserListContainer() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -190,9 +223,11 @@ function UserListContainer() {
   }, []);
 
   const handleSelect = (id) =&gt; {
-    console.log(&#x27;Selected:&#x27;, id);
+    console.log(&#x27;User dipilih:&#x27;, id);
+    // Navigasi, buka modal, dll &mdash; logic di sini
   };
 
+  // Sajikan ke presentational component!
   return (
     &lt;UserList
       users={users}
@@ -201,12 +236,38 @@ function UserListContainer() {
     /&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Container = chef di dapur (urus resep &amp; bahan). Presentational = pelayan di ruang makan (hanya sajikan). Saat ini pattern ini sudah banyak digantikan custom hooks, tapi konsep pemisahan logic-UI tetap relevan.</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Update dunia modern:</strong> Pattern ini sekarang udah banyak <strong>digantikan sama custom hooks</strong>. Alih-alih bikin container component, kamu tinggal extract logic ke hook (misal <code class="text-accent">useUsers()</code>), terus langsung pake di presentational component. Tapi <em>mental model-nya tetap sama</em>: pisahin logic dan tampilan. Jangan campur aduk!</p></div>
             </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">🔀 KAPAN PAKAI POLA YANG MANA?</h3>
+                <p class="text-gray-300 mb-3">Oke, sekarang kamu udah kenal 4 pola. Pertanyaannya: <em>&ldquo;Gue harus pake yang mana sih?&rdquo;</em> Tenang, ini cheat sheet-nya:</p>
+                <div class="space-y-4 my-4">
+                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
+                        <p class="text-accent font-semibold mb-1">🧥 HOC</p>
+                        <p class="text-gray-400 text-sm">Pas kamu butuh nambahin behavior ke BANYAK komponen yang sama (auth guard, error boundary, analytics). Kayak jaket yang bisa dipake ke mana aja.</p>
+                    </div>
+                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
+                        <p class="text-accent font-semibold mb-1">🎨 Render Props</p>
+                        <p class="text-gray-400 text-sm">Pas logic-nya sama tapi tampilannya harus fleksibel. Component-nya kasih data, parent-nya yang decide render apa. Kayak restoran self-service.</p>
+                    </div>
+                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
+                        <p class="text-accent font-semibold mb-1">🧱 Compound Components</p>
+                        <p class="text-gray-400 text-sm">Pas kamu bikin &ldquo;suite&rdquo; komponen yang harus bekerja bareng (tabs, accordion, select). API-nya harus natural kayak nulis HTML biasa. Kayak set LEGO.</p>
+                    </div>
+                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
+                        <p class="text-accent font-semibold mb-1">👨‍🍳 Container/Presentational</p>
+                        <p class="text-gray-400 text-sm">Pas kamu mau pisahin logic dan tampilan. Tapi di era hooks, lebih baik pake custom hooks daripada bikin container component terpisah.</p>
+                    </div>
+                </div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Real talk:</strong> Di dunia nyata, kamu nggak harus pake semua pola ini di setiap project. Nggak perlu force! Pake yang make sense buat kasus kamu. Yang penting kamu <em>tahu</em> opsi-nya ada apa aja, jadi pas ketemu masalah yang cocok, kamu langsung &ldquo;Oh ini bisa pake compound components!&rdquo; 🎯</p></div>
+            </section>
+
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 5</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang advanced react patterns. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
+                <h3 class="text-xl font-bold text-accent mb-4">📝 KALAU KAMU UDAH SAMPAI SINI...</h3>
+                <p class="text-gray-300 mb-3">Selamat! 🎉 Kamu udah kenal 4 pola advanced React yang dipake developer pro di production. Ini bukan teori doang &mdash; ini pola yang kamu bakal temuin di library-library besar kayak Radix UI, Headless UI, React Router, dan Redux.</p>
+                <p class="text-gray-300 mb-6">Mental model yang penting: <strong class="text-accent">React itu soal komposisi</strong>. Semua pola ini punya tujuan yang sama &mdash; bikin kode kamu reusable, maintainable, dan enak dibaca. Jangan terlalu fokus ke &ldquo;nama pattern&rdquo;-nya, fokus ke <em>problem apa yang dia solve</em>.</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-4.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-6.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
             </section>
         </div>
