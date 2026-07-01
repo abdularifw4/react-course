@@ -21,222 +21,457 @@
         <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
         <nav class="px-3 pb-6">
             <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance & Best Practices</span></a></div>
+            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React &amp; TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance &amp; Best Practices</span></a></div>
         </nav>
     </aside>
     <main class="lg:ml-72">
         <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🧠 Chapter 4</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 4</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React Hooks Advanced</h1></div>
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 4</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React Hooks Advanced</h1><p class="text-gray-400 text-lg">Udah kenal useState, useEffect, dan teman-temannya? Sekarang waktunya naik level. Di chapter ini kita bakal bahas hooks yang bikin app kamu makin kenceng dan code-nya makin rapi. Siap? Let's go! 🚀</p></div>
             
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. useReducer — State Management Kompleks</h3>
-                <p class="text-gray-300 mb-3">Ketika state menjadi terlalu kompleks untuk useState, useReducer adalah solusinya. Pattern ini mirip Redux tapi built-in di React. useReducer menerima reducer function dan initial state, lalu mengembalikan state dan dispatch function.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useReducer } from &#x27;react&#x27;;
+                <h3 class="text-xl font-bold text-white mb-4">1. 💰 useMemo — Ngumpetin Hasil Kalkulasi</h3>
+                <p class="text-gray-300 mb-3">Pernah ngalamin app kamu lag pas ngetik di search bar? Padahal cuma filter data doang. Nah, itu biasanya karena kamu nge-rekalkulasi sesuatu yang <strong>sebenarnya nggak perlu</strong> di setiap render.</p>
+                <p class="text-gray-300 mb-3">Bayangin gini: kamu lagi masak nasi. Tiap kali kamu buka rice cooker buat cek, nasi-nya belum matang — tapi buka-tutup terus bikin steam keluar dan proses masaknya makin lama. <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useMemo</code> itu kayak timer di rice cooker-nya. Biar kamu nggak usah cek berkali-kali, dia cuma kasih tahu kalau emang udah berubah aja. 😄</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo } from 'react';
 
-// Reducer: fungsi murni yang tentukan state baru
-function todoReducer(state, action) {
+function ProductList({ products }) {
+  const [search, setSearch] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+
+  // ❌ TANPA useMemo — filter jalan TIAP KALI render, padahal
+  //    products sama search-nya nggak berubah saat toggle darkMode
+  const filteredProducts = products.filter(p =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // ✅ DENGAN useMemo — cuma re-kalkulasi kalau search atau products berubah
+  const filteredProductsOptimized = useMemo(() => {
+    console.log('Filtering... (cuma jalan kalau perlu)');
+    return products.filter(p =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [products, search]); // ← dependencies-nya
+
+  // darkMode berubah? filteredProductsOptimized NGGAK di-rekalkulasi.
+  // Mantap kan? 😎
+}</code></pre>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Pro tip:</strong> Jangan pake useMemo buat semuanya ya! Kalau kalkulasinya cuma simple kayak <code>arr.length + 1</code>, malah makin lambat karena overhead useMemo-nya sendiri. Pakai kalau kalkulasinya berat — filter data besar, sorting, atau mapping kompleks.</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Peringatan:</strong> useMemo itu <strong>bukan</strong> semantik guarantee — React bisa aja "lupa" hasil memoized-nya buat free up memory. Jangan depends on useMemo buat correctness, cuma buat performance aja.</p></div>
+            </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">2. 📦 useCallback — Nggak Perlu Bikin Function Baru Terus</h3>
+                <p class="text-gray-300 mb-3">Okay, ini temennya useMemo tapi khusus buat <strong>function</strong>. Kamu tau nggak, setiap kali komponen kamu re-render, semua function yang didefinisikan di dalamnya itu <em>di-buat ulang</em>? Ya, walaupun isinya sama persis.</p>
+                <p class="text-gray-300 mb-3">Analoginya gini: kamu punya resep masakan yang sama, tapi tiap hari kamu nulis ulang di kertas baru. Padahal kan bisa di-fotocopy dan dipakai berulang kali. Itu yang <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useCallback</code> lakukan — dia nge-"fotocopy" function kamu biar reference-nya tetap sama antar render. 📋</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useCallback, memo } from 'react';
+
+// Komponen anak yang di-memo biar nggak re-render kalau props-nya sama
+const HeavyButton = memo(function HeavyButton({ onClick, label }) {
+  console.log(`Rendering: ${label}`);
+  return (
+    &lt;button onClick={onClick}&gt;{label}&lt;/button&gt;
+  );
+});
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState('');
+
+  // ❌ TANPA useCallback — function baru TIAP RENDER
+  // HeavyButton akan re-render terus karena onClick reference berubah
+  const handleClick = () => {
+    setCount(c => c + 1);
+  };
+
+  // ✅ DENGAN useCallback — reference tetap sama selama deps nggak berubah
+  const handleClickMemoized = useCallback(() => {
+    setCount(c => c + 1);
+  }, []); // ← kosong karena setCount itu stabil (nggak pernah berubah)
+
+  // Sekarang HeavyButton nggak re-render pas kamu ngetik di input!
+  return (
+    &lt;div&gt;
+      &lt;input value={text} onChange={e => setText(e.target.value)} /&gt;
+      &lt;HeavyButton onClick={handleClickMemoized} label="Count" /&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kapan pakai useCallback?</strong> Sesungguhnya, kebanyakan kasus kamu nggak perlu ini. Hanya pakai kalau kamu ngirim function sebagai props ke komponen yang udah di-<code>React.memo</code>, atau function itu jadi dependency di <code>useEffect</code>/<code>useMemo</code> lain. Jangan over-engineer!</p></div>
+            </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-white mb-4">3. 🎯 useRef — Memory Rahasia yang Nggak Bikin Re-render</h3>
+                <p class="text-gray-300 mb-3">Ini hooks yang paling sering dipahami salah. Banyak orang kepikiran useRef cuma buat akses DOM element (kayak <code>document.getElementById</code>). Tapi sebenarnya dia jauh lebih powerful dari itu!</p>
+                <p class="text-gray-300 mb-3">Bayangin <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useRef</code> itu kayak <strong>kotak penyimpanan rahasia</strong> 📦. Isinya bisa kamu ubah kapan aja, tapi bedanya sama useState — <strong>nggak akan pernah bikin komponen re-render</strong>. Nilainya tetap ada dari render ke render, persis kayak variabel global tapi aman karena scoped ke komponen.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useRef, useEffect } from 'react';
+
+// 📌 KEGUNAAN 1: Fokus ke input secara otomatis
+function AutoFocusInput() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus(); // Boom! Langsung fokus
+  }, []);
+
+  return &lt;input ref={inputRef} placeholder="Aku auto-focus!" /&gt;;
+}
+
+// 📌 KEGUNAAN 2: Ngitung berapa kali render (tanpa bikin re-render!)
+function RenderCounter() {
+  const renderCount = useRef(0);
+  renderCount.current += 1; // Nggak trigger re-render sama sekali
+
+  return &lt;p&gt;Aku udah render {renderCount.current} kali&lt;/p&gt;;
+}
+
+// 📌 KEGUNAAN 3: Simpan previous value
+function PreviousValueTracker() {
+  const [value, setValue] = useState('');
+  const prevValue = useRef('');
+
+  useEffect(() => {
+    prevValue.current = value; // Simpan sebelum re-render
+  }, [value]);
+
+  return (
+    &lt;div&gt;
+      &lt;input onChange={e => setValue(e.target.value)} /&gt;
+      &lt;p&gt;Sekarang: {value}&lt;/p&gt;
+      &lt;p&gt;Sebelumnya: {prevValue.current}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// 📌 KEGUNAAN 4: Timer / interval ID (biar bisa di-clear)
+function Stopwatch() {
+  const [seconds, setSeconds] = useState(0);
+  const intervalRef = useRef(null);
+
+  const start = () => {
+    intervalRef.current = setInterval(() => {
+      setSeconds(s => s + 1);
+    }, 1000);
+  };
+
+  const stop = () => clearInterval(intervalRef.current);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{seconds}s&lt;/p&gt;
+      &lt;button onClick={start}&gt;Start&lt;/button&gt;
+      &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan lupa:</strong> <code>.current</code> adalah mutable — kamu bisa langsung assign nilainya. Tapi jangan baca/tulis <code>ref.current</code> pas proses rendering ya (di body function), karena nilainya belum tentu final. Pakai di <code>useEffect</code> atau event handler aja.</p></div>
+            </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-white mb-4">4. 🌍 useContext — Tamatnya Prop Drilling</h3>
+                <p class="text-gray-300 mb-3">Udah pernah ngalamin yang namanya <strong>prop drilling</strong> belum? Jadi gini — kamu punya data theme (dark/light), terus kamu kirim lewat props dari App → Header → Navbar → ThemeToggle. Nah, Header dan Navbar nggak butuh data theme sama sekali, tapi mereka jadi "korban" harus nerima dan meneruskan props-nya. Capek kan? 😩</p>
+                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useContext</code> itu solusinya. Bayangin dia kayak <strong>pengumuman sekolah lewat speaker</strong> 📢. Daripada info harus disampaikan dari satu orang ke orang ke orang (prop drilling), speaker bisa langsung nyampai ke semua kelas yang butuh. Siapapun yang punya speaker (Context), bisa denger pengumumannya.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
+
+// 1. Bikin Context dulu
+const ThemeContext = createContext();
+
+// 2. Bikin Provider komponen (yang ngasih data)
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('dark');
+
+  // Wrap semua value yang mau di-share dalam satu object
+  return (
+    &lt;ThemeContext.Provider value={{ theme, setTheme }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+
+// 3. Custom hook biar lebih clean (opsional tapi recommended ✨)
+function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme harus dipakai di dalam ThemeProvider!');
+  }
+  return context;
+}
+
+// 4. Pakai di komponen manapun — tanpa props!
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  // Tiba-tiba, komponen deep di hierarki bisa akses langsung
+  // Nggak perlu props dari atas lagi. Oh ternyata gitu! 🤯
+
+  return (
+    &lt;button onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}&gt;
+      Sekarang: {theme}
+    &lt;/button&gt;
+  );
+}
+
+// 5. Wrap App dengan Provider
+function App() {
+  return (
+    &lt;ThemeProvider&gt;
+      &lt;Header /&gt;
+      &lt;Main /&gt;
+      &lt;Footer /&gt;
+    &lt;/ThemeProvider&gt;
+  );
+}</code></pre>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Best practice:</strong> Selalu bikin custom hook untuk context kamu (kayak <code>useTheme()</code> di atas). Kenapa? (1) Nggak perlu import Context-nya di tiap komponen, (2) Bisa kasih error message kalau lupa wrap Provider, (3) Lebih clean dan readable.</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan kebablasan:</strong> Context itu <strong>bukan</strong> replacement buat state management library (Redux, Zustand, dll). Setiap kali context value berubah, <strong>SEMUA</strong> komponen yang consume itu context bakal re-render. Buat data yang sering berubah (kayak input teks), lebih baik pake state management library atau local state aja.</p></div>
+            </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">5. 🎛️ useReducer — Kalau useState Udah Nggak Kuat</h3>
+                <p class="text-gray-300 mb-3">Pernah punya komponen yang state-nya kayak spaghetti? Lima <code>useState</code> bertumpuk, dan logic-nya saling ketergantungan. Pas kamu update satu state, harus update state lainnya juga. Kodenya jadi rame dan susah di-trace. 😵‍💫</p>
+                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useReducer</code> itu kayak <strong>dashboard kontrol di pesawat</strong> ✈️. Daripada ada banyak tombol independen yang masing-masing ngatur bagian berbeda, semua kontrol masuk ke satu panel sentral. Pilot (reducer) yang ngatur semua — tinggal terima perintah (action) dan tentukan hasilnya.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useReducer } from 'react';
+
+// Reducer = "otak" yang nentuin state baru dari action
+function formReducer(state, action) {
   switch (action.type) {
-    case &#x27;ADD&#x27;:
-      return [...state, { id: Date.now(), text: action.payload, done: false }];
-    case &#x27;TOGGLE&#x27;:
-      return state.map(t =&gt;
-        t.id === action.payload ? { ...t, done: !t.done } : t
-      );
-    case &#x27;DELETE&#x27;:
-      return state.filter(t =&gt; t.id !== action.payload);
+    case 'SET_FIELD':
+      return { ...state, [action.field]: action.value };
+    case 'RESET':
+      return action.initialState;
+    case 'SUBMIT':
+      return { ...state, isSubmitting: true };
+    case 'SUBMIT_SUCCESS':
+      return { ...state, isSubmitting: false, success: true };
+    case 'SUBMIT_ERROR':
+      return { ...state, isSubmitting: false, error: action.error };
     default:
       return state;
   }
 }
 
-function TodoApp() {
-  const [todos, dispatch] = useReducer(todoReducer, []);
-  const [input, setInput] = useState(&#x27;&#x27;);
-
-  const addTodo = () =&gt; {
-    if (input.trim()) {
-      dispatch({ type: &#x27;ADD&#x27;, payload: input });
-      setInput(&#x27;&#x27;);
-    }
+function ComplexForm() {
+  const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    isSubmitting: false,
+    success: false,
+    error: null,
   };
 
+  const [state, dispatch] = useReducer(formReducer, initialState);
+
+  // Sekarang semua logic terpusat di satu reducer
+  // Ngirim data? dispatch. Reset form? dispatch. Error handling? dispatch.
+  // Clean banget! 🧹
+
   return (
-    &lt;div&gt;
-      &lt;input value={input} onChange={e =&gt; setInput(e.target.value)} /&gt;
-      &lt;button onClick={addTodo}&gt;Tambah&lt;/button&gt;
-      {todos.map(t =&gt; (
-        &lt;div key={t.id}&gt;
-          &lt;span style={{textDecoration: t.done ? &#x27;line-through&#x27; : &#x27;none&#x27;}}&gt;
-            {t.text}
-          &lt;/span&gt;
-          &lt;button onClick={() =&gt; dispatch({type:&#x27;TOGGLE&#x27;,payload:t.id})}&gt;Toggle&lt;/button&gt;
-          &lt;button onClick={() =&gt; dispatch({type:&#x27;DELETE&#x27;,payload:t.id})}&gt;Hapus&lt;/button&gt;
-        &lt;/div&gt;
-      ))}
-    &lt;/div&gt;
+    &lt;form onSubmit={(e) => {
+      e.preventDefault();
+      dispatch({ type: 'SUBMIT' });
+    }}&gt;
+      &lt;input
+        value={state.name}
+        onChange={e => dispatch({ type: 'SET_FIELD', field: 'name', value: e.target.value })}
+      /&gt;
+      &lt;input
+        value={state.email}
+        onChange={e => dispatch({ type: 'SET_FIELD', field: 'email', value: e.target.value })}
+      /&gt;
+      &lt;button disabled={state.isSubmitting}&gt;
+        {state.isSubmitting ? 'Loading...' : 'Submit'}
+      &lt;/button&gt;
+      &lt;button type="button" onClick={() => dispatch({ type: 'RESET', initialState })}&gt;
+        Reset
+      &lt;/button&gt;
+    &lt;/form&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> useReducer itu seperti mesin tik: kamu kirim &#x27;perintah&#x27; (dispatch), dan mesin menentukan apa yang terjadi (reducer). Lebih predictable daripada setState karena semua logic state ada di satu tempat.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kapan pilih useReducer vs useState?</strong> Kalau state kamu saling terkait dan update-nya kompleks — pake useReducer. Kalau cuma simple kayak toggle atau counter — useState udah cukup. Jangan force gunain useReducer buat hal yang simple, nanti malah over-engineered. Intinya: <strong>pake yang paling mudah dipahami untuk kasusmu</strong>.</p></div>
             </section>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Custom Hooks — Reusability Logic</h3>
-                <p class="text-gray-300 mb-3">Custom hooks memungkinkan kamu mengekstrak dan mereuse logic komponen. Cukup buat fungsi yang dimulai dengan 'use', dan kamu bisa menggunakan hooks lain di dalamnya. Ini adalah cara paling powerful untuk share logic antar komponen.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Custom hook: useLocalStorage
+                <h3 class="text-xl font-bold text-white mb-4">6. 🧩 Custom Hooks — Superpower React yang Sebenarnya</h3>
+                <p class="text-gray-300 mb-3">Okay, ini bagian yang paling <strong>"oh ternyata gitu!"</strong> dari semua hooks. Custom hooks itu bukan feature yang separate — dia lebih kayak <strong>cara berpikir</strong>. Semua hooks yang udah kita bahas? Itu bisa kamu gabung jadi satu "super hook" yang reusable di mana aja.</p>
+                <p class="text-gray-300 mb-3">Bayangin kamu punya 3 komponen yang butuh logic fetch data + loading + error. Tanpa custom hook, kamu nulis logic yang sama 3 kali. Dengan custom hook? Tulis sekali, pakai sepuasnya. Itu kayak punya resep masakan favorit — sekali tulis di buku resep, tinggal buka-buka lagi kalau mau masak. 📖🍳</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect, useCallback } from 'react';
+
+// 🔥 Custom hook: useFetch — buat fetch API yang clean
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [url]);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
+
+  return { data, loading, error, refetch: fetchData };
+}
+
+// 🔥 Custom hook: useLocalStorage — persist state ke localStorage
 function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() =&gt; {
-    const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : initialValue;
+  const [value, setValue] = useState(() => {
+    try {
+      const saved = localStorage.getItem(key);
+      return saved ? JSON.parse(saved) : initialValue;
+    } catch {
+      return initialValue;
+    }
   });
 
-  useEffect(() =&gt; {
+  useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
   return [value, setValue];
 }
 
-// Custom hook: useWindowSize
-function useWindowSize() {
-  const [size, setSize] = useState({ width: 0, height: 0 });
-  useEffect(() =&gt; {
-    const handler = () =&gt; setSize({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-    handler();
-    window.addEventListener(&#x27;resize&#x27;, handler);
-    return () =&gt; window.removeEventListener(&#x27;resize&#x27;, handler);
-  }, []);
-  return size;
+// 🔥 Custom hook: useClickOutside — detect klik di luar element
+function useClickOutside(ref, handler) {
+  useEffect(() => {
+    const listener = (event) => {
+      if (!ref.current || ref.current.contains(event.target)) return;
+      handler(event);
+    };
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+    return () => {
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
 }
 
-// Custom hook: useDebounce
-function useDebounce(value, delay) {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() =&gt; {
-    const timer = setTimeout(() =&gt; setDebounced(value), delay);
-    return () =&gt; clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
-}
+// Pakai semuanya! 🎉
+function UserProfile() {
+  const { data: user, loading, error, refetch } = useFetch('/api/user');
+  const [theme, setTheme] = useLocalStorage('theme', 'dark');
+  const dropdownRef = useRef(null);
 
-// Pakai di komponen
-function SearchBar() {
-  const [query, setQuery] = useState(&#x27;&#x27;);
-  const debouncedQuery = useDebounce(query, 500);
-  // Fetch dengan debouncedQuery
+  useClickOutside(dropdownRef, () => {
+    setIsDropdownOpen(false);
+  });
+
+  if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+  if (error) return &lt;p&gt;Error: {error}&lt;/p&gt;;
+
+  return &lt;div&gt;Hello, {user.name}!&lt;/div&gt;;
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Custom hooks itu seperti resep masakan. Kamu campur beberapa bahan (hooks bawaan) menjadi satu masakan baru yang bisa dipakai berkali-kali di berbagai komponen.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Naming convention:</strong> Custom hook WAJIB namanya diawali <code>use</code> — misalnya <code>useFetch</code>, <code>useLocalStorage</code>, <code>useWindowSize</code>. Ini bukan sekadar konvensi, tapi ini yang bikin React bisa detect dan enforce Rules of Hooks.</p></div>
             </section>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. Rules of Hooks — Aturan yang Wajib Dipatuhi</h3>
-                <p class="text-gray-300 mb-3">React memiliki dua aturan wajib tentang hooks. Melanggar aturan ini akan menyebabkan bug yang sulit dilacak. ESLint plugin eslint-plugin-react-hooks bisa menangkap pelanggaran ini secara otomatis.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// ❌ ATURAN 1: Jangan panggil hooks di dalam condition/loop
+                <h3 class="text-xl font-bold text-white mb-4">7. 📏 Rules of Hooks — Dua Aturan Emas</h3>
+                <p class="text-gray-300 mb-3">React punya <strong>hanya 2 aturan</strong> soal hooks. Dua doang! Tapi kalau dilanggar, siap-siap chaos. Bug aneh yang nggak masuk akal, state yang ketuker, atau malah app crash. Yuk kita bahas biar kamu nggak pernah melanggarnya. 🙅‍♂️</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// ❌ ATURAN 1: JANGAN panggil hooks di dalam condition, loop, atau nested function
 function BadComponent({ showCounter }) {
   if (showCounter) {
-    const [count, setCount] = useState(0); // ERROR!
-  }
-  const [theme, setTheme] = useState(&#x27;dark&#x27;); // ERROR - hook ke-2 terkadang
-}
+    const [count, setCount] = useState(0); // 💀 KALAU showCounter = false,
+  }                                      //    hook ini hilang! React bingung.
+  const [theme, setTheme] = useState('dark'); // Kadang jadi hook pertama,
+}                                         // kadang jadi hook kedua. CHAOS!
 
-// ✅ BENAR: Selalu di top level
+// ✅ BENAR: Semua hooks DI TIER paling atas komponen
 function GoodComponent({ showCounter }) {
-  const [count, setCount] = useState(0);
-  const [theme, setTheme] = useState(&#x27;dark&#x27;);
-  if (!showCounter) return null; // Condition setelah semua hooks
+  const [count, setCount] = useState(0);      // Selalu hook ke-1
+  const [theme, setTheme] = useState('dark'); // Selalu hook ke-2
+
+  if (!showCounter) return null; // Condition-nya boleh di bawah
 }
 
-// ❌ ATURAN 2: Jangan panggil hooks dari fungsi JavaScript biasa
+
+// ❌ ATURAN 2: JANGAN panggil hooks dari regular JavaScript function
 function badHelper() {
-  const [value, setValue] = useState(&#x27;&#x27;); // ERROR!
+  const [value, setValue] = useState(''); // 💀 Ini bukan React component!
 }
 
-// ✅ BENAR: Hooks hanya di React components atau custom hooks
-function useMyHook() { // Nama dimulai &#x27;use&#x27; -&gt; custom hook
-  const [value, setValue] = useState(&#x27;&#x27;);
+// ✅ BENAR: Hooks cuma boleh di:
+// (1) React function components
+// (2) Custom hooks (function yang namanya diawali "use")
+function useMyHook() {  // ✅ Nama diawali "use" → custom hook
+  const [value, setValue] = useState('');
   return [value, setValue];
 }</code></pre>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Warning:</strong> Aturan ini ada karena React mengandalkan urutan pemanggilan hooks untuk mengasosiasikan state dengan komponen yang benar. Kalau urutannya berubah, React bingung!</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Kenapa sih aturan ini penting?</strong> React mengandalkan <strong>urutan</strong> pemanggilan hooks buat tau state mana yang mana. Hook ke-1 = state pertama, hook ke-2 = state kedua, dst. Kalau urutannya bisa berubah-ubah (karena condition), React nggak bisa matching state dengan benar. Makanya, <strong>hooks harus selalu dipanggil dalam urutan yang sama</strong> di setiap render.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Auto-enforcement:</strong> Pasang <code>eslint-plugin-react-hooks</code> di project kamu. Plugin ini otomatis nge-catch kalau kamu melanggar Rules of Hooks. Nggak perlu hafal aturannya — biar ESLint yang jaga. 🤖</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">4. useTransition &amp; useDeferredValue</h3>
-                <p class="text-gray-300 mb-3">useTransition memungkinkan kamu menandai update state tertentu sebagai 'non-urgent', sehingga UI tetap responsif saat ada update berat. useDeferredValue mirip tapi untuk values yang sudah ada.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useTransition, useDeferredValue } from &#x27;react&#x27;;
 
-// useTransition: menandai update sebagai non-urgent
-function SearchPage() {
-  const [query, setQuery] = useState(&#x27;&#x27;);
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">8. 🏎️ useTransition &amp; useDeferredValue — UI Tetap Smooth</h3>
+                <p class="text-gray-300 mb-3">Pernah bikin filter list yang pas kamu ngetik, seluruh halaman jadi <strong>lag dan nge-freeze</strong>? Itu karena filter 10.000 item itu jalan di main thread yang sama dengan rendering UI. Hasilnya? Typing-nya jadi choppy dan user kesel. 😤</p>
+                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useTransition</code> dan <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useDeferredValue</code> itu kayak bilang ke React: <em>"Eh, update yang ini nggak terlalu penting, kerjain nanti aja yang penting UI tetap responsif."</em> Mirip kayak ngasih priority lane di jalan tol — kendaraan VIP (user input) duluan, yang berat-berat (filter data) belakangan. 🛣️</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useTransition, useDeferredValue } from 'react';
+
+// useTransition: manual marking update sebagai "non-urgent"
+function SearchWithTransition() {
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isPending, startTransition] = useTransition();
 
-  const handleChange = (e) =&gt; {
+  const handleChange = (e) => {
     const value = e.target.value;
-    setQuery(value); // Urgent: input langsung update
-    startTransition(() =&gt; {
-      setResults(filterResults(value)); // Non-urgent: bisa ditunda
+    setQuery(value); // ⚡ URGENT — input langsung update, UI tetap smooth
+    startTransition(() => {
+      setResults(filterHeavyList(value)); // 🐢 NON-URGENT — boleh ditunda
     });
   };
 
   return (
     &lt;div&gt;
       &lt;input value={query} onChange={handleChange} /&gt;
-      {isPending ? &lt;Spinner /&gt; : &lt;ResultList results={results} /&gt;}
+      {isPending &amp;&amp; &lt;p className="opacity-50"&gt;Filtering...&lt;/p&gt;}
+      &lt;ul&gt;{results.map(item => &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;)}&lt;/ul&gt;
     &lt;/div&gt;
   );
 }
 
-// useDeferredValue: defer value yang sudah ada
-function FilterList({ items, filter }) {
-  const deferredFilter = useDeferredValue(filter);
-  const filtered = items.filter(item =&gt;
-    item.name.includes(deferredFilter)
-  );
-  return &lt;List items={filtered} /&gt;;
-}</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> useTransition itu seperti antrian VIP di restoran. Input user = VIP (langsung dilayani), pencarian hasil = antrian biasa (bisa menunggu). Ini mencegah UI freeze saat ada proses berat.</p></div>
-            </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">5. useSyncExternalStore</h3>
-                <p class="text-gray-300 mb-3">useSyncExternalStore memungkinkan komponen React subscribe ke external data source (di luar React) secara aman dari race conditions. Digunakan oleh library state management modern.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useSyncExternalStore } from &#x27;react&#x27;;
+// useDeferredValue: auto-defer sebuah value
+function SearchWithDeferred({ items }) {
+  const [filter, setFilter] = useState('');
+  const deferredFilter = useDeferredValue(filter); // ⏳ Otomatis ditunda
 
-// Subscribe ke browser online status
-function OnlineStatus() {
-  const isOnline = useSyncExternalStore(
-    (callback) =&gt; {
-      window.addEventListener(&#x27;online&#x27;, callback);
-      window.addEventListener(&#x27;offline&#x27;, callback);
-      return () =&gt; {
-        window.removeEventListener(&#x27;online&#x27;, callback);
-        window.removeEventListener(&#x27;offline&#x27;, callback);
-      };
-    },
-    () =&gt; navigator.onLine,      // Client snapshot
-    () =&gt; true                    // Server snapshot (SSR)
+  const filtered = items.filter(item =>
+    item.name.toLowerCase().includes(deferredFilter.toLowerCase())
   );
 
-  return &lt;span&gt;{isOnline ? &#x27;🟢 Online&#x27; : &#x27;🔴 Offline&#x27;}&lt;/span&gt;;
-}
-
-// Subscribe ke media query
-function useMediaQuery(query) {
-  return useSyncExternalStore(
-    (callback) =&gt; {
-      const mql = window.matchMedia(query);
-      mql.addEventListener(&#x27;change&#x27;, callback);
-      return () =&gt; mql.removeEventListener(&#x27;change&#x27;, callback);
-    },
-    () =&gt; window.matchMedia(query).matches,
-    () =&gt; false
+  return (
+    &lt;div&gt;
+      &lt;input value={filter} onChange={e => setFilter(e.target.value)} /&gt;
+      &lt;ul&gt;{filtered.map(item => &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> useSyncExternalStore adalah jembatan antara dunia React dan dunia non-React. Seperti charger universal — bisa nyambung ke mana saja.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 useTransition vs useDeferredValue?</strong> Pake <code>useTransition</code> kalau kamu sendiri yang trigger state update (kayak di event handler). Pake <code>useDeferredValue</code> kalau valuenya udah ada dan kamu cuma mau "slow down" penggunaannya. Two different tools, one same goal: keep UI responsive! 🎯</p></div>
             </section>
+
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
                 <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 4</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang react hooks advanced. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
+                <p class="text-gray-300 mb-4">Wah, kamu udah sampai akhir! 🎉 Ini ringkasan cepetnya:</p>
+                <div class="grid gap-3 mb-6">
+                    <div class="flex gap-3 items-start"><span class="text-2xl">💰</span><div><strong class="text-white">useMemo</strong><p class="text-sm text-gray-400">Cache hasil kalkulasi berat. Biar nggak re-kalkulasi di tiap render.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">📦</span><div><strong class="text-white">useCallback</strong><p class="text-sm text-gray-400">Cache function reference. Biar child component yang di-memo nggak re-render.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🎯</span><div><strong class="text-white">useRef</strong><p class="text-sm text-gray-400">Kotak penyimpanan rahasia. Nggak trigger re-render, bisa buat akses DOM atau simpan value.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🌍</span><div><strong class="text-white">useContext</strong><p class="text-sm text-gray-400">Stop prop drilling. Share data ke seluruh komponen tree tanpa kirim props berkali-kali.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🎛️</span><div><strong class="text-white">useReducer</strong><p class="text-sm text-gray-400">State management buat logic yang kompleks. Semua update logic terpusat di satu reducer function.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🧩</span><div><strong class="text-white">Custom Hooks</strong><p class="text-sm text-gray-400">Gabung hooks jadi super hook yang reusable. Ini nyata-nyata superpower React!</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🏎️</span><div><strong class="text-white">useTransition &amp; useDeferredValue</strong><p class="text-sm text-gray-400">Biar UI tetap smooth pas ngerjain update berat. Non-urgent updates ditunda.</p></div></div>
+                </div>
+                <p class="text-gray-300 mb-6">Sekarang kamu udah punya arsenal hooks yang lengkap! Dari yang basic sampe advanced. Ingat ya — jangan over-engineer. Pakai hooks yang kamu butuhkan, bukan yang kelihatan keren. Happy coding! 💚</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-3.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-5.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
             </section>
         </div>
