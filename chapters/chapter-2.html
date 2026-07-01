@@ -157,7 +157,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Memahami JSX</h2>
+                            <h2 class="text-xl font-bold text-white">JADI GINI CERITANYA... KENAPA SIH JSX ITU ADA? 🤔</h2>
                             <input type="checkbox" id="check-2-1" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -166,22 +166,24 @@
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p><strong class="text-accent">JSX</strong> (JavaScript XML) adalah ekstensi sintaks JavaScript yang memungkinkan kamu menulis elemen-elemen UI langsung di dalam kode JavaScript. JSX bukanlah HTML biasa — meskipun terlihat sangat mirip, JSX memiliki aturan dan perilaku khusus yang berbeda dari HTML. Di balik layar, JSX akan dikompilasi menjadi fungsi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> oleh Babel.</p>
+                    <p>Coba bayangin kamu lagi bikin UI pakai JavaScript vanilla. Mau bikin cuma sekadar heading sama paragraph, kode yang kamu tulis udah kayak nerangin resep ke robot 🤖:</p>
 
-                    <p>Keuntungan utama JSX adalah kamu bisa menulis struktur UI yang kompleks dengan cara yang intuitif dan mudah dibaca. Daripada menulis fungsi pemanggilan yang bertumpuk, JSX memungkinkan kamu menulis "template HTML" yang sebenarnya adalah kode JavaScript murni. Ini membuat developer bisa memahami struktur komponen hanya dengan melihat kodenya.</p>
+                    <p>Nah, di situlah <strong class="text-accent">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak? 😎</p>
 
-                    <p>Perlu diingat bahwa JSX memiliki beberapa aturan penting: (1) Selalu kembalikan <strong class="text-white">satu elemen root</strong> tunggal — jika ada beberapa elemen, bungkus dengan fragment atau <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;div&gt;</code>. (2) Gunakan <strong class="text-white">camelCase</strong> untuk atribut — <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> bukan <code>class</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> bukan <code>for</code>. (3) Tag self-closing memerlukan slash di akhir: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;img /&gt;</code>.</p>
+                    <p>Intinya gini: JSX itu <strong class="text-white">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin 🧠</p>
 
-                    <p>JSX juga mendukung <strong class="text-white">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Kamu bisa memasukkan variabel, panggilan fungsi, operasi matematika, ternary operator, dan bahkan render komponen lain di dalam JSX. Ini membuat JSX sangat fleksibel dan powerful.</p>
+                    <p>Kenapa nggak langsung pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun? 👇</p>
+
+                    <p>Oh iya, satu hal penting — JSX itu mendukung <strong class="text-white">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Artinya kamu bisa masukin variabel, panggil fungsi, bikin kalkulasi, bahkan nulis kondisi langsung di template UI kamu. Serba bisa pokoknya 💪</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">JSX vs React.createElement()</span>
+                            <span class="text-xs text-gray-400 font-medium">JSX vs React.createElement() — pilih mana? 😅</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
-                        <pre><code class="language-javascript">// Cara LAMA: tanpa JSX (sulit dibaca)
+                        <pre><code class="language-javascript">// Cara LAMA: tanpa JSX (mata berdarah 💀)
 const element = React.createElement(
   'h1',
   { className: 'greeting' },
@@ -189,20 +191,21 @@ const element = React.createElement(
   React.createElement('span', null, 'Dunia')
 );
 
-// Cara BARU: dengan JSX (mudah dibaca ✅)
+// Cara BARU: dengan JSX (hati tenang, pikiran jernih ✅)
 const element = (
   &lt;h1 className="greeting"&gt;
     Halo, &lt;span&gt;Dunia&lt;/span&gt;
   &lt;/h1&gt;
 );
 
-// Keduanya menghasilkan output yang SAMA persis!
-// JSX hanya "syntax sugar" di atas React.createElement()</code></pre>
+// Hasilnya SAMA PERSIS di browser!
+// JSX itu cuma "pemanis" biar kode kita enak dibaca
+// Bayangin kalo kode ribuan baris pake createElement... 🙃</code></pre>
                     </div>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi:</strong> JSX itu seperti menulis resep masakan dalam bahasa Indonesia, sementara <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> adalah instruksi mesin yang kompleks. Keduanya menghasilkan makanan yang sama, tapi JSX jauh lebih mudah dibaca oleh manusia!</p>
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi sederhana:</strong> JSX itu kayak kamu pesan makan di warung. Tinggal bilang "nasi goreng telur mata sapi, pedes, nggak pake kerupuk" — done. Sementara <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> itu kayak kamu kasih instruksi detail ke koki: "ambil nasi 200gram, masukkan wajan, nyalakan api sedang..." — sama hasilnya, tapi capek banget ngomongnya 😂</p>
                 </div>
             </section>
 
@@ -214,7 +217,7 @@ const element = (
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Aturan-Aturan JSX</h2>
+                            <h2 class="text-xl font-bold text-white">ATURAN JSX — KALO NGGAK IKUT, ERROR MENUNGGU 😤</h2>
                             <input type="checkbox" id="check-2-2" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -223,27 +226,27 @@ const element = (
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Menguasai JSX berarti memahami aturan-aturannya. Meskipun JSX mirip HTML, ada perbedaan penting yang jika diabaikan akan menyebabkan error. Berikut adalah aturan-aturan kunci yang harus selalu kamu ingat saat menulis JSX.</p>
+                    <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-white">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan 🪤</p>
 
-                    <p><strong class="text-white">Aturan 1: Satu Root Element.</strong> Setiap komponen React harus mengembalikan tepat satu elemen induk. Jika kamu perlu mengembalikan beberapa elemen, gunakan <strong class="text-accent">Fragment</strong> (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code>) agar tidak menambahkan node DOM ekstra.</p>
+                    <p><strong class="text-accent font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-accent">Fragment</strong> (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget! 🧹</p>
 
-                    <p><strong class="text-white">Aturan 2: Semua Tag Harus Ditutup.</strong> Di HTML, beberapa tag seperti <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> tidak perlu ditutup. Tapi di JSX, <em>semua</em> tag harus ditutup — baik dengan closing tag maupun self-closing slash.</p>
+                    <p><strong class="text-accent font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML 😅</p>
 
-                    <p><strong class="text-white">Aturan 3: camelCase untuk Atribut.</strong> Karena JSX adalah JavaScript, semua atribut mengikuti konvensi JavaScript. Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> (bukan class), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> (bukan for), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">onClick</code> (bukan onclick), dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">tabIndex</code> (bukan tabindex).</p>
+                    <p><strong class="text-accent font-bold">ATURAN 3: camelCase UNTUK ATRIBUT.</strong> Ini yang bikin paling banyak orang salah. Karena JSX itu JavaScript, semua nama atribut harus pakai camelCase. Jadi: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> (bukan <code>class</code>), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> (bukan <code>for</code>), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">onClick</code> (bukan <code>onclick</code>). Kebiasaan dari HTML harus dilupain sementara ya 🧠</p>
 
-                    <p><strong class="text-white">Aturan 4: Ekspresi JavaScript dalam Kurung Kurawal.</strong> Untuk menyisipkan variabel, fungsi, atau operasi JavaScript ke dalam JSX, bungkus dengan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Tanpa kurung kurawal, JSX akan memperlakukannya sebagai string biasa.</p>
+                    <p><strong class="text-accent font-bold">ATURAN 4: MASUKIN JAVASCRIPT PAKAI KURUNG KURAWAL {}</strong>. Mau nampilin variabel? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Mau nulis kondisi? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Mau panggil fungsi? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Tanpa kurung kurawal, JSX nggak akan ngeh itu kode JavaScript — dia anggap cuma text biasa 📝</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Contoh Aturan JSX yang Benar dan Salah</span>
+                            <span class="text-xs text-gray-400 font-medium">Bener vs Salah — dont be like the wrong side 😂</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
 
 function ProfilPengguna({ nama, umur, isOnline }) {
-  // ✅ Aturan 1: Satu root element (menggunakan Fragment)
+  // ✅ ATURAN 1: Satu root element (menggunakan Fragment)
   return (
     &lt;&gt;
       {isOnline &amp;&amp; &lt;span className="badge"&gt;● Online&lt;/span&gt;}
@@ -262,22 +265,22 @@ function ProfilPengguna({ nama, umur, isOnline }) {
         Klik
       &lt;/button&gt;
       
-      {/* Ternary operator juga berfungsi */}
-      &lt;p&gt;Status: {umur &gt;= 17 ? 'Dewasa' : 'Belum dewasa'}&lt;/p&gt;
+      {/* Ternary operator juga gaspol */}
+      &lt;p&gt;Status: {umur &gt;= 17 ? 'Dewasa' : 'Masih bocil'}&lt;/p&gt;
     &lt;/&gt;
   );
 }
 
-// ❌ KESALAHAN UMUM:
-// return &lt;div&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;B&lt;/p&gt;  // Tidak ada root element!
-// return &lt;img src="a.jpg"&gt;                  // Tag tidak ditutup!
+// ❌ JANGAN LAKUKAN INI (auto-kena error):
+// return &lt;div&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;B&lt;/p&gt;  // Gak ada root!
+// return &lt;img src="a.jpg"&gt;                  // Tag gak ditutup!
 // return &lt;div class="box"&gt;                 // Harus className!
-// return &lt;div&gt;{nama}&lt;/div&gt; tanpa import   // Variabel harus didefinisikan</code></pre>
+</code></pre>
                     </div>
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Perhatian:</strong> Komentar di JSX menggunakan sintaks <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{/* komentar */}</code>, BUKAN <code>//</code> atau <code>&lt;!-- --&gt;</code>. Komentar HTML biasa akan ditampilkan sebagai teks di halaman!</p>
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ FYI aja nih:</strong> Komentar di JSX itu beda lho dari JavaScript biasa. Kamu nggak bisa pake <code>//</code> di dalam JSX. Harus pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{/* komentar kamu di sini */}</code>. Kalau pake <code>&lt;!-- --&gt;</code> (komentar HTML), teksnya bakal ke-render sebagai tulisan di halaman. Pantesan aja halaman kamu aneh ternyata 😜</p>
                 </div>
             </section>
 
@@ -289,7 +292,7 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Menyisipkan Ekspresi & Variabel</h2>
+                            <h2 class="text-xl font-bold text-white">SI SUPERPOWER KURUNG KURAWAL {} 💎</h2>
                             <input type="checkbox" id="check-2-3" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -298,17 +301,19 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Salah satu fitur paling powerful dari JSX adalah kemampuan menyisipkan <strong class="text-white">ekspresi JavaScript</strong> langsung di dalam template UI. Dengan kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>, kamu bisa menampilkan variabel, memanggil fungsi, melakukan operasi matematika, dan bahkan menulis kondisi logika.</p>
+                    <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus 🚀</p>
 
-                    <p>Yang BISA kamu masukkan dalam kurung kurawal: variabel, angka, string, boolean (meskipun boolean tidak ditampilkan), ekspresi matematika, pemanggilan fungsi, ternary operator, array (yang akan dirender item per item), dan komponen React lainnya. Yang TIDAK BISA: pernyataan <code>if/else</code>, perulangan <code>for</code>, dan <code>var/let/const</code>.</p>
+                    <p>Nih daftar yang <strong class="text-accent">BOLEH</strong> kamu masukin ke dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>: <strong class="text-white">Variabel, string, angka, boolean</strong> — tampilin data dari state atau props. <strong class="text-white">Ekspresi matematika</strong> — kayak <code>{harga * jumlah}</code>. <strong class="text-white">Panggilan fungsi</strong> — bikin helper function terus panggil di JSX. <strong class="text-white">Ternary operator</strong> — buat kondisi singkat kayak <code>{isLogin ? 'Logout' : 'Login'}</code>. <strong class="text-white">Array</strong> — React bakal otomatis render tiap item-nya satu-satu!</p>
 
-                    <p>Untuk kondisi yang lebih kompleks dari ternary, gunakan pendekatan "render di luar JSX" — hitung hasilnya terlebih dahulu dalam variabel, lalu masukkan variabel tersebut ke dalam JSX. Ini membuat kode lebih bersih dan mudah dibaca.</p>
+                    <p>Sedangkan yang <strong class="text-yellow-400">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓
+
+                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-white">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p></p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Beragam Cara Menyisipkan Ekspresi di JSX</span>
+                            <span class="text-xs text-gray-400 font-medium">Bukti kehebatan kurung kurawal 🔥</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
@@ -321,7 +326,7 @@ function DaftarBelanja() {
   ]);
   const [diskon, setDiskon] = useState(10);
 
-  // Hitung di luar JSX untuk kondisi kompleks
+  // Hitung dulu di LUAR JSX — biar gak ribet
   const totalHarga = items.reduce((sum, item) => 
     sum + (item.harga * item.jumlah), 0
   );
@@ -339,11 +344,11 @@ function DaftarBelanja() {
     &lt;div className="p-6"&gt;
       &lt;h2 className="text-2xl font-bold mb-4"&gt;🛒 Daftar Belanja&lt;/h2&gt;
       
-      {/* Render array dengan .map() */}
+      {/* Render array pake .map() — React auto-render tiap item */}
       {items.map((item, index) =&gt; (
         &lt;div key={index} className="flex justify-between p-3 border-b"&gt;
           &lt;span&gt;{item.nama} × {item.jumlah}&lt;/span&gt;
-          {/* Ekspresi matematika */}
+          {/* Ekspresi matematika di dalam {} */}
           &lt;span&gt;{formatRupiah(item.harga * item.jumlah)}&lt;/span&gt;
         &lt;/div&gt;
       ))}
@@ -355,9 +360,9 @@ function DaftarBelanja() {
           Bayar: {formatRupiah(hargaDiskon)}
         &lt;/p&gt;
         
-        {/* Ternary operator untuk kondisi */}
+        {/* Ternary operator — kondisi dalam satu baris */}
         {totalHarga &gt; 50000 ? (
-          &lt;p className="text-yellow-400"&gt;🎉 Belanja di atas 50rb!&lt;/p&gt;
+          &lt;p className="text-yellow-400"&gt;🎉 Borongan nih! Dapet cashback!&lt;/p&gt;
         ) : (
           &lt;p className="text-gray-400"&gt;Tambah lagi yuk!&lt;/p&gt;
         )}
@@ -371,7 +376,7 @@ export default DaftarBelanja;</code></pre>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Tips:</strong> Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">Intl.NumberFormat</code> untuk memformat angka menjadi mata uang Rupiah. Ini fitur bawaan JavaScript yang sangat berguna dan mendukung berbagai mata uang internasional!</p>
+                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Pro tip:</strong> Mau format angka jadi Rupiah? Jangan pake manual string concatenation (udah kuno 😅). Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">Intl.NumberFormat('id-ID')</code> — fitur bawaan JavaScript yang gratis, support banyak mata uang, dan nggak perlu install library apapun. Hidden gem banget ini!</p>
                 </div>
             </section>
 
@@ -383,7 +388,7 @@ export default DaftarBelanja;</code></pre>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">Styling di JSX</h2>
+                            <h2 class="text-xl font-bold text-white">GAYA-GAYAAN DI JSX — BIAR GAK CUPU 🎨</h2>
                             <input type="checkbox" id="check-2-4" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
                         </div>
@@ -392,23 +397,27 @@ export default DaftarBelanja;</code></pre>
                 </div>
 
                 <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Ada tiga cara utama untuk memberi style pada elemen JSX: <strong class="text-accent">Inline Styles</strong> (objek JavaScript), <strong class="text-accent">CSS Modules</strong> (file CSS terpisah yang di-scope otomatis), dan <strong class="text-accent">CSS-in-JS Libraries</strong> (styled-components, Emotion). Masing-masing memiliki kelebihan untuk use case yang berbeda.</p>
+                    <p>UI tanpa style itu kayak nasi goreng tanpa kecap — masalah sih masih bisa dimakan, tapi nggak ada yang mau liat 👀. Di React (dan JSX tentunya), ada beberapa cara buat kasih style. Masing-masing punya momen dimana dia paling cocok dipake.</p>
 
-                    <p>Untuk <strong class="text-white">inline styles</strong> di JSX, kamu menggunakan objek JavaScript (bukan string CSS). Nama properti menggunakan camelCase: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code> bukan <code>background-color</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code> bukan <code>font-size</code>. Nilai harus berupa string, kecuali untuk angka (yang akan otomatis ditambahkan <code>px</code>).</p>
+                    <p><strong class="text-accent">Metode 1: Inline Styles.</strong> Ini paling gampang — langsung tulis style sebagai objek JavaScript di properti <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">style</code>. Tapi hati-hati, karena ini JavaScript, nama properti CSS-nya harus <strong class="text-white">camelCase</strong>. Jadi <code>background-color</code> jadi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code>, <code>font-size</code> jadi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code>. Angka buat unit <code>px</code> nggak perlu dikasih tanda petik — React otomatis tambahin. Cocok buat style yang dinamis (bergantung state) 🎯</p>
 
-                    <p><strong class="text-white">CSS Modules</strong> adalah pilihan populer untuk proyek skala menengah hingga besar. Dengan CSS Modules, nama kelas CSS secara otomatis di-generate menjadi nama unik saat build, sehingga tidak ada konflik kelas antar komponen. File CSS diberi nama dengan akhiran <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.module.css</code> dan di-import sebagai objek JavaScript.</p>
+                    <p><strong class="text-accent">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 😂
+
+                    <p><strong class="text-accent">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p></p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Tiga Cara Styling di React</span>
+                            <span class="text-xs text-gray-400 font-medium">3 teknik styling — pick your fighter! ⚔️</span>
                             <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
-                        <pre><code class="language-javascript">// ====== CARA 1: Inline Styles ======
+                        <pre><code class="language-javascript">// ====== CARA 1: Inline Styles (langsung di tag) ======
 function KartuInline() {
   const [hovered, setHovered] = useState(false);
   
+  
+  // Style itu OBJEK JavaScript, bukan string!
   const cardStyle = {
     padding: '1.5rem',
     borderRadius: '1rem',
@@ -432,12 +441,12 @@ function KartuInline() {
       &lt;h3 style={{ color: '#27d890', marginBottom: '0.5rem' }}&gt;
         Kartu Inline Style
       &lt;/h3&gt;
-      &lt;p&gt;Style ditulis sebagai objek JavaScript.&lt;/p&gt;
+      &lt;p&gt;Style berubah pas di-hover! Coba aja 👆&lt;/p&gt;
     &lt;/div&gt;
   );
 }
 
-// ====== CARA 2: CSS Modules ======
+// ====== CARA 2: CSS Modules (paling aman >) ======
 // File: Kartu.module.css
 // .kartu { padding: 1.5rem; border-radius: 1rem; }
 // .judul { color: #27d890; margin-bottom: 0.5rem; }
@@ -447,12 +456,12 @@ function KartuModule() {
   return (
     &lt;div className={styles.kartu}&gt;
       &lt;h3 className={styles.judul}&gt;Kartu CSS Module&lt;/h3&gt;
-      &lt;p&gt;Kelas CSS otomatis unik, tidak ada konflik!&lt;/p&gt;
+      &lt;p&gt;Kelas CSS-nya otomatis unik, gak bakal tabrakan! 🛡️&lt;/p&gt;
     &lt;/div&gt;
   );
 }
 
-// ====== CARA 3: Conditional Class Names ======
+// ====== CARA 3: Conditional Class Names (buat logic dinamis) ======
 function TombolStatus({ isActive }) {
   return (
     &lt;button className={`px-4 py-2 rounded-lg font-bold transition-colors
@@ -468,7 +477,7 @@ function TombolStatus({ isActive }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Kesalahan Umum:</strong> Jangan lupa bahwa di inline style, properti CSS menggunakan <strong>camelCase</strong>. Menulis <code>background-color</code> (dengan dash) akan menyebabkan error karena dash tidak valid dalam nama properti JavaScript. Gunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code> sebagai gantinya.</p>
+                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Jebakan paling sering:</strong> Lupa kalau properti CSS di inline style itu <strong>wajib camelCase</strong>. Nulis <code>background-color</code> (pake dash) bakal langsung error karena JavaScript nggak ngerti dash di nama properti. Error message-nya juga kadang nggak jelas. Jadi hafalin ini ya: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">borderRadius</code>. Semua disambung, tanpa dash! 🔗</p>
                 </div>
             </section>
 
@@ -479,24 +488,24 @@ function TombolStatus({ isActive }) {
                         <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 2</h2>
-                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                        <h2 class="text-xl font-bold text-white">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+                        <p class="text-sm text-gray-400 mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
                     </div>
                 </div>
                 <ul class="space-y-3 text-gray-300">
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>JSX adalah syntax sugar untuk <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> yang memudahkan penulisan UI</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Aturan JSX: satu root element, tag harus ditutup, camelCase, dan {} untuk ekspresi JS</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> memungkinkan menyisipkan variabel, fungsi, ternary, dan array</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Tiga cara styling: inline styles (objek JS), CSS Modules, dan conditional class names</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span>Fragment <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code> untuk mengembalikan beberapa elemen tanpa wrapper div</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">JSX itu syntax sugar</strong> — dia cuma "pemanis" dari <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code>. Hasilnya sama, tapi kode kita jadi rapi dan enak dibaca. Kayak pesen makan vs masak sendiri 😄</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error 🚫</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">Kurung kurawal {} itu superpower</strong> — bisa masukin variabel, fungsi, ternary operator, sampe render array pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.map()</code>. Tapi cuma expression ya, bukan statement!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">3 cara styling di React:</strong> inline styles (buat dynamic), CSS Modules (buat skala besar dan aman dari konflik), conditional class names (buat dinamis sederhana). Pilih sesuai kebutuhan!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">Fragment <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code></strong> itu lifesaver kalau kamu butuh return beberapa elemen tanpa nambahin div wrapper yang nggak perlu. Wrapper bayangan yang invisible!</span></li>
                 </ul>
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
                     <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai
+                        Tandai Bab Selesai ✅
                     </button>
                     <a href="chapter-3.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        Lanjut ke Bab 3
+                        Gas ke Bab 3 →
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
