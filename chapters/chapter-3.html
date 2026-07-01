@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Hooks Dasar - React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -11,96 +14,180 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: { dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' }, accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }}}}}
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
+                        muted: '#666666',
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                    },
+                }
+            }
+        }
     </script>
     <style>
-        *{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}
-        ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}
-        .lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}
-        .lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}
-        .nav-link{transition:background-color .2s cubic-bezier(.2,0,0,1),color .2s cubic-bezier(.2,0,0,1)}
-        .nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}
-        pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}
-        .fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0,1) both}
-        .fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-        .tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}
-        .warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}
-        .code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}
-        button:active{transform:scale(.96)}
+        * { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .tracking-tighter-2 { letter-spacing: -0.04em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .nav-link { transition: all 0.15s ease; }
+        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s ease both; }
+        .fade-in-d1 { animation-delay: 80ms; }
+        .fade-in-d2 { animation-delay: 160ms; }
+        .fade-in-d3 { animation-delay: 240ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
+        button:active { transform: scale(0.96); }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600">
-            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
-                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div>
-                <span class="text-lg font-bold text-white">React Course</span>
+<body class="bg-white text-ink min-h-screen antialiased">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/10">
+            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
             </a>
         </div>
         <div class="p-4">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
         <div class="px-4 pb-4">
-            <div class="bg-dark-700 rounded-xl p-3">
-                <div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div>
-                <div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div>
+            <div class="bg-[#F5F4F1] rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-black/5 rounded-full h-2">
+                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
             </div>
         </div>
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div>
-                <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a>
-                <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a>
-                <a href="chapter-3.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">3</span><span class="truncate">React Hooks Dasar</span></a>
-                <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a>
-                <a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a>
-                <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a>
-                <a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a>
-                <a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a>
-                <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a>
-                <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance & Best Practices</span></a>
-            </div>
+            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Dasar JavaScript
+            </a>
+            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                React Dasar
+            </a>
+            <a href="chapter-3.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
+                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Hooks Dasar
+            </a>
+            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                Hooks Advanced
+            </a>
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Advanced Patterns
+            </a>
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                React & TypeScript
+            </a>
+            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Next.js Fundamentals
+            </a>
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                State Management
+            </a>
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Testing
+            </a>
+            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Performance
+            </a>
         </nav>
     </aside>
+
+    <!-- Main Content -->
     <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-black/10 no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-black/5 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-bold text-ink">Bab 3: React Hooks Dasar</h1>
+                    </div>
+                </div>
+                <a href="chapter-4.html" class="hidden sm:inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors min-h-[40px]">
+                    Bab 4
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-black/10">
             <div class="flex items-center justify-between px-4 py-3 lg:px-8">
-                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-                <h2 class="text-sm text-gray-400">🪝 Chapter 3</h2>
-                <a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-[#F5F4F1] min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                <h2 class="text-sm text-muted">🪝 Chapter 3</h2>
+                <a href="../index.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Beranda</a>
             </div>
         </header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
             <div class="mb-8 fade-in">
-                <span class="text-sm font-mono text-accent">Chapter 3</span>
-                <h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React Hooks Dasar</h1>
-                <p class="text-gray-400 text-lg">Cara React “ngebantu” kita nulis komponen tanpa pusing class. Siap-siap, ini bagian yang <em class="text-accent">seru banget</em> 🔥</p>
+                <span class="text-sm font-mono text-ink">Chapter 3</span>
+                <h1 class="text-3xl lg:text-4xl font-bold text-ink mt-2 mb-4">React Hooks Dasar</h1>
+                <p class="text-muted text-lg">Cara React “ngebantu” kita nulis komponen tanpa pusing class. Siap-siap, ini bagian yang <em class="text-ink">seru banget</em> 🔥</p>
             </div>
 
             <!-- INTRO HOOK -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🤔 KENAPA SIH HOOKS ITU PENTING BANGET?</h3>
-                <p class="text-gray-300 mb-3">Oke, bayangin kamu lagi bikin aplikasi e-commerce. User klik tombol “Tambah ke Keranjang” — tapi <strong class="text-white">angkanya nggak berubah</strong>. Di halaman tetap nol. 😔</p>
-                <p class="text-gray-300 mb-3">Nah itu masalahnya kalau komponen kamu nggak punya <em class="text-accent">state</em>. Komponen fungsional dulu itu kayak kertas — sekali ditulis, selesai. Nggak bisa ngubah apa-apa setelah itu.</p>
-                <p class="text-gray-300 mb-3">Masuklah <strong class="text-white">React Hooks</strong> di React 16.8 (2019). Hooks itu cara React bilang ke komponen fungsional: <em>“Hei, kamu sekarang bisa punya memori sendiri, lho!”</em> 🧠</p>
-                <p class="text-gray-300 mb-3">Sebelum hooks, kalau mau punya state, kamu <strong class="text-white">harus</strong> pakai class component. Yang artinya nulis <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">constructor()</code>, <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">this.setState()</code>, <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">componentDidMount()</code> — belajar hal-hal yang sebenernya nggak perlu buat yang baru mulai.</p>
-                <p class="text-gray-300">Sekarang? Cukup fungsi biasa + hooks. Lebih simpel, lebih gampang dibaca, dan—yang paling penting—<strong class="text-accent">lebih fun</strong>. ✨</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">🤔 KENAPA SIH HOOKS ITU PENTING BANGET?</h3>
+                <p class="text-[#333] mb-3">Oke, bayangin kamu lagi bikin aplikasi e-commerce. User klik tombol “Tambah ke Keranjang” — tapi <strong class="text-ink">angkanya nggak berubah</strong>. Di halaman tetap nol. 😔</p>
+                <p class="text-[#333] mb-3">Nah itu masalahnya kalau komponen kamu nggak punya <em class="text-ink">state</em>. Komponen fungsional dulu itu kayak kertas — sekali ditulis, selesai. Nggak bisa ngubah apa-apa setelah itu.</p>
+                <p class="text-[#333] mb-3">Masuklah <strong class="text-ink">React Hooks</strong> di React 16.8 (2019). Hooks itu cara React bilang ke komponen fungsional: <em>“Hei, kamu sekarang bisa punya memori sendiri, lho!”</em> 🧠</p>
+                <p class="text-[#333] mb-3">Sebelum hooks, kalau mau punya state, kamu <strong class="text-ink">harus</strong> pakai class component. Yang artinya nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">constructor()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">this.setState()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount()</code> — belajar hal-hal yang sebenernya nggak perlu buat yang baru mulai.</p>
+                <p class="text-[#333]">Sekarang? Cukup fungsi biasa + hooks. Lebih simpel, lebih gampang dibaca, dan—yang paling penting—<strong class="text-ink">lebih fun</strong>. ✨</p>
 <div class="tip-box rounded-r-xl p-4 my-4">
                     <p class="text-sm"><strong>💡 Tip:</strong> Analoginya gini: Hooks itu kayak upgrade gratis buat motor kamu. Dari yang awalnya cuma bisa jalan lurus (komponen tanpa state), jadi bisa belok, ngerem, dan ngebut (punya state, lifecycle, dll). Tanpa perlu ganti motor (ke class component).</p>
                 </div>
             </section>
 
             <!-- SECTION 1: useState -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">1️⃣ USESTATE — “INGET-IN YANG INI YA, REACT!”</h3>
-                <p class="text-gray-300 mb-3">Pernah ngalamin ini? Kamu bikin tombol counter, tapi angkanya nggak pernah nambah. Kamu udah pasang <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">onClick</code>, udah nulis <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">count++</code>... tapi UI-nya tetap 0. 🤯</p>
-                <p class="text-gray-300 mb-3">Itu karena komponen fungsional <strong class="text-white">nggak punya memori</strong>. Setiap kali di-render, dia lupa sama sebelumnya. Kayak film <em>50 First Dates</em> — bangun, lupa semuanya. 😅</p>
-                <p class="text-gray-300 mb-3"><strong class="text-accent">useState</strong> itu obatnya. Dia kasih “ingatan” ke komponen kamu. Jadi React bisa ngerekam: “Oke, count-nya sekarang 5. Kalau user klik lagi, jadi 6.”</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Sintaks dasar — destrukturisasi array
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-ink mb-4">1️⃣ USESTATE — “INGET-IN YANG INI YA, REACT!”</h3>
+                <p class="text-[#333] mb-3">Pernah ngalamin ini? Kamu bikin tombol counter, tapi angkanya nggak pernah nambah. Kamu udah pasang <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">onClick</code>, udah nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">count++</code>... tapi UI-nya tetap 0. 🤯</p>
+                <p class="text-[#333] mb-3">Itu karena komponen fungsional <strong class="text-ink">nggak punya memori</strong>. Setiap kali di-render, dia lupa sama sebelumnya. Kayak film <em>50 First Dates</em> — bangun, lupa semuanya. 😅</p>
+                <p class="text-[#333] mb-3"><strong class="text-ink">useState</strong> itu obatnya. Dia kasih “ingatan” ke komponen kamu. Jadi React bisa ngerekam: “Oke, count-nya sekarang 5. Kalau user klik lagi, jadi 6.”</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Sintaks dasar — destrukturisasi array
 const [namaState, setNamaState] = useState(nilaiAwal);
 //      ↑               ↑                ↑
 //   baca data     ubah data        nilai awal
@@ -120,8 +207,8 @@ function Counter() {
     </div>
   );
 }</code></pre>
-                <p class="text-gray-300 mb-3">Gampang kan? <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">count</code> itu nilainya sekarang, <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">setCount</code> itu cara ngubahnya. Setiap kali kamu panggil <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">setCount</code>, React bakal otomatis re-render komponen dengan nilai baru.</p>
-                <p class="text-gray-300 mb-3">Tapi tunggu—kamu nggak cuma bisa punya SATU state. Satu komponen bisa punya <strong class="text-white">banyak useState</strong>, kayak gini:</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Multiple states — kayak punya banyak laci 🗄️
+                <p class="text-[#333] mb-3">Gampang kan? <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">count</code> itu nilainya sekarang, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">setCount</code> itu cara ngubahnya. Setiap kali kamu panggil <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">setCount</code>, React bakal otomatis re-render komponen dengan nilai baru.</p>
+                <p class="text-[#333] mb-3">Tapi tunggu—kamu nggak cuma bisa punya SATU state. Satu komponen bisa punya <strong class="text-ink">banyak useState</strong>, kayak gini:</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Multiple states — kayak punya banyak laci 🗄️
 function Form() {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
@@ -152,16 +239,16 @@ function Form() {
     </form>
   );
 }</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Mindset yang bener tentang useState: Bayangin useState itu kayak <strong class="text-white">variabel yang bisa update tampilan</strong>. Bedanya sama variabel biasa, kalau kamu ubah useState, React <em>otomatis</em> gambar ulang (re-render) komponen. Kalau variabel biasa? Diubah di belakang layar, tapi di layar tetap yang lama. Oh ternyata gitu! 🤯</p>
+                    <p class="text-sm"><strong>💡 Tip:</strong> Mindset yang bener tentang useState: Bayangin useState itu kayak <strong class="text-ink">variabel yang bisa update tampilan</strong>. Bedanya sama variabel biasa, kalau kamu ubah useState, React <em>otomatis</em> gambar ulang (re-render) komponen. Kalau variabel biasa? Diubah di belakang layar, tapi di layar tetap yang lama. Oh ternyata gitu! 🤯</p>
                 </div><div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> Yang sering salah: Jangan langsung mutate state! <code class="text-accent">count++</code> atau <code class="text-accent">array.push()</code> nggak bakal kerja. React butuh immutable update — selalu pakai setter function yang udah disediakan useState.</p>
+                    <p class="text-sm"><strong>⚠️ Warning:</strong> Yang sering salah: Jangan langsung mutate state! <code class="text-ink">count++</code> atau <code class="text-ink">array.push()</code> nggak bakal kerja. React butuh immutable update — selalu pakai setter function yang udah disediakan useState.</p>
                 </div>            </section>
             <!-- SECTION 2: useEffect -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2️⃣ USEEFFECT — “REACT, LAKUKAN INI SETELAH RENDER”</h3>
-                <p class="text-gray-300 mb-3">Okay, kamu udah bisa simpan data pakai useState. Tapi sekarang gimana cara <strong class="text-white">fetch data dari API</strong>? Atau set timer? Atau langganan event?</p>
-                <p class="text-gray-300 mb-3">Di dunia class component dulu, kamu pake lifecycle methods kayak <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">componentDidMount</code>, <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">componentDidUpdate</code>, dan <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">componentWillUnmount</code>. Tiga method buat tiga fase berbeda. Ribet, kan?</p>
-                <p class="text-gray-300 mb-3"><strong class="text-accent">useEffect</strong> gabungin semua itu jadi SATU hook. Dia bilang ke React: <em>“Hei, setelah kamu selesai render, lakukanin ini ya.”</em> 🫥</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-ink mb-4">2️⃣ USEEFFECT — “REACT, LAKUKAN INI SETELAH RENDER”</h3>
+                <p class="text-[#333] mb-3">Okay, kamu udah bisa simpan data pakai useState. Tapi sekarang gimana cara <strong class="text-ink">fetch data dari API</strong>? Atau set timer? Atau langganan event?</p>
+                <p class="text-[#333] mb-3">Di dunia class component dulu, kamu pake lifecycle methods kayak <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidUpdate</code>, dan <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentWillUnmount</code>. Tiga method buat tiga fase berbeda. Ribet, kan?</p>
+                <p class="text-[#333] mb-3"><strong class="text-ink">useEffect</strong> gabungin semua itu jadi SATU hook. Dia bilang ke React: <em>“Hei, setelah kamu selesai render, lakukanin ini ya.”</em> 🫥</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect } from 'react';
 
 // Skenario 1: Fetch data saat component pertama kali muncul
@@ -182,7 +269,7 @@ function UserProfile({ userId }) {
 
   if (loading) return <p>Loading... ⏳</p>;
   return <p>Halo, {user.name}! 👋</p>;
-}</code></pre>                <p class="text-gray-300 mb-3">Perhatikan yang di atas itu <code class="text-accent bg-dark-700 px-1.5 py-0.5 rounded">[userId]</code> di akhir useEffect. Itu namanya <strong class="text-accent">dependency array</strong> — dan ini adalah <strong class="text-white">KUNCI</strong> buat paham useEffect. Beneran, kalau nggak paham ini, kamu bakal kena bug yang bikin pusing 🤯.</p>
+}</code></pre>                <p class="text-[#333] mb-3">Perhatikan yang di atas itu <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">[userId]</code> di akhir useEffect. Itu namanya <strong class="text-ink">dependency array</strong> — dan ini adalah <strong class="text-ink">KUNCI</strong> buat paham useEffect. Beneran, kalau nggak paham ini, kamu bakal kena bug yang bikin pusing 🤯.</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Skenario 2: Cleanup — JANGAN LUPA INI!
 function Timer() {
   const [seconds, setSeconds] = useState(0);
@@ -198,7 +285,7 @@ function Timer() {
   }, []); // [] = jalan sekali, cleanup saat unmount
 
   return <p>{seconds} detik berlalu ⏱️</p>;
-}</code></pre>                <p class="text-gray-300 mb-3">Nah, cleanup itu penting banget. Tanpa cleanup, timer kamu bakal jalan terus walau komponennya udah nggak ada. Itu namanya <strong class="text-white">memory leak</strong> — dan itu bikin app kamu lambat kayak siput 🐌.</p>
+}</code></pre>                <p class="text-[#333] mb-3">Nah, cleanup itu penting banget. Tanpa cleanup, timer kamu bakal jalan terus walau komponennya udah nggak ada. Itu namanya <strong class="text-ink">memory leak</strong> — dan itu bikin app kamu lambat kayak siput 🐌.</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Skenario 3: Banyak effect sekaligus
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -221,20 +308,20 @@ function Dashboard() {
 }</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
                     <p class="text-sm"><strong>💡 Cheat sheet dependency array:</strong></p>
                     <ul class="mt-2 space-y-1 text-sm">
-                        <li>🚫 <strong class="text-white">Tanpa array</strong> → Jalan SETIAP render. <span class="text-red-400">Hati-hati, bisa infinite loop!</span></li>
-                        <li>📦 <strong class="text-white">[]</strong> (kosong) → Jalan sekali saja saat mount. Kayak <code class="text-accent">componentDidMount</code></li>
-                        <li>🎯 <strong class="text-white">[dep1, dep2]</strong> → Jalan saat dep berubah. Kayak <code class="text-accent">componentDidUpdate</code> yang spesifik</li>
+                        <li>🚫 <strong class="text-ink">Tanpa array</strong> → Jalan SETIAP render. <span class="text-red-400">Hati-hati, bisa infinite loop!</span></li>
+                        <li>📦 <strong class="text-ink">[]</strong> (kosong) → Jalan sekali saja saat mount. Kayak <code class="text-ink">componentDidMount</code></li>
+                        <li>🎯 <strong class="text-ink">[dep1, dep2]</strong> → Jalan saat dep berubah. Kayak <code class="text-ink">componentDidUpdate</code> yang spesifik</li>
                     </ul>
                 </div>
 <div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> JANGAN PERNAH lupa dependency array! Kalau kamu tulis <code class="text-accent">useEffect(() => { ... })</code> tanpa array di akhir, dia bakal jalan setiap render. Itu artinya fetch API setiap detik. Setiap detik. SERIUS. 🫢</p>
+                    <p class="text-sm"><strong>⚠️ Warning:</strong> JANGAN PERNAH lupa dependency array! Kalau kamu tulis <code class="text-ink">useEffect(() => { ... })</code> tanpa array di akhir, dia bakal jalan setiap render. Itu artinya fetch API setiap detik. Setiap detik. SERIUS. 🫢</p>
                 </div>            </section>
             <!-- SECTION 3: useRef -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3️⃣ USEREF — “RAHASIA YANG TERSEMBUNYI”</h3>
-                <p class="text-gray-300 mb-3">Pernah mau auto-focus ke input field saat halaman kebuka? Atau butuh nge-track nilai sebelumnya? Atau simpan timer ID?</p>
-                <p class="text-gray-300 mb-3">Nah kalau pakai useState buat hal-hal itu, kamu bakal kena re-render yang nggak perlu. Dan re-render yang nggak perlu itu... ibarat kamu disuruh tulis ulang seluruh dokumen cuma karena salah satu huruf. 😕</p>
-                <p class="text-gray-300 mb-3"><strong class="text-accent">useRef</strong> itu kayak laci rahasia. Kamu simpan apa aja di sana, nggak ada yang tau, dan <strong class="text-white">nggak memicu re-render</strong>. Cocok banget buat hal-hal yang “di belakang layar”.</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-ink mb-4">3️⃣ USEREF — “RAHASIA YANG TERSEMBUNYI”</h3>
+                <p class="text-[#333] mb-3">Pernah mau auto-focus ke input field saat halaman kebuka? Atau butuh nge-track nilai sebelumnya? Atau simpan timer ID?</p>
+                <p class="text-[#333] mb-3">Nah kalau pakai useState buat hal-hal itu, kamu bakal kena re-render yang nggak perlu. Dan re-render yang nggak perlu itu... ibarat kamu disuruh tulis ulang seluruh dokumen cuma karena salah satu huruf. 😕</p>
+                <p class="text-[#333] mb-3"><strong class="text-ink">useRef</strong> itu kayak laci rahasia. Kamu simpan apa aja di sana, nggak ada yang tau, dan <strong class="text-ink">nggak memicu re-render</strong>. Cocok banget buat hal-hal yang “di belakang layar”.</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useRef, useEffect, useState } from 'react';
 
 // 1. Auto-focus input — ini use case paling populer
@@ -272,13 +359,13 @@ function Counter() {
     </div>
   );
 }</code></pre><div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> Aturan emas useRef: <code class="text-accent">ref.current</code> bisa kamu ubah kapan aja, tapi kalau kamu butuh perubahannya <strong class="text-white">keliatan di UI</strong> — pakai useState, BUKAN useRef. Ref itu backend, state itu frontend. Jangan kebalik! 🔀</p>
+                    <p class="text-sm"><strong>⚠️ Warning:</strong> Aturan emas useRef: <code class="text-ink">ref.current</code> bisa kamu ubah kapan aja, tapi kalau kamu butuh perubahannya <strong class="text-ink">keliatan di UI</strong> — pakai useState, BUKAN useRef. Ref itu backend, state itu frontend. Jangan kebalik! 🔀</p>
                 </div>            </section>
             <!-- SECTION 4: useMemo -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">4️⃣ USEMEMO & USECALLBACK — “JANGAN KERJA DUA KALI KALAU NGGAK PERLU”</h3>
-                <p class="text-gray-300 mb-3">Bayangin kamu punya list 10.000 produk dan tiap kali user ngetik di search bar, kamu filter ulang SEMUA produk. Nah kalau proses filtering itu berat, UI kamu bisa lag. User klik, tunggu... klik lagi, tunggu... 😴</p>
-                <p class="text-gray-300 mb-3">Nah <strong class="text-accent">useMemo</strong> dan <strong class="text-accent">useCallback</strong> itu kayak cache di browser. Udah dihitung/dibuat sekali, kalau inputnya sama, tinggal pakai hasil yang lama. Done. ✅</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">4️⃣ USEMEMO & USECALLBACK — “JANGAN KERJA DUA KALI KALAU NGGAK PERLU”</h3>
+                <p class="text-[#333] mb-3">Bayangin kamu punya list 10.000 produk dan tiap kali user ngetik di search bar, kamu filter ulang SEMUA produk. Nah kalau proses filtering itu berat, UI kamu bisa lag. User klik, tunggu... klik lagi, tunggu... 😴</p>
+                <p class="text-[#333] mb-3">Nah <strong class="text-ink">useMemo</strong> dan <strong class="text-ink">useCallback</strong> itu kayak cache di browser. Udah dihitung/dibuat sekali, kalau inputnya sama, tinggal pakai hasil yang lama. Done. ✅</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo, useCallback, memo } from 'react';
 
 // useMemo: Cache hasil kalkulasi yang mahal
@@ -320,13 +407,13 @@ function Parent() {
     </div>
   );
 }</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Tapi jangan kebablasan ya! useMemo dan useCallback bukan berarti harus dipake di SEMUA tempat. Keduanya juga punya “biaya” — React harus nyimpen hasilnya di memori. Pakai kalau memang ada <strong class="text-white">masalah performa nyata</strong>, bukan sekadar “kayaknya lebih baik”. Premature optimization itu jahat! 😈</p>
+                    <p class="text-sm"><strong>💡 Tip:</strong> Tapi jangan kebablasan ya! useMemo dan useCallback bukan berarti harus dipake di SEMUA tempat. Keduanya juga punya “biaya” — React harus nyimpen hasilnya di memori. Pakai kalau memang ada <strong class="text-ink">masalah performa nyata</strong>, bukan sekadar “kayaknya lebih baik”. Premature optimization itu jahat! 😈</p>
                 </div>            </section>
             <!-- SECTION 5: useContext -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">5️⃣ USECONTEXT — “PENGUMUMAN UNTUK SEMUA ORANG”</h3>
-                <p class="text-gray-300 mb-3">Pernah ngalamin <strong class="text-white">props drilling</strong>? Jadi gini: kamu punya data theme di App, terus di-lempar ke Header → Navbar → MenuButton. Tiga component cuma buat nganterin SATU data. Rasanya kayak jadi kurir paket, tapi cuma bawa satu amplop 📦</p>
-                <p class="text-gray-300 mb-3"><strong class="text-accent">useContext</strong> itu solusinya. Dia kayak pengeras suara di sekolah. Ketua kelas (Provider) bilang sekali, semua murid (component) denger. Nggak perlu disampaikan satu-satu. 📢</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">5️⃣ USECONTEXT — “PENGUMUMAN UNTUK SEMUA ORANG”</h3>
+                <p class="text-[#333] mb-3">Pernah ngalamin <strong class="text-ink">props drilling</strong>? Jadi gini: kamu punya data theme di App, terus di-lempar ke Header → Navbar → MenuButton. Tiga component cuma buat nganterin SATU data. Rasanya kayak jadi kurir paket, tapi cuma bawa satu amplop 📦</p>
+                <p class="text-[#333] mb-3"><strong class="text-ink">useContext</strong> itu solusinya. Dia kayak pengeras suara di sekolah. Ketua kelas (Provider) bilang sekali, semua murid (component) denger. Nggak perlu disampaikan satu-satu. 📢</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
 
 // Step 1: Buat context dulu
@@ -369,9 +456,9 @@ function DeepChild() {
                     <p class="text-sm"><strong>💡 Tip:</strong> Kapan pakai useContext? Cocok buat data yang “global” dan jarang berubah: theme 🎨, auth user 🔐, locale/language 🌍. Tapi JANGAN pakai buat data yang sering banget berubah tiap detik — nanti semua component yang konsumsi bakal re-render terus. Buat itu, pakai state management library kayak Zustand atau Redux.</p>
                 </div>            </section>
             <!-- SECTION 6: Kesalahan Umum -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">6️⃣ KESALAHAN YANG BIKIN “AH, TERNYATA!” 🤦</h3>
-                <p class="text-gray-300 mb-3">Ini dia bagian yang paling berharga. Error yang bakal kamu temuin di dunia nyata, dan cara ngefix-nya. Belajar dari kesalahan orang lain itu lebih murah daripada ngalamin sendiri 💸</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">6️⃣ KESALAHAN YANG BIKIN “AH, TERNYATA!” 🤦</h3>
+                <p class="text-[#333] mb-3">Ini dia bagian yang paling berharga. Error yang bakal kamu temuin di dunia nyata, dan cara ngefix-nya. Belajar dari kesalahan orang lain itu lebih murah daripada ngalamin sendiri 💸</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// ❌ KESALAHAN 1: Hooks di dalam condition/loop
 function Bad({ isLoggedIn }) {
   if (isLoggedIn) {
@@ -423,34 +510,34 @@ const memoOptions = useMemo(() => ({ page, limit }), [page, limit]);
 useEffect(() => { fetchData(memoOptions); }, [memoOptions]);</code></pre><div class="warning-box rounded-r-xl p-4 my-4">
                     <p class="text-sm"><strong>⚠️ 3 Aturan Emas Hooks:</strong></p>
                     <ol class="mt-2 space-y-1 text-sm list-decimal list-inside">
-                        <li><strong class="text-white">Top level only!</strong> Nggak boleh di dalam if, loop, atau nested function.</li>
-                        <li><strong class="text-white">Functional update</strong> <code class="text-accent">c => c + 1</code> kalau state baru bergantung di state lama di useEffect.</li>
-                        <li><strong class="text-white">Primitive dependency!</strong> Object/array = referensi baru setiap render. Pakai useMemo atau pecah jadi primitive.</li>
+                        <li><strong class="text-ink">Top level only!</strong> Nggak boleh di dalam if, loop, atau nested function.</li>
+                        <li><strong class="text-ink">Functional update</strong> <code class="text-ink">c => c + 1</code> kalau state baru bergantung di state lama di useEffect.</li>
+                        <li><strong class="text-ink">Primitive dependency!</strong> Object/array = referensi baru setiap render. Pakai useMemo atau pecah jadi primitive.</li>
                     </ol>
                 </div>
             </section>
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 RECAP — YANG KAMU UDAH PELAJARI</h3>
-                <p class="text-gray-300 mb-4">Oke, kita udah bahas 6 hooks dasar React. Ini rangkumannya biar kamu nggak lupa:</p>
-                <ul class="text-gray-300 space-y-3 mb-6">
-                    <li><strong class="text-white">🧠 useState</strong> — Kasih “ingatan” ke komponen. Data yang berubah = re-render.</li>
-                    <li><strong class="text-white">⚡ useEffect</strong> — Lakukan side effect setelah render. Fetch data, timer, subscription.</li>
-                    <li><strong class="text-white">🔮 useRef</strong> — Laci rahasia. Akses DOM, simpan mutable value, tanpa re-render.</li>
-                    <li><strong class="text-white">📦 useMemo</strong> — Cache hasil kalkulasi mahal. Nggak perlu hitung ulang kalau inputnya sama.</li>
-                    <li><strong class="text-white">🪚 useCallback</strong> — Cache fungsi biar referensinya stabil. Anak-anak (child component) senang.</li>
-                    <li><strong class="text-white">📢 useContext</strong> — Pengumuman global. Akses data tanpa props drilling berantai.</li>
+            <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">
+                <h3 class="text-xl font-bold text-ink mb-4">📝 RECAP — YANG KAMU UDAH PELAJARI</h3>
+                <p class="text-[#333] mb-4">Oke, kita udah bahas 6 hooks dasar React. Ini rangkumannya biar kamu nggak lupa:</p>
+                <ul class="text-[#333] space-y-3 mb-6">
+                    <li><strong class="text-ink">🧠 useState</strong> — Kasih “ingatan” ke komponen. Data yang berubah = re-render.</li>
+                    <li><strong class="text-ink">⚡ useEffect</strong> — Lakukan side effect setelah render. Fetch data, timer, subscription.</li>
+                    <li><strong class="text-ink">🔮 useRef</strong> — Laci rahasia. Akses DOM, simpan mutable value, tanpa re-render.</li>
+                    <li><strong class="text-ink">📦 useMemo</strong> — Cache hasil kalkulasi mahal. Nggak perlu hitung ulang kalau inputnya sama.</li>
+                    <li><strong class="text-ink">🪚 useCallback</strong> — Cache fungsi biar referensinya stabil. Anak-anak (child component) senang.</li>
+                    <li><strong class="text-ink">📢 useContext</strong> — Pengumuman global. Akses data tanpa props drilling berantai.</li>
                 </ul>
 <div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Nggak perlu hafal semua sekarang. Yang paling penting kamu mahir dulu itu <strong class="text-accent">useState</strong> dan <strong class="text-accent">useEffect</strong> — itu duo yang bakal kamu pakai 90% waktu. Sisanya pelajari pelan-pelan sambil ngoding proyek nyata. Trust the process! 💪</p>
-                </div>                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai & Lanjut!</button>
+                    <p class="text-sm"><strong>💡 Tip:</strong> Nggak perlu hafal semua sekarang. Yang paling penting kamu mahir dulu itu <strong class="text-ink">useState</strong> dan <strong class="text-ink">useEffect</strong> — itu duo yang bakal kamu pakai 90% waktu. Sisanya pelajari pelan-pelan sambil ngoding proyek nyata. Trust the process! 💪</p>
+                </div>                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai & Lanjut!</button>
                 <div class="flex gap-4 mt-4">
-                    <a href="chapter-2.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a>
-                    <a href="chapter-4.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a>
+                    <a href="chapter-2.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+                    <a href="chapter-4.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
                 </div>
             </section>
         </div>
 </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]">
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-dark-900 rounded-full shadow-lg shadow-black/10 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
     <script>
@@ -462,5 +549,7 @@ useEffect(() => { fetchData(memoOptions); }, [memoOptions]);</code></pre><div cl
         updateProgress();if(progress.ch3){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}
         hljs.highlightAll();
     </script>
-</body>
+
+
+    </body>
 </html>

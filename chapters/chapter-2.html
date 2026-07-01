@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bab 2: JSX & Elemen React - React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -14,132 +17,161 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
                     colors: {
-                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
-                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
-                    }
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
+                        muted: '#666666',
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                    },
                 }
             }
         }
     </script>
     <style>
-        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #111827; }
-        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
-        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
-        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0.1), color 0.2s cubic-bezier(0.2,0,0.1); }
-        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        * { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .tracking-tighter-2 { letter-spacing: -0.04em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .nav-link { transition: all 0.15s ease; }
+        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
         pre code { border-radius: 0.75rem; font-size: 0.875rem; }
         h2 { text-wrap: balance; }
-        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
-        .fade-in-delay-1 { animation-delay: 100ms; }
-        .fade-in-delay-2 { animation-delay: 200ms; }
+        .fade-in { animation: fadeIn 0.4s ease both; }
+        .fade-in-d1 { animation-delay: 80ms; }
+        .fade-in-d2 { animation-delay: 160ms; }
+        .fade-in-d3 { animation-delay: 240ms; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
-        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
-        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
         button:active { transform: scale(0.96); }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+<body class="bg-white text-ink min-h-screen antialiased">
 
     <!-- Mobile Sidebar Overlay -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600">
-            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
-                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
-                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/10">
+            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
-                <span class="text-lg font-bold text-white">React Course</span>
+                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
             </a>
         </div>
         <div class="p-4">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
         <div class="px-4 pb-4">
-            <div class="bg-dark-700 rounded-xl p-3">
-                <div class="flex justify-between text-xs text-gray-400 mb-2">
+            <div class="bg-[#F5F4F1] rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
                     <span>Progress</span>
                     <span id="progressText">0/10</span>
                 </div>
-                <div class="w-full bg-dark-900 rounded-full h-2">
-                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                <div class="w-full bg-black/5 rounded-full h-2">
+                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
         <nav class="px-3 pb-6">
-            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">1</span>
-                Pengenalan React
+            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Dasar JavaScript
             </a>
-            <a href="chapter-2.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
-                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">2</span>
-                JSX & Elemen React
+            <a href="chapter-2.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
+                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                React Dasar
             </a>
-            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
-                Komponen & Props
+            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Hooks Dasar
             </a>
-            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
-                State & Lifecycle
+            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                Hooks Advanced
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
-                Event Handling
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Advanced Patterns
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
-                Conditional Rendering
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                React & TypeScript
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">7</span>
-                Lists & Keys
+            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Next.js Fundamentals
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
-                Hooks (useState, useEffect)
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                State Management
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
-                React Router
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Testing
             </a>
-            <a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
-                Project Akhir
+            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Performance
             </a>
         </nav>
     </aside>
 
     <!-- Main Content -->
     <main class="lg:ml-72 min-h-screen">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-black/10 no-print">
             <div class="flex items-center justify-between px-4 lg:px-8 py-4">
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-black/5 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-bold text-ink">Bab 2: JSX & Elemen React</h1>
+                    </div>
+                </div>
+                <a href="chapter-3.html" class="hidden sm:inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors min-h-[40px]">
+                    Bab 3
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/10">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-[#F5F4F1] transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                     <div>
-                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 2: JSX & Elemen React</h1>
-                        <p class="text-sm text-gray-400 mt-0.5">4 pelajaran &middot; ~35 menit</p>
+                        <h1 class="text-xl lg:text-2xl font-bold text-ink">Bab 2: JSX & Elemen React</h1>
+                        <p class="text-sm text-muted mt-0.5">4 pelajaran &middot; ~35 menit</p>
                     </div>
                 </div>
                 <div class="hidden sm:flex items-center gap-3">
-                    <a href="chapter-1.html" class="flex items-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-4 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    <a href="chapter-1.html" class="flex items-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-4 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         Bab Sebelumnya
                     </a>
-                    <a href="chapter-3.html" class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    <a href="chapter-3.html" class="flex items-center gap-2 bg-ink hover:bg-ink-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
                         Bab Selanjutnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -150,38 +182,38 @@
         <div class="px-4 lg:px-8 py-8 max-w-4xl">
 
             <!-- Lesson 1: Memahami JSX -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-accent font-bold text-sm">01</span>
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">01</span>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">JADI GINI CERITANYA... KENAPA SIH JSX ITU ADA? 🤔</h2>
+                            <h2 class="text-xl font-bold text-ink">JADI GINI CERITANYA... KENAPA SIH JSX ITU ADA? 🤔</h2>
                             <input type="checkbox" id="check-2-1" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-2-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                            <label for="check-2-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
-                        <p class="text-sm text-gray-500">Konsep inti &middot; 8 menit baca</p>
+                        <p class="text-sm text-muted">Konsep inti &middot; 8 menit baca</p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-gray-300 leading-relaxed">
+                <div class="space-y-4 text-[#333] leading-relaxed">
                     <p>Coba bayangin kamu lagi bikin UI pakai JavaScript vanilla. Mau bikin cuma sekadar heading sama paragraph, kode yang kamu tulis udah kayak nerangin resep ke robot 🤖:</p>
 
-                    <p>Nah, di situlah <strong class="text-accent">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak? 😎</p>
+                    <p>Nah, di situlah <strong class="text-ink">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak? 😎</p>
 
-                    <p>Intinya gini: JSX itu <strong class="text-white">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin 🧠</p>
+                    <p>Intinya gini: JSX itu <strong class="text-ink">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin 🧠</p>
 
-                    <p>Kenapa nggak langsung pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun? 👇</p>
+                    <p>Kenapa nggak langsung pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun? 👇</p>
 
-                    <p>Oh iya, satu hal penting — JSX itu mendukung <strong class="text-white">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Artinya kamu bisa masukin variabel, panggil fungsi, bikin kalkulasi, bahkan nulis kondisi langsung di template UI kamu. Serba bisa pokoknya 💪</p>
+                    <p>Oh iya, satu hal penting — JSX itu mendukung <strong class="text-ink">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Artinya kamu bisa masukin variabel, panggil fungsi, bikin kalkulasi, bahkan nulis kondisi langsung di template UI kamu. Serba bisa pokoknya 💪</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">JSX vs React.createElement() — pilih mana? 😅</span>
-                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                            <span class="text-xs text-muted font-medium">JSX vs React.createElement() — pilih mana? 😅</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// Cara LAMA: tanpa JSX (mata berdarah 💀)
 const element = React.createElement(
@@ -205,43 +237,43 @@ const element = (
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Analogi sederhana:</strong> JSX itu kayak kamu pesan makan di warung. Tinggal bilang "nasi goreng telur mata sapi, pedes, nggak pake kerupuk" — done. Sementara <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code> itu kayak kamu kasih instruksi detail ke koki: "ambil nasi 200gram, masukkan wajan, nyalakan api sedang..." — sama hasilnya, tapi capek banget ngomongnya 😂</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Analogi sederhana:</strong> JSX itu kayak kamu pesan makan di warung. Tinggal bilang "nasi goreng telur mata sapi, pedes, nggak pake kerupuk" — done. Sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> itu kayak kamu kasih instruksi detail ke koki: "ambil nasi 200gram, masukkan wajan, nyalakan api sedang..." — sama hasilnya, tapi capek banget ngomongnya 😂</p>
                 </div>
             </section>
 
             <!-- Lesson 2: Aturan JSX -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-accent font-bold text-sm">02</span>
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">02</span>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">ATURAN JSX — KALO NGGAK IKUT, ERROR MENUNGGU 😤</h2>
+                            <h2 class="text-xl font-bold text-ink">ATURAN JSX — KALO NGGAK IKUT, ERROR MENUNGGU 😤</h2>
                             <input type="checkbox" id="check-2-2" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-2-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                            <label for="check-2-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
-                        <p class="text-sm text-gray-500">Fundamental &middot; 10 menit baca</p>
+                        <p class="text-sm text-muted">Fundamental &middot; 10 menit baca</p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-white">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan 🪤</p>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-ink">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan 🪤</p>
 
-                    <p><strong class="text-accent font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-accent">Fragment</strong> (<code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget! 🧹</p>
+                    <p><strong class="text-ink font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-ink">Fragment</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget! 🧹</p>
 
-                    <p><strong class="text-accent font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML 😅</p>
+                    <p><strong class="text-ink font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML 😅</p>
 
-                    <p><strong class="text-accent font-bold">ATURAN 3: camelCase UNTUK ATRIBUT.</strong> Ini yang bikin paling banyak orang salah. Karena JSX itu JavaScript, semua nama atribut harus pakai camelCase. Jadi: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">className</code> (bukan <code>class</code>), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">htmlFor</code> (bukan <code>for</code>), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">onClick</code> (bukan <code>onclick</code>). Kebiasaan dari HTML harus dilupain sementara ya 🧠</p>
+                    <p><strong class="text-ink font-bold">ATURAN 3: camelCase UNTUK ATRIBUT.</strong> Ini yang bikin paling banyak orang salah. Karena JSX itu JavaScript, semua nama atribut harus pakai camelCase. Jadi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code> (bukan <code>class</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">htmlFor</code> (bukan <code>for</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> (bukan <code>onclick</code>). Kebiasaan dari HTML harus dilupain sementara ya 🧠</p>
 
-                    <p><strong class="text-accent font-bold">ATURAN 4: MASUKIN JAVASCRIPT PAKAI KURUNG KURAWAL {}</strong>. Mau nampilin variabel? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Mau nulis kondisi? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Mau panggil fungsi? Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>. Tanpa kurung kurawal, JSX nggak akan ngeh itu kode JavaScript — dia anggap cuma text biasa 📝</p>
+                    <p><strong class="text-ink font-bold">ATURAN 4: MASUKIN JAVASCRIPT PAKAI KURUNG KURAWAL {}</strong>. Mau nampilin variabel? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau nulis kondisi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau panggil fungsi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Tanpa kurung kurawal, JSX nggak akan ngeh itu kode JavaScript — dia anggap cuma text biasa 📝</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Bener vs Salah — dont be like the wrong side 😂</span>
-                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                            <span class="text-xs text-muted font-medium">Bener vs Salah — dont be like the wrong side 😂</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
 
@@ -280,41 +312,41 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ FYI aja nih:</strong> Komentar di JSX itu beda lho dari JavaScript biasa. Kamu nggak bisa pake <code>//</code> di dalam JSX. Harus pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{/* komentar kamu di sini */}</code>. Kalau pake <code>&lt;!-- --&gt;</code> (komentar HTML), teksnya bakal ke-render sebagai tulisan di halaman. Pantesan aja halaman kamu aneh ternyata 😜</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ FYI aja nih:</strong> Komentar di JSX itu beda lho dari JavaScript biasa. Kamu nggak bisa pake <code>//</code> di dalam JSX. Harus pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{/* komentar kamu di sini */}</code>. Kalau pake <code>&lt;!-- --&gt;</code> (komentar HTML), teksnya bakal ke-render sebagai tulisan di halaman. Pantesan aja halaman kamu aneh ternyata 😜</p>
                 </div>
             </section>
 
             <!-- Lesson 3: Embedding Expressions -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-accent font-bold text-sm">03</span>
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">03</span>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">SI SUPERPOWER KURUNG KURAWAL {} 💎</h2>
+                            <h2 class="text-xl font-bold text-ink">SI SUPERPOWER KURUNG KURAWAL {} 💎</h2>
                             <input type="checkbox" id="check-2-3" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-2-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                            <label for="check-2-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
-                        <p class="text-sm text-gray-500">Praktik &middot; 8 menit</p>
+                        <p class="text-sm text-muted">Praktik &middot; 8 menit</p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-gray-300 leading-relaxed">
-                    <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus 🚀</p>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus 🚀</p>
 
-                    <p>Nih daftar yang <strong class="text-accent">BOLEH</strong> kamu masukin ke dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code>: <strong class="text-white">Variabel, string, angka, boolean</strong> — tampilin data dari state atau props. <strong class="text-white">Ekspresi matematika</strong> — kayak <code>{harga * jumlah}</code>. <strong class="text-white">Panggilan fungsi</strong> — bikin helper function terus panggil di JSX. <strong class="text-white">Ternary operator</strong> — buat kondisi singkat kayak <code>{isLogin ? 'Logout' : 'Login'}</code>. <strong class="text-white">Array</strong> — React bakal otomatis render tiap item-nya satu-satu!</p>
+                    <p>Nih daftar yang <strong class="text-ink">BOLEH</strong> kamu masukin ke dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>: <strong class="text-ink">Variabel, string, angka, boolean</strong> — tampilin data dari state atau props. <strong class="text-ink">Ekspresi matematika</strong> — kayak <code>{harga * jumlah}</code>. <strong class="text-ink">Panggilan fungsi</strong> — bikin helper function terus panggil di JSX. <strong class="text-ink">Ternary operator</strong> — buat kondisi singkat kayak <code>{isLogin ? 'Logout' : 'Login'}</code>. <strong class="text-ink">Array</strong> — React bakal otomatis render tiap item-nya satu-satu!</p>
 
-                    <p>Sedangkan yang <strong class="text-yellow-400">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓
+                    <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓
 
-                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-white">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p></p>
+                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-ink">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p></p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">Bukti kehebatan kurung kurawal 🔥</span>
-                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                            <span class="text-xs text-muted font-medium">Bukti kehebatan kurung kurawal 🔥</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
 
@@ -362,9 +394,9 @@ function DaftarBelanja() {
         
         {/* Ternary operator — kondisi dalam satu baris */}
         {totalHarga &gt; 50000 ? (
-          &lt;p className="text-yellow-400"&gt;🎉 Borongan nih! Dapet cashback!&lt;/p&gt;
+          &lt;p className="text-amber-600"&gt;🎉 Borongan nih! Dapet cashback!&lt;/p&gt;
         ) : (
-          &lt;p className="text-gray-400"&gt;Tambah lagi yuk!&lt;/p&gt;
+          &lt;p className="text-muted"&gt;Tambah lagi yuk!&lt;/p&gt;
         )}
       &lt;/div&gt;
     &lt;/div&gt;
@@ -376,41 +408,41 @@ export default DaftarBelanja;</code></pre>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-accent">💡 Pro tip:</strong> Mau format angka jadi Rupiah? Jangan pake manual string concatenation (udah kuno 😅). Pakai <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">Intl.NumberFormat('id-ID')</code> — fitur bawaan JavaScript yang gratis, support banyak mata uang, dan nggak perlu install library apapun. Hidden gem banget ini!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Mau format angka jadi Rupiah? Jangan pake manual string concatenation (udah kuno 😅). Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Intl.NumberFormat('id-ID')</code> — fitur bawaan JavaScript yang gratis, support banyak mata uang, dan nggak perlu install library apapun. Hidden gem banget ini!</p>
                 </div>
             </section>
 
             <!-- Lesson 4: Styling di JSX -->
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-accent font-bold text-sm">04</span>
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">04</span>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-white">GAYA-GAYAAN DI JSX — BIAR GAK CUPU 🎨</h2>
+                            <h2 class="text-xl font-bold text-ink">GAYA-GAYAAN DI JSX — BIAR GAK CUPU 🎨</h2>
                             <input type="checkbox" id="check-2-4" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-2-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label>
+                            <label for="check-2-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
-                        <p class="text-sm text-gray-500">Praktik &middot; 9 menit</p>
+                        <p class="text-sm text-muted">Praktik &middot; 9 menit</p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-gray-300 leading-relaxed">
+                <div class="space-y-4 text-[#333] leading-relaxed">
                     <p>UI tanpa style itu kayak nasi goreng tanpa kecap — masalah sih masih bisa dimakan, tapi nggak ada yang mau liat 👀. Di React (dan JSX tentunya), ada beberapa cara buat kasih style. Masing-masing punya momen dimana dia paling cocok dipake.</p>
 
-                    <p><strong class="text-accent">Metode 1: Inline Styles.</strong> Ini paling gampang — langsung tulis style sebagai objek JavaScript di properti <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">style</code>. Tapi hati-hati, karena ini JavaScript, nama properti CSS-nya harus <strong class="text-white">camelCase</strong>. Jadi <code>background-color</code> jadi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code>, <code>font-size</code> jadi <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code>. Angka buat unit <code>px</code> nggak perlu dikasih tanda petik — React otomatis tambahin. Cocok buat style yang dinamis (bergantung state) 🎯</p>
+                    <p><strong class="text-ink">Metode 1: Inline Styles.</strong> Ini paling gampang — langsung tulis style sebagai objek JavaScript di properti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style</code>. Tapi hati-hati, karena ini JavaScript, nama properti CSS-nya harus <strong class="text-ink">camelCase</strong>. Jadi <code>background-color</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code>font-size</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>. Angka buat unit <code>px</code> nggak perlu dikasih tanda petik — React otomatis tambahin. Cocok buat style yang dinamis (bergantung state) 🎯</p>
 
-                    <p><strong class="text-accent">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 😂
+                    <p><strong class="text-ink">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 😂
 
-                    <p><strong class="text-accent">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p></p>
+                    <p><strong class="text-ink">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p></p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600">
-                            <span class="text-xs text-gray-400 font-medium">3 teknik styling — pick your fighter! ⚔️</span>
-                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button>
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                            <span class="text-xs text-muted font-medium">3 teknik styling — pick your fighter! ⚔️</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// ====== CARA 1: Inline Styles (langsung di tag) ======
 function KartuInline() {
@@ -421,8 +453,8 @@ function KartuInline() {
   const cardStyle = {
     padding: '1.5rem',
     borderRadius: '1rem',
-    backgroundColor: hovered ? '#1a2240' : '#111827',
-    border: '1px solid #243056',
+    backgroundColor: hovered ? '#E5E5E5' : '#F5F4F1',
+    border: '1px solid #D1D1D1',
     // angka otomatis ditambah 'px'
     fontSize: 16,  
     color: '#f3f4f6',
@@ -438,7 +470,7 @@ function KartuInline() {
       onMouseEnter={() =&gt; setHovered(true)}
       onMouseLeave={() =&gt; setHovered(false)}
     &gt;
-      &lt;h3 style={{ color: '#27d890', marginBottom: '0.5rem' }}&gt;
+      &lt;h3 style={{ color: '#0B0B0B', marginBottom: '0.5rem' }}&gt;
         Kartu Inline Style
       &lt;/h3&gt;
       &lt;p&gt;Style berubah pas di-hover! Coba aja 👆&lt;/p&gt;
@@ -449,7 +481,7 @@ function KartuInline() {
 // ====== CARA 2: CSS Modules (paling aman >) ======
 // File: Kartu.module.css
 // .kartu { padding: 1.5rem; border-radius: 1rem; }
-// .judul { color: #27d890; margin-bottom: 0.5rem; }
+// .judul { color: #0B0B0B; margin-bottom: 0.5rem; }
 
 // import styles from './Kartu.module.css';
 function KartuModule() {
@@ -466,8 +498,8 @@ function TombolStatus({ isActive }) {
   return (
     &lt;button className={`px-4 py-2 rounded-lg font-bold transition-colors
       ${isActive 
-        ? 'bg-green-500 text-white' 
-        : 'bg-gray-700 text-gray-400'}
+        ? 'bg-green-500 text-ink' 
+        : 'bg-gray-700 text-muted'}
     `}&gt;
       {isActive ? 'Aktif ✓' : 'Nonaktif'}
     &lt;/button&gt;
@@ -477,34 +509,34 @@ function TombolStatus({ isActive }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-gray-300"><strong class="text-yellow-400">⚠️ Jebakan paling sering:</strong> Lupa kalau properti CSS di inline style itu <strong>wajib camelCase</strong>. Nulis <code>background-color</code> (pake dash) bakal langsung error karena JavaScript nggak ngerti dash di nama properti. Error message-nya juga kadang nggak jelas. Jadi hafalin ini ya: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">backgroundColor</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">fontSize</code>, <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">borderRadius</code>. Semua disambung, tanpa dash! 🔗</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jebakan paling sering:</strong> Lupa kalau properti CSS di inline style itu <strong>wajib camelCase</strong>. Nulis <code>background-color</code> (pake dash) bakal langsung error karena JavaScript nggak ngerti dash di nama properti. Error message-nya juga kadang nggak jelas. Jadi hafalin ini ya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">borderRadius</code>. Semua disambung, tanpa dash! 🔗</p>
                 </div>
             </section>
 
             <!-- Chapter Summary -->
             <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white">RECAP — YANG UDAH KITA BAHAS 📝</h2>
-                        <p class="text-sm text-gray-400 mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
+                        <h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+                        <p class="text-sm text-muted mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
                     </div>
                 </div>
-                <ul class="space-y-3 text-gray-300">
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">JSX itu syntax sugar</strong> — dia cuma "pemanis" dari <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">React.createElement()</code>. Hasilnya sama, tapi kode kita jadi rapi dan enak dibaca. Kayak pesen makan vs masak sendiri 😄</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error 🚫</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">Kurung kurawal {} itu superpower</strong> — bisa masukin variabel, fungsi, ternary operator, sampe render array pake <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">.map()</code>. Tapi cuma expression ya, bukan statement!</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">3 cara styling di React:</strong> inline styles (buat dynamic), CSS Modules (buat skala besar dan aman dari konflik), conditional class names (buat dinamis sederhana). Pilih sesuai kebutuhan!</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">✓</span><span><strong class="text-white">Fragment <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;&gt;...&lt;/&gt;</code></strong> itu lifesaver kalau kamu butuh return beberapa elemen tanpa nambahin div wrapper yang nggak perlu. Wrapper bayangan yang invisible!</span></li>
+                <ul class="space-y-3 text-[#333]">
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">JSX itu syntax sugar</strong> — dia cuma "pemanis" dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Hasilnya sama, tapi kode kita jadi rapi dan enak dibaca. Kayak pesen makan vs masak sendiri 😄</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error 🚫</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Kurung kurawal {} itu superpower</strong> — bisa masukin variabel, fungsi, ternary operator, sampe render array pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>. Tapi cuma expression ya, bukan statement!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">3 cara styling di React:</strong> inline styles (buat dynamic), CSS Modules (buat skala besar dan aman dari konflik), conditional class names (buat dinamis sederhana). Pilih sesuai kebutuhan!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Fragment <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code></strong> itu lifesaver kalau kamu butuh return beberapa elemen tanpa nambahin div wrapper yang nggak perlu. Wrapper bayangan yang invisible!</span></li>
                 </ul>
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Tandai Bab Selesai ✅
                     </button>
-                    <a href="chapter-3.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <a href="chapter-3.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         Gas ke Bab 3 →
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -514,7 +546,7 @@ function TombolStatus({ isActive }) {
     </main>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-ink-dark z-30">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
     </button>
 
@@ -567,5 +599,7 @@ function TombolStatus({ isActive }) {
         }
         renderGlobalProgress();
     </script>
-</body>
+
+
+    </body>
 </html>

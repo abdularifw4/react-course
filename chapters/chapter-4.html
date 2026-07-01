@@ -4,35 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Hooks Advanced - React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{900:'#0a0f2c',800:'#111827',700:'#1a2240',600:'#243056'},accent:{DEFAULT:'#27d890',light:'#34e8a0',dark:'#1fb870'}}}}}</script>
-    <style>*{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}.lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}.lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}.nav-link{transition:background-color .2s cubic-bezier(.2,0,0,1),color .2s cubic-bezier(.2,0,0,1)}.nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}.fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0,1) both}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}.warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}.code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}button:active{transform:scale(.96)}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
+                        muted: '#666666',
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .tracking-tighter-2 { letter-spacing: -0.04em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .nav-link { transition: all 0.15s ease; }
+        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s ease both; }
+        .fade-in-d1 { animation-delay: 80ms; }
+        .fade-in-d2 { animation-delay: 160ms; }
+        .fade-in-d3 { animation-delay: 240ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
+        button:active { transform: scale(0.96); }
+        @media print { .no-print { display: none !important; } }
+    </style>
 </head>
-<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
-        <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
-        <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
+<body class="bg-white text-ink min-h-screen antialiased">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/10">
+            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
+            </a>
+        </div>
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+        <div class="px-4 pb-4">
+            <div class="bg-[#F5F4F1] rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-black/5 rounded-full h-2">
+                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React &amp; TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance &amp; Best Practices</span></a></div>
+            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Dasar JavaScript
+            </a>
+            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                React Dasar
+            </a>
+            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Hooks Dasar
+            </a>
+            <a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
+                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                Hooks Advanced
+            </a>
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Advanced Patterns
+            </a>
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                React & TypeScript
+            </a>
+            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Next.js Fundamentals
+            </a>
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                State Management
+            </a>
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Testing
+            </a>
+            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Performance
+            </a>
         </nav>
     </aside>
+
+    <!-- Main Content -->
     <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🧠 Chapter 4</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-black/10 no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-black/5 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-bold text-ink">Bab 4: React Hooks Advanced</h1>
+                    </div>
+                </div>
+                <a href="chapter-5.html" class="hidden sm:inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors min-h-[40px]">
+                    Bab 5
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-black/10"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-[#F5F4F1] min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-muted">🧠 Chapter 4</h2><a href="../index.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 4</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React Hooks Advanced</h1><p class="text-gray-400 text-lg">Udah kenal useState, useEffect, dan teman-temannya? Sekarang waktunya naik level. Di chapter ini kita bakal bahas hooks yang bikin app kamu makin kenceng dan code-nya makin rapi. Siap? Let's go! 🚀</p></div>
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-ink">Chapter 4</span><h1 class="text-3xl lg:text-4xl font-bold text-ink mt-2 mb-4">React Hooks Advanced</h1><p class="text-muted text-lg">Udah kenal useState, useEffect, dan teman-temannya? Sekarang waktunya naik level. Di chapter ini kita bakal bahas hooks yang bikin app kamu makin kenceng dan code-nya makin rapi. Siap? Let's go! 🚀</p></div>
             
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. 💰 useMemo — Ngumpetin Hasil Kalkulasi</h3>
-                <p class="text-gray-300 mb-3">Pernah ngalamin app kamu lag pas ngetik di search bar? Padahal cuma filter data doang. Nah, itu biasanya karena kamu nge-rekalkulasi sesuatu yang <strong>sebenarnya nggak perlu</strong> di setiap render.</p>
-                <p class="text-gray-300 mb-3">Bayangin gini: kamu lagi masak nasi. Tiap kali kamu buka rice cooker buat cek, nasi-nya belum matang — tapi buka-tutup terus bikin steam keluar dan proses masaknya makin lama. <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useMemo</code> itu kayak timer di rice cooker-nya. Biar kamu nggak usah cek berkali-kali, dia cuma kasih tahu kalau emang udah berubah aja. 😄</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">1. 💰 useMemo — Ngumpetin Hasil Kalkulasi</h3>
+                <p class="text-[#333] mb-3">Pernah ngalamin app kamu lag pas ngetik di search bar? Padahal cuma filter data doang. Nah, itu biasanya karena kamu nge-rekalkulasi sesuatu yang <strong>sebenarnya nggak perlu</strong> di setiap render.</p>
+                <p class="text-[#333] mb-3">Bayangin gini: kamu lagi masak nasi. Tiap kali kamu buka rice cooker buat cek, nasi-nya belum matang — tapi buka-tutup terus bikin steam keluar dan proses masaknya makin lama. <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useMemo</code> itu kayak timer di rice cooker-nya. Biar kamu nggak usah cek berkali-kali, dia cuma kasih tahu kalau emang udah berubah aja. 😄</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo } from 'react';
 
 function ProductList({ products }) {
@@ -60,10 +190,10 @@ function ProductList({ products }) {
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Peringatan:</strong> useMemo itu <strong>bukan</strong> semantik guarantee — React bisa aja "lupa" hasil memoized-nya buat free up memory. Jangan depends on useMemo buat correctness, cuma buat performance aja.</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">2. 📦 useCallback — Nggak Perlu Bikin Function Baru Terus</h3>
-                <p class="text-gray-300 mb-3">Okay, ini temennya useMemo tapi khusus buat <strong>function</strong>. Kamu tau nggak, setiap kali komponen kamu re-render, semua function yang didefinisikan di dalamnya itu <em>di-buat ulang</em>? Ya, walaupun isinya sama persis.</p>
-                <p class="text-gray-300 mb-3">Analoginya gini: kamu punya resep masakan yang sama, tapi tiap hari kamu nulis ulang di kertas baru. Padahal kan bisa di-fotocopy dan dipakai berulang kali. Itu yang <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useCallback</code> lakukan — dia nge-"fotocopy" function kamu biar reference-nya tetap sama antar render. 📋</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-ink mb-4">2. 📦 useCallback — Nggak Perlu Bikin Function Baru Terus</h3>
+                <p class="text-[#333] mb-3">Okay, ini temennya useMemo tapi khusus buat <strong>function</strong>. Kamu tau nggak, setiap kali komponen kamu re-render, semua function yang didefinisikan di dalamnya itu <em>di-buat ulang</em>? Ya, walaupun isinya sama persis.</p>
+                <p class="text-[#333] mb-3">Analoginya gini: kamu punya resep masakan yang sama, tapi tiap hari kamu nulis ulang di kertas baru. Padahal kan bisa di-fotocopy dan dipakai berulang kali. Itu yang <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useCallback</code> lakukan — dia nge-"fotocopy" function kamu biar reference-nya tetap sama antar render. 📋</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useCallback, memo } from 'react';
 
 // Komponen anak yang di-memo biar nggak re-render kalau props-nya sama
@@ -101,10 +231,10 @@ function ParentComponent() {
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kapan pakai useCallback?</strong> Sesungguhnya, kebanyakan kasus kamu nggak perlu ini. Hanya pakai kalau kamu ngirim function sebagai props ke komponen yang udah di-<code>React.memo</code>, atau function itu jadi dependency di <code>useEffect</code>/<code>useMemo</code> lain. Jangan over-engineer!</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">3. 🎯 useRef — Memory Rahasia yang Nggak Bikin Re-render</h3>
-                <p class="text-gray-300 mb-3">Ini hooks yang paling sering dipahami salah. Banyak orang kepikiran useRef cuma buat akses DOM element (kayak <code>document.getElementById</code>). Tapi sebenarnya dia jauh lebih powerful dari itu!</p>
-                <p class="text-gray-300 mb-3">Bayangin <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useRef</code> itu kayak <strong>kotak penyimpanan rahasia</strong> 📦. Isinya bisa kamu ubah kapan aja, tapi bedanya sama useState — <strong>nggak akan pernah bikin komponen re-render</strong>. Nilainya tetap ada dari render ke render, persis kayak variabel global tapi aman karena scoped ke komponen.</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-ink mb-4">3. 🎯 useRef — Memory Rahasia yang Nggak Bikin Re-render</h3>
+                <p class="text-[#333] mb-3">Ini hooks yang paling sering dipahami salah. Banyak orang kepikiran useRef cuma buat akses DOM element (kayak <code>document.getElementById</code>). Tapi sebenarnya dia jauh lebih powerful dari itu!</p>
+                <p class="text-[#333] mb-3">Bayangin <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useRef</code> itu kayak <strong>kotak penyimpanan rahasia</strong> 📦. Isinya bisa kamu ubah kapan aja, tapi bedanya sama useState — <strong>nggak akan pernah bikin komponen re-render</strong>. Nilainya tetap ada dari render ke render, persis kayak variabel global tapi aman karena scoped ke komponen.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useRef, useEffect } from 'react';
 
 // 📌 KEGUNAAN 1: Fokus ke input secara otomatis
@@ -168,10 +298,10 @@ function Stopwatch() {
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan lupa:</strong> <code>.current</code> adalah mutable — kamu bisa langsung assign nilainya. Tapi jangan baca/tulis <code>ref.current</code> pas proses rendering ya (di body function), karena nilainya belum tentu final. Pakai di <code>useEffect</code> atau event handler aja.</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">4. 🌍 useContext — Tamatnya Prop Drilling</h3>
-                <p class="text-gray-300 mb-3">Udah pernah ngalamin yang namanya <strong>prop drilling</strong> belum? Jadi gini — kamu punya data theme (dark/light), terus kamu kirim lewat props dari App → Header → Navbar → ThemeToggle. Nah, Header dan Navbar nggak butuh data theme sama sekali, tapi mereka jadi "korban" harus nerima dan meneruskan props-nya. Capek kan? 😩</p>
-                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useContext</code> itu solusinya. Bayangin dia kayak <strong>pengumuman sekolah lewat speaker</strong> 📢. Daripada info harus disampaikan dari satu orang ke orang ke orang (prop drilling), speaker bisa langsung nyampai ke semua kelas yang butuh. Siapapun yang punya speaker (Context), bisa denger pengumumannya.</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-ink mb-4">4. 🌍 useContext — Tamatnya Prop Drilling</h3>
+                <p class="text-[#333] mb-3">Udah pernah ngalamin yang namanya <strong>prop drilling</strong> belum? Jadi gini — kamu punya data theme (dark/light), terus kamu kirim lewat props dari App → Header → Navbar → ThemeToggle. Nah, Header dan Navbar nggak butuh data theme sama sekali, tapi mereka jadi "korban" harus nerima dan meneruskan props-nya. Capek kan? 😩</p>
+                <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useContext</code> itu solusinya. Bayangin dia kayak <strong>pengumuman sekolah lewat speaker</strong> 📢. Daripada info harus disampaikan dari satu orang ke orang ke orang (prop drilling), speaker bisa langsung nyampai ke semua kelas yang butuh. Siapapun yang punya speaker (Context), bisa denger pengumumannya.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
 
 // 1. Bikin Context dulu
@@ -225,10 +355,10 @@ function App() {
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan kebablasan:</strong> Context itu <strong>bukan</strong> replacement buat state management library (Redux, Zustand, dll). Setiap kali context value berubah, <strong>SEMUA</strong> komponen yang consume itu context bakal re-render. Buat data yang sering berubah (kayak input teks), lebih baik pake state management library atau local state aja.</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">5. 🎛️ useReducer — Kalau useState Udah Nggak Kuat</h3>
-                <p class="text-gray-300 mb-3">Pernah punya komponen yang state-nya kayak spaghetti? Lima <code>useState</code> bertumpuk, dan logic-nya saling ketergantungan. Pas kamu update satu state, harus update state lainnya juga. Kodenya jadi rame dan susah di-trace. 😵‍💫</p>
-                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useReducer</code> itu kayak <strong>dashboard kontrol di pesawat</strong> ✈️. Daripada ada banyak tombol independen yang masing-masing ngatur bagian berbeda, semua kontrol masuk ke satu panel sentral. Pilot (reducer) yang ngatur semua — tinggal terima perintah (action) dan tentukan hasilnya.</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-ink mb-4">5. 🎛️ useReducer — Kalau useState Udah Nggak Kuat</h3>
+                <p class="text-[#333] mb-3">Pernah punya komponen yang state-nya kayak spaghetti? Lima <code>useState</code> bertumpuk, dan logic-nya saling ketergantungan. Pas kamu update satu state, harus update state lainnya juga. Kodenya jadi rame dan susah di-trace. 😵‍💫</p>
+                <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useReducer</code> itu kayak <strong>dashboard kontrol di pesawat</strong> ✈️. Daripada ada banyak tombol independen yang masing-masing ngatur bagian berbeda, semua kontrol masuk ke satu panel sentral. Pilot (reducer) yang ngatur semua — tinggal terima perintah (action) dan tentukan hasilnya.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useReducer } from 'react';
 
 // Reducer = "otak" yang nentuin state baru dari action
@@ -290,10 +420,10 @@ function ComplexForm() {
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kapan pilih useReducer vs useState?</strong> Kalau state kamu saling terkait dan update-nya kompleks — pake useReducer. Kalau cuma simple kayak toggle atau counter — useState udah cukup. Jangan force gunain useReducer buat hal yang simple, nanti malah over-engineered. Intinya: <strong>pake yang paling mudah dipahami untuk kasusmu</strong>.</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">6. 🧩 Custom Hooks — Superpower React yang Sebenarnya</h3>
-                <p class="text-gray-300 mb-3">Okay, ini bagian yang paling <strong>"oh ternyata gitu!"</strong> dari semua hooks. Custom hooks itu bukan feature yang separate — dia lebih kayak <strong>cara berpikir</strong>. Semua hooks yang udah kita bahas? Itu bisa kamu gabung jadi satu "super hook" yang reusable di mana aja.</p>
-                <p class="text-gray-300 mb-3">Bayangin kamu punya 3 komponen yang butuh logic fetch data + loading + error. Tanpa custom hook, kamu nulis logic yang sama 3 kali. Dengan custom hook? Tulis sekali, pakai sepuasnya. Itu kayak punya resep masakan favorit — sekali tulis di buku resep, tinggal buka-buka lagi kalau mau masak. 📖🍳</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-ink mb-4">6. 🧩 Custom Hooks — Superpower React yang Sebenarnya</h3>
+                <p class="text-[#333] mb-3">Okay, ini bagian yang paling <strong>"oh ternyata gitu!"</strong> dari semua hooks. Custom hooks itu bukan feature yang separate — dia lebih kayak <strong>cara berpikir</strong>. Semua hooks yang udah kita bahas? Itu bisa kamu gabung jadi satu "super hook" yang reusable di mana aja.</p>
+                <p class="text-[#333] mb-3">Bayangin kamu punya 3 komponen yang butuh logic fetch data + loading + error. Tanpa custom hook, kamu nulis logic yang sama 3 kali. Dengan custom hook? Tulis sekali, pakai sepuasnya. Itu kayak punya resep masakan favorit — sekali tulis di buku resep, tinggal buka-buka lagi kalau mau masak. 📖🍳</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect, useCallback } from 'react';
 
 // 🔥 Custom hook: useFetch — buat fetch API yang clean
@@ -374,9 +504,9 @@ function UserProfile() {
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Naming convention:</strong> Custom hook WAJIB namanya diawali <code>use</code> — misalnya <code>useFetch</code>, <code>useLocalStorage</code>, <code>useWindowSize</code>. Ini bukan sekadar konvensi, tapi ini yang bikin React bisa detect dan enforce Rules of Hooks.</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">7. 📏 Rules of Hooks — Dua Aturan Emas</h3>
-                <p class="text-gray-300 mb-3">React punya <strong>hanya 2 aturan</strong> soal hooks. Dua doang! Tapi kalau dilanggar, siap-siap chaos. Bug aneh yang nggak masuk akal, state yang ketuker, atau malah app crash. Yuk kita bahas biar kamu nggak pernah melanggarnya. 🙅‍♂️</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-ink mb-4">7. 📏 Rules of Hooks — Dua Aturan Emas</h3>
+                <p class="text-[#333] mb-3">React punya <strong>hanya 2 aturan</strong> soal hooks. Dua doang! Tapi kalau dilanggar, siap-siap chaos. Bug aneh yang nggak masuk akal, state yang ketuker, atau malah app crash. Yuk kita bahas biar kamu nggak pernah melanggarnya. 🙅‍♂️</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// ❌ ATURAN 1: JANGAN panggil hooks di dalam condition, loop, atau nested function
 function BadComponent({ showCounter }) {
   if (showCounter) {
@@ -410,10 +540,10 @@ function useMyHook() {  // ✅ Nama diawali "use" → custom hook
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Auto-enforcement:</strong> Pasang <code>eslint-plugin-react-hooks</code> di project kamu. Plugin ini otomatis nge-catch kalau kamu melanggar Rules of Hooks. Nggak perlu hafal aturannya — biar ESLint yang jaga. 🤖</p></div>
             </section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">8. 🏎️ useTransition &amp; useDeferredValue — UI Tetap Smooth</h3>
-                <p class="text-gray-300 mb-3">Pernah bikin filter list yang pas kamu ngetik, seluruh halaman jadi <strong>lag dan nge-freeze</strong>? Itu karena filter 10.000 item itu jalan di main thread yang sama dengan rendering UI. Hasilnya? Typing-nya jadi choppy dan user kesel. 😤</p>
-                <p class="text-gray-300 mb-3"><code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useTransition</code> dan <code class="bg-dark-700 px-1.5 py-0.5 rounded text-accent text-sm">useDeferredValue</code> itu kayak bilang ke React: <em>"Eh, update yang ini nggak terlalu penting, kerjain nanti aja yang penting UI tetap responsif."</em> Mirip kayak ngasih priority lane di jalan tol — kendaraan VIP (user input) duluan, yang berat-berat (filter data) belakangan. 🛣️</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-ink mb-4">8. 🏎️ useTransition &amp; useDeferredValue — UI Tetap Smooth</h3>
+                <p class="text-[#333] mb-3">Pernah bikin filter list yang pas kamu ngetik, seluruh halaman jadi <strong>lag dan nge-freeze</strong>? Itu karena filter 10.000 item itu jalan di main thread yang sama dengan rendering UI. Hasilnya? Typing-nya jadi choppy dan user kesel. 😤</p>
+                <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useTransition</code> dan <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useDeferredValue</code> itu kayak bilang ke React: <em>"Eh, update yang ini nggak terlalu penting, kerjain nanti aja yang penting UI tetap responsif."</em> Mirip kayak ngasih priority lane di jalan tol — kendaraan VIP (user input) duluan, yang berat-berat (filter data) belakangan. 🛣️</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useTransition, useDeferredValue } from 'react';
 
 // useTransition: manual marking update sebagai "non-urgent"
@@ -458,25 +588,27 @@ function SearchWithDeferred({ items }) {
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 useTransition vs useDeferredValue?</strong> Pake <code>useTransition</code> kalau kamu sendiri yang trigger state update (kayak di event handler). Pake <code>useDeferredValue</code> kalau valuenya udah ada dan kamu cuma mau "slow down" penggunaannya. Two different tools, one same goal: keep UI responsive! 🎯</p></div>
             </section>
 
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 4</h3>
-                <p class="text-gray-300 mb-4">Wah, kamu udah sampai akhir! 🎉 Ini ringkasan cepetnya:</p>
+            <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">
+                <h3 class="text-xl font-bold text-ink mb-4">📝 Ringkasan Chapter 4</h3>
+                <p class="text-[#333] mb-4">Wah, kamu udah sampai akhir! 🎉 Ini ringkasan cepetnya:</p>
                 <div class="grid gap-3 mb-6">
-                    <div class="flex gap-3 items-start"><span class="text-2xl">💰</span><div><strong class="text-white">useMemo</strong><p class="text-sm text-gray-400">Cache hasil kalkulasi berat. Biar nggak re-kalkulasi di tiap render.</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">📦</span><div><strong class="text-white">useCallback</strong><p class="text-sm text-gray-400">Cache function reference. Biar child component yang di-memo nggak re-render.</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">🎯</span><div><strong class="text-white">useRef</strong><p class="text-sm text-gray-400">Kotak penyimpanan rahasia. Nggak trigger re-render, bisa buat akses DOM atau simpan value.</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">🌍</span><div><strong class="text-white">useContext</strong><p class="text-sm text-gray-400">Stop prop drilling. Share data ke seluruh komponen tree tanpa kirim props berkali-kali.</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">🎛️</span><div><strong class="text-white">useReducer</strong><p class="text-sm text-gray-400">State management buat logic yang kompleks. Semua update logic terpusat di satu reducer function.</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">🧩</span><div><strong class="text-white">Custom Hooks</strong><p class="text-sm text-gray-400">Gabung hooks jadi super hook yang reusable. Ini nyata-nyata superpower React!</p></div></div>
-                    <div class="flex gap-3 items-start"><span class="text-2xl">🏎️</span><div><strong class="text-white">useTransition &amp; useDeferredValue</strong><p class="text-sm text-gray-400">Biar UI tetap smooth pas ngerjain update berat. Non-urgent updates ditunda.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">💰</span><div><strong class="text-ink">useMemo</strong><p class="text-sm text-muted">Cache hasil kalkulasi berat. Biar nggak re-kalkulasi di tiap render.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">📦</span><div><strong class="text-ink">useCallback</strong><p class="text-sm text-muted">Cache function reference. Biar child component yang di-memo nggak re-render.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🎯</span><div><strong class="text-ink">useRef</strong><p class="text-sm text-muted">Kotak penyimpanan rahasia. Nggak trigger re-render, bisa buat akses DOM atau simpan value.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🌍</span><div><strong class="text-ink">useContext</strong><p class="text-sm text-muted">Stop prop drilling. Share data ke seluruh komponen tree tanpa kirim props berkali-kali.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🎛️</span><div><strong class="text-ink">useReducer</strong><p class="text-sm text-muted">State management buat logic yang kompleks. Semua update logic terpusat di satu reducer function.</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🧩</span><div><strong class="text-ink">Custom Hooks</strong><p class="text-sm text-muted">Gabung hooks jadi super hook yang reusable. Ini nyata-nyata superpower React!</p></div></div>
+                    <div class="flex gap-3 items-start"><span class="text-2xl">🏎️</span><div><strong class="text-ink">useTransition &amp; useDeferredValue</strong><p class="text-sm text-muted">Biar UI tetap smooth pas ngerjain update berat. Non-urgent updates ditunda.</p></div></div>
                 </div>
-                <p class="text-gray-300 mb-6">Sekarang kamu udah punya arsenal hooks yang lengkap! Dari yang basic sampe advanced. Ingat ya — jangan over-engineer. Pakai hooks yang kamu butuhkan, bukan yang kelihatan keren. Happy coding! 💚</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-3.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-5.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
+                <p class="text-[#333] mb-6">Sekarang kamu udah punya arsenal hooks yang lengkap! Dari yang basic sampe advanced. Ingat ya — jangan over-engineer. Pakai hooks yang kamu butuhkan, bukan yang kelihatan keren. Happy coding! 💚</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
+                <div class="flex gap-4 mt-4"><a href="chapter-3.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-5.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a></div>
             </section>
         </div>
     </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-dark-900 rounded-full shadow-lg shadow-black/10 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
     <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch4']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch4']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
-</body>
+
+
+    </body>
 </html>

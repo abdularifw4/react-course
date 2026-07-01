@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bab 7: Next.js Fundamentals - React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -14,116 +17,120 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
                     colors: {
-                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
-                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
-                    }
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
+                        muted: '#666666',
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                    },
                 }
             }
         }
     </script>
     <style>
-        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #111827; }
-        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
-        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
-        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
-        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        * { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .tracking-tighter-2 { letter-spacing: -0.04em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .nav-link { transition: all 0.15s ease; }
+        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
         pre code { border-radius: 0.75rem; font-size: 0.875rem; }
         h2 { text-wrap: balance; }
-        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
-        .fade-in-delay-1 { animation-delay: 100ms; }
-        .fade-in-delay-2 { animation-delay: 200ms; }
+        .fade-in { animation: fadeIn 0.4s ease both; }
+        .fade-in-d1 { animation-delay: 80ms; }
+        .fade-in-d2 { animation-delay: 160ms; }
+        .fade-in-d3 { animation-delay: 240ms; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
-        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
-        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
         button:active { transform: scale(0.96); }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+<body class="bg-white text-ink min-h-screen antialiased">
 
     <!-- Mobile Sidebar Overlay -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
-        <!-- Logo -->
-        <div class="p-5 border-b border-dark-600">
-            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
-                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
-                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/10">
+            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
-                <span class="text-lg font-bold text-white">React Course</span>
+                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
             </a>
         </div>
-
-        <!-- Search -->
         <div class="p-4">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
-
-        <!-- Progress -->
         <div class="px-4 pb-4">
-            <div class="bg-dark-700 rounded-xl p-3">
-                <div class="flex justify-between text-xs text-gray-400 mb-2">
+            <div class="bg-[#F5F4F1] rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
                     <span>Progress</span>
                     <span id="progressText">0/10</span>
                 </div>
-                <div class="w-full bg-dark-900 rounded-full h-2">
-                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                <div class="w-full bg-black/5 rounded-full h-2">
+                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation -->
         <nav class="px-3 pb-6">
-            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
-                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">1</span>
-                Pengenalan React
+            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Dasar JavaScript
             </a>
-            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">2</span>
-                JSX & Elemen React
+            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                React Dasar
             </a>
-            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
-                Komponen & Props
+            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Hooks Dasar
             </a>
-            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
-                State & Lifecycle
+            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                Hooks Advanced
             </a>
-            <a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
-                Event Handling
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Advanced Patterns
             </a>
-            <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
-                Conditional Rendering
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                React & TypeScript
             </a>
-            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
-                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">7</span>
-                Lists & Keys
+            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
+                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Next.js Fundamentals
             </a>
-            <a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
-                Hooks (useState, useEffect)
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                State Management
             </a>
-            <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
-                React Router
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Testing
             </a>
-            <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
-                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
-                Project Akhir
+            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Performance
             </a>
         </nav>
     </aside>
@@ -131,18 +138,36 @@
     <!-- Main Content -->
     <main class="lg:ml-72 min-h-screen">
         <!-- Top Bar -->
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-black/10 no-print">
             <div class="flex items-center justify-between px-4 lg:px-8 py-4">
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-black/5 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-bold text-ink">Bab 7: Next.js Fundamentals</h1>
+                    </div>
+                </div>
+                <a href="chapter-8.html" class="hidden sm:inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors min-h-[40px]">
+                    Bab 8
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/10">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-[#F5F4F1] transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                     <div>
-                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 7: Next.js Fundamentals</h1>
-                        <p class="text-sm text-gray-400 mt-0.5">3 pelajaran &middot; ~21 menit</p>
+                        <h1 class="text-xl lg:text-2xl font-bold text-ink">Bab 7: Next.js Fundamentals</h1>
+                        <p class="text-sm text-muted mt-0.5">3 pelajaran &middot; ~21 menit</p>
                     </div>
                 </div>
-                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-ink hover:bg-ink-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
                     Bab Selanjutnya
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -154,21 +179,21 @@
 
             
 <!-- Lesson 1: Routing (App Router) -->
-<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
     <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">01</span></div>
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
         <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Routing (App Router)</h2><input type="checkbox" id="check-7-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-gray-500">Fundamental &middot; 8 menit baca</p>
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Routing (App Router)</h2><input type="checkbox" id="check-7-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-muted">Fundamental &middot; 8 menit baca</p>
         </div>
     </div>
-    <div class="space-y-4 text-gray-300 leading-relaxed">
-        <p><strong class="text-white">Next.js App Router</strong> menggunakan folder-based routing. Setiap folder di dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">app/</code> menjadi route, dan file <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">page.tsx</code> di dalamnya menjadi halaman yang di-render. Ini jauh lebih intuitif dibanding Pages Router yang lama.</p>
-        <p>Dynamic routes menggunakan folder dengan nama diapit kurung siku: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">[id]/</code> untuk parameter dinamis. Catch-all routes menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">[...slug]/</code>. Route groups menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">(group)/</code> tanpa mempengaruhi URL.</p>
-        <p>App Router juga mendukung <strong class="text-accent">loading.tsx</strong> (automatic loading UI), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">error.tsx</code> (error boundary), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">not-found.tsx</code> (404 page), dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">layout.tsx</code> (shared layout) secara built-in.</p>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p><strong class="text-ink">Next.js App Router</strong> menggunakan folder-based routing. Setiap folder di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/</code> menjadi route, dan file <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code> di dalamnya menjadi halaman yang di-render. Ini jauh lebih intuitif dibanding Pages Router yang lama.</p>
+        <p>Dynamic routes menggunakan folder dengan nama diapit kurung siku: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[id]/</code> untuk parameter dinamis. Catch-all routes menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[...slug]/</code>. Route groups menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(group)/</code> tanpa mempengaruhi URL.</p>
+        <p>App Router juga mendukung <strong class="text-ink">loading.tsx</strong> (automatic loading UI), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> (error boundary), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">not-found.tsx</code> (404 page), dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">layout.tsx</code> (shared layout) secara built-in.</p>
     </div>
     <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">App Router &mdash; Struktur Folder</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">App Router &mdash; Struktur Folder</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
         <pre><code class="language-bash">app/
 ├── layout.tsx          # Root layout (wajib)
 ├── page.tsx            # Halaman utama (/)
@@ -188,24 +213,24 @@
     └── settings/
         └── page.tsx    # /dashboard/settings</code></pre>
     </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
 </section>
 <!-- Lesson 2: Server vs Client Components -->
-<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
     <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">02</span></div>
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
         <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Server vs Client Components</h2><input type="checkbox" id="check-7-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-gray-500">Konsep Inti &middot; 8 menit baca</p>
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Server vs Client Components</h2><input type="checkbox" id="check-7-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-muted">Konsep Inti &middot; 8 menit baca</p>
         </div>
     </div>
-    <div class="space-y-4 text-gray-300 leading-relaxed">
-        <p>Di Next.js App Router, <strong class="text-white">Server Components</strong> adalah default. Mereka di-render di server, tidak mengirim JavaScript ke client, dan bisa langsung mengakses database atau file system. Ini mengurangi bundle size dan meningkatkan performa.</p>
-        <p><strong class="text-accent">Client Components</strong> ditandai dengan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&apos;use client&apos;</code> di baris pertama file. Mereka di-render di browser dan bisa menggunakan useState, useEffect, event handlers, dan browser API.</p>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Di Next.js App Router, <strong class="text-ink">Server Components</strong> adalah default. Mereka di-render di server, tidak mengirim JavaScript ke client, dan bisa langsung mengakses database atau file system. Ini mengurangi bundle size dan meningkatkan performa.</p>
+        <p><strong class="text-ink">Client Components</strong> ditandai dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> di baris pertama file. Mereka di-render di browser dan bisa menggunakan useState, useEffect, event handlers, dan browser API.</p>
         <p>Peraturan praktis: gunakan Server Components sebanyak mungkin. Hanya gunakan Client Components ketika benar-benar membutuhkan interaktivitas (onClick, onChange, useState, useEffect). Komponen Server bisa me-render Komponen Client, tapi tidak sebaliknya.</p>
     </div>
     <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Server vs Client Components</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Server vs Client Components</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
         <pre><code class="language-typescript">// Server Component (default) &mdash; no directive needed
 // Bisa akses database, file system, env variables langsung
 async function UserProfile({ userId }: { userId: string }) {
@@ -233,24 +258,24 @@ function LikeButton({ postId }: { postId: string }) {
   );
 }</code></pre>
     </div></div>
-    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-yellow-400">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
+    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
 </section>
 <!-- Lesson 3: Data Fetching & API Routes -->
-<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
     <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">03</span></div>
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
         <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Data Fetching, API Routes &amp; SEO</h2><input type="checkbox" id="check-7-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-gray-500">Praktik &middot; 10 menit baca</p>
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Data Fetching, API Routes &amp; SEO</h2><input type="checkbox" id="check-7-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-muted">Praktik &middot; 10 menit baca</p>
         </div>
     </div>
-    <div class="space-y-4 text-gray-300 leading-relaxed">
-        <p>Next.js menyediakan <strong class="text-white">Server-side Data Fetching</strong> yang powerful. Di Server Components, kamu bisa langsung menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">async/await</code> tanpa useEffect. Data di-fetch di server dan HTML yang sudah lengkap dikirim ke client.</p>
-        <p><strong class="text-accent">API Routes</strong> (Route Handlers) memungkinkan kamu membuat API endpoints di dalam proyek Next.js. File <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">route.ts</code> di folder app menjadi endpoint. Sangat berguna untuk webhook, form submissions, atau integrasi pihak ketiga.</p>
-        <p>Untuk <strong class="text-accent">SEO</strong>, Next.js menyediakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">generateMetadata()</code> untuk mengatur title, description, dan meta tags secara dinamis per halaman. Ini sangat penting untuk performa SEO.</p>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Next.js menyediakan <strong class="text-ink">Server-side Data Fetching</strong> yang powerful. Di Server Components, kamu bisa langsung menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async/await</code> tanpa useEffect. Data di-fetch di server dan HTML yang sudah lengkap dikirim ke client.</p>
+        <p><strong class="text-ink">API Routes</strong> (Route Handlers) memungkinkan kamu membuat API endpoints di dalam proyek Next.js. File <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">route.ts</code> di folder app menjadi endpoint. Sangat berguna untuk webhook, form submissions, atau integrasi pihak ketiga.</p>
+        <p>Untuk <strong class="text-ink">SEO</strong>, Next.js menyediakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata()</code> untuk mengatur title, description, dan meta tags secara dinamis per halaman. Ini sangat penting untuk performa SEO.</p>
     </div>
     <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Data Fetching &amp; API Routes</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Data Fetching &amp; API Routes</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
         <pre><code class="language-typescript">// Server-side data fetching (di Server Component)
 async function BlogPost({ params }: { params: { slug: string } }) {
   const post = await fetch(
@@ -286,32 +311,32 @@ export async function POST(request: NextRequest) {
   );
 }</code></pre>
     </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
 </section>
 
             <!-- Chapter Summary -->
             <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 7</h2>
-                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                        <h2 class="text-xl font-bold text-ink">Ringkasan Bab 7</h2>
+                        <p class="text-sm text-muted mt-1">Yang sudah kamu pelajari</p>
                     </div>
                 </div>
-                <ul class="space-y-3 text-gray-300">
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>App Router menggunakan folder-based routing dengan page.tsx, loading.tsx, error.tsx</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Server Components (default) vs Client Components (&apos;use client&apos;), kapan menggunakan masing-masing</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Server-side data fetching dengan async/await, API Routes dengan route.ts</span></li>
-                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>SEO dengan generateMetadata() untuk title, description, dan Open Graph</span></li>
+                <ul class="space-y-3 text-[#333]">
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>App Router menggunakan folder-based routing dengan page.tsx, loading.tsx, error.tsx</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Server Components (default) vs Client Components (&apos;use client&apos;), kapan menggunakan masing-masing</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Server-side data fetching dengan async/await, API Routes dengan route.ts</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>SEO dengan generateMetadata() untuk title, description, dan Open Graph</span></li>
                 </ul>
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(7)" id="completeBtn7" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <button onclick="markChapterComplete(7)" id="completeBtn7" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Tandai Bab Selesai
                     </button>
-                    <a href="chapter-8.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <a href="chapter-8.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         Lanjut ke Bab 8
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -323,7 +348,7 @@ export async function POST(request: NextRequest) {
     </main>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-ink-dark z-30">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
     </button>
 
@@ -425,5 +450,7 @@ export async function POST(request: NextRequest) {
         // Init
         renderGlobalProgress();
     </script>
-</body>
+
+
+    </body>
 </html>

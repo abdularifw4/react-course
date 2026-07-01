@@ -3,37 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance &amp; Best Practices - React Course</title>
+    <title>Performance & Best Practices - React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{900:'#0a0f2c',800:'#111827',700:'#1a2240',600:'#243056'},accent:{DEFAULT:'#27d890',light:'#34e8a0',dark:'#1fb870'}}}}}</script>
-    <style>*{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}.lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}.lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}.nav-link{transition:background-color .2s cubic-bezier(.2,0,0,1),color .2s cubic-bezier(.2,0,0,1)}.nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}.fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0,1) both}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}.warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}.code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}button:active{transform:scale(.96)}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1a1a1a' },
+                        muted: '#666666',
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .tracking-tighter-2 { letter-spacing: -0.04em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .nav-link { transition: all 0.15s ease; }
+        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s ease both; }
+        .fade-in-d1 { animation-delay: 80ms; }
+        .fade-in-d2 { animation-delay: 160ms; }
+        .fade-in-d3 { animation-delay: 240ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); border-radius: 0.75rem; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
+        button:active { transform: scale(0.96); }
+        @media print { .no-print { display: none !important; } }
+    </style>
 </head>
-<body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
-        <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
-        <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
+<body class="bg-white text-ink min-h-screen antialiased">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/10 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/10">
+            <a href="../index.html" class="flex items-center gap-2 min-h-[40px]">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <span class="text-base font-semibold tracking-tight text-ink">react course</span>
+            </a>
+        </div>
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-[#F5F4F1] border border-black/5 rounded-lg px-4 py-2.5 pl-10 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-black/20 transition-colors min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+        <div class="px-4 pb-4">
+            <div class="bg-[#F5F4F1] rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-black/5 rounded-full h-2">
+                    <div id="progressBar" class="bg-ink h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">10</span><span class="truncate">Performance & Best Practices</span></a></div>
+            <p class="px-3 mb-2 text-xs font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">1</span>
+                Dasar JavaScript
+            </a>
+            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                React Dasar
+            </a>
+            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Hooks Dasar
+            </a>
+            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                Hooks Advanced
+            </a>
+            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Advanced Patterns
+            </a>
+            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                React & TypeScript
+            </a>
+            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Next.js Fundamentals
+            </a>
+            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                State Management
+            </a>
+            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-muted">
+                <span class="w-7 h-7 bg-black/5 text-muted rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Testing
+            </a>
+            <a href="chapter-10.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] text-ink">
+                <span class="w-7 h-7 bg-ink text-ink rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Performance
+            </a>
         </nav>
     </aside>
+
+    <!-- Main Content -->
     <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">⚡ Chapter 10</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-black/10 no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-black/5 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-bold text-ink">Bab 10: Performance & Best Practices</h1>
+                    </div>
+                </div>
+                <a href="../index.html" class="hidden sm:inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors min-h-[40px]">
+                    Selesai
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-black/10"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-[#F5F4F1] min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-muted">⚡ Chapter 10</h2><a href="../index.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 10</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Performance &amp; Best Practices</h1><p class="text-gray-400 text-lg">App kamu udah jalan, tapi... kok lambat ya? 😅</p><p class="text-gray-400">Tenang, di chapter ini kita bakal bahas gimana bikin React app kamu tetap cepat biarpun udah gede. Nggak perlu jadi expert — yang penting paham mental model-nya.</p></div>
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-ink">Chapter 10</span><h1 class="text-3xl lg:text-4xl font-bold text-ink mt-2 mb-4">Performance &amp; Best Practices</h1><p class="text-muted text-lg">App kamu udah jalan, tapi... kok lambat ya? 😅</p><p class="text-muted">Tenang, di chapter ini kita bakal bahas gimana bikin React app kamu tetap cepat biarpun udah gede. Nggak perlu jadi expert — yang penting paham mental model-nya.</p></div>
             
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🧠 MEMO — STOP RE-RENDER YANG NGGAK PERLU</h3>
-                <p class="text-gray-300 mb-3">Pernah ngalamin yang namanya ngetik di search bar, terus seluruh list di bawahnya re-render? Padahal cuma ngetik huruf "a"? <strong>Itu bikin app terasa lambat, bro.</strong></p>
-                <p class="text-gray-300 mb-3">Masalahnya, React itu default-nya re-render SEMUA child component pas parent-nya berubah. Bener-bener semua. Nggak peduli itu perubahan cuma di satu tempat kecil.</p>
-                <p class="text-gray-300 mb-3">Bayangin kamu lagi ngumpet di rumah, terus ibu kamu manggil dari dapur. Semua adik-adik kamu langsung keluar kamar — padahal yang dipanggil cuma kamu doang. 😂 Nah, <code class="text-accent">React.memo</code> itu kayak ngasih tahu adik-adik kamu: "Eits, yang dipanggil cuma kakak. Kalian stay di kamar aja."</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-ink mb-4">🧠 MEMO — STOP RE-RENDER YANG NGGAK PERLU</h3>
+                <p class="text-[#333] mb-3">Pernah ngalamin yang namanya ngetik di search bar, terus seluruh list di bawahnya re-render? Padahal cuma ngetik huruf "a"? <strong>Itu bikin app terasa lambat, bro.</strong></p>
+                <p class="text-[#333] mb-3">Masalahnya, React itu default-nya re-render SEMUA child component pas parent-nya berubah. Bener-bener semua. Nggak peduli itu perubahan cuma di satu tempat kecil.</p>
+                <p class="text-[#333] mb-3">Bayangin kamu lagi ngumpet di rumah, terus ibu kamu manggil dari dapur. Semua adik-adik kamu langsung keluar kamar — padahal yang dipanggil cuma kamu doang. 😂 Nah, <code class="text-ink">React.memo</code> itu kayak ngasih tahu adik-adik kamu: "Eits, yang dipanggil cuma kakak. Kalian stay di kamar aja."</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { memo, useMemo, useState } from &#x27;react&#x27;;
 
 // React.memo: "Aku nggak bakal re-render kalau props-nya masih sama!"
@@ -67,14 +197,14 @@ const ExpensiveCard = memo(
   function Card({ data }) { return &lt;div&gt;{data.title}&lt;/div&gt;; },
   (prev, next) =&gt; prev.data.id === next.data.id // Custom equality
 );</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> <code class="text-accent">React.memo</code> bikin komponen "lupa" re-render kalau props-nya nggak berubah. Sedangkan <code class="text-accent">useMemo</code> nge-cache hasil kalkulasi biar nggak dihitung ulang. Tapi hati-hati — jangan memo semuanya ya! Memo itu sendiri juga butuh "biaya". Pake buat komponen yang bener-bener berat aja.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> <code class="text-ink">React.memo</code> bikin komponen "lupa" re-render kalau props-nya nggak berubah. Sedangkan <code class="text-ink">useMemo</code> nge-cache hasil kalkulasi biar nggak dihitung ulang. Tapi hati-hati — jangan memo semuanya ya! Memo itu sendiri juga butuh "biaya". Pake buat komponen yang bener-bener berat aja.</p></div>
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan kebablasan!</strong> Kalo kamu memo semua komponen, malah bikin app lebih lambat karena React harus ngecek "ini sama atau beda?" di setiap render. Ibarat nge-encrypt pesan "hai" — overkill banget kan? 😅</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">📦 CODE SPLITTING — JANGAN BAWA SEMUANYA SEKALIGUS</h3>
-                <p class="text-gray-300 mb-3">Coba bayangin kamu mau pindah rumah. Kamu bawa SEMUA barang kamu sekaligus — mulai dari baju, buku, kulkas, sampe koleksi mainan dari SD. Pasti berat banget kan?</p>
-                <p class="text-gray-300 mb-3">Nah, bundle JavaScript kamu juga gitu. Default-nya, React bakal bundle SEMUA code kamu jadi SATU file gede. Padahal user mungkin cuma butuh halaman Home doang, tapi dia harus nunggu download code untuk halaman Settings, Analytics, Profile — yang mungkin dia nggak bakal kunjungi sama sekali.</p>
-                <p class="text-gray-300 mb-3"><strong>Oh ternyata gitu!</strong> Code splitting itu solusinya — memecah bundle jadi beberapa chunk kecil, terus cuma load yang dibutuhkan. Kayak pindahan rumah yang terorganisir: bawa barang penting dulu, sisanya menyusul. 🚚</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-ink mb-4">📦 CODE SPLITTING — JANGAN BAWA SEMUANYA SEKALIGUS</h3>
+                <p class="text-[#333] mb-3">Coba bayangin kamu mau pindah rumah. Kamu bawa SEMUA barang kamu sekaligus — mulai dari baju, buku, kulkas, sampe koleksi mainan dari SD. Pasti berat banget kan?</p>
+                <p class="text-[#333] mb-3">Nah, bundle JavaScript kamu juga gitu. Default-nya, React bakal bundle SEMUA code kamu jadi SATU file gede. Padahal user mungkin cuma butuh halaman Home doang, tapi dia harus nunggu download code untuk halaman Settings, Analytics, Profile — yang mungkin dia nggak bakal kunjungi sama sekali.</p>
+                <p class="text-[#333] mb-3"><strong>Oh ternyata gitu!</strong> Code splitting itu solusinya — memecah bundle jadi beberapa chunk kecil, terus cuma load yang dibutuhkan. Kayak pindahan rumah yang terorganisir: bawa barang penting dulu, sisanya menyusul. 🚚</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { lazy, Suspense } from &#x27;react&#x27;;
 
 // Lazy load: "Aku nggak mau load sekarang, nanti aja pas butuh"
@@ -86,7 +216,7 @@ function App() {
   return (
     &lt;Suspense fallback={
       &lt;div className=&#x27;flex items-center justify-center h-screen&#x27;&gt;
-        &lt;div className=&#x27;animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full&#x27; /&gt;
+        &lt;div className=&#x27;animate-spin w-8 h-8 border-2 border-ink border-t-transparent rounded-full&#x27; /&gt;
         &lt;span className=&#x27;ml-3&#x27;&gt;Loading...&lt;/span&gt;
       &lt;/div&gt;
     }&gt;
@@ -107,22 +237,22 @@ function NavItem() {
   };
   return &lt;div onMouseEnter={handleMouseEnter}&gt;Analytics&lt;/div&gt;;
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Mental model:</strong> <code class="text-accent">lazy()</code> itu kayak kamu bilang ke React, "Eh, code-nya jangan didownload sekarang. Nanti aja pas komponen ini beneran ditampilkan." Terus <code class="text-accent">Suspense</code> itu kayak pesan "Tunggu bentar ya..." yang muncul selama code-nya belum selesai download. Mantap kan? 🎯</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Mental model:</strong> <code class="text-ink">lazy()</code> itu kayak kamu bilang ke React, "Eh, code-nya jangan didownload sekarang. Nanti aja pas komponen ini beneran ditampilkan." Terus <code class="text-ink">Suspense</code> itu kayak pesan "Tunggu bentar ya..." yang muncul selama code-nya belum selesai download. Mantap kan? 🎯</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">🪟 VIRTUALIZATION — RENDER 10,000 ITEM TANPA NANGIS</h3>
-                <p class="text-gray-300 mb-3">Pernah diminta bikin list yang isinya 10,000 item? Terus kamu map array-nya langsung di JSX, dan... browser-nya langsung nangis. 💀</p>
-                <p class="text-gray-300 mb-3">Masalahnya bukan datanya — tapi DOM-nya. Setiap item di list itu jadi satu DOM node. Bayangin 10,000 div di dalam satu container. Browser-nya kewalahan render semua itu sekaligus.</p>
-                <p class="text-gray-300 mb-3"><strong>Oh ternyata gitu!</strong> Virtualization itu konsepnya simpel: <strong>kamu cuma render item yang KELIHATAN di layar.</strong> Yang di atas dan di bawah viewport? Virtual doang — nggak ada di DOM. Scroll ke bawah? Yang di atas dihapus, yang baru muncul dirender. Hasilnya? 10,000 item tapi cuma ada ~15 DOM node di layar. 🤯</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-ink mb-4">🪟 VIRTUALIZATION — RENDER 10,000 ITEM TANPA NANGIS</h3>
+                <p class="text-[#333] mb-3">Pernah diminta bikin list yang isinya 10,000 item? Terus kamu map array-nya langsung di JSX, dan... browser-nya langsung nangis. 💀</p>
+                <p class="text-[#333] mb-3">Masalahnya bukan datanya — tapi DOM-nya. Setiap item di list itu jadi satu DOM node. Bayangin 10,000 div di dalam satu container. Browser-nya kewalahan render semua itu sekaligus.</p>
+                <p class="text-[#333] mb-3"><strong>Oh ternyata gitu!</strong> Virtualization itu konsepnya simpel: <strong>kamu cuma render item yang KELIHATAN di layar.</strong> Yang di atas dan di bawah viewport? Virtual doang — nggak ada di DOM. Scroll ke bawah? Yang di atas dihapus, yang baru muncul dirender. Hasilnya? 10,000 item tapi cuma ada ~15 DOM node di layar. 🤯</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { FixedSizeList as List } from &#x27;react-window&#x27;;
 
 // 10,000 items — tapi hanya render yang terlihat!
 function BigList({ items }) {
   const Row = ({ index, style }) =&gt; (
-    &lt;div style={style} className=&#x27;flex items-center px-4 border-b border-dark-600&#x27;&gt;
-      &lt;span className=&#x27;text-gray-400&#x27;&gt;{index + 1}.&lt;/span&gt;
+    &lt;div style={style} className=&#x27;flex items-center px-4 border-b border-black/10&#x27;&gt;
+      &lt;span className=&#x27;text-muted&#x27;&gt;{index + 1}.&lt;/span&gt;
       &lt;span className=&#x27;ml-3&#x27;&gt;{items[index].name}&lt;/span&gt;
-      &lt;span className=&#x27;ml-auto text-accent&#x27;&gt;Rp{items[index].price.toLocaleString()}&lt;/span&gt;
+      &lt;span className=&#x27;ml-auto text-ink&#x27;&gt;Rp{items[index].price.toLocaleString()}&lt;/span&gt;
     &lt;/div&gt;
   );
 
@@ -141,13 +271,13 @@ function BigList({ items }) {
 // Dengan 10,000 items:
 // Tanpa virtualization: render 10,000 DOM nodes = LAMBAT
 // Dengan virtualization: render ~15 DOM nodes = INSTANT</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Virtualization itu kayak kaca pembesar — kamu cuma lihat sebagian kecil dari data yang sebenarnya gede banget. Library <code class="text-accent">react-window</code> (atau <code class="text-accent">react-virtuoso</code>) nge-handle semua math-nya buat kamu. Tinggal pasang, dan boom — list apapun jadi smooth. 🚀</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Virtualization itu kayak kaca pembesar — kamu cuma lihat sebagian kecil dari data yang sebenarnya gede banget. Library <code class="text-ink">react-window</code> (atau <code class="text-ink">react-virtuoso</code>) nge-handle semua math-nya buat kamu. Tinggal pasang, dan boom — list apapun jadi smooth. 🚀</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">🔧 PROFILER &amp; BEST PRACTICES — JANGAN OPTIMIZE SECARA BUTA</h3>
-                <p class="text-gray-300 mb-3">Oke, sekarang kamu udah tau tool-tool performance-nya. Tapi sebelum kamu mulai memo semua komponen dan lazy load segalanya... <strong>berhenti dulu. 🛑</strong></p>
-                <p class="text-gray-300 mb-3">Masalah terbesar developer itu bukan nggak bisa optimize — tapi <strong>optimize hal yang salah.</strong> Kayak orang diet tapi cuma nggak makan nasi, padahal yang bikin gemuk itu gorengan setiap malam. 😂</p>
-                <p class="text-gray-300 mb-3">Golden rule di dunia performance: <strong>"Measure first, optimize second."</strong> Pakai React DevTools Profiler buat lihat mana komponen yang benar-bener lambat, baru deh optimize yang itu aja.</p>
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-ink mb-4">🔧 PROFILER &amp; BEST PRACTICES — JANGAN OPTIMIZE SECARA BUTA</h3>
+                <p class="text-[#333] mb-3">Oke, sekarang kamu udah tau tool-tool performance-nya. Tapi sebelum kamu mulai memo semua komponen dan lazy load segalanya... <strong>berhenti dulu. 🛑</strong></p>
+                <p class="text-[#333] mb-3">Masalah terbesar developer itu bukan nggak bisa optimize — tapi <strong>optimize hal yang salah.</strong> Kayak orang diet tapi cuma nggak makan nasi, padahal yang bikin gemuk itu gorengan setiap malam. 😂</p>
+                <p class="text-[#333] mb-3">Golden rule di dunia performance: <strong>"Measure first, optimize second."</strong> Pakai React DevTools Profiler buat lihat mana komponen yang benar-bener lambat, baru deh optimize yang itu aja.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// 📋 BEST PRACTICES CHECKLIST — Bookmark ini!
 //
 // ✅ 1. KEY yang stabil (BUKAN index array!)
@@ -176,21 +306,23 @@ function BigList({ items }) {
 //    → Semakin dalam nesting-nya, semakin banyak re-render</code></pre>
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Warning serius nih:</strong> Premature optimization is the root of all evil. Kalau app kamu cuma punya 50 komponen, nggak perlu memo-memoan. Fokus dulu ke fitur dan user experience. Performance optimization itu buat pas app kamu udah beneran mulai kerasa lambat — bukan sebelumnya. Nggak percaya? Coba ukur pake Profiler dulu. Data nggak pernah bohong. 📊</p></div>
             </section>
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 RINGKASAN — YANG HARUS KAMU BAWA PULANG</h3>
-                <p class="text-gray-300 mb-6">Oke, chapter ini emang agak berat, tapi ini salah satu chapter paling penting di seluruh course. Kenapa? Karena nggak peduli sekeren apa arsitektur app kamu — kalau performanya jelek, user bakal kabur. 🏃💨</p>
+            <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">
+                <h3 class="text-xl font-bold text-ink mb-4">📝 RINGKASAN — YANG HARUS KAMU BAWA PULANG</h3>
+                <p class="text-[#333] mb-6">Oke, chapter ini emang agak berat, tapi ini salah satu chapter paling penting di seluruh course. Kenapa? Karena nggak peduli sekeren apa arsitektur app kamu — kalau performanya jelek, user bakal kabur. 🏃💨</p>
                 <div class="space-y-3 mb-6">
-                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">1.</span><p class="text-gray-300"><strong>React.memo &amp; useMemo</strong> — kayak skip button di YouTube. Skip re-render kalau nggak perlu. Tapi jangan kebablasan!</p></div>
-                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">2.</span><p class="text-gray-300"><strong>Code Splitting &amp; Lazy Loading</strong> — kayak pindahan rumah terorganisir. Bawa yang penting dulu, sisanya menyusul.</p></div>
-                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">3.</span><p class="text-gray-300"><strong>Virtualization</strong> — render item yang kelihatan doang. 10,000 item? No problem.</p></div>
-                    <div class="flex gap-3"><span class="text-accent font-bold shrink-0">4.</span><p class="text-gray-300"><strong>Measure first, optimize second</strong> — jangan optimize secara buta. Pakai Profiler, lihat data, baru ambil aksi.</p></div>
+                    <div class="flex gap-3"><span class="text-ink font-bold shrink-0">1.</span><p class="text-[#333]"><strong>React.memo &amp; useMemo</strong> — kayak skip button di YouTube. Skip re-render kalau nggak perlu. Tapi jangan kebablasan!</p></div>
+                    <div class="flex gap-3"><span class="text-ink font-bold shrink-0">2.</span><p class="text-[#333]"><strong>Code Splitting &amp; Lazy Loading</strong> — kayak pindahan rumah terorganisir. Bawa yang penting dulu, sisanya menyusul.</p></div>
+                    <div class="flex gap-3"><span class="text-ink font-bold shrink-0">3.</span><p class="text-[#333]"><strong>Virtualization</strong> — render item yang kelihatan doang. 10,000 item? No problem.</p></div>
+                    <div class="flex gap-3"><span class="text-ink font-bold shrink-0">4.</span><p class="text-[#333]"><strong>Measure first, optimize second</strong> — jangan optimize secara buta. Pakai Profiler, lihat data, baru ambil aksi.</p></div>
                 </div>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-9.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a></div>
+                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
+                <div class="flex gap-4 mt-4"><a href="chapter-9.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a></div>
             </section>
         </div>
     </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-ink text-dark-900 rounded-full shadow-lg shadow-black/10 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
     <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch10']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch10']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
-</body>
+
+
+    </body>
 </html>
