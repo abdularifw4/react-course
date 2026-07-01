@@ -27,121 +27,226 @@
     <main class="lg:ml-72">
         <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🚀 Chapter 7</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 7</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Next.js Fundamentals</h1></div>
-            
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. App Router — Routing Modern Next.js</h3>
-                <p class="text-gray-300 mb-3">App Router (Next.js 13+) menggunakan folder-based routing. Setiap folder di app/ menjadi route. file page.tsx = halaman, layout.tsx = layout bersama, loading.tsx = loading state otomatis.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Struktur folder = routing
-// app/
-//   layout.tsx          -&gt; Root layout (HTML, body)
-//   page.tsx             -&gt; /
-//   about/
-//     page.tsx           -&gt; /about
-//   blog/
-//     page.tsx           -&gt; /blog
-//     [slug]/
-//       page.tsx         -&gt; /blog/:slug (dynamic route)
-//   dashboard/
-//     layout.tsx         -&gt; Dashboard layout (nested)
-//     page.tsx           -&gt; /dashboard
-//     settings/
-//       page.tsx         -&gt; /dashboard/settings
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 7</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Next.js Fundamentals</h1><p class="text-gray-400 text-lg">Pernah ngerasa React biasa tuh kayak mobil tanpa mesin? Kita punya komponen keren, tapi gimana cara ngirimnya ke user? Nah, Next.js jawabannya. 🏎️💨</p></div>
 
-// Dynamic route
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-white mb-4">🏃 APP ROUTER &#8212; BIKIN ROUTE TANPA PUSING</h3>
+                <p class="text-gray-300 mb-3">Oke, bayangin lo mau bikin website punya halaman Home, About, Blog, sama Dashboard. Di React biasa, lo harus pasang React Router, bikin file terpisah, tulis path manual... cape deh. 😥</p>
+                <p class="text-gray-300 mb-3">Di Next.js App Router (mulai versi 13+), <strong class="text-white">lo cuma bikin folder aja</strong>. Serius. Itu doang. Nggak ada konfigurasi router. Nggak ada import Route dari mana-mana. Cukup bikin folder, dan boom &#8212; route-nya auto jadi. 💯</p>
+                <p class="text-gray-300 mb-4">Analoginya gini: lo punya rumah. Setiap kamar itu satu halaman. Mau tambah kamar? Tinggal bikin folder baru. Mau kamar dalam kamar (nested route)? Bikin folder di dalam folder. Simple kan?</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Struktur folder = routing otomatis!
+// app/
+//   layout.tsx          → Layout utama (HTML, body tag)
+//   page.tsx             → /
+//   about/
+//     page.tsx           → /about
+//   blog/
+//     page.tsx           → /blog
+//     [slug]/
+//       page.tsx         → /blog/:slug (dynamic route!)
+//   dashboard/
+//     layout.tsx         → Layout khusus dashboard (nested)
+//     page.tsx           → /dashboard
+//     settings/
+//       page.tsx         → /dashboard/settings
+
+// Dynamic route — pake [bracket] buat parameter
 interface BlogPostProps {
   params: { slug: string };
 }
 
 export default function BlogPost({ params }: BlogPostProps) {
-  return &lt;h1&gt;Blog Post: {params.slug}&lt;/h1&gt;;
+  return <h1>Baca: {params.slug}</h1>;
 }
 
-// Generate static params untuk SSG
+// Pengen halaman blog di-generate sebelum user buka? (SSG)
+// Pake generateStaticParams!
 export async function generateStaticParams() {
-  const posts = await fetch(&#x27;https://api.example.com/posts&#x27;);
-  return (await posts.json()).map((p: any) =&gt; ({
+  const posts = await fetch('https://api.example.com/posts');
+  return (await posts.json()).map((p: any) => ({
     slug: p.slug
   }));
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> App Router itu seperti peta rumah. Setiap kamar (folder) punya pintu sendiri (route). Kamu nggak perlu konfigurasi router — cukup bikin folder dan file!</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Folder <code class="text-accent">[slug]</code> itu kayak slot kosong di parkiran. Nama slot-nya dinamis &#8212; bisa jadi "belajar-react", "tips-nextjs", apapun. Nah, isi dari slot itu nanti bisa lo akses lewat <code class="text-accent">params.slug</code>. Keren nggak? 🎰</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan lupa:</strong> Kalo lo bikin folder tapi nggak ada file <code class="text-accent">page.tsx</code> di dalamnya, route-nya <strong>nggak bakal muncul</strong>. Next.js butuh <code class="text-accent">page.tsx</code> sebagai "pintu masuk" halaman. Tanpa itu, foldernya cuma jadi dekorasi doang. 😅</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Server Components vs Client Components</h3>
-                <p class="text-gray-300 mb-3">React Server Components (RSC) render di server, bukan di browser. Ini mengurangi JavaScript yang dikirim ke client dan memungkinkan akses langsung ke database, file system, dll.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Server Component (default di Next.js App Router)
-// Tidak ada &#x27;use client&#x27; -&gt; ini server component
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
+                <h3 class="text-xl font-bold text-white mb-4">👨‍🍳 SERVER COMPONENTS VS 🎮 CLIENT COMPONENTS</h3>
+                <p class="text-gray-300 mb-3">Ini konsep yang bikin Next.js beda banget sama React biasa. Jadi gini ya...</p>
+                <p class="text-gray-300 mb-3">Bayangin lo lagi di restoran. Ada <strong class="text-accent">chef</strong> yang masak di dapur, dan ada <strong class="text-accent">meja makan</strong> yang interaktif buat tamu. Server Component itu si chef &#8212; dia masak (render) di dapur (server), terus kirim hasilnya yang udah matang ke tamu. Nggak perlu tamu repot-repot masak sendiri. 👨‍🍳</p>
+                <p class="text-gray-300 mb-3">Sedangkan Client Component itu kayak meja makan yang punya tombol buat pesan, interaktif, bisa klik-klik. Tamu butuh ini buat interaksi. Tapi chef tetap yang masak makanannya &#8212; tamu cuma nerima dan bisa interaksi di meja. 🎮</p>
+                <p class="text-gray-300 mb-4"><strong class="text-white">Kenapa ini penting?</strong> Karena Server Component nggak ngirim JavaScript ke browser! Artinya? Website lo <strong class="text-accent">lebih cepet</strong>, bundle-nya <strong class="text-accent">lebih kecil</strong>, dan user-nya <strong class="text-accent">lebih seneng</strong>. 🚀</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// SERVER COMPONENT — default di Next.js App Router!
+// Nggak usah tulis apa-apa, ini udah otomatis server component
 async function ProductList() {
-  // Bisa langsung akses database!
+  // Lo bisa LANGSUNG akses database di sini!
+  // Nggak perlu fetch ke API, nggak perlu useEffect, langsung gas!
   const products = await db.product.findMany();
 
   return (
-    &lt;div&gt;
-      {products.map(p =&gt; (
-        &lt;div key={p.id}&gt;{p.name} - Rp{p.price}&lt;/div&gt;
+    <div>
+      {products.map(p => (
+        <div key={p.id}>{p.name} — Rp{p.price.toLocaleString()}</div>
       ))}
-    &lt;/div&gt;
+    </div>
   );
 }
 
-// Client Component — butuh interaktivitas
-&#x27;use client&#x27;; // WAJIB untuk event handlers, hooks, browser API
+// CLIENT COMPONENT — butuh interaktivitas? Ini tempatnya
+'use client'; // ← WAJIB! Tanpa ini, hooks nggak bakal jalan
 
-import { useState } from &#x27;react&#x27;;
+import { useState } from 'react';
 
 function AddToCart({ productId }: { productId: string }) {
   const [added, setAdded] = useState(false);
 
-  const handleAdd = () =&gt; {
-    // fetch API call
+  const handleAdd = () => {
+    // fetch, onclick, useState — semuanya butuh 'use client
     setAdded(true);
   };
 
   return (
-    &lt;button onClick={handleAdd}&gt;
-      {added ? &#x27;✅ Ditambahkan&#x27; : &#x27;🛒 Tambah ke Keranjang&#x27;}
-    &lt;/button&gt;
+    <button onClick={handleAdd}>
+      {added ? '✅ Udah masuk keranjang!' : '🛒 Tambah ke Keranjang'}
+    </button>
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Server Component = chef di dapur (masak di server, kirim hasil matang). Client Component = peralatan di meja makan (interaktif, butuh browser). Gunakan Server Component default, tambah &#x27;use client&#x27; hanya saat butuh interaksi.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Aturan emas:</strong> Mulai dari Server Component dulu. Baru kalau lo butuh <code class="text-accent">useState</code>, <code class="text-accent">useEffect</code>, <code class="text-accent">onClick</code>, atau browser API &#8212; baru tambahin <code class="text-accent">'use client'</code> di paling atas file. Semakin banyak Server Component, semakin cepat web lo. ⚡</p></div>
+                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Trap yang sering kejebak:</strong> Kalo lo tulis <code class="text-accent">'use client'</code> di parent component, <strong class="text-white">semua child-nya otomatis jadi Client Component juga</strong>. Jadi hati-hati &#8212; jangan asal sembarang taruh <code class="text-accent">'use client'</code>. Taruh di component yang bener-bener butuh doang! 🎯</p></div>
             </section>
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. Data Fetching &amp; API Routes</h3>
-                <p class="text-gray-300 mb-3">Next.js menyediakan cara berbeda untuk fetching data: server-side (langsung di component), static generation (build time), dan API routes untuk backend logic.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Server-side fetching (default)
-async function UsersPage() {
-  const users = await fetch(&#x27;https://api.example.com/users&#x27;, {
-    cache: &#x27;force-cache&#x27; // SSG-like, cache selamanya
-    // cache: &#x27;no-store&#x27; // SSR, selalu fresh
-    // next: { revalidate: 3600 } // ISR, revalidate tiap jam
-  }).then(r =&gt; r.json());
 
-  return &lt;div&gt;{users.map((u: any) =&gt; &lt;div key={u.id}&gt;{u.name}&lt;/div&gt;)}&lt;/div&gt;;
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
+                <h3 class="text-xl font-bold text-white mb-4">📦 DATA FETCHING &#8212; GIMANA CARA AMBIL DATA?</h3>
+                <p class="text-gray-300 mb-3">Dulu di React, kalo mau ambil data lo pake useEffect + fetch. Nah itu cara lama. Di Next.js, lo bisa langsung async/await di component &#8212; karena component-nya jalan di server! 🎉</p>
+                <p class="text-gray-300 mb-3">Tapi wait, ada tiga strategi fetching data di Next.js. Masing-masing punya use case beda. Pahami ini, lo bakal nggak bingung lagi kapan harus pake yang mana.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// === STRATEGI 1: STATIC GENERATION (SSG) ===
+// Data di-fetch sekali waktu build. Cocok buat blog, landing page.
+async function BlogList() {
+  const posts = await fetch('https://api.example.com/posts', {
+    cache: 'force-cache' // ← Simpan selamanya sampai build lagi
+  }).then(r => r.json());
+
+  return <div>{posts.map((p: any) => <div key={p.id}>{p.title}</div>)}</div>;
 }
 
-// API Route (app/api/)
-// app/api/hello/route.ts
-import { NextResponse } from &#x27;next/server&#x27;;
+// === STRATEGI 2: SERVER-SIDE RENDERING (SSR) ===
+// Data di-fetch setiap kali user request. Cocok buat data yang sering berubah.
+async function LiveScore() {
+  const scores = await fetch('https://api.example.com/scores', {
+    cache: 'no-store' // ← Selalu fresh, nggak pernah cache
+  }).then(r => r.json());
 
+  return <div>{scores.map((s: any) => <div key={s.id}>{s.team}: {s.score}</div>)}</div>;
+}
+
+// === STRATEGI 3: INCREMENTAL STATIC REGENERATION (ISR) ===
+// Data di-cache TAPI di-update berkala. Best of both worlds!
+async function ProductPage() {
+  const products = await fetch('https://api.example.com/products', {
+    next: { revalidate: 3600 } // ← Update tiap 1 jam
+  }).then(r => r.json());
+
+  return <div>{products.map((p: any) => <div key={p.id}>{p.name}</div>)}</div>;
+}</code></pre>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Analoginya gini:</strong></p>
+                    <ul class="text-sm text-gray-300 mt-2 space-y-1 list-disc list-inside">
+                        <li><code class="text-accent">force-cache</code> = Foto polaroid 📸 &#8212; diambil sekali, nggak berubah-ubah</li>
+                        <li><code class="text-accent">no-store</code> = Live TV 📺 &#8212; selalu update, realtime</li>
+                        <li><code class="text-accent">revalidate: 3600</code> = Koran pagi 📰 &#8212; terbit tiap jam, tapi di antaranya tetap yang lama</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
+                <h3 class="text-xl font-bold text-white mb-4">🔌 API ROUTES &#8212; BACKEND TANPA SERVER TERPISAH</h3>
+                <p class="text-gray-300 mb-3">Nah ini yang paling seru. Lo butuh API buat handle form, autentikasi, atau database operation? Nggak usah bikin server Express terpisah. Next.js udah nyediain API Routes di dalam project lo sendiri! 🎂</p>
+                <p class="text-gray-300 mb-3">Caranya? Tinggal bikin folder <code class="text-accent">api/</code> di dalam <code class="text-accent">app/</code>, terus buat file <code class="text-accent">route.ts</code>. Setiap file <code class="text-accent">route.ts</code> bisa export fungsi GET, POST, PUT, DELETE &#8212; persis kayak REST API yang lo kenal. 😎</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// File: app/api/hello/route.ts
+import { NextResponse } from 'next/server';
+
+// GET request handler
 export async function GET() {
-  const data = { message: &#x27;Hello from API!&#x27; };
+  const data = { message: 'Halo dari Next.js API!' };
   return NextResponse.json(data);
 }
 
+// POST request handler
 export async function POST(request: Request) {
   const body = await request.json();
-  // Process data...
-  return NextResponse.json({ success: true });
+
+  // Misalnya simpan ke database
+  // await db.user.create({ data: body });
+
+  return NextResponse.json({
+    success: true,
+    message: 'Halo ' + body.name + '! Data udah diterima.'
+  });
+}
+
+// Pake di frontend (Server Component atau Client Component)
+async function ContactForm() {
+  // Bisa langsung fetch ke API route sendiri!
+  const response = await fetch('/api/hello', {
+    method: 'POST',
+    body: JSON.stringify({ name: 'Arif' })
+  });
+  const data = await response.json();
+  // { success: true, message: "Halo Arif! Data udah diterima." }
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> cache: &#x27;force-cache&#x27; = freezer (simpan selamanya). cache: &#x27;no-store&#x27; = pasar (selalu fresh). next: { revalidate: 3600 } = kulkas (segar tapi ada tanggal kadaluarsa). Pilih sesuai kebutuhan data-nya.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> API route itu kayak punya dapur belakang di restoran lo sendiri. Nggak perlu sewa gedung terpisah (server Express/NestJS) cuma buat handle API. Semua dalam satu project. Satu deploy, semuanya jalan. Efisien banget! 🏠🍳</p></div>
             </section>
+
+            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
+                <h3 class="text-xl font-bold text-white mb-4">🏗️ LAYOUT &amp; TEMPLATES &#8212; SISTEM KERANGKA HALAMAN</h3>
+                <p class="text-gray-300 mb-3">Setiap website punya bagian yang tetap ada di semua halaman &#8212; header, footer, sidebar. Di Next.js, lo nggak perlu copy-paste itu ke setiap halaman. Ada <code class="text-accent">layout.tsx</code> yang nge-wrap semua halaman secara otomatis. 🧩</p>
+                <p class="text-gray-300 mb-3">Yang lebih keren: layout bisa <strong class="text-accent">nested</strong>. Artinya dashboard punya layout sendiri, blog punya layout sendiri, tapi tetap punya layout utama (root layout) yang nge-wrap semuanya. Kayak boneka matryoshka &#8212; ada dalam ada! 🪖</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// app/layout.tsx — Root Layout (WAJIB ada!)
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="id">
+      <body>
+        {/* Ada di SEMUA halaman */}
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
+}
+
+// app/dashboard/layout.tsx — Nested layout (khusus dashboard)
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex">
+      {/* Sidebar khusus dashboard */}
+      <DashboardSidebar />
+      <main>{children}</main>
+    </div>
+  );
+}
+
+// app/dashboard/page.tsx
+// Halaman ini bakal punya: Navbar + DashboardSidebar + konten + Footer
+export default function DashboardPage() {
+  return <h1>Selamat datang di Dashboard!</h1>;
+}</code></pre>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Perbedaan layout vs template:</strong> <code class="text-accent">layout.tsx</code> itu persistent &#8212; pas lo pindah halaman, layout-nya <strong>nggak re-render</strong> (state tetap hidup!). <code class="text-accent">template.tsx</code> itu tiap pindah halaman bakal <strong>re-render ulang</strong> (fresh state). Pilih layout buat kebanyakan kasus! 🎯</p></div>
+            </section>
+
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 7</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang next.js fundamentals. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
+                <h3 class="text-xl font-bold text-accent mb-4">📝 RECAP &#8212; YANG HARUS LO BAWA PULANG</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">App Router</strong> &#8212; Bikin route cuma dengan bikin folder. <code class="text-accent">page.tsx</code> = halaman, <code class="text-accent">[slug]</code> = dynamic route. Gampang banget.</p></div>
+                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Server vs Client Components</strong> &#8212; Default Server Component (lebih cepat). Tambah <code class="text-accent">'use client'</code> cuma kalau butuh interaktivitas.</p></div>
+                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Data Fetching</strong> &#8212; <code class="text-accent">force-cache</code> (SSG), <code class="text-accent">no-store</code> (SSR), <code class="text-accent">revalidate</code> (ISR). Tiga strategi, tiga kebutuhan berbeda.</p></div>
+                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">API Routes</strong> &#8212; Backend langsung di project Next.js. Nggak perlu server terpisah.</p></div>
+                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Layouts</strong> &#8212; Wrapper otomatis buat bagian yang tetap ada. Bisa nested, state persistent.</p></div>
+                </div>
+                <p class="text-gray-400 text-sm mb-6">Sekarang lo udah punya mental model Next.js yang solid. Dari sini, lo bisa explore lebih dalam &#8212; middleware, image optimization, metadata API, dan lain-lain. Tapi fondasi ini udah lebih dari cukup buat mulai bikin production app! 💪</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✨</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-6.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-8.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
-            </section>
-        </div>
+            </section>        </div>
     </main>
     <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
     <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch7']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch7']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
