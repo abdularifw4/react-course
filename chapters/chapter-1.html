@@ -186,6 +186,30 @@
 
                     <p>Nah, <strong class="text-ink">React</strong> lahir dari masalah itu. React itu <strong class="text-ink">library JavaScript</strong> buat bikin user interface yang dibikin oleh Meta (dulu namanya Facebook). Diperkenalin pertama kali tahun 2013, dan sekarang udah dipake jutaan developer di seluruh dunia — termasuk di perusahaan-perusahaan besar kayak Netflix, Airbnb, dan Instagram.</p>
 
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">React Component — Bikin Komponen</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Functional Component (cara modern)
+function Welcome({ name }) {
+  return &lt;h1&gt;Halo, {name}!&lt;/h1&gt;;
+}
+
+// Pakai komponennya
+&lt;Welcome name="Arif" /&gt;
+// Output: Halo, Arif!
+
+// Komponen dengan multiple props
+function Button({ label, onClick, color = "blue" }) {
+  return (
+    &lt;button onClick={onClick} style={{ backgroundColor: color }}&gt;
+      {label}
+    &lt;/button&gt;
+  );
+}</code></pre>
+                    </div>
+
                     <p>Tapi yang bikin React beda dari yang lain? 🔑 <strong class="text-ink">Component-based architecture</strong>. Maksudnya apa?</p>
 
                     <p>Bayangin kamu lagi bikin LEGO 🧱. Kamu nggak langsung bikin istana raksasa sekaligus kan? Kamu mulai dari bata-bata kecil dulu — satu per satu, lalu disusun jadi bentuk yang lebih besar. Nah, di React, <strong class="text-ink">komponen</strong> itu kayak bata LEGO-nya. Kamu bikin komponen-komponen kecil yang masing-masing punya tugas sendiri, terus kamu gabung-gabungin jadi halaman yang kompleks.</p>
@@ -294,6 +318,31 @@ npm run dev
                     <p>Okay, ini bagian yang sering bikin orang "oh ternyata gitu!" 🤯 Jadi dulu sebelum React, pas kita mau update halaman web, kita langsung utik-utik DOM-nya. Masalahnya? <strong class="text-ink">DOM itu MAHAL.</strong></p>
 
                     <p>Setiap kali kamu ngubah satu elemen doang di DOM, browser harus nge-<em>reflow</em> dan nge-<em>repaint</em> seluruh halaman. Bayangin kamu punya form dengan 50 input, terus tiap ketik satu huruf, browser harus re-calculate layout SEMUA elemen. Hasilnya? Aplikasi jadi <strong class="text-ink">lag dan lemot</strong>. 🐌</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Virtual DOM — Cara React Update</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// React bikin Virtual DOM = copyan DOM di memory
+// Cuma update bagian yang berubah, bukan reload semua
+
+function App() {
+  const [count, setCount] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Counter: {count}&lt;/h1&gt;
+      &lt;p&gt;Static text&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Setelah setCount(1):
+// React compare Virtual DOM lama vs baru
+// Cuma &lt;h1&gt; yang di-update di real DOM
+// &lt;p&gt; dan &lt;button&gt; tidak disentuh = efisien!</code></pre>
+                    </div>
 
                     <p>Nah, di sinilah <strong class="text-ink">Virtual DOM</strong> jadi pahlawan! 💪</p>
 

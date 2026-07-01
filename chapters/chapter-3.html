@@ -170,6 +170,33 @@
                 <h3 class="text-xl font-bold text-ink mb-4">🤔 KENAPA SIH HOOKS ITU PENTING BANGET?</h3>
                 <p class="text-[#333] mb-3">Oke, bayangin kamu lagi bikin aplikasi e-commerce. User klik tombol “Tambah ke Keranjang” — tapi <strong class="text-ink">angkanya nggak berubah</strong>. Di halaman tetap nol. 😔</p>
                 <p class="text-[#333] mb-3">Nah itu masalahnya kalau komponen kamu nggak punya <em class="text-ink">state</em>. Komponen fungsional dulu itu kayak kertas — sekali ditulis, selesai. Nggak bisa ngubah apa-apa setelah itu.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Hooks vs Class Component</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ Dulu - Class Component (ribet!)
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({ count: this.state.count + 1 });
+  }
+  render() {
+    return &lt;button onClick={this.handleClick}&gt;Count: {this.state.count}&lt;/button&gt;;
+  }
+}
+
+// ✅ Sekarang - Hooks (bersih, simpel!)
+function Counter() {
+  const [count, setCount] = useState(0);
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Count: {count}&lt;/button&gt;;
+}</code></pre>
+                    </div>
                 <p class="text-[#333] mb-3">Masuklah <strong class="text-ink">React Hooks</strong> di React 16.8 (2019). Hooks itu cara React bilang ke komponen fungsional: <em>“Hei, kamu sekarang bisa punya memori sendiri, lho!”</em> 🧠</p>
                 <p class="text-[#333] mb-3">Sebelum hooks, kalau mau punya state, kamu <strong class="text-ink">harus</strong> pakai class component. Yang artinya nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">constructor()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">this.setState()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount()</code> — belajar hal-hal yang sebenernya nggak perlu buat yang baru mulai.</p>
                 <p class="text-[#333]">Sekarang? Cukup fungsi biasa + hooks. Lebih simpel, lebih gampang dibaca, dan—yang paling penting—<strong class="text-ink">lebih fun</strong>. ✨</p>
@@ -182,6 +209,33 @@
                 <h3 class="text-xl font-bold text-ink mb-4">1️⃣ USESTATE — “INGET-IN YANG INI YA, REACT!”</h3>
                 <p class="text-[#333] mb-3">Pernah ngalamin ini? Kamu bikin tombol counter, tapi angkanya nggak pernah nambah. Kamu udah pasang <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">onClick</code>, udah nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">count++</code>... tapi UI-nya tetap 0. 🤯</p>
                 <p class="text-[#333] mb-3">Itu karena komponen fungsional <strong class="text-ink">nggak punya memori</strong>. Setiap kali di-render, dia lupa sama sebelumnya. Kayak film <em>50 First Dates</em> — bangun, lupa semuanya. 😅</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useState — Counter + Object State</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Basic counter
+const [count, setCount] = useState(0);
+const [name, setName] = useState('');
+
+// State object (hati-hati! jangan lupa spread)
+const [user, setUser] = useState({ name: '', age: 0 });
+
+// ❌ SALAH - menghapus key lain!
+setUser({ name: 'Budi' }); // age hilang!
+
+// ✅ BENAR - spread dulu, baru update
+setUser({ ...user, name: 'Budi' }); // age masih ada
+
+// Functional update (paling aman)
+setUser(prev =&gt; ({ ...prev, name: 'Budi' }));
+
+// Lazy initialization (buat kalkulasi mahal)
+const [data, setData] = useState(() =&gt; {
+  return expensiveCalculation(); // cuma jalan sekali!
+});</code></pre>
+                    </div>
                 <p class="text-[#333] mb-3"><strong class="text-ink">useState</strong> itu obatnya. Dia kasih “ingatan” ke komponen kamu. Jadi React bisa ngerekam: “Oke, count-nya sekarang 5. Kalau user klik lagi, jadi 6.”</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Sintaks dasar — destrukturisasi array
 const [namaState, setNamaState] = useState(nilaiAwal);
 //      ↑               ↑                ↑
@@ -243,6 +297,34 @@ function Form() {
                 <h3 class="text-xl font-bold text-ink mb-4">2️⃣ USEEFFECT — “REACT, LAKUKAN INI SETELAH RENDER”</h3>
                 <p class="text-[#333] mb-3">Okay, kamu udah bisa simpan data pakai useState. Tapi sekarang gimana cara <strong class="text-ink">fetch data dari API</strong>? Atau set timer? Atau langganan event?</p>
                 <p class="text-[#333] mb-3">Di dunia class component dulu, kamu pake lifecycle methods kayak <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidUpdate</code>, dan <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentWillUnmount</code>. Tiga method buat tiga fase berbeda. Ribet, kan?</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useEffect — Cleanup & Dependencies</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Effect dengan cleanup (seperti ngOnInit + ngOnDestroy)
+useEffect(() =&gt; {
+  const timer = setInterval(() =&gt; {
+    console.log('tick');
+  }, 1000);
+
+  // Cleanup function - jalan saat unmount atau sebelum effect berikutnya
+  return () =&gt; clearInterval(timer);
+}, []); // [] = cuma sekali saat mount
+
+// Effect dengan dependency
+useEffect(() =&gt; {
+  fetch(`/api/users/${userId}`)
+    .then(res =&gt; res.json())
+    .then(data =&gt; setUser(data));
+}, [userId]); // jalan ulang kalau userId berubah
+
+// ❌ HATI-HATI: infinite loop!
+useEffect(() =&gt; {
+  setCount(count + 1); // trigger re-render -&gt; effect jalan lagi -&gt; infinity!
+}); // tidak ada dependency array</code></pre>
+                    </div>
                 <p class="text-[#333] mb-3"><strong class="text-ink">useEffect</strong> gabungin semua itu jadi SATU hook. Dia bilang ke React: <em>“Hei, setelah kamu selesai render, lakukanin ini ya.”</em> 🫥</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect } from 'react';
 
@@ -316,6 +398,45 @@ function Dashboard() {
                 <h3 class="text-xl font-bold text-ink mb-4">3️⃣ USEREF — “RAHASIA YANG TERSEMBUNYI”</h3>
                 <p class="text-[#333] mb-3">Pernah mau auto-focus ke input field saat halaman kebuka? Atau butuh nge-track nilai sebelumnya? Atau simpan timer ID?</p>
                 <p class="text-[#333] mb-3">Nah kalau pakai useState buat hal-hal itu, kamu bakal kena re-render yang nggak perlu. Dan re-render yang nggak perlu itu... ibarat kamu disuruh tulis ulang seluruh dokumen cuma karena salah satu huruf. 😕</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useRef — DOM Access & Mutable Value</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// 1. Akses DOM element langsung
+function InputFocus() {
+  const inputRef = useRef(null);
+
+  useEffect(() =&gt; {
+    inputRef.current.focus(); // autofocus tanpa library!
+  }, []);
+
+  return &lt;input ref={inputRef} placeholder="Auto-focused" /&gt;;
+}
+
+// 2. Simpan value tanpa trigger re-render
+function Stopwatch() {
+  const [seconds, setSeconds] = useState(0);
+  const intervalRef = useRef(null);
+
+  useEffect(() =&gt; {
+    intervalRef.current = setInterval(() =&gt; {
+      setSeconds(s =&gt; s + 1);
+    }, 1000);
+    return () =&gt; clearInterval(intervalRef.current);
+  }, []);
+
+  const stop = () =&gt; clearInterval(intervalRef.current);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{seconds}s&lt;/p&gt;
+      &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
                 <p class="text-[#333] mb-3"><strong class="text-ink">useRef</strong> itu kayak laci rahasia. Kamu simpan apa aja di sana, nggak ada yang tau, dan <strong class="text-ink">nggak memicu re-render</strong>. Cocok banget buat hal-hal yang “di belakang layar”.</p>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useRef, useEffect, useState } from 'react';
 
@@ -361,6 +482,35 @@ function Counter() {
                 <h3 class="text-xl font-bold text-ink mb-4">4️⃣ USEMEMO & USECALLBACK — “JANGAN KERJA DUA KALI KALAU NGGAK PERLU”</h3>
                 <p class="text-[#333] mb-3">Bayangin kamu punya list 10.000 produk dan tiap kali user ngetik di search bar, kamu filter ulang SEMUA produk. Nah kalau proses filtering itu berat, UI kamu bisa lag. User klik, tunggu... klik lagi, tunggu... 😴</p>
                 <p class="text-[#333] mb-3">Nah <strong class="text-ink">useMemo</strong> dan <strong class="text-ink">useCallback</strong> itu kayak cache di browser. Udah dihitung/dibuat sekali, kalau inputnya sama, tinggal pakai hasil yang lama. Done. ✅</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useMemo & useCallback — Performance</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// useMemo: cache hasil kalkulasi
+function ProductList({ products, filter }) {
+  const filtered = useMemo(() =&gt; {
+    return products.filter(p =&gt; p.category === filter);
+  }, [products, filter]); // cuma re-filter kalau products/filter berubah
+
+  return filtered.map(p =&gt; &lt;div key={p.id}&gt;{p.name}&lt;/div&gt;);
+}
+
+// useCallback: cache function reference
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState('');
+
+  // Tanpa useCallback: fungsi baru setiap render -&gt; Child re-render
+  // Dengan useCallback: fungsi sama selama count tidak berubah
+  const handleClick = useCallback(() =&gt; {
+    setCount(c =&gt; c + 1);
+  }, []); // dependency kosong = fungsi stabil
+
+  return &lt;Child onClick={handleClick} text={text} /&gt;;
+}</code></pre>
+                    </div>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo, useCallback, memo } from 'react';
 
 // useMemo: Cache hasil kalkulasi yang mahal
@@ -409,6 +559,38 @@ function Parent() {
                 <h3 class="text-xl font-bold text-ink mb-4">5️⃣ USECONTEXT — “PENGUMUMAN UNTUK SEMUA ORANG”</h3>
                 <p class="text-[#333] mb-3">Pernah ngalamin <strong class="text-ink">props drilling</strong>? Jadi gini: kamu punya data theme di App, terus di-lempar ke Header → Navbar → MenuButton. Tiga component cuma buat nganterin SATU data. Rasanya kayak jadi kurir paket, tapi cuma bawa satu amplop 📦</p>
                 <p class="text-[#333] mb-3"><strong class="text-ink">useContext</strong> itu solusinya. Dia kayak pengeras suara di sekolah. Ketua kelas (Provider) bilang sekali, semua murid (component) denger. Nggak perlu disampaikan satu-satu. 📢</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useContext — Global State Tanpa Redux</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// 1. Bikin Context
+const ThemeContext = createContext();
+
+// 2. Provider di atas
+function App() {
+  const [theme, setTheme] = useState('light');
+  return (
+    &lt;ThemeContext.Provider value={{ theme, setTheme }}&gt;
+      &lt;Header /&gt;
+      &lt;Main /&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+
+// 3. Consum di anak cucu (tanpa props drilling!)
+function Header() {
+  const { theme, setTheme } = useContext(ThemeContext);
+  return (
+    &lt;header className={theme}&gt;
+      &lt;button onClick={() =&gt; setTheme(theme === 'light' ? 'dark' : 'light')}&gt;
+        Toggle Theme
+      &lt;/button&gt;
+    &lt;/header&gt;
+  );
+}</code></pre>
+                    </div>
 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
 
 // Step 1: Buat context dulu
@@ -504,6 +686,40 @@ useEffect(() => { fetchData(options); }, [options]);
 const memoOptions = useMemo(() => ({ page, limit }), [page, limit]);
 useEffect(() => { fetchData(memoOptions); }, [memoOptions]);</code></pre><div class="warning-box rounded-r-xl p-4 my-4">
                     <p class="text-sm"><strong>⚠️ 3 Aturan Emas Hooks:</strong></p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Kesalahan Umum Hooks</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ 1. Lupa dependency array
+useEffect(() =&gt; {
+  fetchData();
+}); // jalan setiap render! Performance disaster!
+
+// ✅ Fix:
+useEffect(() =&gt; {
+  fetchData();
+}, []); // cuma sekali
+
+// ❌ 2. Update state berdasarkan state lama
+const [count, setCount] = useState(0);
+setCount(count + 1); // bisa stale kalau dipanggil cepat
+setCount(count + 1); // count masih nilai lama!
+
+// ✅ Fix: gunakan functional update
+setCount(prev =&gt; prev + 1);
+setCount(prev =&gt; prev + 1); // pasti +2
+
+// ❌ 3. Panggil hook di dalam conditional
+if (showCount) {
+  const [count, setCount] = useState(0); // BREAKS RULES OF HOOKS!
+}
+
+// ✅ Fix: hook selalu di top level
+const [count, setCount] = useState(0);
+// baru gunakan conditional untuk logic-nya</code></pre>
+                    </div>
                     <ol class="mt-2 space-y-1 text-sm list-decimal list-inside">
                         <li><strong class="text-ink">Top level only!</strong> Nggak boleh di dalam if, loop, atau nested function.</li>
                         <li><strong class="text-ink">Functional update</strong> <code class="text-ink">c => c + 1</code> kalau state baru bergantung di state lama di useEffect.</li>
@@ -525,6 +741,34 @@ useEffect(() => { fetchData(memoOptions); }, [memoOptions]);</code></pre><div cl
                 </ul>
 <div class="tip-box rounded-r-xl p-4 my-4">
                     <p class="text-sm"><strong>💡 Tip:</strong> Nggak perlu hafal semua sekarang. Yang paling penting kamu mahir dulu itu <strong class="text-ink">useState</strong> dan <strong class="text-ink">useEffect</strong> — itu duo yang bakal kamu pakai 90% waktu. Sisanya pelajari pelan-pelan sambil ngoding proyek nyata. Trust the process! 💪</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Quick Reference — All Basic Hooks</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// useState - data yang trigger re-render
+const [value, setValue] = useState(initialValue);
+
+// useEffect - side effects (fetch, timer, subscription)
+useEffect(() =&gt; {
+  // setup
+  return () =&gt; { /* cleanup */ };
+}, [dependencies]);
+
+// useRef - mutable value tanpa re-render + DOM access
+const ref = useRef(initialValue);
+ref.current = newValue; // nggak trigger re-render
+
+// useMemo - cache hasil kalkulasi mahal
+const result = useMemo(() =&gt; expensiveCalc(a, b), [a, b]);
+
+// useCallback - cache function reference
+const fn = useCallback(() =&gt; doSomething(id), [id]);
+
+// useContext - akses global state
+const value = useContext(MyContext);</code></pre>
+                    </div>
                 </div>                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai & Lanjut!</button>
                 <div class="flex gap-4 mt-4">
                     <a href="chapter-2.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>

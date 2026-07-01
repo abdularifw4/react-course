@@ -177,6 +177,54 @@
                     <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2726;</span><span><strong class="text-ink">React Testing Library (RTL)</strong> &mdash; si "pengguna palsu" yang ngetes komponen kamu kayak user asli</span></li>
                 </ul>
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Analogi mudahnya:</strong> Jest itu kayak ruang ujian + pengawasnya. RTL itu kayak murid yang lagi ujian &mdash; dia buka komponen, klik tombol, baca teks, persis kayak user beneran. Kalau hasilnya sesuai ekspektasi, &#x1F44F; LULUS!</p></div>
+                <p class="text-[#333] mb-3">Sebelum mulai ngetest, kita perlu <strong class="text-ink">setup dulu environment-nya</strong>. Berikut konfigurasi Jest + RTL yang umum dipake di proyek React (Vite/Create React App):</p>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <span class="text-xs text-muted font-medium">Setup: Install &amp; Konfigurasi Jest + RTL</span>
+                        <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                    </div>
+                    <pre><code class="language-bash"># 1. Install dependencies
+npm install --save-dev jest @testing-library/react \
+  @testing-library/jest-dom @testing-library/user-event \
+  jest-environment-jsdom babel-jest @babel/preset-env \
+  @babel/preset-react
+
+# 2. Bikin setup file: src/setupTests.js
+echo "import '@testing-library/jest-dom';" > src/setupTests.js
+
+# 3. Jalankan test
+npx jest                 # semua test file
+npx jest Counter.test    # file spesifik
+npx jest --watch         # mode watch (auto re-run)
+npx jest --coverage      # dengan laporan coverage</code></pre>
+                </div>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <span class="text-xs text-muted font-medium">jest.config.js &mdash; Konfigurasi Dasar</span>
+                        <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                    </div>
+                    <pre><code class="language-javascript">// jest.config.js
+module.exports = {
+  testEnvironment: 'jsdom',          // simulate browser environment
+  setupFilesAfterEnv: ['&lt;rootDir&gt;/src/setupTests.js'],
+  moduleNameMapper: {
+    '\\.(css|less|scss)$': '&lt;rootDir&gt;/__mocks__/styleMock.js',
+    '^@/(.*)$': '&lt;rootDir&gt;/src/$1',   // alias @/ -> src/
+  },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+  },
+  testMatch: [
+    '**/__tests__/**/*.test.(js|jsx|ts|tsx)',
+    '**/?(*.)+(spec|test).(js|jsx|ts|tsx)',
+  ],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/main.tsx',           // exclude entry point
+    '!src/**/*.d.ts',
+  ],
+};</code></pre>
+                </div>
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
@@ -214,6 +262,71 @@ describe('Counter', () =&gt; {
                 </ul>
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x26A0;&#xFE0F; HAL YANG SERING SALAH:</strong> Jangan ngetest <em>implementation detail</em>! Contoh: ngetes apakah useState dipanggil, atau apakah fungsi internal ke-trigger. Itu membleeeeet. Fokusnya: <strong class="text-ink">"Apa yang user liat dan lakuin?"</strong> Bukan bagaimana kode-nya kerja di dalam.</p></div>
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Mindset RTL:</strong> <em>"Test behavior, not implementation."</em> Kamu itu jadi user, bukan developer. User nggak peduli kamu pake useState atau useReducer. Yang penting: klik tombol &rarr; angka berubah. Titik. &#x2705;</p></div>
+                <p class="text-[#333] mb-3">Sekarang kita naik level dikit &mdash; ngetes <strong class="text-ink">form dengan validasi</strong>. Ini skenario yang sering banget ketemu di app beneran: user isi form, klik submit, muncul error kalau kosong, atau sukses kalau valid.</p>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <span class="text-xs text-muted font-medium">Ngetes Form dengan Validasi &amp; Submit</span>
+                        <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                    </div>
+                    <pre><code class="language-tsx">// LoginForm.tsx — komponen yang mau dites
+function LoginForm({ onSubmit }) {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+    if (!email.includes('@')) {
+      setError('Email nggak valid 😡');
+      return;
+    }
+    onSubmit(email);
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input
+        type="email"
+        placeholder="email kamu..."
+        value={email}
+        onChange={(e) =&gt; { setEmail(e.target.value); setError(''); }}
+      /&gt;
+      {error &amp;&amp; &lt;p role="alert"&gt;{error}&lt;/p&gt;}
+      &lt;button type="submit"&gt;Masuk&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+// LoginForm.test.tsx
+import userEvent from '@testing-library/user-event';
+
+test('menampilkan error kalau email invalid', async () =&gt; {
+  const user = userEvent.setup();
+  const handleSubmit = jest.fn();
+  render(&lt;LoginForm onSubmit={handleSubmit} /&gt;);
+
+  // Ketik email yang nggak valid
+  await user.type(screen.getByPlaceholderText(/email/i), 'arif-bukan-email');
+  await user.click(screen.getByRole('button', { name: /masuk/i }));
+
+  // Cek error muncul
+  expect(screen.getByRole('alert')).toHaveTextContent('Email nggak valid');
+  // Pastikan onSubmit NGGAK dipanggil
+  expect(handleSubmit).not.toHaveBeenCalled();
+});
+
+test('submit sukses kalau email valid', async () =&gt; {
+  const user = userEvent.setup();
+  const handleSubmit = jest.fn();
+  render(&lt;LoginForm onSubmit={handleSubmit} /&gt;);
+
+  await user.type(screen.getByPlaceholderText(/email/i), 'arif@example.com');
+  await user.click(screen.getByRole('button', { name: /masuk/i }));
+
+  expect(handleSubmit).toHaveBeenCalledWith('arif@example.com');
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument(); // no error
+});</code></pre>
+                </div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Pro tip:</strong> Pakai <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">userEvent</code> bukan <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">fireEvent</code> kalau bisa! <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">userEvent</code> mensimulasikan interaksi user secara lebih realistis (trigger blur, focus, dll). Cuma pakai <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">fireEvent</code> untuk kasus simpel.</p></div>
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
@@ -254,6 +367,57 @@ test('renders user list', async () =&gt; {
 });</code></pre>
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Kenapa MSW keren banget?</strong> Bayangin MSW itu kayak <em>prank caller</em> yang pura-pura jadi server API kamu &#x1F602; Dia intercept semua HTTP request di level network &mdash; artinya nggak peduli kamu pake axios, fetch, atau library apa pun, mock-nya tetep jalan! Bedanya sama axios mock yang cuma nge-mock library-nya doang.</p></div>
                 <p class="text-[#333] mb-3">Perhatikan juga <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">waitFor()</code> &mdash; itu kayak kamu bilang, "Tunggu dulu sampe ini muncul, kalau lebih dari 5 detik baru gagal." Karena fetch data itu butuh waktu (meski cuma beberapa milidetik di test), kita perlu kasih dia waktu &#x231B;</p>
+                <p class="text-[#333] mb-3 pt-2">Terus gimana cara ngetes <strong class="text-ink">custom hook</strong>? Kan hook nggak bisa dipanggil di luar komponen... Tenang, RTL punya senjata rahasia: <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">renderHook</code>!</p>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <span class="text-xs text-muted font-medium">Ngetes Custom Hook dengan renderHook</span>
+                        <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                    </div>
+                    <pre><code class="language-tsx">// useLocalStorage.ts — custom hook kita
+import { useState, useEffect } from 'react';
+
+function useLocalStorage&lt;T&gt;(key: string, initialValue: T) {
+  const [value, setValue] = useState&lt;T&gt;(() =&gt; {
+    const stored = window.localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : initialValue;
+  });
+
+  useEffect(() =&gt; {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue] as const;
+}
+
+// useLocalStorage.test.ts
+import { renderHook, act } from '@testing-library/react';
+import { useLocalStorage } from './useLocalStorage';
+
+test('baca nilai awal dari localStorage', () =&gt; {
+  window.localStorage.setItem('theme', JSON.stringify('dark'));
+
+  const { result } = renderHook(() =&gt; useLocalStorage('theme', 'light'));
+
+  expect(result.current[0]).toBe('dark');  // ambil dari storage
+});
+
+test('simpan nilai baru ke localStorage', () =&gt; {
+  const { result } = renderHook(() =&gt; useLocalStorage('count', 0));
+
+  act(() =&gt; {
+    result.current[1](10);  // setValue(10)
+  });
+
+  expect(result.current[0]).toBe(10);
+  expect(window.localStorage.getItem('count')).toBe('10');
+});
+
+test('fallback ke initialValue kalau storage kosong', () =&gt; {
+  const { result } = renderHook(() =&gt; useLocalStorage('kosong', 'default'));
+  expect(result.current[0]).toBe('default');
+});</code></pre>
+                </div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Penting:</strong> Selalu bungkus update state di dalam <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">act()</code> saat ngetes hook! React butuh <code class="text-ink bg-[#F5F4F1] px-2 py-0.5 rounded">act()</code> untuk tahu kalo ada update state yang harus di-flush. Tanpa itu, kamu bakal dapet warning &#x26A0;&#xFE0F;</p></div>
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
@@ -299,6 +463,39 @@ test('homepage visual', async ({ page }) =&gt; {
                     <li class="flex items-start gap-3"><span class="text-3xl">&#x1F3D4;&#xFE0F;</span><div><strong class="text-ink">PUNCAK (paling sedikit): E2E Test</strong><br>Test flow user utama dari awal sampe akhir. Pakai Playwright. Lambat tapi bikin pede banget.</div></li>
                 </ul>
                 <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Rule of thumb:</strong> Kalau kamu bingung harus nulis test apa, tanya ke diri sendiri: <em>"Kalau bagian ini rusak, user bakal paling kena dampak di mana?"</em> Itu yang prioritas duluan ditest.</p></div>
+                <p class="text-[#333] mb-3 pt-2">Biar tim kamu konsisten, kamu bisa set <strong class="text-ink">coverage threshold</strong> di Jest. Artinya: kalau coverage turun di bawah angka tertentu, CI bakal gagal. Enak banget buat jaga kualitas &#x1F6E1;&#xFE0F;</p>
+                <div class="code-block rounded-xl overflow-hidden">
+                    <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <span class="text-xs text-muted font-medium">Coverage Threshold &mdash; Jaga Kualitas Tim</span>
+                        <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                    </div>
+                    <pre><code class="language-javascript">// jest.config.js (lanjutan)
+module.exports = {
+  // ... config lainnya
+  coverageThreshold: {
+    global: {
+      branches: 80,    // 80% if/else tertutup
+      functions: 80,   // 80% fungsi dipanggil
+      lines: 80,       // 80% baris dieksekusi
+      statements: 80,  // 80% statements
+    },
+    // Bisa juga per-file spesifik
+    './src/components/**/*.tsx': {
+      branches: 90,
+      lines: 90,
+    },
+  },
+};
+
+// Output coverage report yang lucu banget dibaca:
+// ----------|---------|----------|---------|---------|-------------------
+// File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+// ----------|---------|----------|---------|---------|-------------------
+// All files |   87.5  |   82.1   |   85.0  |   88.2  |
+// Counter   |   100   |   100    |   100   |   100   |
+// UserList  |   75.0  |   66.6   |   66.6  |   75.0  | 12,18-20
+// ----------|---------|----------|---------|---------|-------------------</code></pre>
+                </div>
             </section>
 
             <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">

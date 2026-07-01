@@ -200,6 +200,41 @@
     └── settings/
         └── page.tsx    # /dashboard/settings</code></pre>
     </div></div>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Navigasi dengan Link &amp; useParams</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">// app/layout.tsx — navigasi pakai &lt;Link&gt; (client-side, tanpa reload!)
+import Link from 'next/link';
+
+export default function RootLayout({ children }) {
+  return (
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;nav className="flex gap-4 p-4 border-b"&gt;
+          {/* prefetch otomatis — halaman di-load di background */}
+          &lt;Link href="/" className="text-ink hover:underline"&gt;Home&lt;/Link&gt;
+          &lt;Link href="/blog" className="text-ink hover:underline"&gt;Blog&lt;/Link&gt;
+          &lt;Link href="/about" className="text-ink hover:underline"&gt;About&lt;/Link&gt;
+        &lt;/nav&gt;
+        {children}
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+
+// app/blog/[slug]/page.tsx — akses parameter dinamis
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise&lt;{ slug: string }&gt;;
+}) {
+  const { slug } = await params;  // Next.js 15: params adalah Promise
+  const post = await getPost(slug);
+  return &lt;article&gt;&lt;h1&gt;{post.title}&lt;/h1&gt;&lt;/article&gt;;
+}</code></pre>
+    </div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
 </section>
 
@@ -246,6 +281,43 @@ function LikeButton({ postId }: { postId: string }) {
 }</code></pre>
     </div></div>
     <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Trik penting: kamu bisa <strong class="text-ink">mengirim props dari Server Component ke Client Component</strong> &mdash; tapi props tersebut harus <em>serializable</em> (string, number, array, object). Tidak boleh kirim function atau instance class!</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Pola Server &rarr; Client Composition</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">// app/dashboard/page.tsx (Server Component)
+import { db } from '@/lib/db';
+import DeleteButton from './DeleteButton';  // Client Component
+
+export default async function Dashboard() {
+  const user = await db.user.findFirst();  // query DB di server
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Halo, {user.name}!&lt;/h1&gt;
+      {/* ✅ OKE: kirim data serializable ke Client Component */}
+      &lt;DeleteButton userId={user.id} /&gt;
+      {/* ❌ ERROR: tidak boleh kirim function! */}
+      {/* &lt;DeleteButton onDelete={() =&gt; db.delete()} /&gt; */}
+    &lt;/main&gt;
+  );
+}
+
+// app/dashboard/DeleteButton.tsx (Client Component)
+'use client';
+import { useState } from 'react';
+
+export default function DeleteButton({ userId }: { userId: string }) {
+  const [confirming, setConfirming] = useState(false);
+  return (
+    &lt;button onClick={() =&gt; setConfirming(true)}&gt;
+      {confirming ? 'Yakin hapus?' : 'Hapus Akun'}
+    &lt;/button&gt;
+  );
+}</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
@@ -299,6 +371,53 @@ export async function POST(request: NextRequest) {
 }</code></pre>
     </div></div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Selain <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch()</code> biasa, Next.js punya strategi caching yang bisa kamu atir. Pahami bedanya <strong class="text-ink">SSG, SSR, dan ISR</strong> biar nggak bingung pas production nanti.</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Loading UI, Error Boundary &amp; Caching Strategy</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">// app/blog/loading.tsx — muncul otomatis selama fetch berjalan
+export default function Loading() {
+  return (
+    &lt;div className="animate-pulse space-y-4"&gt;
+      &lt;div className="h-8 bg-black/10 rounded w-3/4" /&gt;
+      &lt;div className="h-4 bg-black/10 rounded" /&gt;
+      &lt;div className="h-4 bg-black/10 rounded w-5/6" /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// app/blog/error.tsx — tangkap error, wajib "use client"
+'use client';
+export default function Error({ error, reset }: {
+  error: Error; reset: () =&gt; void;
+}) {
+  return (
+    &lt;div className="p-6 text-center"&gt;
+      &lt;h2&gt;Yah, ada error 😵&lt;/h2&gt;
+      &lt;p className="text-muted"&gt;{error.message}&lt;/p&gt;
+      &lt;button onClick={reset} className="mt-4 bg-ink text-white px-4 py-2 rounded-lg"&gt;
+        Coba lagi
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// === STRATEGI CACHING fetch() ===
+// 1. Static (SSG) — di-build saat npm run build
+const staticData = await fetch(url);
+
+// 2. ISR — revalidate tiap N detik
+const isrData = await fetch(url, { next: { revalidate: 60 } });
+
+// 3. SSR selalu fresh — fetch ulang tiap request
+const freshData = await fetch(url, { cache: 'no-store' });
+
+// 4. Tag-based revalidation — invalidate manual lewat API
+const tagged = await fetch(url, { next: { tags: ['posts'] } });
+// Di route handler: revalidateTag('posts');</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">

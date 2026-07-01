@@ -235,6 +235,47 @@ function AddToCartButton({ product }) {
 }</code></pre>
     </div></div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Context API seperti papan pengumuman di kantor. Semua orang bisa lihat info di papan (state global), tapi kalau pengumuman sering berubah, semua orang harus membaca ulang (rerender). Untuk data yang sering berubah, perlu solusi yang lebih efisien.</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Supaya nggak rerender semuanya, trik pronya adalah <strong class="text-ink">memecah Context jadi dua</strong>: satu untuk <em>state</em>, satu untuk <em>dispatch</em>. Komponen yang cuma butuh dispatch (seperti tombol) nggak akan rerender saat value berubah!</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Split Context &mdash; Performance Pattern</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">import { createContext, useContext, useReducer } from 'react';
+
+// Pisahkan jadi 2 context: state & dispatch
+const CartStateContext = createContext(null);
+const CartDispatchContext = createContext(null);
+
+function CartProvider({ children }) {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+  return (
+    &lt;CartStateContext.Provider value={state}&gt;
+      &lt;CartDispatchContext.Provider value={dispatch}&gt;
+        {children}
+      &lt;/CartDispatchContext.Provider&gt;
+    &lt;/CartStateContext.Provider&gt;
+  );
+}
+
+// Hook terpisah — komponen ambil cuma yang dia butuh
+function useCartState() {
+  const ctx = useContext(CartStateContext);
+  if (!ctx) throw new Error('useCartState harus di dalam CartProvider');
+  return ctx;
+}
+function useCartDispatch() {
+  const ctx = useContext(CartDispatchContext);
+  if (!ctx) throw new Error('useCartDispatch harus di dalam CartProvider');
+  return ctx;
+}
+
+// ✅ Komponen ini HANYA rerender kalau dispatch berubah (hampir never)
+function CheckoutButton() {
+  const dispatch = useCartDispatch();  // nggak subscribe ke state!
+  return &lt;button onClick={() =&gt; dispatch({ type: 'CHECKOUT' })}&gt;Bayar&lt;/button&gt;;
+}</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
@@ -289,6 +330,60 @@ const useUserStore = create(
 );</code></pre>
     </div></div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Zustand seperti lemari es bersama di kos-kosan. Semua penghuni bisa ambil dan simpan makanan (state) kapan saja tanpa perlu izin (Provider). Masing-masing penghuni bisa langsung akses tanpa melalui perantara.</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Zustand juga asik banget buat <strong class="text-ink">async operations</strong> seperti fetch data. Nggak perlu middleware khusus &mdash; tinggal panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">set()</code> di dalam async function. Ini contoh real-world buat fetch data dari API:</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Zustand &mdash; Async Data Fetching</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">import { create } from 'zustand';
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface ProductStore {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+  fetchProducts: () =&gt; Promise&lt;void&gt;;
+}
+
+const useProductStore = create&lt;ProductStore&gt;((set) =&gt; ({
+  products: [],
+  loading: false,
+  error: null,
+  fetchProducts: async () =&gt; {
+    set({ loading: true, error: null });     // mulai loading
+    try {
+      const res = await fetch('/api/products');
+      const data = await res.json();
+      set({ products: data, loading: false });  // sukses
+    } catch (err) {
+      set({ error: 'Gagal fetch 😭', loading: false });
+    }
+  },
+}));
+
+// Pakai di komponen — selector biar efisien
+function ProductList() {
+  const { products, loading, fetchProducts } = useProductStore();
+  // atau pakai selector terpisah biar lebih granular:
+  // const products = useProductStore((s) =&gt; s.products);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={fetchProducts}&gt;Muat Produk&lt;/button&gt;
+      {loading &amp;&amp; &lt;p&gt;Loading...&lt;/p&gt;}
+      {products.map((p) =&gt; (
+        &lt;div key={p.id}&gt;{p.name} — Rp{p.price}&lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
@@ -342,6 +437,63 @@ function Counter() {
 }</code></pre>
     </div></div>
     <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Redux Toolkit seperti sistem filing kantor yang terorganisir rapi (struktur ketat, dokumentasi lengkap). Jotai seperti sticky notes yang bisa ditempel di mana saja &mdash; fleksibel, ringan, dan bisa diakses langsung tanpa melalui sistem filing.</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Salah satu fitur killer RTK adalah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createAsyncThunk</code> untuk handle async logic (seperti API calls). Dia otomatis dispatch action <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pending</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fulfilled</code>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rejected</code>. Kamu cuma tangkap di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">extraReducers</code>:</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">RTK &mdash; createAsyncThunk untuk API Calls</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">import { createSlice, createAsyncThunk, configureStore } from '@reduxjs/toolkit';
+
+// 1. Bikin thunk — handle async API call
+export const fetchUsers = createAsyncThunk('users/fetchAll', async () =&gt; {
+  const res = await fetch('/api/users');
+  if (!res.ok) throw new Error('Gagal ambil data 😵');
+  return res.json();  // ini jadi action.payload
+});
+
+// 2. Bikin slice dengan extraReducers untuk handle thunk
+const usersSlice = createSlice({
+  name: 'users',
+  initialState: { data: [], status: 'idle', error: null },
+  reducers: {
+    clearUsers: (state) =&gt; { state.data = []; state.status = 'idle'; },
+  },
+  extraReducers: (builder) =&gt; {
+    builder
+      .addCase(fetchUsers.pending, (state) =&gt; {
+        state.status = 'loading';
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) =&gt; {
+        state.status = 'succeeded';
+        state.data = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) =&gt; {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export const { clearUsers } = usersSlice.actions;
+export default usersSlice.reducer;
+
+// 3. Pakai di komponen React dengan hook RTK
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUsers } from './usersSlice';
+
+function UserDashboard() {
+  const { data, status, error } = useSelector((s) =&gt; s.users);
+  const dispatch = useDispatch();
+
+  // trigger fetch saat mount
+  useEffect(() =&gt; { dispatch(fetchUsers()); }, [dispatch]);
+
+  if (status === 'loading') return &lt;p&gt;⏳ Loading...&lt;/p&gt;;
+  if (status === 'failed') return &lt;p&gt;❌ {error}&lt;/p&gt;;
+  return &lt;ul&gt;{data.map(u =&gt; &lt;li key={u.id}&gt;{u.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
@@ -380,6 +532,59 @@ function Counter() {
 #    &#10003; =&gt; Jotai</code></pre>
     </div></div>
     <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan over-engineer! Mulai dengan useState, lalu naik ke Context atau Zustand hanya ketika benar-benar dibutuhkan. Menambah state management library memiliki cost: bundle size, complexity, dan learning curve.</p></div>
+    <p class="text-[#333] leading-relaxed pt-2">Contoh nyata: kamu bisa <strong class="text-ink">mencampur beberapa solusi</strong> dalam satu app. Theme pakai Context (jarang berubah), cart pakai Zustand (sering berubah, butuh selector), dan form lokal pakai useState. Ini pola yang umum dipake di production:</p>
+    <div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Real-World: Mix &amp; Match State Strategy</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-tsx">// store/useCartStore.ts — Zustand untuk cart (sering berubah)
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
+
+interface CartItem { id: string; name: string; qty: number; price: number; }
+
+interface CartStore {
+  items: CartItem[];
+  addItem: (item: CartItem) =&gt; void;
+  removeItem: (id: string) =&gt; void;
+  // Derived selector — otomatis dihitung ulang kalau items berubah
+  total: () =&gt; number;
+}
+
+export const useCartStore = create&lt;CartStore&gt;()(
+  immer((set, get) =&gt; ({
+    items: [],
+    addItem: (item) =&gt;
+      set((state) =&gt; {
+        const existing = state.items.find((i) =&gt; i.id === item.id);
+        if (existing) existing.qty += 1;          // immer: mutate langsung!
+        else state.items.push(item);
+      }),
+    removeItem: (id) =&gt;
+      set((state) =&gt; {
+        state.items = state.items.filter((i) =&gt; i.id !== id);
+      }),
+    total: () =&gt; get().items.reduce((sum, i) =&gt; sum + i.price * i.qty, 0),
+  }))
+);
+
+// components/CartBadge.tsx — komponen ini cuma rerender kalau jumlah item berubah
+function CartBadge() {
+  const itemCount = useCartStore((s) =&gt;
+    s.items.reduce((n, i) =&gt; n + i.qty, 0)   // selector granular
+  );
+  return &lt;span className="badge"&gt;🛒 {itemCount}&lt;/span&gt;;
+}
+
+// components/CheckoutTotal.tsx — cuma peduli total harga
+function CheckoutTotal() {
+  const total = useCartStore((s) =&gt; s.total());
+  return &lt;p&gt;Total: Rp{total.toLocaleString('id-ID')}&lt;/p&gt;;
+}
+// Catatan: CartBadge dan CheckoutTotal independen —
+// update qty nggak bikin CheckoutTotal rerender kalau total-nya sama!</code></pre>
+    </div>
 </section>
 
             <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">

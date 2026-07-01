@@ -186,6 +186,33 @@
 
                     <p>Nah, di situlah <strong class="text-ink">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak? 😎</p>
 
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">JSX — HTML di dalam JavaScript</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// JSX = HTML-like syntax di JavaScript
+const element = &lt;h1 className="title"&gt;Hello React!&lt;/h1&gt;;
+
+// Expression di dalam JSX pakai curly braces
+const name = "Arif";
+const greeting = &lt;h1&gt;Halo, {name}!&lt;/h1&gt;;
+
+// Conditional rendering
+const isLoggedIn = true;
+const nav = isLoggedIn ? &lt;LogoutButton /&gt; : &lt;LoginButton /&gt;;
+
+// List rendering dengan .map()
+const fruits = ["Apple", "Banana", "Cherry"];
+const list = (
+  &lt;ul&gt;
+    {fruits.map((fruit, i) =&gt; (
+      &lt;li key={i}&gt;{fruit}&lt;/li&gt;
+    ))}
+  &lt;/ul&gt;
+);</code></pre>
+                    </div>
+
                     <p>Intinya gini: JSX itu <strong class="text-ink">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin 🧠</p>
 
                     <p>Kenapa nggak langsung pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun? 👇</p>
@@ -244,6 +271,38 @@ const element = (
                     <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-ink">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan 🪤</p>
 
                     <p><strong class="text-ink font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-ink">Fragment</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget! 🧹</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Props — Kirim Data antar Komponen</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Parent kirim props ke child
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Card title="React Basics" author="Arif" views={1200} /&gt;
+      &lt;Card title="Hooks Guide" author="Budi" views={850} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Child terima props
+function Card({ title, author, views }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;p&gt;By: {author}&lt;/p&gt;
+      &lt;span&gt;{views} views&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Children prop untuk komposisi
+function Container({ children }) {
+  return &lt;div className="p-6 rounded-xl"&gt;{children}&lt;/div&gt;;
+}</code></pre>
+                    </div>
 
                     <p><strong class="text-ink font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML 😅</p>
 
@@ -318,6 +377,40 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                     <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus 🚀</p>
 
                     <p>Nih daftar yang <strong class="text-ink">BOLEH</strong> kamu masukin ke dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>: <strong class="text-ink">Variabel, string, angka, boolean</strong> — tampilin data dari state atau props. <strong class="text-ink">Ekspresi matematika</strong> — kayak <code>{harga * jumlah}</code>. <strong class="text-ink">Panggilan fungsi</strong> — bikin helper function terus panggil di JSX. <strong class="text-ink">Ternary operator</strong> — buat kondisi singkat kayak <code>{isLogin ? 'Logout' : 'Login'}</code>. <strong class="text-ink">Array</strong> — React bakal otomatis render tiap item-nya satu-satu!</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">State — Data yang Bisa Berubah</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// useState = hook untuk state
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Form dengan multiple state
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    &lt;form onSubmit={e =&gt; { e.preventDefault(); console.log(email, password); }}&gt;
+      &lt;input value={email} onChange={e =&gt; setEmail(e.target.value)} /&gt;
+      &lt;input type="password" value={password}
+        onChange={e =&gt; setPassword(e.target.value)} /&gt;
+      &lt;button type="submit"&gt;Login&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+                    </div>
 
                     <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓
 

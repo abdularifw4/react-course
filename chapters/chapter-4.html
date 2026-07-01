@@ -170,6 +170,28 @@
                 <h3 class="text-xl font-bold text-ink mb-4">1. 💰 useMemo — Ngumpetin Hasil Kalkulasi</h3>
                 <p class="text-[#333] mb-3">Pernah ngalamin app kamu lag pas ngetik di search bar? Padahal cuma filter data doang. Nah, itu biasanya karena kamu nge-rekalkulasi sesuatu yang <strong>sebenarnya nggak perlu</strong> di setiap render.</p>
                 <p class="text-[#333] mb-3">Bayangin gini: kamu lagi masak nasi. Tiap kali kamu buka rice cooker buat cek, nasi-nya belum matang — tapi buka-tutup terus bikin steam keluar dan proses masaknya makin lama. <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useMemo</code> itu kayak timer di rice cooker-nya. Biar kamu nggak usah cek berkali-kali, dia cuma kasih tahu kalau emang udah berubah aja. 😄</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useMemo — When to Use</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Kalkulasi mahal yang nggak perlu diulang
+function SearchResults({ query, items }) {
+  const results = useMemo(() =&gt; {
+    console.log('Filtering...'); // cuma jalan kalau query/items berubah
+    return items.filter(item =&gt;
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [query, items]);
+
+  return results.map(r =&gt; &lt;li key={r.id}&gt;{r.name}&lt;/li&gt;);
+}
+
+// ❌ JANGAN gunakan useMemo untuk kalkulasi murah
+const firstName = useMemo(() =&gt; user.name.split(' ')[0], [user.name]);
+// Ini overkill! Cukup: const firstName = user.name.split(' ')[0];</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo } from 'react';
 
 function ProductList({ products }) {
@@ -201,6 +223,36 @@ function ProductList({ products }) {
                 <h3 class="text-xl font-bold text-ink mb-4">2. 📦 useCallback — Nggak Perlu Bikin Function Baru Terus</h3>
                 <p class="text-[#333] mb-3">Okay, ini temennya useMemo tapi khusus buat <strong>function</strong>. Kamu tau nggak, setiap kali komponen kamu re-render, semua function yang didefinisikan di dalamnya itu <em>di-buat ulang</em>? Ya, walaupun isinya sama persis.</p>
                 <p class="text-[#333] mb-3">Analoginya gini: kamu punya resep masakan yang sama, tapi tiap hari kamu nulis ulang di kertas baru. Padahal kan bisa di-fotocopy dan dipakai berulang kali. Itu yang <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useCallback</code> lakukan — dia nge-"fotocopy" function kamu biar reference-nya tetap sama antar render. 📋</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useCallback — Stable Handler References</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Problem: Parent re-render bikin Child ikut re-render
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  // useCallback mencegah pembuatan fungsi baru setiap render
+  const addTodo = useCallback((text) =&gt; {
+    setTodos(prev =&gt; [...prev, { id: Date.now(), text, done: false }]);
+  }, []); // dependency kosong = fungsi selalu sama
+
+  // Sekarang TodoInput nggak re-render kalau filter berubah!
+  return (
+    &lt;&gt;
+      &lt;FilterBar filter={filter} setFilter={setFilter} /&gt;
+      &lt;TodoInput onAdd={addTodo} /&gt;
+    &lt;/&gt;
+  );
+}
+
+const TodoInput = React.memo(({ onAdd }) =&gt; {
+  console.log('TodoInput render'); // cuma jalan sekali!
+  // ...
+});</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useCallback, memo } from 'react';
 
 // Komponen anak yang di-memo biar nggak re-render kalau props-nya sama
@@ -242,6 +294,45 @@ function ParentComponent() {
                 <h3 class="text-xl font-bold text-ink mb-4">3. 🎯 useRef — Memory Rahasia yang Nggak Bikin Re-render</h3>
                 <p class="text-[#333] mb-3">Ini hooks yang paling sering dipahami salah. Banyak orang kepikiran useRef cuma buat akses DOM element (kayak <code>document.getElementById</code>). Tapi sebenarnya dia jauh lebih powerful dari itu!</p>
                 <p class="text-[#333] mb-3">Bayangin <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useRef</code> itu kayak <strong>kotak penyimpanan rahasia</strong> 📦. Isinya bisa kamu ubah kapan aja, tapi bedanya sama useState — <strong>nggak akan pernah bikin komponen re-render</strong>. Nilainya tetap ada dari render ke render, persis kayak variabel global tapi aman karena scoped ke komponen.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useRef — Mutable Storage</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// 1. Simpan timer ID tanpa re-render
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+  const timerRef = useRef(null);
+
+  const start = () =&gt; {
+    timerRef.current = setInterval(() =&gt; {
+      setSeconds(s =&gt; s + 1);
+    }, 1000);
+  };
+
+  const stop = () =&gt; {
+    if (timerRef.current) clearInterval(timerRef.current);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{seconds}s&lt;/p&gt;
+      &lt;button onClick={start}&gt;Start&lt;/button&gt;
+      &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// 2. Simpan value sebelumnya
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() =&gt; {
+    ref.current = value;
+  });
+  return ref.current;
+}</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useRef, useEffect } from 'react';
 
 // 📌 KEGUNAAN 1: Fokus ke input secara otomatis
@@ -309,6 +400,37 @@ function Stopwatch() {
                 <h3 class="text-xl font-bold text-ink mb-4">4. 🌍 useContext — Tamatnya Prop Drilling</h3>
                 <p class="text-[#333] mb-3">Udah pernah ngalamin yang namanya <strong>prop drilling</strong> belum? Jadi gini — kamu punya data theme (dark/light), terus kamu kirim lewat props dari App → Header → Navbar → ThemeToggle. Nah, Header dan Navbar nggak butuh data theme sama sekali, tapi mereka jadi "korban" harus nerima dan meneruskan props-nya. Capek kan? 😩</p>
                 <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useContext</code> itu solusinya. Bayangin dia kayak <strong>pengumuman sekolah lewat speaker</strong> 📢. Daripada info harus disampaikan dari satu orang ke orang ke orang (prop drilling), speaker bisa langsung nyampai ke semua kelas yang butuh. Siapapun yang punya speaker (Context), bisa denger pengumumannya.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useContext — Multiple Contexts</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Pisah context untuk performance
+const UserContext = createContext();
+const ThemeContext = createContext();
+
+function App() {
+  return (
+    &lt;ThemeContext.Provider value="dark"&gt;
+      &lt;UserContext.Provider value={{ name: 'Arif', role: 'admin' }}&gt;
+        &lt;Dashboard /&gt;
+      &lt;/UserContext.Provider&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+
+function Dashboard() {
+  const { name, role } = useContext(UserContext);
+  const theme = useContext(ThemeContext);
+
+  return (
+    &lt;div className={theme}&gt;
+      &lt;h1&gt;Welcome, {name} ({role})&lt;/h1&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
 
 // 1. Bikin Context dulu
@@ -366,6 +488,43 @@ function App() {
                 <h3 class="text-xl font-bold text-ink mb-4">5. 🎛️ useReducer — Kalau useState Udah Nggak Kuat</h3>
                 <p class="text-[#333] mb-3">Pernah punya komponen yang state-nya kayak spaghetti? Lima <code>useState</code> bertumpuk, dan logic-nya saling ketergantungan. Pas kamu update satu state, harus update state lainnya juga. Kodenya jadi rame dan susah di-trace. 😵‍💫</p>
                 <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useReducer</code> itu kayak <strong>dashboard kontrol di pesawat</strong> ✈️. Daripada ada banyak tombol independen yang masing-masing ngatur bagian berbeda, semua kontrol masuk ke satu panel sentral. Pilot (reducer) yang ngatur semua — tinggal terima perintah (action) dan tentukan hasilnya.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useReducer — Complex State Logic</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// useReducer = alternatif useState untuk logic kompleks
+const initialState = { count: 0, loading: false };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { ...state, count: state.count + 1 };
+    case 'decrement':
+      return { ...state, count: state.count - 1 };
+    case 'setLoading':
+      return { ...state, loading: action.payload };
+    case 'reset':
+      return initialState;
+    default:
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {state.count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'increment' })}&gt;+&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'decrement' })}&gt;-&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'reset' })}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useReducer } from 'react';
 
 // Reducer = "otak" yang nentuin state baru dari action
@@ -431,6 +590,59 @@ function ComplexForm() {
                 <h3 class="text-xl font-bold text-ink mb-4">6. 🧩 Custom Hooks — Superpower React yang Sebenarnya</h3>
                 <p class="text-[#333] mb-3">Okay, ini bagian yang paling <strong>"oh ternyata gitu!"</strong> dari semua hooks. Custom hooks itu bukan feature yang separate — dia lebih kayak <strong>cara berpikir</strong>. Semua hooks yang udah kita bahas? Itu bisa kamu gabung jadi satu "super hook" yang reusable di mana aja.</p>
                 <p class="text-[#333] mb-3">Bayangin kamu punya 3 komponen yang butuh logic fetch data + loading + error. Tanpa custom hook, kamu nulis logic yang sama 3 kali. Dengan custom hook? Tulis sekali, pakai sepuasnya. Itu kayak punya resep masakan favorit — sekali tulis di buku resep, tinggal buka-buka lagi kalau mau masak. 📖🍳</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Custom Hooks — Reusable Logic</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Custom Hook: useFetch
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    setLoading(true);
+    fetch(url)
+      .then(res =&gt; {
+        if (!res.ok) throw new Error('Not found');
+        return res.json();
+      })
+      .then(data =&gt; {
+        setData(data);
+        setError(null);
+      })
+      .catch(err =&gt; setError(err.message))
+      .finally(() =&gt; setLoading(false));
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Pakai di mana saja!
+function UserProfile({ userId }) {
+  const { data: user, loading, error } = useFetch(`/api/users/${userId}`);
+
+  if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+  if (error) return &lt;p&gt;Error: {error}&lt;/p&gt;;
+  return &lt;div&gt;{user.name}&lt;/div&gt;;
+}
+
+// Custom Hook: useLocalStorage
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() =&gt; {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : initialValue;
+  });
+
+  useEffect(() =&gt; {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue];
+}</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect, useCallback } from 'react';
 
 // 🔥 Custom hook: useFetch — buat fetch API yang clean
@@ -551,6 +763,40 @@ function useMyHook() {  // ✅ Nama diawali "use" → custom hook
                 <h3 class="text-xl font-bold text-ink mb-4">8. 🏎️ useTransition &amp; useDeferredValue — UI Tetap Smooth</h3>
                 <p class="text-[#333] mb-3">Pernah bikin filter list yang pas kamu ngetik, seluruh halaman jadi <strong>lag dan nge-freeze</strong>? Itu karena filter 10.000 item itu jalan di main thread yang sama dengan rendering UI. Hasilnya? Typing-nya jadi choppy dan user kesel. 😤</p>
                 <p class="text-[#333] mb-3"><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useTransition</code> dan <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-ink text-sm">useDeferredValue</code> itu kayak bilang ke React: <em>"Eh, update yang ini nggak terlalu penting, kerjain nanti aja yang penting UI tetap responsif."</em> Mirip kayak ngasih priority lane di jalan tol — kendaraan VIP (user input) duluan, yang berat-berat (filter data) belakangan. 🛣️</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useTransition — Keep UI Responsive</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// useTransition: bikin update berat jadi non-blocking
+function SearchResults({ allItems }) {
+  const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
+  const [filtered, setFiltered] = useState(allItems);
+
+  const handleChange = (e) =&gt; {
+    setQuery(e.target.value); // update input langsung (urgent)
+    startTransition(() =&gt; {
+      // update berat jadi non-urgent
+      const result = allItems.filter(item =&gt;
+        item.name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setFiltered(result);
+    });
+  };
+
+  return (
+    &lt;&gt;
+      &lt;input value={query} onChange={handleChange} placeholder="Search..." /&gt;
+      {isPending &amp;&amp; &lt;span&gt;Filtering...&lt;/span&gt;}
+      &lt;ul&gt;
+        {filtered.map(item =&gt; &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;)}
+      &lt;/ul&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                    </div>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useTransition, useDeferredValue } from 'react';
 
 // useTransition: manual marking update sebagai "non-urgent"

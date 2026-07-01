@@ -177,6 +177,34 @@
     <div class="space-y-4 text-[#333] leading-relaxed">
         <p><strong class="text-ink">TypeScript</strong> adalah superset JavaScript yang menambahkan static typing. Saat digunakan bersama React, TypeScript membantu mendeteksi error lebih awal, memberikan autocompletion lebih baik di IDE, dan membuat kode lebih mudah dipahami.</p>
         <p>Cara paling mudah memulai proyek React + TypeScript adalah dengan <strong class="text-ink">Vite</strong>. Vite mendukung template TypeScript secara native &mdash; cukup tambahkan flag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">--template react-ts</code> saat membuat proyek.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">TypeScript — Typing Props & State</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">// Type untuk props
+interface ButtonProps {
+  label: string;
+  onClick: () =&gt; void;
+  variant?: 'primary' | 'secondary' | 'danger';
+  disabled?: boolean;
+}
+
+function Button({ label, onClick, variant = 'primary' }: ButtonProps) {
+  return &lt;button onClick={onClick} className={`btn-${variant}`}&gt;{label}&lt;/button&gt;;
+}
+
+// Type untuk useState
+const [count, setCount] = useState&lt;number&gt;(0);
+const [name, setName] = useState&lt;string&gt;('');
+const [user, setUser] = useState&lt;User | null&gt;(null);
+
+// Event handler types
+const handleChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+  setValue(e.target.value);
+};</code></pre>
+                    </div>
         <p>File komponen React + TypeScript menggunakan ekstensi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.tsx</code>, file utility biasa menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.ts</code>. Vite otomatis mengkonfigurasi tsconfig.json.</p>
     </div>
     <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
@@ -198,6 +226,32 @@ cd my-app &amp;&amp; npm install &amp;&amp; npm run dev</code></pre>
     <div class="space-y-4 text-[#333] leading-relaxed">
         <p>Cara paling umum mendefinisikan tipe props adalah <strong class="text-ink">interface</strong>. Interface bisa di-extend dan lebih familiar bagi developer React. Untuk state, gunakan generic type parameter pada useState.</p>
         <p>Gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.FC</code> opsional &mdash; banyak developer modern lebih suka mendefinisikan komponen sebagai fungsi biasa dengan tipe props eksplisit, karena React.FC memiliki beberapa kelemahan (seperti implisit children).</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">TypeScript — Generics & Utility Types</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">// Generic component
+function List&lt;T&gt;({ items, render }: {
+  items: T[];
+  render: (item: T) =&gt; React.ReactNode;
+}) {
+  return &lt;&gt;{items.map((item, i) =&gt; &lt;div key={i}&gt;{render(item)}&lt;/div&gt;)}&lt;/&gt;;
+}
+
+// Pakai dengan type berbeda
+&lt;List items={[1, 2, 3]} render={n =&gt; &lt;span&gt;{n}&lt;/span&gt;} /&gt;
+&lt;List items={['a', 'b']} render={s =&gt; &lt;strong&gt;{s}&lt;/strong&gt;} /&gt;
+
+// Utility Types
+type User = { id: number; name: string; email: string; role: string };
+
+type UserPreview = Pick&lt;User, 'id' | 'name'&gt;;     // ambil sebagian
+type CreateUserDTO = Omit&lt;User, 'id'&gt;;             // buang sebagian
+type UpdateUserDTO = Partial&lt;User&gt;;                 // semua jadi optional
+type UserMap = Record&lt;string, 'admin' | 'user'&gt;;   // key-value</code></pre>
+                    </div>
         <p>Untuk children, gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.ReactNode</code> sebagai tipe. Untuk event handler, gunakan tipe event yang sesuai seperti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.ChangeEvent</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.MouseEvent</code>.</p>
     </div>
     <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">

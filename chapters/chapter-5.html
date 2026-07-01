@@ -205,7 +205,38 @@ function withLogger(WrappedComponent, name) {
 const ProtectedDashboard = withAuth(Dashboard);
 const LoggedProfile = withLogger(Profile, 'Profile');</code></pre>
     </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> HOC seperti jas hujan. Baju biasa (komponen asli) dibungkus jas hujan (HOC) sehingga mendapat fungsionalitas tambahan tanpa mengubah baju di dalamnya.</p></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> HOC seperti jas hujan. Baju biasa (komponen asli) dibungkus jas hujan (HOC) sehingga mendapat fungsionalitas tambahan tanpa mengubah baju di dalamnya.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">HOC — Higher Order Component</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// HOC = fungsi yang terima komponen, return komponen baru
+function withAuth(WrappedComponent) {
+  return function ProtectedComponent(props) {
+    const { user } = useAuth();
+
+    if (!user) {
+      return &lt;Navigate to="/login" /&gt;;
+    }
+
+    return &lt;WrappedComponent {...props} user={user} /&gt;;
+  };
+}
+
+// Pakai HOC
+const Dashboard = withAuth(DashboardContent);
+const Settings = withAuth(SettingsContent);
+
+// HOC untuk loading state
+function withLoading(WrappedComponent) {
+  return function({ isLoading, ...props }) {
+    if (isLoading) return &lt;Spinner /&gt;;
+    return &lt;WrappedComponent {...props} /&gt;;
+  };
+}</code></pre>
+                    </div></div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
@@ -305,7 +336,52 @@ function FAQ() {
   );
 }</code></pre>
     </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Compound Components seperti orkestra. Setiap pemain punya peran sendiri, tapi berbagi skor musik (Context) yang sama untuk bermain harmoni.</p></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Compound Components seperti orkestra. Setiap pemain punya peran sendiri, tapi berbagi skor musik (Context) yang sama untuk bermain harmoni.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Compound Components — Flexible API</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Compound Components: komponen yang bekerja bersama
+// Kayak &lt;select&gt; dan &lt;option&gt; di HTML
+
+const Select = ({ children, value, onChange }) =&gt; {
+  const [open, setOpen] = useState(false);
+  const contextValue = { value, onChange, open, setOpen };
+
+  return (
+    &lt;SelectContext.Provider value={contextValue}&gt;
+      &lt;div className="relative"&gt;{children}&lt;/div&gt;
+    &lt;/SelectContext.Provider&gt;
+  );
+};
+
+Select.Trigger = () =&gt; {
+  const { value, setOpen } = useContext(SelectContext);
+  return &lt;button onClick={() =&gt; setOpen(o =&gt; !o)}&gt;{value || 'Select...'}&lt;/button&gt;;
+};
+
+Select.Option = ({ children, value: optionValue }) =&gt; {
+  const { value, onChange, setOpen } = useContext(SelectContext);
+  return (
+    &lt;div
+      onClick={() =&gt; { onChange(optionValue); setOpen(false); }}
+      className={value === optionValue ? 'bg-blue-50' : ''}
+    &gt;
+      {children}
+    &lt;/div&gt;
+  );
+};
+
+// Cara pakai — bersih dan fleksibel!
+&lt;Select value={country} onChange={setCountry}&gt;
+  &lt;Select.Trigger /&gt;
+  &lt;Select.Option value="id"&gt;Indonesia&lt;/Select.Option&gt;
+  &lt;Select.Option value="us"&gt;USA&lt;/Select.Option&gt;
+  &lt;Select.Option value="jp"&gt;Japan&lt;/Select.Option&gt;
+&lt;/Select&gt;</code></pre>
+                    </div></div>
 </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
