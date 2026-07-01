@@ -27,45 +27,44 @@
     <main class="lg:ml-72">
         <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">📘 Chapter 6</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
         <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 6</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React &amp; TypeScript</h1></div>
-            
+            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 6</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">React &amp; TypeScript</h1><p class="text-gray-400 text-lg">Pernah ngerasa kode React kamu tuh kayak main tebak-tebakan? 🤔 Props-nya bener nggak ya? State-nya string atau number? Yuk kita selesain masalah itu buat selamanya.</p></div>
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">1. Setup React + TypeScript</h3>
-                <p class="text-gray-300 mb-3">TypeScript menambahkan type safety ke React, membantu menangkap bug sebelum runtime. Setup-nya mudah: gunakan template resmi create-react-app atau Vite.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-bash">// Install project React + TypeScript
-// npm create vite@latest my-app -- --template react-ts
+                <h3 class="text-xl font-bold text-white mb-4">🚀 SETUP REACT + TYPESCRIPT — Nggak Seribet yang Kamu Kira!</h3>
+                <p class="text-gray-300 mb-3">Oke, jujur. Dulu pas pertama denger TypeScript, aku juga mikir: <em>“Ribet ah, JavaScript aja udah pusing.”</em> Tapi percaya deh, setelah coba, rasanya kayak naik kelas dari naik angkot ke naik MRT. 🚇 Lebih aman, lebih cepat, dan nggak bikin pusing.</p>
+                <p class="text-gray-300 mb-3">TypeScript itu <strong>bodyguard</strong> buat kode kamu. Dia ngecek semuanya sebelum jalan — jadi bug yang dulu baru ketemu di produksi jam 2 malam, sekarang langsung ketangkep pas kamu ngetik di editor. <strong>AUTO-COMPLETE JADI SUPER POWERS!</strong> 🦸‍♂️</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-bash"># Cara paling gampang: pake Vite (recommended banget!)
+npm create vite@latest my-app -- --template react-ts
 
-// Atau dengan CRA:
-// npx create-react-app my-app --template typescript
+# Atau kalau kamu masih suka CRA (legacy, tapi masih jalan):
+npx create-react-app my-app --template typescript
 
-// Struktur file:
-// src/
-//   components/
-//     Button.tsx
-//     Card.tsx
-//   types/
-//     index.ts
-//   App.tsx
-//   main.tsx
-
-// Konfigurasi tsconfig.json penting:
-// &quot;strict&quot;: true — aktifkan semua type checking ketat
-// &quot;jsx&quot;: &quot;react-jsx&quot; — tidak perlu import React di setiap file</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Mulai dari &#x27;strict: true&#x27; sejak awal. Memang lebih ribet di awal, tapi ini mencegah ratusan bug di produksi. Better safe than sorry!</p></div>
+# Setelah itu, struktur foldernya biasanya kayak gini:
+# src/
+#   components/
+#     Button.tsx      &lt;-- perhatikan .tsx bukan .js!
+#     Card.tsx
+#   types/
+#     index.ts         &lt;-- tempat simpan semua tipe reusable
+#   App.tsx
+#   main.tsx</code></pre>
+                <p class="text-gray-300 mb-3">Satu hal yang <strong>wajib</strong> kamu lakuin dari hari pertama: buka file <code class="bg-dark-700 px-2 py-0.5 rounded text-sm">tsconfig.json</code>, terus pastikan <code class="bg-dark-700 px-2 py-0.5 rounded text-sm text-accent">“strict”: true</code>. Kenapa? Karena kalau nggak, sama aja kayak beli helm mahal tapi nggak dipake. 🪖 Helm-nya ada, tapi kepala tetep bahaya.</p>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Real talk:</strong> Strict mode emang bikin lebih banyak merah di editor pas awal-awal. Tapi itu merah yang <em>berguna</em> — kayak alarm kebakaran yang emang nyala pas ada api, bukan alarm palsu. Lebih baik ribet 5 menit di awal daripada debugging 5 jam di produksi. Trust me. 😤</p></div>
             </section>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">2. Typing Props &amp; State</h3>
-                <p class="text-gray-300 mb-3">Definisikan tipe props menggunakan interface atau type alias. Ini adalah fondasi TypeScript di React — setiap komponen harus punya tipe props yang jelas.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Interface untuk props
+                <h3 class="text-xl font-bold text-white mb-4">📝 TYPING PROPS &amp; STATE — Ngasih Label di Semua Kotak</h3>
+                <p class="text-gray-300 mb-3">Bayangin kamu pindah rumah. Kalau semua kardus nggak ada label, pas mau cari baju kerja... kepalang tanggung. 😫 Nah, <strong>interface</strong> di TypeScript itu kayak label kardus kamu. Biar pas butuh apa, langsung ketemu. Ga perlu buka-buka satu-satu.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Interface itu kayak “kontrak” komponen kamu
 interface UserCardProps {
-  name: string;
-  email: string;
-  age?: number; // Optional
-  role: &#x27;admin&#x27; | &#x27;user&#x27; | &#x27;guest&#x27;; // Union type
-  onEdit: (id: string) =&gt; void;
-  children: React.ReactNode;
+  name: string;          // wajib isi!
+  email: string;          // wajib isi!
+  age?: number;           // pakai ? = optional, boleh nggak diisi
+  role: ‘admin’ | ‘user’ | ‘guest’;  // union type — cuma 3 ini yang boleh!
+  onEdit: (id: string) =&gt; void;       // function yang return void
+  children: React.ReactNode;           // buat ngewrap anak komponen
 }
 
+// Sekarang function signature-nya langsung rapi
 function UserCard({ name, email, age, role, onEdit, children }: UserCardProps) {
   return (
     &lt;div&gt;
@@ -73,39 +72,44 @@ function UserCard({ name, email, age, role, onEdit, children }: UserCardProps) {
       &lt;p&gt;{email}&lt;/p&gt;
       {age &amp;&amp; &lt;p&gt;Umur: {age}&lt;/p&gt;}
       &lt;span&gt;{role}&lt;/span&gt;
-      &lt;button onClick={() =&gt; onEdit(&#x27;123&#x27;)}&gt;Edit&lt;/button&gt;
+      &lt;button onClick={() =&gt; onEdit(‘123’)}&gt;Edit&lt;/button&gt;
       {children}
     &lt;/div&gt;
   );
-}
-
-// Typing state
+}</code></pre>
+                <p class="text-gray-300 mb-3">Nah, yang sering bikin bingung tuh ngetik <strong>state</strong>. Kan di React state itu biasanya objek ya. Nah di TypeScript, kita juga harus ngasih tahu bentuk objek-nya kayak apa:</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// State juga butuh label!
 interface FormState {
   username: string;
   password: string;
-  errors: Record&lt;string, string&gt;;
+  errors: Record&lt;string, string&gt;;  // key string, value string
   isLoading: boolean;
 }
 
 function LoginForm() {
   const [state, setState] = useState&lt;FormState&gt;({
-    username: &#x27;&#x27;,
-    password: &#x27;&#x27;,
+    username: ‘’,
+    password: ‘’,
     errors: {},
     isLoading: false
   });
+  
+  // Sekarang kalau kamu salah ketik state.userename,
+  // TypeScript LANGSUNG nyalakan alarm! 🚨
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Bayangkan type itu seperti kontrak. Interface = &#x27;komponen ini janji menerima name (string) dan role (admin/user/guest)&#x27;. Kalau langgar kontrak, TypeScript langsung nolong di coding time, bukan di produksi.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Interface vs type alias — buat most cases di React, interface aja udah cukup. Lebih readable dan extensible. Type alias baru dipake kalau kamu butuh union types atau mapped types. Jangan overthink ini, yang penting jalan dulu! 🏃</p></div>
             </section>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">3. Generics di Komponen</h3>
-                <p class="text-gray-300 mb-3">Generics memungkinkan komponen menerima berbagai tipe data tanpa kehilangan type safety. Sangat berguna untuk reusable components.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Generic List component
+                <h3 class="text-xl font-bold text-white mb-4">🔄 GENERICS — Satu Komponen, Bisa Nangani Semuanya</h3>
+                <p class="text-gray-300 mb-3">Pernah bikin komponen List yang bisa nampilin User, Product, Article... tapi tiap ganti data, kamu copy-paste komponennya dan cuma ganti tipe-nya doang? 🤦‍♂️ <strong>Stop doing that!</strong> Generics bikin kamu cukup bikin sekali, pakai berkali-kali — dan tetap type-safe!</p>
+                <p class="text-gray-300 mb-3">Analoginya gini: generics itu kayak <strong>cetakan kue</strong> 🥰. Cetakan-nya sama, tapi adonan-nya bisa beda-beda — bisa coklat, bisa pandan, bisa keju. Bentuk kue-nya tetap konsisten, tapi isinya fleksibel.</p>
+                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// List component yang “universal” — bisa nangani tipe apapun!
 interface ListProps&lt;T&gt; {
   items: T[];
   renderItem: (item: T) =&gt; React.ReactNode;
   keyExtractor: (item: T) =&gt; string;
-  onItemSelect?: (item: T) =&gt; void;
+  onItemSelect?: (item: T) =&gt; void;   // optional callback
 }
 
 function List&lt;T&gt;({ items, renderItem, keyExtractor, onItemSelect }: ListProps&lt;T&gt;) {
@@ -120,69 +124,83 @@ function List&lt;T&gt;({ items, renderItem, keyExtractor, onItemSelect }: ListPr
   );
 }
 
-// Pakai dengan tipe User
+// ——— Pakai buat nampilin User ———
 interface User { id: string; name: string; }
-const users: User[] = [{ id: &#x27;1&#x27;, name: &#x27;Arif&#x27; }];
+const users: User[] = [{ id: ‘1’, name: ‘Arif’ }];
 
 &lt;List&lt;User&gt;
   items={users}
   keyExtractor={u =&gt; u.id}
   renderItem={u =&gt; &lt;span&gt;{u.name}&lt;/span&gt;}
-  onItemSelect={u =&gt; console.log(u)}
+  onItemSelect={u =&gt; console.log(u)}  // TypeScript tau u itu User!
 /&gt;
 
-// Pakai dengan tipe Product
+// ——— Pakai buat nampilin Product ———
 interface Product { sku: string; title: string; price: number; }
+
 &lt;List&lt;Product&gt;
   items={products}
   keyExtractor={p =&gt; p.sku}
   renderItem={p =&gt; &lt;span&gt;{p.title} - Rp{p.price}&lt;/span&gt;}
+  // onItemSelect-nya juga otomatis terima Product!
 /&gt;</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Generics itu seperti template surat. Format suratnya sama, tapi isi-nya bisa beda-beda tergantung kebutuhan. T tetap type-safe karena TypeScript tahu T-nya apa.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Pro tip:</strong> Pas pertama kali lihat generics, wajar kalau mikir <em>“ini terlalu abstrak”</em>. Tapi coba bayangin: kalau nggak pake generics, kamu bisa aja punya 5 versi List yang beda cuma di tipe data-nya. Generics mencegah itu. Satu komponen, lima kegunaan. Efisiensi maksimal! 🎯</p></div>
             </section>
+
             <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">4. Utility Types: Partial, Pick, Omit, Record</h3>
-                <p class="text-gray-300 mb-3">TypeScript punya utility types bawaan yang sangat berguna untuk memanipulasi tipe tanpa menulis ulang.</p>
+                <h3 class="text-xl font-bold text-white mb-4">🧠 UTILITY TYPES — Swiss Army Knife Buat Tipe Data</h3>
+                <p class="text-gray-300 mb-3">Oke, ini bagian yang sering banget dipake di dunia nyata tapi jarang diajarin dengan baik. TypeScript punya <strong>utility types</strong> bawaan yang kayak Swiss army knife — kecil tapi multitool banget! 🔪</p>
+                <p class="text-gray-300 mb-3">Bayangin kamu punya tipe User yang lengkap banget — ada id, name, email, age, role. Tapi pas mau bikin form edit, kamu nggak butuh semuanya kan? Cuma name dan email aja. Nah, daripada bikin interface baru dari nol, utility types nolong kamu <strong>“potong”</strong> tipe yang udah ada.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">interface User {
   id: string;
   name: string;
   email: string;
   age: number;
-  role: &#x27;admin&#x27; | &#x27;user&#x27;;
+  role: ‘admin’ | ‘user’;
 }
 
-// Partial: semua prop jadi optional
+// 🔧 Partial — semua properti jadi optional (bohong banget buat update!)
 function updateUser(id: string, data: Partial&lt;User&gt;) {
-  // data bisa { name: &#x27;baru&#x27; } saja, tidak perlu semua field
+  // data bisa cuma { name: ‘Arif’ } — nggak perlu kirim semua field!
 }
 
-// Pick: pilih beberapa prop saja
-type UserPreview = Pick&lt;User, &#x27;id&#x27; | &#x27;name&#x27;&gt;;
-// { id: string; name: string }
+// 🔧 Pick — ambil CUMA properti yang kamu mau
+type UserPreview = Pick&lt;User, ‘id’ | ‘name’&gt;;
+// hasilnya: { id: string; name: string }
+// Pas banget buat card preview di list!
 
-// Omit: exclude beberapa prop
-type CreateUser = Omit&lt;User, &#x27;id&#x27;&gt;;
-// { name: string; email: string; age: number; role: &#x27;admin&#x27;|&#x27;user&#x27; }
+// 🔧 Omit — KECUALIKAN properti yang nggak kamu butuh
+type CreateUser = Omit&lt;User, ‘id’&gt;;
+// hasilnya: { name: string; email: string; age: number; role: ... }
+// Karena pas create, id-nya otomatis dari server kan?
 
-// Record: bikin tipe object dengan key dan value tertentu
+// 🔧 Record — bikin tipe objek secara cepat
 type ThemeColors = Record&lt;string, string&gt;;
 const colors: ThemeColors = {
-  primary: &#x27;#27d890&#x27;,
-  secondary: &#x27;#111827&#x27;,
-  danger: &#x27;#ef4444&#x27;
+  primary: ‘#27d890’,
+  secondary: ‘#111827’,
+  danger: ‘#ef4444’
 };
 
-// Required: semua prop jadi wajib
+// 🔧 Required — kebalikan Partial, semua jadi WAJIB
 type RequiredUser = Required&lt;Partial&lt;User&gt;&gt;;
 
-// Readonly: tidak bisa diubah
+// 🔧 Readonly — objek jadi immutable, nggak bisa diubah
 type FrozenUser = Readonly&lt;User&gt;;</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Tip:</strong> Utility types itu seperti alat multitool — Partial, Pick, Omit, Record masing-masing punya fungsi spesifik untuk memanipulasi tipe tanpa copy-paste.</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Cheat sheet mental:</strong> <code>Partial</code> = “santai dulu aja, semua optional” · <code>Pick</code> = “mau ini sama ini aja” · <code>Omit</code> = “semua boleh, KECUALI ini” · <code>Record</code> = “dictionary dari A ke B”. Ingat 4 ini, kamu udah cover 90% use case! 🧠</p></div>
             </section>
+
             <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 Ringkasan Chapter 6</h3>
-                <p class="text-gray-300 mb-6">Kamu sudah mempelajari konsep-konsep penting tentang react &amp; typescript. Pastikan paham setiap konsep sebelum lanjut ke chapter berikutnya.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai</button>
+                <h3 class="text-xl font-bold text-accent mb-4">✅ RINGKASAN — Yang Perlu Kamu Bawa Pulang</h3>
+                <p class="text-gray-300 mb-4">Oke, kita udah bahas banyak. Biar nggak mabok, ini poin-poin penting yang harus kamu inget:</p>
+                <ul class="text-gray-300 space-y-2 mb-6">
+                    <li class="flex items-start gap-2"><span class="text-accent mt-0.5">✦</span><span><strong>Setup</strong> — Pake Vite + <code class="bg-dark-700/50 px-1.5 py-0.5 rounded text-sm">react-ts</code>, pastikan strict: true dari hari pertama.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent mt-0.5">✦</span><span><strong>Props &amp; State</strong> — Interface jadi “label” buat semua komponen. Props kayak kontrak, state kayak blueprint.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent mt-0.5">✦</span><span><strong>Generics</strong> — Satu komponen, banyak tipe. Kayak cetakan kue yang bisa diisi adonan apa aja.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-accent mt-0.5">✦</span><span><strong>Utility Types</strong> — Partial, Pick, Omit, Record. Swiss army knife buat manipulasi tipe tanpa copy-paste.</span></li>
+                </ul>
+                <p class="text-gray-400 mb-6 text-sm">TypeScript bukan buat bikin kode kamu lebih ribet — dia bikin kode kamu lebih <strong>predictable</strong>. Pas kamu kerja di tim, TypeScript itu kayak dokumentasi yang selalu up-to-date. Nggak perlu bertanya “ini props-nya apa aja?” — tinggal liat interface-nya. Done. 🎉</p>
+                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✨</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-5.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-7.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
             </section>
         </div>
