@@ -3,233 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>State Management - React Course</title>
+    <title>Bab 8: State Management - React Course</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{900:'#0a0f2c',800:'#111827',700:'#1a2240',600:'#243056'},accent:{DEFAULT:'#27d890',light:'#34e8a0',dark:'#1fb870'}}}}}</script>
-    <style>*{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}.lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}.lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}.nav-link{transition:background-color .2s cubic-bezier(.2,0,0.1),color .2s cubic-bezier(.2,0,0.1)}.nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}.fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0.1) both}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}.warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}.code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}button:active{transform:scale(.96)}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in-delay-1 { animation-delay: 100ms; }
+        .fade-in-delay-2 { animation-delay: 200ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
+        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        button:active { transform: scale(0.96); }
+    </style>
 </head>
 <body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+
+    <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
-        <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
-        <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
+        <!-- Logo -->
+        <div class="p-5 border-b border-dark-600">
+            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
+                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="text-lg font-bold text-white">React Course</span>
+            </a>
+        </div>
+
+        <!-- Search -->
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="px-4 pb-4">
+            <div class="bg-dark-700 rounded-xl p-3">
+                <div class="flex justify-between text-xs text-gray-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-dark-900 rounded-full h-2">
+                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React &amp; TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance &amp; Best Practices</span></a></div>
+            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">1</span>
+                Pengenalan React
+            </a>
+            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                JSX & Elemen React
+            </a>
+            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Komponen & Props
+            </a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                State & Lifecycle
+            </a>
+            <a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Event Handling
+            </a>
+            <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                Conditional Rendering
+            </a>
+            <a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Lists & Keys
+            </a>
+            <a href="chapter-8.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">8</span>
+                Hooks (useState, useEffect)
+            </a>
+            <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Router
+            </a>
+            <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Project Akhir
+            </a>
         </nav>
     </aside>
-    <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🗃️ Chapter 8</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
-        <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 8</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">State Management</h1><p class="text-gray-400 text-lg">Bayangin kamu punya satu lemari buat simpen semua baju. Gampang kan? Nah, bayangin lemari itu harus dibagi ke 50 orang sekaligus. Ribet banget, kan? 🫠 Itulah masalahnya kalau state management kamu berantakan.</p></div>
+
+    <!-- Main Content -->
+    <main class="lg:ml-72 min-h-screen">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 8: State Management</h1>
+                        <p class="text-sm text-gray-400 mt-0.5">4 pelajaran &middot; ~28 menit</p>
+                    </div>
+                </div>
+                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    Bab Selanjutnya
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="px-4 lg:px-8 py-8 max-w-4xl">
+
             
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🤔 MASALAHNYA APA SIH?</h3>
-                <p class="text-gray-300 mb-3">Pernah ngalamin ini? Kamu punya data <strong>username</strong> di komponen Header. Terus Footer butuh username yang sama. Terus Sidebar juga butuh. Terus ProfilePage juga...</p>
-                <p class="text-gray-300 mb-3">Solusi pertama yang kebayang: <strong>"Ya udah props drilling aja!"</strong></p>
-                <p class="text-gray-300 mb-3">Tiba-tiba kamu ngirim props <code class="bg-dark-700 px-2 py-0.5 rounded text-sm">username</code> dari App → Layout → Header → Nav → Avatar. Dan kalau ada perubahan? Wajah langsung 🤯.</p>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm">⚠️ <strong>Props drilling</strong> itu kayak kirim paket pos lewat 10 tangan sebelum sampai ke penerima. Bisa aja, tapi capek banget dan error-prone!</p></div>
-                <p class="text-gray-300 mb-3">Nah, di sinilah <strong>state management</strong> masuk. Dia itu kayak <strong>PA system (pengeras suara)</strong> di sekolah — satu kali bicara, semua orang denger. Nggak perlu kirim pesan satu-satu 🎤</p>
-            </section>
+<!-- Lesson 1: Context API Deep Dive -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">01</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Context API Deep Dive</h2><input type="checkbox" id="check-8-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Fundamental &middot; 8 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Context API</strong> adalah solusi bawaan React untuk state management. Context terdiri dari createContext(), Provider, dan useContext(). Context cocok untuk state global sederhana seperti tema, bahasa, autentikasi, dan preferensi user.</p>
+        <p>Namun Context punya kelemahan: <strong class="text-accent">setiap perubahan value akan me-rerender semua konsumen</strong>, bahkan yang tidak menggunakan bagian data yang berubah. Ini bisa menjadi performance issue di aplikasi besar dengan state kompleks.</p>
+        <p>Untuk mengatasi ini, gunakan <strong class="text-accent">useReducer</strong> bersama Context agar update state lebih terprediksi, atau split Context menjadi beberapa Context kecil yang masing-masing menangani concern berbeda (misalnya AuthContext terpisah dari ThemeContext).</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Context API + useReducer</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">import { createContext, useContext, useReducer } from 'react';
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">📦 CONTEXT API — SENJATA BAWAAN REACT</h3>
-                <p class="text-gray-300 mb-3">Context API itu kayak <strong>lemari bersama</strong> di kost-kostan. Semua penghuni bisa taruh dan ambil barang tanpa harus numpuk di kamar masing-masing. Dan yang paling penting — dia <strong>udah built-in</strong> di React, nggak perlu install apa-apa!</p>
-                <p class="text-gray-300 mb-3">Bayangin gini: kamu punya data <strong>theme (dark/light mode)</strong>. Data ini butuh diakses oleh Header, Footer, Sidebar, Button, Card — practically semua komponen. Alih-alih kirim props ke tiap komponen, kamu bungkus aja semuanya pake <code class="bg-dark-700 px-2 py-0.5 rounded text-sm">ThemeProvider</code>.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">import { createContext, useContext, useReducer, useMemo } from 'react';
+// Definisikan state dan actions
+const CartContext = createContext();
 
-// Typed Context — kayak daftar isi lemari bersama
-interface Todo {
-  id: string; text: string; done: boolean;
-}
-interface TodoContextType {
-  todos: Todo[];
-  addTodo: (text: string) =&gt; void;
-  toggleTodo: (id: string) =&gt; void;
-}
+const initialState = { items: [], total: 0 };
 
-// 1. Bikin konteksnya dulu
-const TodoContext = createContext&lt;TodoContextType | null&gt;(null);
-
-// 2. Bikin Provider — ini "lemarinya"
-function TodoProvider({ children }: { children: React.ReactNode }) {
-  const [todos, dispatch] = useReducer(todoReducer, []);
-
-  // useMemo biar nggak bikin object baru tiap render
-  const value = useMemo(() =&gt; ({
-    todos,
-    addTodo: (text: string) =&gt; dispatch({ type: 'ADD', payload: text }),
-    toggleTodo: (id: string) =&gt; dispatch({ type: 'TOGGLE', payload: id }),
-  }), [todos]);
-
-  return &lt;TodoContext.Provider value={value}&gt;{children}&lt;/TodoContext.Provider&gt;;
-}
-
-// 3. Custom hook — ini "kunci lemari"
-function useTodos() {
-  const ctx = useContext(TodoContext);
-  if (!ctx) throw new Error('useTodos harus dalam TodoProvider bro!');
-  return ctx;
-}</code></pre>
-                <p class="text-gray-300 mb-3">Oh ternyata gitu! Jadi urutannya: <strong>bikin context → bikin provider → wrap komponen → akses pake custom hook</strong>. Simpel kan?</p>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm">💡 <strong>Rahasia Context + useReducer:</strong> Combo ini itu setup state management yang solid tanpa library eksternal. Tapi hati-hati — setiap kali context value berubah, <strong>SEMUA</strong> komponen yang make useContext bakal re-render. Kalau datanya besar atau sering berubah (kayak cart belanja), pertimbangkan pake Zustand.</p></div>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm">⚠️ <strong>Jangan kebablasan bikin Context!</strong> Satu context = satu "domain" data. Jangan bikin satu giant context buat semua state. Nanti yang terjadi kayak satu lemari buat semua barang — berantakan! Pisahin: <code class="bg-dark-700 px-1 rounded text-xs">AuthContext</code>, <code class="bg-dark-700 px-1 rounded text-xs">ThemeContext</code>, <code class="bg-dark-700 px-1 rounded text-xs">CartContext</code>, dst.</p></div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">🐻 ZUSTAND — SI MINIMALIS YANG GEMBUT</h3>
-                <p class="text-gray-300 mb-3">Oke, Context API udah keren. Tapi ada kalanya kamu mikir: <strong>"Bro, ngapain sih bikin Provider, bungkus komponen, bikin context, bikin hook... capek ah."</strong></p>
-                <p class="text-gray-300 mb-3">Masuk <strong>Zustand</strong> — library yang konsepnya kayak <strong>brankas portabel</strong>. Dia di mana aja, bisa diakses dari mana aja. <strong>Tanpa Provider. Tanpa boilerplate. Tanpa drama.</strong></p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">import { create } from 'zustand';
-
-// Bikin store — sekali, selesai. Tanpa Provider!
-interface CartStore {
-  items: CartItem[];
-  addItem: (item: CartItem) =&gt; void;
-  removeItem: (id: string) =&gt; void;
-  total: () =&gt; number;
+function cartReducer(state, action) {
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        total: state.total + action.payload.price,
+      };
+    case 'REMOVE_ITEM':
+      return {
+        ...state,
+        items: state.items.filter(i =&gt; i.id !== action.payload.id),
+        total: state.total - action.payload.price,
+      };
+    case 'CLEAR':
+      return initialState;
+    default:
+      return state;
+  }
 }
 
-const useCartStore = create&lt;CartStore&gt;((set, get) =&gt; ({
-  items: [],
-  addItem: (item) =&gt; set((state) =&gt; ({
-    items: [...state.items, item]
-  })),
-  removeItem: (id) =&gt; set((state) =&gt; ({
-    items: state.items.filter(i =&gt; i.id !== id)
-  })),
-  total: () =&gt; get().items.reduce((sum, i) =&gt; sum + i.price * i.qty, 0),
-}));
-
-// Pakai di komponen MANAPUN — nggak perlu bungkus Provider!
-function CartButton() {
-  // Selector s =&gt; s.items → cuma re-render kalau items berubah
-  const items = useCartStore(s =&gt; s.items);
-  const addItem = useCartStore(s =&gt; s.addItem);
-
+function CartProvider({ children }) {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   return (
-    &lt;button onClick={() =&gt; addItem({ id: '1', name: 'Produk', price: 50000, qty: 1 })}&gt;
-      Tambah ({items.length} item)
+    &lt;CartContext.Provider value={{ state, dispatch }}&gt;
+      {children}
+    &lt;/CartContext.Provider&gt;
+  );
+}
+
+function useCart() {
+  const ctx = useContext(CartContext);
+  if (!ctx) throw new Error('useCart harus di dalam CartProvider');
+  return ctx;
+}
+
+// Penggunaan di komponen manapun:
+function AddToCartButton({ product }) {
+  const { dispatch } = useCart();
+  return (
+    &lt;button onClick={() =&gt; dispatch({ type: 'ADD_ITEM', payload: product })}&gt;
+      Tambah ke Keranjang
     &lt;/button&gt;
   );
+}</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Context API seperti papan pengumuman di kantor. Semua orang bisa lihat info di papan (state global), tapi kalau pengumuman sering berubah, semua orang harus membaca ulang (rerender). Untuk data yang sering berubah, perlu solusi yang lebih efisien.</p></div>
+</section>
+<!-- Lesson 2: Zustand -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">02</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Zustand</h2><input type="checkbox" id="check-8-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Library Populer &middot; 8 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Zustand</strong> adalah state management library yang sangat ringan (~1KB), simple, dan powerful. Tidak perlu Provider wrapper, tidak ada boilerplate, dan mendukung selector untuk optimasi rerender.</p>
+        <p>Zustand menggunakan <strong class="text-accent">store pattern</strong> di mana kamu mendefinisikan state dan actions dalam satu objek. Komponen bisa subscribe ke seluruh store atau hanya bagian tertentu menggunakan selector, menghindari rerender yang tidak perlu.</p>
+        <p>Keunggulan Zustand: API minimalis, mendukung devtools, middleware (persist, immer, devtools), bisa digunakan di luar komponen (di utility functions), dan support TypeScript dengan baik.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Zustand Store</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">import { create } from 'zustand';
+
+// Buat store &mdash; tidak perlu Provider!
+const useBearStore = create((set, get) =&gt; ({
+  bears: 0,
+  increase: () =&gt; set((state) =&gt; ({ bears: state.bears + 1 })),
+  decrease: () =&gt; set((state) =&gt; ({ bears: state.bears - 1 })),
+  reset: () =&gt; set({ bears: 0 }),
+  setBears: (count) =&gt; set({ bears: count }),
+}));
+
+// Penggunaan di komponen
+function BearCounter() {
+  // Selector &mdash; hanya rerender jika bears berubah
+  const bears = useBearStore((state) =&gt; state.bears);
+  const increase = useBearStore((state) =&gt; state.increase);
+
+  return &lt;div&gt;
+    &lt;h1&gt;{bears} beruang&lt;/h1&gt;
+    &lt;button onClick={increase}&gt;Tambah Beruang&lt;/button&gt;
+  &lt;/div&gt;;
 }
 
-// Bahkan di luar komponen pun bisa!
-function getTotalCart() {
-  return useCartStore.getState().total();
-}</code></pre>
-                <p class="text-gray-300 mb-3">Oh ternyata gitu! Zustand itu bedanya sama Context:</p>
-                <ul class="text-gray-300 space-y-2 mb-4">
-                    <li class="flex items-start gap-2"><span class="text-accent">✅</span> <strong>Nggak perlu Provider</strong> — tinggal <code class="bg-dark-700 px-1 rounded text-xs">create()</code> langsung jadi</li>
-                    <li class="flex items-start gap-2"><span class="text-accent">✅</span> <strong>Selector built-in</strong> — cuma re-render yang beneran butuh data yang berubah</li>
-                    <li class="flex items-start gap-2"><span class="text-accent">✅</span> <strong>Bisa diakses di luar komponen</strong> — pake <code class="bg-dark-700 px-1 rounded text-xs">getState()</code></li>
-                    <li class="flex items-start gap-2"><span class="text-accent">✅</span> <strong>Support middleware</strong> — logging, persist ke localStorage, devtools, dll.</li>
-                </ul>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm">💡 <strong>Mental model Zustand:</strong> Bayangin dia itu kayak variabel global yang "aman". Sama kayak global variabel di JS biasa, tapi dia punya reactivity — komponen yang make selector-nya otomatis update kalau value berubah. It's basically <code class="bg-dark-700 px-1 rounded text-xs">useState</code> tapi global. That's it. That's the whole trick. 🎩</p></div>
-            </section>
+// Store dengan persist middleware (simpan ke localStorage)
+const useUserStore = create(
+  persist(
+    (set) =&gt; ({
+      name: '',
+      theme: 'dark',
+      setName: (name) =&gt; set({ name }),
+      setTheme: (theme) =&gt; set({ theme }),
+    }),
+    { name: 'user-settings' }
+  )
+);</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Zustand seperti lemari es bersama di kos-kosan. Semua penghuni bisa ambil dan simpan makanan (state) kapan saja tanpa perlu izin (Provider). Masing-masing penghuni bisa langsung akses tanpa melalui perantara.</p></div>
+</section>
+<!-- Lesson 3: Redux Toolkit & Jotai -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">03</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Redux Toolkit &amp; Jotai</h2><input type="checkbox" id="check-8-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Library Lanjutan &middot; 9 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Redux Toolkit (RTK)</strong> adalah cara modern menggunakan Redux. RTK menyederhanakan setup Redux dengan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">createSlice</code> (otomatis buat actions dan reducers), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">createAsyncThunk</code> (handle async), dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">createStore</code> (simplified store setup).</p>
+        <p><strong class="text-accent">Jotai</strong> mengambil pendekatan berbeda &mdash; <em>atomic</em> state management. Alih-alih satu store besar, state dipecah menjadi atom-atom kecil yang independen. Komponen subscribe ke atom tertentu, sehingga rerender sangat optimal.</p>
+        <p>RTK cocok untuk aplikasi besar dengan tim banyak developer karena struktur yang ketat dan devtools yang lengkap. Jotai cocok untuk aplikasi yang mengutamakan fleksibilitas dan performa granular.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Redux Toolkit &amp; Jotai</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">// Redux Toolkit &mdash; createSlice
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">🔨 REDUX TOOLKIT — BOS YANG PEMBERANI</h3>
-                <p class="text-gray-300 mb-3">Dulu, Redux itu terkenal karena <strong>boilerplate-nya gila</strong>. Bikin action, bikin reducer, bikin middleware, bikin store, connect ke komponen — satu fitur bisa butuh 5 file. Developer pada pusing 🤢</p>
-                <p class="text-gray-300 mb-3">Tapi sekarang? <strong>Redux Toolkit (RTK)</strong> datang sebagai pahlawan. Dia itu Redux versi modern — semua boilerplate disederhanain. Kalau dulu butuh 5 file, sekarang cukup 1.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-// Async thunk — buat fetch data dari API
-const fetchUser = createAsyncThunk('user/fetch', async (id: string) =&gt; {
-  const res = await fetch(`/api/users/${id}`);
-  return res.json();
-});
-
-// Slice — semua action + reducer dalam satu tempat
-const userSlice = createSlice({
-  name: 'user',
-  initialState: { data: null, loading: false, error: null },
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
   reducers: {
-    // Sync actions
-    logout: (state) =&gt; { state.data = null; },
-    updateName: (state, action) =&gt; { state.data.name = action.payload; },
-  },
-  extraReducers: (builder) =&gt; {
-    // Auto-handle loading, success, error dari async thunk
-    builder
-      .addCase(fetchUser.pending, (state) =&gt; { state.loading = true; })
-      .addCase(fetchUser.fulfilled, (state, action) =&gt; {
-        state.loading = false;
-        state.data = action.payload;
-      })
-      .addCase(fetchUser.rejected, (state, action) =&gt; {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+    increment: (state) =&gt; { state.value += 1; },
+    decrement: (state) =&gt; { state.value -= 1; },
+    incrementBy: (state, action) =&gt; { state.value += action.payload; },
   },
 });
 
-export const { logout, updateName } = userSlice.actions;</code></pre>
-                <p class="text-gray-300 mb-3">RTK itu kayak <strong>kantor pemerintahan</strong> — banyak aturan, banyak prosedur, tapi semuanya jelas dan terstruktur. Cocok buat tim besar yang butuh konsistensi.</p>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm">💡 <strong>Kapan pake Redux Toolkit?</strong> Kalau tim kamu lebih dari 5 orang, aplikasinya enterprise-level, dan kamu butuh devtools yang powerful + time-travel debugging. Kalau proyeknya kecil-menengah, Zustand aja udah lebih dari cukup!</p></div>
-            </section>
+const store = configureStore({ reducer: { counter: counterSlice.reducer } });
+export const { increment, decrement, incrementBy } = counterSlice.actions;
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🧠 KAPAN PAKAI APA? — CHEAT SHEET GAMPANG</h3>
-                <p class="text-gray-300 mb-3">Ini bagian yang paling sering ditanya: <strong>"Gue harus pake apa sih?"</strong>. Tenang, gue bikin flowchart gampang buat kamu:</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// 🗺️ PETA PEMILIHAN STATE MANAGEMENT:
-//
-// ┌─ State cuma dipake 1 komponen?
-// │   → useState. Selesai. Pulang. 🏠
-// │
-// ├─ State dipake 2-3 komponen yang dekat?
-// │   → Lift state up + props. Masih gampang. 👍
-// │
-// ├─ State global tapi jarang berubah (theme, auth, locale)?
-// │   → Context API. Built-in, gratis, cukup. 📦
-// │
-// ├─ State global, sering berubah, butuh performa bagus?
-// │   → Zustand. Pilihan terbaik buat kebanyakan kasus. 🐻
-// │
-// └─ Tim besar, enterprise, butuh devtools + time-travel?
-//     → Redux Toolkit. Bos yang terstruktur. 🔨
-//
-// Hint: 80% kasus di dunia nyata bisa di-handle
-//       sama useState + Context + Zustand. 🎯
+// Jotai &mdash; Atomic state management
+import { atom, useAtom } from 'jotai';
 
-// Contoh real: Mix semua di satu app
-function App() {
+// Definisikan atom (unit state terkecil)
+const countAtom = atom(0);
+const doubledCountAtom = atom((get) =&gt; get(countAtom) * 2);
+
+// Penggunaan
+function Counter() {
+  const [count, setCount] = useAtom(countAtom);
+  const doubled = useAtomValue(doubledCountAtom);
   return (
-    &lt;ThemeProvider&gt;         {/* Context → jarang berubah */}
-      &lt;AuthProvider&gt;        {/* Context → jarang berubah */}
-        &lt;Router&gt;
-          &lt;CartPage /&gt;       {/* Zustand → sering berubah */}
-          &lt;UserPage /&gt;        {/* Zustand → sering berubah */}
-          &lt;Counter /&gt;         {/* useState → cuma lokal */}
-        &lt;/Router&gt;
-      &lt;/AuthProvider&gt;
-    &lt;/ThemeProvider&gt;
+    &lt;div&gt;
+      &lt;span&gt;Count: {count} (Doubled: {doubled})&lt;/span&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm">💡 <strong>Aturan emas:</strong> Mulai dari yang paling sederhana (useState). Naik level kalau udah beneran butuh. Nggak usah over-engineer dari awal. Pernah dengar quote ini? <em>"Premature optimization is the root of all evil"</em> — berlaku juga buat state management!</p></div>
-            </section>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Redux Toolkit seperti sistem filing kantor yang terorganisir rapi (struktur ketat, dokumentasi lengkap). Jotai seperti sticky notes yang bisa ditempel di mana saja &mdash; fleksibel, ringan, dan bisa diakses langsung tanpa melalui sistem filing.</p></div>
+</section>
+<!-- Lesson 4: When to Use What -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">04</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Kapan Pakai Apa?</h2><input type="checkbox" id="check-8-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Decision Guide &middot; 6 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p>Memilih state management yang tepat sangat penting. <strong class="text-white">useState</strong> cukup untuk state lokal komponen. <strong class="text-accent">Context API</strong> cocok untuk state global sederhana (tema, auth, i18n) di aplikasi kecil-menengah.</p>
+        <p><strong class="text-accent">Zustand</strong> adalah pilihan terbaik untuk kebanyakan aplikasi modern: API minimalis, tanpa Provider, performa baik, dan learning curve rendah. Gunakan untuk state global yang kompleks atau sering berubah.</p>
+        <p><strong class="text-accent">Redux Toolkit</strong> untuk aplikasi enterprise dengan tim besar yang butuh struktur ketat dan tooling lengkap. <strong class="text-accent">Jotai</strong> untuk state yang sangat granular dan performa-critical. Keduanya bisa dicampur: Zustand untuk global, useState untuk lokal, Context untuk theme.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Decision Guide</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-bash"># Decision tree state management React:
 
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 RINGKASAN — YANG HARUS KAMU BAWA PULANG</h3>
-                <ul class="text-gray-300 space-y-3 mb-6">
-                    <li class="flex items-start gap-3"><span class="text-accent text-lg">📌</span> <strong>Props drilling itu musuh</strong> — kalau udah lebih dari 3 level, waktunya cari solusi lain</li>
-                    <li class="flex items-start gap-3"><span class="text-accent text-lg">📌</span> <strong>Context API</strong> itu gratis dan built-in — cocok buat theme, auth, locale</li>
-                    <li class="flex items-start gap-3"><span class="text-accent text-lg">📌</span> <strong>Zustand</strong> itu minimalis dan powerful — pilihan terbaik buat 80% kasus</li>
-                    <li class="flex items-start gap-3"><span class="text-accent text-lg">📌</span> <strong>Redux Toolkit</strong> itu lengkap dan terstruktur — buat tim besar dan enterprise</li>
-                    <li class="flex items-start gap-3"><span class="text-accent text-lg">📌</span> <strong>Mulai dari simple</strong> — useState → Context → Zustand → Redux. Jangan lompat!</li>
+# 1. State hanya dipakai 1 komponen?
+#    &#10003; =&gt; useState / useReducer
+#
+# 2. State dipakai beberapa komponen dekat (parent-child)?
+#    &#10003; =&gt; Lift state up + pass via props
+#
+# 3. State global tapi sederhana (theme, auth, lang)?
+#    &#10003; =&gt; Context API
+#
+# 4. State global kompleks, sering berubah, perlu selector?
+#    &#10003; =&gt; Zustand (rekomendasi default)
+#
+# 5. Aplikasi enterprise, tim besar, butuh time travel debugging?
+#    &#10003; =&gt; Redux Toolkit
+#
+# 6. State sangat granular, perlu optimasi rerender ekstrem?
+#    &#10003; =&gt; Jotai</code></pre>
+    </div></div>
+    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-yellow-400">&#9888;&#65039; Perhatian:</strong> Jangan over-engineer! Mulai dengan useState, lalu naik ke Context atau Zustand hanya ketika benar-benar dibutuhkan. Menambah state management library memiliki cost: bundle size, complexity, dan learning curve.</p></div>
+</section>
+
+            <!-- Chapter Summary -->
+            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 8</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                    </div>
+                </div>
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Context API + useReducer untuk state global sederhana dengan struktur terprediksi</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Zustand sebagai solusi state management ringan tanpa Provider wrapper</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Redux Toolkit untuk aplikasi enterprise dengan createSlice dan createAsyncThunk</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Jotai untuk atomic state management dengan optimasi rerender granular</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Decision guide: kapan menggunakan useState, Context, Zustand, Redux, atau Jotai</span></li>
                 </ul>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-7.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-9.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="markChapterComplete(8)" id="completeBtn8" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Tandai Bab Selesai
+                    </button>
+                    <a href="chapter-9.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        Lanjut ke Bab 9
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
             </section>
+</section>
+
         </div>
     </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-    <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch8']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch8']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+                btn.classList.remove('opacity-100');
+            }
+        });
+
+        // Highlight Code
+        hljs.highlightAll();
+
+        // Copy Code
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        // Progress Tracking
+        function getProgress() {
+            const saved = localStorage.getItem('react-course-progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        function saveProgress(data) {
+            localStorage.setItem('react-course-progress', JSON.stringify(data));
+        }
+
+        function updateProgress() {
+            const progress = getProgress();
+            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            progress['chapter-8'] = { completed: checked, total: totalChecks };
+            saveProgress(progress);
+            renderGlobalProgress();
+        }
+
+        function renderGlobalProgress() {
+            const progress = getProgress();
+            let totalCompleted = 0;
+            let totalLessons = 0;
+            for (let i = 1; i <= 10; i++) {
+                const ch = progress[`chapter-${i}`];
+                if (ch) {
+                    totalCompleted += ch.completed;
+                    totalLessons += ch.total;
+                }
+            }
+            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
+        }
+
+        function markChapterComplete(ch) {
+            const progress = getProgress();
+            const checks = document.querySelectorAll(`.lesson-checkbox`);
+            checks.forEach(c => c.checked = true);
+            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(progress);
+            renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) {
+                btn.textContent = '✓ Bab Selesai!';
+                btn.classList.add('opacity-75');
+                btn.disabled = true;
+            }
+        }
+
+        // Restore checkbox states
+        function restoreChecks() {
+            const progress = getProgress();
+            const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => {
+                if (c.checked) c.checked = true;
+            });
+        }
+
+        // Init
+        renderGlobalProgress();
+    </script>
 </body>
 </html>

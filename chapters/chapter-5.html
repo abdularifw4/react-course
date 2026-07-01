@@ -3,276 +3,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced React Patterns - React Course</title>
+    <title>Bab 5: Advanced React Patterns - React Course</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{900:'#0a0f2c',800:'#111827',700:'#1a2240',600:'#243056'},accent:{DEFAULT:'#27d890',light:'#34e8a0',dark:'#1fb870'}}}}}</script>
-    <style>*{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}.lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}.lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}.nav-link{transition:background-color .2s cubic-bezier(.2,0,0,1),color .2s cubic-bezier(.2,0,0,1)}.nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}.fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0,1) both}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}.warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}.code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}button:active{transform:scale(.96)}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in-delay-1 { animation-delay: 100ms; }
+        .fade-in-delay-2 { animation-delay: 200ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
+        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        button:active { transform: scale(0.96); }
+    </style>
 </head>
 <body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+
+    <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
-        <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
-        <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
+        <!-- Logo -->
+        <div class="p-5 border-b border-dark-600">
+            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
+                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="text-lg font-bold text-white">React Course</span>
+            </a>
+        </div>
+
+        <!-- Search -->
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="px-4 pb-4">
+            <div class="bg-dark-700 rounded-xl p-3">
+                <div class="flex justify-between text-xs text-gray-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-dark-900 rounded-full h-2">
+                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a><a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance & Best Practices</span></a></div>
+            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">1</span>
+                Pengenalan React
+            </a>
+            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                JSX & Elemen React
+            </a>
+            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Komponen & Props
+            </a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                State & Lifecycle
+            </a>
+            <a href="chapter-5.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">5</span>
+                Event Handling
+            </a>
+            <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                Conditional Rendering
+            </a>
+            <a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">7</span>
+                Lists & Keys
+            </a>
+            <a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                Hooks (useState, useEffect)
+            </a>
+            <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Router
+            </a>
+            <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Project Akhir
+            </a>
         </nav>
     </aside>
-    <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🏗️ Chapter 5</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
-        <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 5</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Advanced React Patterns</h1><p class="text-gray-400 text-lg">Pernah ngerasa nulis component yang sama berulang-ulang? 🤯 Nah, chapter ini bakal bikin kamu ngeh &ldquo;oh ternyata gitu caranya!&rdquo; &mdash; kita bakal bahas pola-pola React yang dipake pro di production.</p></div>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🧥 HIGHER-ORDER COMPONENTS (HOC)</h3>
-                <p class="text-gray-300 mb-3">Bayangin kamu punya jaket anti-apa. Kamu bisa pakai jaket itu ke mana aja &mdash; ke kantor, ke mall, ke gym. Jaket-nya nambahin fungsi (perlindungan) tanpa ngubah badan kamu di dalemnya.</p>
-                <p class="text-gray-300 mb-3">Nah, <strong class="text-accent">HOC itu persis kayak jaket</strong>. Dia itu fungsi yang nge-wrap component kamu, terus ngereturn component baru yang udah ditambahin &ldquo;kekuatan&rdquo; &mdash; bisa auth, loading state, tracking, atau apapun.</p>
-                <p class="text-gray-300 mb-3">Kapan kita butuh HOC? Pas kamu ngerasa <em>&ldquo;Eh, ini logic ngecek auth-nya aku copy-paste ke 10 component nih&rdquo;</em>. Stop! 🛑 Itu tandanya kamu butuh HOC.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// HOC: withAuth &mdash; jaket keamanan buat component kamu
-function withAuth(Component) {
+    <!-- Main Content -->
+    <main class="lg:ml-72 min-h-screen">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 5: Advanced React Patterns</h1>
+                        <p class="text-sm text-gray-400 mt-0.5">6 pelajaran &middot; ~42 menit</p>
+                    </div>
+                </div>
+                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    Bab Selanjutnya
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="px-4 lg:px-8 py-8 max-w-4xl">
+
+            
+<!-- Lesson 1: HOC -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">01</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">HOC (Higher-Order Components)</h2><input type="checkbox" id="check-5-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Pattern Lanjutan &middot; 7 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Higher-Order Component (HOC)</strong> adalah pattern di mana sebuah fungsi menerima komponen sebagai argumen dan mengembalikan komponen baru yang telah ditingkatkan dengan fungsionalitas tambahan. HOC bukan komponen &mdash; ia adalah pola arsitektural untuk memisahkan logika reusable.</p>
+        <p>HOC sangat berguna untuk <strong class="text-accent">cross-cutting concerns</strong> seperti autentikasi, logging, analytics, atau pemuatan data. Alih-alih menulis logika yang sama berulang-ulang, kamu membungkusnya sekali dalam HOC.</p>
+        <p>Kelemahan HOC: bisa menyebabkan <em>wrapping hell</em>, debugging sulit, dan props collision. Di era Hooks, banyak kasus HOC bisa digantikan dengan Custom Hooks.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">HOC &mdash; withAuth &amp; withLogger</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">// HOC: withAuth &mdash; melindungi komponen
+function withAuth(WrappedComponent) {
   return function AuthenticatedComponent(props) {
-    const { user, isLoading } = useAuth();
-
-    if (isLoading) return &lt;Spinner /&gt;;
-    if (!user) return &lt;Navigate to=&#x27;/login&#x27; /&gt;;
-
-    return &lt;Component {...props} user={user} /&gt;;
+    const isLoggedIn = useAuth();
+    if (!isLoggedIn) return &lt;Navigate to="/login" /&gt;;
+    return &lt;WrappedComponent {...props} /&gt;;
   };
 }
 
-// Tinggal pakai jaket-nya ke component mana aja!
-const ProtectedDashboard = withAuth(Dashboard);
-const ProtectedSettings = withAuth(Settings);
-const ProtectedProfile = withAuth(Profile);
-
-// HOC: withLoading &mdash; jaket loading buat data fetching
-function withLoading(Component, fetchDataFn) {
-  return function EnhancedComponent(props) {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+// HOC: withLogger &mdash; menambahkan logging
+function withLogger(WrappedComponent, name) {
+  return function LoggedComponent(props) {
     useEffect(() =&gt; {
-      fetchDataFn()
-        .then(d =&gt; setData(d))
-        .catch(e =&gt; setError(e))
-        .finally(() =&gt; setLoading(false));
+      console.log(`[${name}] mounted`);
+      return () =&gt; console.log(`[${name}] unmounted`);
     }, []);
-
-    if (loading) return &lt;Spinner /&gt;;
-    if (error) return &lt;Error message={error.message} /&gt;;
-    return &lt;Component data={data} {...props} /&gt;;
+    return &lt;WrappedComponent {...props} /&gt;;
   };
-}</code></pre>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Heads up!</strong> Sejak hooks muncul di React 16.8, HOC udah nggak sesering dulu dipake. Tapi jangan salah &mdash; library besar kayak <code class="text-accent">react-redux</code> dan <code class="text-accent">react-router</code> masih pake HOC (remember <code class="text-accent">connect()</code> dan <code class="text-accent">withRouter()</code>?). Jadi tetap worth to know!</p></div>
-            </section>
+}
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">🎨 RENDER PROPS &mdash; KAMU YANG MASAK!</h3>
-                <p class="text-gray-300 mb-3">Pernah ke restoran yang menu-nya fix? Mau pesan ayam bakar tapi level pedasnya udah ditentuin chef. Annoying kan? 🤨</p>
-                <p class="text-gray-300 mb-3">Render props itu kebalikannya. Dia ngasih kamu <strong class="text-accent">bahan mentah (data)</strong>, terus <strong class="text-accent">kamu sendiri yang masak (render)</strong>. Jadi kamu punya kontrol penuh soal tampilan, sementara logic-nya diurus sama component yang provide data.</p>
-                <p class="text-gray-300 mb-3">Kapan pake render props? Pas kamu butuh component yang <em>logic-nya sama tapi tampilannya beda-beda</em>. Contoh: mouse tracker yang bisa render cursor custom, atau data fetcher yang bisa nampilin data dalam bentuk card, table, atau list.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Render Props: MouseTracker &mdash; dia cuma kasih data posisi mouse
-function MouseTracker({ render }) {
+// Penggunaan:
+const ProtectedDashboard = withAuth(Dashboard);
+const LoggedProfile = withLogger(Profile, 'Profile');</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> HOC seperti jas hujan. Baju biasa (komponen asli) dibungkus jas hujan (HOC) sehingga mendapat fungsionalitas tambahan tanpa mengubah baju di dalamnya.</p></div>
+</section>
+<!-- Lesson 2: Render Props -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">02</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Render Props</h2><input type="checkbox" id="check-5-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Pattern Lanjutan &middot; 6 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Render Props</strong> adalah pattern di mana komponen menerima fungsi (biasanya sebagai children) yang mengembalikan elemen React. Komponen induk mengelola state/logika, konsumen mengontrol rendering.</p>
+        <p>Pattern ini lebih deklaratif dan mudah dibaca dibanding HOC. Di era modern, sebagian besar render props bisa digantikan Custom Hooks, namun tetap berguna untuk kontrol rendering penuh.</p>
+        <p>Library populer yang menggunakan render props: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">react-query</code> (versi lama) dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">Formik</code>.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Render Props &mdash; MouseTracker</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">function MouseTracker({ children }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-
   useEffect(() =&gt; {
-    const handler = (e) =&gt; setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener(&#x27;mousemove&#x27;, handler);
-    return () =&gt; window.removeEventListener(&#x27;mousemove&#x27;, handler);
+    const handle = (e) =&gt; setPosition({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handle);
+    return () =&gt; window.removeEventListener('mousemove', handle);
   }, []);
-
-  // &quot;Ini bahan-bahannya, silakan masak sendiri ya!&quot;
-  return render(position);
+  return children({ x: position.x, y: position.y });
 }
 
-// Parent yang tentukan rendering &mdash; ini yang namanya freedom! 🆓
 function App() {
   return (
-    &lt;MouseTracker render={({ x, y }) =&gt; (
-      &lt;h1&gt;Kursor kamu di posisi: {x}, {y}&lt;/h1&gt;
-    )} /&gt;
-  );
-}
-
-// Versi children prop &mdash; lebih natural lagi kayak nulis HTML biasa
-function DataFetcher({ url, children }) {
-  const [data, setData] = useState(null);
-  useEffect(() =&gt; { fetch(url).then(r =&gt; r.json()).then(setData); }, [url]);
-
-  // Kirim data ke children sebagai fungsi
-  return children(data);
-}
-
-// Pakai-nya enak banget, kayak compose React biasa!
-&lt;DataFetcher url=&#x27;/api/users&#x27;&gt;
-  {(users) =&gt; (
-    users ? users.map(u =&gt; &lt;div key={u.id}&gt;{u.name}&lt;/div&gt;)
-         : &lt;p&gt;Loading...&lt;/p&gt;
-  )}
-&lt;/DataFetcher&gt;</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata!</strong> Kamu udah sering pake render props tanpa sadar. Remember <code class="text-accent">&lt;Route&gt;</code> dari react-router yang pake <code class="text-accent">element</code> prop? Itu render props! Juga <code class="text-accent">children as function</code> pattern yang dipake banyak library modern. Mental model-nya gampang: <strong>&ldquo;aku kasih data, kamu yang decide mau render apa.&rdquo;</strong></p></div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">🧱 COMPOUND COMPONENTS &mdash; SET LEGO!</h3>
-                <p class="text-gray-300 mb-3">Pernah main LEGO? Satu blok sendiri nggak terlalu menarik. Tapi kalau dirangkai bareng blok-blok lain &mdash; wuis! Jadi kastil, pesawat, atau robot yang keren. 🏰</p>
-                <p class="text-gray-300 mb-3"><strong class="text-accent">Compound components</strong> itu kerjaannya sama kayak LEGO. Beberapa component yang keliatan terpisah, tapi sebenarnya mereka <em>berkomunikasi lewat context</em> dan ngerjain satu tugas bareng-bareng.</p>
-                <p class="text-gray-300 mb-3">Contoh paling klasik? <code class="text-accent">&lt;select&gt;</code> dan <code class="text-accent">&lt;option&gt;</code> di HTML. Mereka dua komponen beda, tapi saling ngerti. Nah kita bisa bikin kayak gitun di React!</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from &#x27;react&#x27;;
-
-// 1. Context buat &quot;secret channel&quot; antar komponen
-const TabsContext = createContext();
-
-// 2. Parent (Tabs) &mdash; dia bos-nya, dia pegang state
-function Tabs({ children, defaultValue }) {
-  const [activeTab, setActiveTab] = useState(defaultValue);
-  return (
-    &lt;TabsContext.Provider value={{ activeTab, setActiveTab }}&gt;
-      &lt;div&gt;{children}&lt;/div&gt;
-    &lt;/TabsContext.Provider&gt;
-  );
-}
-
-// 3. Child components &mdash; akses state lewat context
-function TabList({ children }) {
-  return &lt;div className=&#x27;flex gap-2&#x27;&gt;{children}&lt;/div&gt;;
-}
-
-function Tab({ value, children }) {
-  const { activeTab, setActiveTab } = useContext(TabsContext);
-  const isActive = activeTab === value;
-  return (
-    &lt;button
-      onClick={() =&gt; setActiveTab(value)}
-      className={isActive ? &#x27;bg-accent text-dark-900&#x27; : &#x27;bg-dark-700 text-gray-300&#x27;}
-    &gt;
-      {children}
-    &lt;/button&gt;
-  );
-}
-
-function TabPanel({ value, children }) {
-  const { activeTab } = useContext(TabsContext);
-  if (activeTab !== value) return null;
-  return &lt;div&gt;{children}&lt;/div&gt;;
-}
-
-// Pakai-nya super natural &mdash; kayak nulis HTML biasa!
-function App() {
-  return (
-    &lt;Tabs defaultValue=&#x27;profil&#x27;&gt;
-      &lt;TabList&gt;
-        &lt;Tab value=&#x27;profil&#x27;&gt;Profil&lt;/Tab&gt;
-        &lt;Tab value=&#x27;settings&#x27;&gt;Settings&lt;/Tab&gt;
-        &lt;Tab value=&#x27;notifikasi&#x27;&gt;Notifikasi&lt;/Tab&gt;
-      &lt;/TabList&gt;
-      &lt;TabPanel value=&#x27;profil&#x27;&gt;&lt;ProfilForm /&gt;&lt;/TabPanel&gt;
-      &lt;TabPanel value=&#x27;settings&#x27;&gt;&lt;SettingsForm /&gt;&lt;/TabPanel&gt;
-      &lt;TabPanel value=&#x27;notifikasi&#x27;&gt;&lt;NotifSettings /&gt;&lt;/TabPanel&gt;
-    &lt;/Tabs&gt;
+    &lt;MouseTracker&gt;
+      {({ x, y }) =&gt; (
+        &lt;div&gt;
+          &lt;h1&gt;Posisi: ({x}, {y})&lt;/h1&gt;
+          &lt;div style={{ position:'absolute', left:x, top:y,
+            width:20, height:20, background:'#27d890',
+            borderRadius:'50%', transform:'translate(-50%,-50%)' }} /&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/MouseTracker&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Kenapa ini keren?</strong> Karena API-nya super readable! Siapapun baca kode <code class="text-accent">&lt;Tabs&gt;&lt;Tab /&gt;&lt;TabPanel /&gt;&lt;/Tabs&gt;</code> langsung paham maksudnya. Nggak perlu baca dokumentasi panjang. Ini yang bikin library kayak Radix UI dan Headless UI populer &mdash; API-nya intuitive banget!</p></div>
-            </section>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Render Props seperti memesan makanan. Koki (komponen induk) menyiapkan bahan (state), kamu (children fungsi) yang tentukan mau diapakan bahan itu.</p></div>
+</section>
+<!-- Lesson 3: Compound Components -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">03</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Compound Components</h2><input type="checkbox" id="check-5-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Pattern Lanjutan &middot; 7 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Compound Components</strong> adalah pattern di mana beberapa komponen bekerja sama membentuk satu unit UI koheren. Mereka berbagi state via React Context tanpa manual props passing.</p>
+        <p>Contoh nyata: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;select&gt;</code> dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&lt;option&gt;</code> &mdash; tidak perlu dihubungkan manual. Compound Components membawa filosofi sama ke React.</p>
+        <p>Keuntungan: <strong class="text-accent">API deklaratif dan fleksibel</strong>. Radix UI dan Headless UI banyak menggunakan pattern ini.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Compound Components &mdash; Accordion</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">const AccordionContext = createContext();
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">👨‍🍳 CONTAINER vs PRESENTATIONAL &mdash; CHEF &amp; PELAYAN</h3>
-                <p class="text-gray-300 mb-3">Di restoran ada dua orang penting: <strong>chef</strong> yang masak di dapur (urus resep, bahan, teknik), dan <strong>pelayan</strong> yang sajikan makanan ke meja (urus tampilan, kerapian).</p>
-                <p class="text-gray-300 mb-3">Di React, konsepnya sama:</p>
-                <ul class="text-gray-300 mb-3 space-y-2 ml-4">
-                    <li>🍳 <strong class="text-white">Container</strong> = komponen yang urus logic &mdash; fetch data, manage state, handle events</li>
-                    <li>🍽️ <strong class="text-white">Presentational</strong> = komponen yang cuma nampilin UI &mdash; menerima data dari props, nggak punya state sendiri</li>
-                </ul>
-                <p class="text-gray-300 mb-3">Kenapa pisah? Supaya komponen presentational-nya <strong class="text-accent">bisa di-reuse</strong>. Component list user yang sama bisa dipake di halaman dashboard, halaman admin, atau halaman search &mdash; tinggal ganti container-nya!</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// 🍽️ Presentational: cuma nampilin, nggak ngurus data dari mana
-// Fokusnya: &quot;kalau aku dikasih data begini, aku render gini&quot;
-function UserList({ users, onSelect, isLoading }) {
-  if (isLoading) return &lt;div&gt;Memuat data...&lt;/div&gt;;
+function Accordion({ children, defaultIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = useState(defaultIndex);
+  const toggleItem = (i) =&gt; setActiveIndex(p =&gt; p === i ? -1 : i);
   return (
-    &lt;ul className=&#x27;space-y-2&#x27;&gt;
-      {users.map(user =&gt; (
-        &lt;li
-          key={user.id}
-          onClick={() =&gt; onSelect(user.id)}
-          className=&#x27;p-3 hover:bg-dark-700 rounded-lg cursor-pointer&#x27;
-        &gt;
-          {user.name} &mdash; {user.email}
-        &lt;/li&gt;
-      ))}
-    &lt;/ul&gt;
+    &lt;AccordionContext.Provider value={{ activeIndex, toggleItem }}&gt;
+      &lt;div className="accordion"&gt;{children}&lt;/div&gt;
+    &lt;/AccordionContext.Provider&gt;
   );
 }
 
-// 🍳 Container: urus logic &amp; data, terus &quot;sajikan&quot; ke presentational
-// Fokusnya: &quot;dari mana data-nya? apa yang terjadi kalau user klik?&quot;
+function AccordionItem({ index, children }) {
+  const { activeIndex, toggleItem } = useContext(AccordionContext);
+  const isOpen = activeIndex === index;
+  return (
+    &lt;div className="accordion-item"&gt;
+      {typeof children === 'function'
+        ? children({ isOpen, toggle: () =&gt; toggleItem(index) })
+        : children}
+    &lt;/div&gt;
+  );
+}
+
+function FAQ() {
+  return (
+    &lt;Accordion&gt;
+      &lt;AccordionItem index={0}&gt;
+        {({ isOpen, toggle }) =&gt; (
+          &lt;&gt;
+            &lt;button onClick={toggle}&gt;Apa itu React? {isOpen ? '&#9650;' : '&#9660;'}&lt;/button&gt;
+            {isOpen &amp;&amp; &lt;p&gt;React adalah library JavaScript untuk UI.&lt;/p&gt;}
+          &lt;/&gt;
+        )}
+      &lt;/AccordionItem&gt;
+    &lt;/Accordion&gt;
+  );
+}</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Compound Components seperti orkestra. Setiap pemain punya peran sendiri, tapi berbagi skor musik (Context) yang sama untuk bermain harmoni.</p></div>
+</section><!-- Lesson 4: Provider Pattern -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">04</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Provider Pattern</h2><input type="checkbox" id="check-5-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-4" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Pattern Lanjutan &middot; 6 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Provider Pattern</strong> menggunakan React Context untuk menyebarkan data ke seluruh tree tanpa prop drilling. Berguna untuk data global: tema, autentikasi, bahasa, konfigurasi.</p>
+        <p>Dua bagian utama: <strong class="text-accent">Provider</strong> yang membungkus aplikasi dan <strong class="text-accent">Custom Hook</strong> untuk akses data. Ini membersihkan kode dari prop drilling berantakan.</p>
+        <p>Pisahkan Provider ke file tersendiri dengan Custom Hook-nya. Provider harus &quot;pasif&quot; &mdash; hanya merender children tanpa UI tambahan.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Provider Pattern &mdash; ThemeProvider</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">const ThemeContext = createContext(undefined);
+
+function ThemeProvider({ children, defaultTheme = 'dark' }) {
+  const [theme, setTheme] = useState(defaultTheme);
+  const toggleTheme = () =&gt; setTheme(p =&gt; p === 'dark' ? 'light' : 'dark');
+  return (
+    &lt;ThemeContext.Provider value={{ theme, toggleTheme }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+
+function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (ctx === undefined) throw new Error('useTheme harus di ThemeProvider');
+  return ctx;
+}
+
+function Navbar() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    &lt;nav style={{ background: theme === 'dark' ? '#111' : '#fff' }}&gt;
+      &lt;button onClick={toggleTheme}&gt;{theme === 'dark' ? '&#9728;&#65039;' : '&#127769;'}&lt;/button&gt;
+    &lt;/nav&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;ThemeProvider defaultTheme="dark"&gt;
+      &lt;Navbar /&gt;&lt;MainContent /&gt;
+    &lt;/ThemeProvider&gt;
+  );
+}</code></pre>
+    </div></div>
+    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-yellow-400">&#9888;&#65039; Perhatian:</strong> Jangan gunakan Context untuk data yang berubah sangat sering (posisi mouse). Setiap perubahan Context me-rerender semua konsumen.</p></div>
+</section>
+<!-- Lesson 5: Container vs Presentational -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-4" id="lesson-5">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">05</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Container vs Presentational</h2><input type="checkbox" id="check-5-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-5" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Arsitektur &middot; 5 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p>Pattern <strong class="text-white">Container vs Presentational</strong> memisahkan komponen: <strong class="text-accent">Container</strong> bertanggung jawab logika (fetch, state), <strong class="text-accent">Presentational</strong> fokus tampilan (menerima data via props).</p>
+        <p>Container tidak memiliki styling sendiri. Presentational tidak memiliki state dan berfungsi sebagai &quot;template&quot;. Komunikasi terjadi melalui props.</p>
+        <p>Di era Hooks, pattern ini kurang populer karena Custom Hooks bisa memisahkan logika tanpa komponen terpisah. Tapi konsep pemisahan concern tetap relevan.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Container vs Presentational</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">// Presentational &mdash; fokus tampilan
+function UserList({ users, isLoading, error }) {
+  if (isLoading) return &lt;p&gt;Memuat...&lt;/p&gt;;
+  if (error) return &lt;p&gt;Error: {error.message}&lt;/p&gt;;
+  return &lt;ul&gt;{users.map(u =&gt;
+    &lt;li key={u.id}&gt;{u.name} &mdash; {u.email}&lt;/li&gt;
+  )}&lt;/ul&gt;;
+}
+
+// Container &mdash; fokus logika
 function UserListContainer() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(null);
   useEffect(() =&gt; {
-    fetch(&#x27;/api/users&#x27;)
-      .then(r =&gt; r.json())
-      .then(data =&gt; { setUsers(data); setLoading(false); });
+    fetch('/api/users').then(r =&gt; r.json()).then(setUsers)
+      .catch(setError).finally(() =&gt; setLoading(false));
   }, []);
+  return &lt;UserList users={users} isLoading={loading} error={error} /&gt;;
+}
 
-  const handleSelect = (id) =&gt; {
-    console.log(&#x27;User dipilih:&#x27;, id);
-    // Navigasi, buka modal, dll &mdash; logic di sini
+function App() {
+  return &lt;div&gt;&lt;h1&gt;Daftar User&lt;/h1&gt;&lt;UserListContainer /&gt;&lt;/div&gt;;
+}</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Container adalah chef di dapur yang menyiapkan bahan, Presentational adalah pelayan yang menyajikan makanan. Chef tidak bertemu tamu, pelayan tidak memasak.</p></div>
+</section>
+<!-- Lesson 6: Props Getters & Control Props -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-5" id="lesson-6">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">06</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Props Getters &amp; Control Props</h2><input type="checkbox" id="check-5-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-6" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Pattern Lanjutan &middot; 7 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Props Getters</strong> menyediakan fungsi yang mengembalikan objek props yang sudah dikonfigurasi. Pengguna menyebarkan props tersebut ke elemen DOM &mdash; mengurangi boilerplate dan memastikan konsistensi.</p>
+        <p><strong class="text-accent">Control Props</strong> melangkah lebih jauh: komponen bisa dikontrol sepenuhnya dari luar (controlled), mengelola state sendiri (uncontrolled), atau campuran. Pattern ini memberikan fleksibilitas maksimal.</p>
+        <p>Library headless UI seperti Downshift, React Table, dan Radix UI menggunakan kedua pattern ini secara ekstensif.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Props Getters &mdash; Toggle</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-javascript">function useToggle({ defaultOn = false, onToggle } = {}) {
+  const [isOn, setIsOn] = useState(defaultOn);
+  const toggle = () =&gt; {
+    const next = !isOn;
+    setIsOn(next);
+    onToggle?.(next);
   };
 
-  // Sajikan ke presentational component!
+  // Props Getter &mdash; kembalikan semua props yang dibutuhkan
+  const getTogglerProps = (props = {}) =&gt; ({
+    'aria-pressed': isOn,
+    onClick: (e) =&gt; { props.onClick?.(e); toggle(); },
+    ...props,
+  });
+
+  return { isOn, toggle, getTogglerProps };
+}
+
+// Penggunaan dengan Props Getter:
+function App() {
+  const { isOn, getTogglerProps } = useToggle();
   return (
-    &lt;UserList
-      users={users}
-      onSelect={handleSelect}
-      isLoading={loading}
-    /&gt;
+    &lt;button {...getTogglerProps({
+      style: { background: isOn ? '#27d890' : '#6b7280' },
+      className: 'toggle-btn',
+    })}&gt;
+      {isOn ? 'ON' : 'OFF'}
+    &lt;/button&gt;
   );
 }</code></pre>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Update dunia modern:</strong> Pattern ini sekarang udah banyak <strong>digantikan sama custom hooks</strong>. Alih-alih bikin container component, kamu tinggal extract logic ke hook (misal <code class="text-accent">useUsers()</code>), terus langsung pake di presentational component. Tapi <em>mental model-nya tetap sama</em>: pisahin logic dan tampilan. Jangan campur aduk!</p></div>
-            </section>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Props Getters seperti kunci pintu otomatis hotel. Kamu cukup menggesek kartu (memanggil getter), dan pintu terbuka dengan konfigurasi tepat tanpa perlu tahu mekanisme internalnya.</p></div>
+</section>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">🔀 KAPAN PAKAI POLA YANG MANA?</h3>
-                <p class="text-gray-300 mb-3">Oke, sekarang kamu udah kenal 4 pola. Pertanyaannya: <em>&ldquo;Gue harus pake yang mana sih?&rdquo;</em> Tenang, ini cheat sheet-nya:</p>
-                <div class="space-y-4 my-4">
-                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
-                        <p class="text-accent font-semibold mb-1">🧥 HOC</p>
-                        <p class="text-gray-400 text-sm">Pas kamu butuh nambahin behavior ke BANYAK komponen yang sama (auth guard, error boundary, analytics). Kayak jaket yang bisa dipake ke mana aja.</p>
+            <!-- Chapter Summary -->
+            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
-                        <p class="text-accent font-semibold mb-1">🎨 Render Props</p>
-                        <p class="text-gray-400 text-sm">Pas logic-nya sama tapi tampilannya harus fleksibel. Component-nya kasih data, parent-nya yang decide render apa. Kayak restoran self-service.</p>
-                    </div>
-                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
-                        <p class="text-accent font-semibold mb-1">🧱 Compound Components</p>
-                        <p class="text-gray-400 text-sm">Pas kamu bikin &ldquo;suite&rdquo; komponen yang harus bekerja bareng (tabs, accordion, select). API-nya harus natural kayak nulis HTML biasa. Kayak set LEGO.</p>
-                    </div>
-                    <div class="bg-dark-700 rounded-xl p-4 border-l-3 border-accent">
-                        <p class="text-accent font-semibold mb-1">👨‍🍳 Container/Presentational</p>
-                        <p class="text-gray-400 text-sm">Pas kamu mau pisahin logic dan tampilan. Tapi di era hooks, lebih baik pake custom hooks daripada bikin container component terpisah.</p>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 5</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
                     </div>
                 </div>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Real talk:</strong> Di dunia nyata, kamu nggak harus pake semua pola ini di setiap project. Nggak perlu force! Pake yang make sense buat kasus kamu. Yang penting kamu <em>tahu</em> opsi-nya ada apa aja, jadi pas ketemu masalah yang cocok, kamu langsung &ldquo;Oh ini bisa pake compound components!&rdquo; 🎯</p></div>
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>HOC membungkus komponen untuk menambahkan fungsionalitas reusable, meski di era Hooks penggunaannya berkurang</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Render Props memberikan state/logika melalui fungsi children untuk kontrol rendering penuh</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Compound Components membuat sub-komponen berbagi state via Context untuk API deklaratif</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Provider Pattern menyebarkan data global tanpa prop drilling menggunakan React Context</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Container vs Presentational memisahkan logika dan tampilan ke komponen terpisah</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Props Getters &amp; Control Props memberikan fleksibilitas maksimal pada pengguna komponen</span></li>
+                </ul>
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="markChapterComplete(5)" id="completeBtn5" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Tandai Bab Selesai
+                    </button>
+                    <a href="chapter-6.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        Lanjut ke Bab 6
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
             </section>
+</section>
 
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 KALAU KAMU UDAH SAMPAI SINI...</h3>
-                <p class="text-gray-300 mb-3">Selamat! 🎉 Kamu udah kenal 4 pola advanced React yang dipake developer pro di production. Ini bukan teori doang &mdash; ini pola yang kamu bakal temuin di library-library besar kayak Radix UI, Headless UI, React Router, dan Redux.</p>
-                <p class="text-gray-300 mb-6">Mental model yang penting: <strong class="text-accent">React itu soal komposisi</strong>. Semua pola ini punya tujuan yang sama &mdash; bikin kode kamu reusable, maintainable, dan enak dibaca. Jangan terlalu fokus ke &ldquo;nama pattern&rdquo;-nya, fokus ke <em>problem apa yang dia solve</em>.</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-4.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-6.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
-            </section>
         </div>
     </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-    <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch5']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch5']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+                btn.classList.remove('opacity-100');
+            }
+        });
+
+        // Highlight Code
+        hljs.highlightAll();
+
+        // Copy Code
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        // Progress Tracking
+        function getProgress() {
+            const saved = localStorage.getItem('react-course-progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        function saveProgress(data) {
+            localStorage.setItem('react-course-progress', JSON.stringify(data));
+        }
+
+        function updateProgress() {
+            const progress = getProgress();
+            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            progress['chapter-5'] = { completed: checked, total: totalChecks };
+            saveProgress(progress);
+            renderGlobalProgress();
+        }
+
+        function renderGlobalProgress() {
+            const progress = getProgress();
+            let totalCompleted = 0;
+            let totalLessons = 0;
+            for (let i = 1; i <= 10; i++) {
+                const ch = progress[`chapter-${i}`];
+                if (ch) {
+                    totalCompleted += ch.completed;
+                    totalLessons += ch.total;
+                }
+            }
+            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
+        }
+
+        function markChapterComplete(ch) {
+            const progress = getProgress();
+            const checks = document.querySelectorAll(`.lesson-checkbox`);
+            checks.forEach(c => c.checked = true);
+            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(progress);
+            renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) {
+                btn.textContent = '✓ Bab Selesai!';
+                btn.classList.add('opacity-75');
+                btn.disabled = true;
+            }
+        }
+
+        // Restore checkbox states
+        function restoreChecks() {
+            const progress = getProgress();
+            const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => {
+                if (c.checked) c.checked = true;
+            });
+        }
+
+        // Init
+        renderGlobalProgress();
+    </script>
 </body>
 </html>

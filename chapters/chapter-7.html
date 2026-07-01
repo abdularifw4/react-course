@@ -3,252 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next.js Fundamentals - React Course</title>
+    <title>Bab 7: Next.js Fundamentals - React Course</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{900:'#0a0f2c',800:'#111827',700:'#1a2240',600:'#243056'},accent:{DEFAULT:'#27d890',light:'#34e8a0',dark:'#1fb870'}}}}}</script>
-    <style>*{scrollbar-width:thin;scrollbar-color:#27d890 #111827;-webkit-font-smoothing:antialiased}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111827}::-webkit-scrollbar-thumb{background:#27d890;border-radius:3px}.lesson-card{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1)}.lesson-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(39,216,144,.12)}.nav-link{transition:background-color .2s cubic-bezier(.2,0,0,1),color .2s cubic-bezier(.2,0,0,1)}.nav-link:hover,.nav-link.active{background:rgba(39,216,144,.1);color:#27d890}pre code{border-radius:.75rem;font-size:.875rem}h2{text-wrap:balance}.fade-in{animation:fadeIn .4s cubic-bezier(.2,0,0,1) both}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.tip-box{border-left:3px solid #27d890;background:rgba(39,216,144,.08)}.warning-box{border-left:3px solid #f59e0b;background:rgba(245,158,11,.08)}.code-block{box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid #243056;border-radius:.75rem}button:active{transform:scale(.96)}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0f2c', 800: '#111827', 700: '#1a2240', 600: '#243056' },
+                        accent: { DEFAULT: '#27d890', light: '#34e8a0', dark: '#1fb870' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #27d890 #111827; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #27d890; border-radius: 3px; }
+        .lesson-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .lesson-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(39,216,144,0.12); }
+        .nav-link { transition: background-color 0.2s cubic-bezier(0.2,0,0,1), color 0.2s cubic-bezier(0.2,0,0,1); }
+        .nav-link:hover, .nav-link.active { background: rgba(39,216,144,0.1); color: #27d890; }
+        pre code { border-radius: 0.75rem; font-size: 0.875rem; }
+        h2 { text-wrap: balance; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.2,0,0,1) both; }
+        .fade-in-delay-1 { animation-delay: 100ms; }
+        .fade-in-delay-2 { animation-delay: 200ms; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tip-box { border-left: 3px solid #27d890; background: rgba(39,216,144,0.08); }
+        .warning-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
+        .code-block { box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid #243056; }
+        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #6b7280; }
+        button:active { transform: scale(0.96); }
+    </style>
 </head>
 <body class="bg-dark-900 text-gray-200 min-h-screen font-sans">
+
+    <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(.4,0,.2,1) overflow-y-auto">
-        <div class="p-5 border-b border-dark-600"><a href="../index.html" class="flex items-center gap-3 min-h-[40px]"><div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center"><span class="text-accent text-lg">⚛️</span></div><span class="text-lg font-bold text-white">React Course</span></a></div>
-        <div class="p-4"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
-        <div class="px-4 pb-4"><div class="bg-dark-700 rounded-xl p-3"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Progress</span><span id="progressText">0/10</span></div><div class="w-full bg-dark-900 rounded-full h-2"><div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(.4,0,.2,1)" style="width:0%"></div></div></div></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-dark-800 border-r border-dark-600 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 cubic-bezier(0.4,0,0.2,1) overflow-y-auto">
+        <!-- Logo -->
+        <div class="p-5 border-b border-dark-600">
+            <a href="../index.html" class="flex items-center gap-3 min-h-[40px]">
+                <div class="w-9 h-9 bg-accent/20 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="text-lg font-bold text-white">React Course</span>
+            </a>
+        </div>
+
+        <!-- Search -->
+        <div class="p-4">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent/50 transition-colors duration-200 min-h-[40px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="px-4 pb-4">
+            <div class="bg-dark-700 rounded-xl p-3">
+                <div class="flex justify-between text-xs text-gray-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progressText">0/10</span>
+                </div>
+                <div class="w-full bg-dark-900 rounded-full h-2">
+                    <div id="progressBar" class="bg-accent h-2 rounded-full transition-all duration-500 cubic-bezier(0.4,0,0.2,1)" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
         <nav class="px-3 pb-6">
-            <a href="../index.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Beranda</a>
-            <div class="mt-3"><div class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Chapters</div><a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">1</span><span class="truncate">Dasar JavaScript untuk React</span></a><a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">2</span><span class="truncate">React Dasar Fundamental</span></a><a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">3</span><span class="truncate">React Hooks Dasar</span></a><a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">4</span><span class="truncate">React Hooks Advanced</span></a><a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">5</span><span class="truncate">Advanced React Patterns</span></a><a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">6</span><span class="truncate">React & TypeScript</span></a><a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm"><span class="w-6 h-6 rounded-lg bg-accent/20 flex items-center justify-center text-xs shrink-0 text-accent">7</span><span class="truncate">Next.js Fundamentals</span></a><a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">8</span><span class="truncate">State Management</span></a><a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">9</span><span class="truncate">React Testing</span></a><a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400"><span class="w-6 h-6 rounded-lg bg-dark-700 flex items-center justify-center text-xs shrink-0">10</span><span class="truncate">Performance & Best Practices</span></a></div>
+            <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Daftar Bab</p>
+            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">1</span>
+                Pengenalan React
+            </a>
+            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">2</span>
+                JSX & Elemen React
+            </a>
+            <a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">3</span>
+                Komponen & Props
+            </a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">4</span>
+                State & Lifecycle
+            </a>
+            <a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">5</span>
+                Event Handling
+            </a>
+            <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">6</span>
+                Conditional Rendering
+            </a>
+            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px]">
+                <span class="w-7 h-7 bg-accent/20 rounded-lg flex items-center justify-center text-xs font-bold text-accent">7</span>
+                Lists & Keys
+            </a>
+            <a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">8</span>
+                Hooks (useState, useEffect)
+            </a>
+            <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">9</span>
+                React Router
+            </a>
+            <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium min-h-[40px] text-gray-400">
+                <span class="w-7 h-7 bg-dark-700 rounded-lg flex items-center justify-center text-xs font-bold">10</span>
+                Project Akhir
+            </a>
         </nav>
     </aside>
-    <main class="lg:ml-72">
-        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-md border-b border-dark-600"><div class="flex items-center justify-between px-4 py-3 lg:px-8"><button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-dark-700 min-w-[40px] min-h-[40px] flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button><h2 class="text-sm text-gray-400">🚀 Chapter 7</h2><a href="../index.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Beranda</a></div></header>
-        <div class="px-4 py-8 lg:px-8 max-w-4xl mx-auto">
-            <div class="mb-8 fade-in"><span class="text-sm font-mono text-accent">Chapter 7</span><h1 class="text-3xl lg:text-4xl font-bold text-white mt-2 mb-4">Next.js Fundamentals</h1><p class="text-gray-400 text-lg">Pernah ngerasa React biasa tuh kayak mobil tanpa mesin? Kita punya komponen keren, tapi gimana cara ngirimnya ke user? Nah, Next.js jawabannya. 🏎️💨</p></div>
 
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🏃 APP ROUTER &#8212; BIKIN ROUTE TANPA PUSING</h3>
-                <p class="text-gray-300 mb-3">Oke, bayangin lo mau bikin website punya halaman Home, About, Blog, sama Dashboard. Di React biasa, lo harus pasang React Router, bikin file terpisah, tulis path manual... cape deh. 😥</p>
-                <p class="text-gray-300 mb-3">Di Next.js App Router (mulai versi 13+), <strong class="text-white">lo cuma bikin folder aja</strong>. Serius. Itu doang. Nggak ada konfigurasi router. Nggak ada import Route dari mana-mana. Cukup bikin folder, dan boom &#8212; route-nya auto jadi. 💯</p>
-                <p class="text-gray-300 mb-4">Analoginya gini: lo punya rumah. Setiap kamar itu satu halaman. Mau tambah kamar? Tinggal bikin folder baru. Mau kamar dalam kamar (nested route)? Bikin folder di dalam folder. Simple kan?</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Struktur folder = routing otomatis!
-// app/
-//   layout.tsx          → Layout utama (HTML, body tag)
-//   page.tsx             → /
-//   about/
-//     page.tsx           → /about
-//   blog/
-//     page.tsx           → /blog
-//     [slug]/
-//       page.tsx         → /blog/:slug (dynamic route!)
-//   dashboard/
-//     layout.tsx         → Layout khusus dashboard (nested)
-//     page.tsx           → /dashboard
-//     settings/
-//       page.tsx         → /dashboard/settings
+    <!-- Main Content -->
+    <main class="lg:ml-72 min-h-screen">
+        <!-- Top Bar -->
+        <header class="sticky top-0 z-30 bg-dark-900/80 backdrop-blur-xl border-b border-dark-600">
+            <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-dark-700 transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold text-white">Bab 7: Next.js Fundamentals</h1>
+                        <p class="text-sm text-gray-400 mt-0.5">3 pelajaran &middot; ~21 menit</p>
+                    </div>
+                </div>
+                <a href="chapter-2.html" class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200 min-h-[40px]">
+                    Bab Selanjutnya
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
 
-// Dynamic route — pake [bracket] buat parameter
-interface BlogPostProps {
-  params: { slug: string };
-}
+        <!-- Content Area -->
+        <div class="px-4 lg:px-8 py-8 max-w-4xl">
 
-export default function BlogPost({ params }: BlogPostProps) {
-  return <h1>Baca: {params.slug}</h1>;
-}
-
-// Pengen halaman blog di-generate sebelum user buka? (SSG)
-// Pake generateStaticParams!
-export async function generateStaticParams() {
-  const posts = await fetch('https://api.example.com/posts');
-  return (await posts.json()).map((p: any) => ({
-    slug: p.slug
-  }));
-}</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> Folder <code class="text-accent">[slug]</code> itu kayak slot kosong di parkiran. Nama slot-nya dinamis &#8212; bisa jadi "belajar-react", "tips-nextjs", apapun. Nah, isi dari slot itu nanti bisa lo akses lewat <code class="text-accent">params.slug</code>. Keren nggak? 🎰</p></div>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Jangan lupa:</strong> Kalo lo bikin folder tapi nggak ada file <code class="text-accent">page.tsx</code> di dalamnya, route-nya <strong>nggak bakal muncul</strong>. Next.js butuh <code class="text-accent">page.tsx</code> sebagai "pintu masuk" halaman. Tanpa itu, foldernya cuma jadi dekorasi doang. 😅</p></div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-white mb-4">👨‍🍳 SERVER COMPONENTS VS 🎮 CLIENT COMPONENTS</h3>
-                <p class="text-gray-300 mb-3">Ini konsep yang bikin Next.js beda banget sama React biasa. Jadi gini ya...</p>
-                <p class="text-gray-300 mb-3">Bayangin lo lagi di restoran. Ada <strong class="text-accent">chef</strong> yang masak di dapur, dan ada <strong class="text-accent">meja makan</strong> yang interaktif buat tamu. Server Component itu si chef &#8212; dia masak (render) di dapur (server), terus kirim hasilnya yang udah matang ke tamu. Nggak perlu tamu repot-repot masak sendiri. 👨‍🍳</p>
-                <p class="text-gray-300 mb-3">Sedangkan Client Component itu kayak meja makan yang punya tombol buat pesan, interaktif, bisa klik-klik. Tamu butuh ini buat interaksi. Tapi chef tetap yang masak makanannya &#8212; tamu cuma nerima dan bisa interaksi di meja. 🎮</p>
-                <p class="text-gray-300 mb-4"><strong class="text-white">Kenapa ini penting?</strong> Karena Server Component nggak ngirim JavaScript ke browser! Artinya? Website lo <strong class="text-accent">lebih cepet</strong>, bundle-nya <strong class="text-accent">lebih kecil</strong>, dan user-nya <strong class="text-accent">lebih seneng</strong>. 🚀</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// SERVER COMPONENT — default di Next.js App Router!
-// Nggak usah tulis apa-apa, ini udah otomatis server component
-async function ProductList() {
-  // Lo bisa LANGSUNG akses database di sini!
-  // Nggak perlu fetch ke API, nggak perlu useEffect, langsung gas!
-  const products = await db.product.findMany();
-
-  return (
-    <div>
-      {products.map(p => (
-        <div key={p.id}>{p.name} — Rp{p.price.toLocaleString()}</div>
-      ))}
+            
+<!-- Lesson 1: Routing (App Router) -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">01</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Routing (App Router)</h2><input type="checkbox" id="check-7-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-1" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Fundamental &middot; 8 menit baca</p>
+        </div>
     </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p><strong class="text-white">Next.js App Router</strong> menggunakan folder-based routing. Setiap folder di dalam <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">app/</code> menjadi route, dan file <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">page.tsx</code> di dalamnya menjadi halaman yang di-render. Ini jauh lebih intuitif dibanding Pages Router yang lama.</p>
+        <p>Dynamic routes menggunakan folder dengan nama diapit kurung siku: <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">[id]/</code> untuk parameter dinamis. Catch-all routes menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">[...slug]/</code>. Route groups menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">(group)/</code> tanpa mempengaruhi URL.</p>
+        <p>App Router juga mendukung <strong class="text-accent">loading.tsx</strong> (automatic loading UI), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">error.tsx</code> (error boundary), <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">not-found.tsx</code> (404 page), dan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">layout.tsx</code> (shared layout) secara built-in.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">App Router &mdash; Struktur Folder</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-bash">app/
+├── layout.tsx          # Root layout (wajib)
+├── page.tsx            # Halaman utama (/)
+├── loading.tsx         # Loading UI global
+├── error.tsx           # Error boundary global
+├── not-found.tsx       # 404 page
+├── about/
+│   └── page.tsx        # /about
+├── blog/
+│   ├── page.tsx        # /blog
+│   ├── [slug]/
+│   │   └── page.tsx    # /blog/:slug (dynamic)
+│   └── loading.tsx     # Loading untuk /blog/*
+└── dashboard/
+    ├── layout.tsx      # Layout khusus dashboard
+    ├── page.tsx        # /dashboard
+    └── settings/
+        └── page.tsx    # /dashboard/settings</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
+</section>
+<!-- Lesson 2: Server vs Client Components -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">02</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Server vs Client Components</h2><input type="checkbox" id="check-7-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-2" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Konsep Inti &middot; 8 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p>Di Next.js App Router, <strong class="text-white">Server Components</strong> adalah default. Mereka di-render di server, tidak mengirim JavaScript ke client, dan bisa langsung mengakses database atau file system. Ini mengurangi bundle size dan meningkatkan performa.</p>
+        <p><strong class="text-accent">Client Components</strong> ditandai dengan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&apos;use client&apos;</code> di baris pertama file. Mereka di-render di browser dan bisa menggunakan useState, useEffect, event handlers, dan browser API.</p>
+        <p>Peraturan praktis: gunakan Server Components sebanyak mungkin. Hanya gunakan Client Components ketika benar-benar membutuhkan interaktivitas (onClick, onChange, useState, useEffect). Komponen Server bisa me-render Komponen Client, tapi tidak sebaliknya.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Server vs Client Components</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-typescript">// Server Component (default) &mdash; no directive needed
+// Bisa akses database, file system, env variables langsung
+async function UserProfile({ userId }: { userId: string }) {
+  // Ini berjalan di server!
+  const user = await db.user.findUnique({ where: { id: userId } });
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{user.name}&lt;/h1&gt;
+      &lt;p&gt;{user.bio}&lt;/p&gt;
+      &lt;LikeButton postId={userId} /&gt;  {/* Client Component */}
+    &lt;/div&gt;
   );
 }
 
-// CLIENT COMPONENT — butuh interaktivitas? Ini tempatnya
-'use client'; // ← WAJIB! Tanpa ini, hooks nggak bakal jalan
-
+// Client Component &mdash; perlu directive
+&apos;use client&apos;;
 import { useState } from 'react';
 
-function AddToCart({ productId }: { productId: string }) {
-  const [added, setAdded] = useState(false);
-
-  const handleAdd = () => {
-    // fetch, onclick, useState — semuanya butuh 'use client
-    setAdded(true);
-  };
-
+function LikeButton({ postId }: { postId: string }) {
+  const [liked, setLiked] = useState(false);
   return (
-    <button onClick={handleAdd}>
-      {added ? '✅ Udah masuk keranjang!' : '🛒 Tambah ke Keranjang'}
-    </button>
+    &lt;button onClick={() =&gt; setLiked(!liked)}&gt;
+      {liked ? '&#10084;&#65039;' : '&#128150;'} Suka
+    &lt;/button&gt;
   );
 }</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Aturan emas:</strong> Mulai dari Server Component dulu. Baru kalau lo butuh <code class="text-accent">useState</code>, <code class="text-accent">useEffect</code>, <code class="text-accent">onClick</code>, atau browser API &#8212; baru tambahin <code class="text-accent">'use client'</code> di paling atas file. Semakin banyak Server Component, semakin cepat web lo. ⚡</p></div>
-                <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>⚠️ Trap yang sering kejebak:</strong> Kalo lo tulis <code class="text-accent">'use client'</code> di parent component, <strong class="text-white">semua child-nya otomatis jadi Client Component juga</strong>. Jadi hati-hati &#8212; jangan asal sembarang taruh <code class="text-accent">'use client'</code>. Taruh di component yang bener-bener butuh doang! 🎯</p></div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-white mb-4">📦 DATA FETCHING &#8212; GIMANA CARA AMBIL DATA?</h3>
-                <p class="text-gray-300 mb-3">Dulu di React, kalo mau ambil data lo pake useEffect + fetch. Nah itu cara lama. Di Next.js, lo bisa langsung async/await di component &#8212; karena component-nya jalan di server! 🎉</p>
-                <p class="text-gray-300 mb-3">Tapi wait, ada tiga strategi fetching data di Next.js. Masing-masing punya use case beda. Pahami ini, lo bakal nggak bingung lagi kapan harus pake yang mana.</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// === STRATEGI 1: STATIC GENERATION (SSG) ===
-// Data di-fetch sekali waktu build. Cocok buat blog, landing page.
-async function BlogList() {
-  const posts = await fetch('https://api.example.com/posts', {
-    cache: 'force-cache' // ← Simpan selamanya sampai build lagi
-  }).then(r => r.json());
-
-  return <div>{posts.map((p: any) => <div key={p.id}>{p.title}</div>)}</div>;
-}
-
-// === STRATEGI 2: SERVER-SIDE RENDERING (SSR) ===
-// Data di-fetch setiap kali user request. Cocok buat data yang sering berubah.
-async function LiveScore() {
-  const scores = await fetch('https://api.example.com/scores', {
-    cache: 'no-store' // ← Selalu fresh, nggak pernah cache
-  }).then(r => r.json());
-
-  return <div>{scores.map((s: any) => <div key={s.id}>{s.team}: {s.score}</div>)}</div>;
-}
-
-// === STRATEGI 3: INCREMENTAL STATIC REGENERATION (ISR) ===
-// Data di-cache TAPI di-update berkala. Best of both worlds!
-async function ProductPage() {
-  const products = await fetch('https://api.example.com/products', {
-    next: { revalidate: 3600 } // ← Update tiap 1 jam
-  }).then(r => r.json());
-
-  return <div>{products.map((p: any) => <div key={p.id}>{p.name}</div>)}</div>;
-}</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Analoginya gini:</strong></p>
-                    <ul class="text-sm text-gray-300 mt-2 space-y-1 list-disc list-inside">
-                        <li><code class="text-accent">force-cache</code> = Foto polaroid 📸 &#8212; diambil sekali, nggak berubah-ubah</li>
-                        <li><code class="text-accent">no-store</code> = Live TV 📺 &#8212; selalu update, realtime</li>
-                        <li><code class="text-accent">revalidate: 3600</code> = Koran pagi 📰 &#8212; terbit tiap jam, tapi di antaranya tetap yang lama</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-white mb-4">🔌 API ROUTES &#8212; BACKEND TANPA SERVER TERPISAH</h3>
-                <p class="text-gray-300 mb-3">Nah ini yang paling seru. Lo butuh API buat handle form, autentikasi, atau database operation? Nggak usah bikin server Express terpisah. Next.js udah nyediain API Routes di dalam project lo sendiri! 🎂</p>
-                <p class="text-gray-300 mb-3">Caranya? Tinggal bikin folder <code class="text-accent">api/</code> di dalam <code class="text-accent">app/</code>, terus buat file <code class="text-accent">route.ts</code>. Setiap file <code class="text-accent">route.ts</code> bisa export fungsi GET, POST, PUT, DELETE &#8212; persis kayak REST API yang lo kenal. 😎</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// File: app/api/hello/route.ts
-import { NextResponse } from 'next/server';
-
-// GET request handler
-export async function GET() {
-  const data = { message: 'Halo dari Next.js API!' };
-  return NextResponse.json(data);
-}
-
-// POST request handler
-export async function POST(request: Request) {
-  const body = await request.json();
-
-  // Misalnya simpan ke database
-  // await db.user.create({ data: body });
-
-  return NextResponse.json({
-    success: true,
-    message: 'Halo ' + body.name + '! Data udah diterima.'
-  });
-}
-
-// Pake di frontend (Server Component atau Client Component)
-async function ContactForm() {
-  // Bisa langsung fetch ke API route sendiri!
-  const response = await fetch('/api/hello', {
-    method: 'POST',
-    body: JSON.stringify({ name: 'Arif' })
-  });
-  const data = await response.json();
-  // { success: true, message: "Halo Arif! Data udah diterima." }
-}</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Oh ternyata gitu!</strong> API route itu kayak punya dapur belakang di restoran lo sendiri. Nggak perlu sewa gedung terpisah (server Express/NestJS) cuma buat handle API. Semua dalam satu project. Satu deploy, semuanya jalan. Efisien banget! 🏠🍳</p></div>
-            </section>
-
-            <section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 border border-dark-600 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-white mb-4">🏗️ LAYOUT &amp; TEMPLATES &#8212; SISTEM KERANGKA HALAMAN</h3>
-                <p class="text-gray-300 mb-3">Setiap website punya bagian yang tetap ada di semua halaman &#8212; header, footer, sidebar. Di Next.js, lo nggak perlu copy-paste itu ke setiap halaman. Ada <code class="text-accent">layout.tsx</code> yang nge-wrap semua halaman secara otomatis. 🧩</p>
-                <p class="text-gray-300 mb-3">Yang lebih keren: layout bisa <strong class="text-accent">nested</strong>. Artinya dashboard punya layout sendiri, blog punya layout sendiri, tapi tetap punya layout utama (root layout) yang nge-wrap semuanya. Kayak boneka matryoshka &#8212; ada dalam ada! 🪖</p>
-                <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// app/layout.tsx — Root Layout (WAJIB ada!)
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="id">
-      <body>
-        {/* Ada di SEMUA halaman */}
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  );
-}
-
-// app/dashboard/layout.tsx — Nested layout (khusus dashboard)
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex">
-      {/* Sidebar khusus dashboard */}
-      <DashboardSidebar />
-      <main>{children}</main>
+    </div></div>
+    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-yellow-400">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
+</section>
+<!-- Lesson 3: Data Fetching & API Routes -->
+<section class="lesson-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-accent font-bold text-sm">03</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-white">Data Fetching, API Routes &amp; SEO</h2><input type="checkbox" id="check-7-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-3" class="lesson-label text-xs text-gray-500 cursor-pointer px-2 py-1 rounded-lg hover:bg-dark-700 transition-colors duration-200">Selesai</label></div>
+            <p class="text-sm text-gray-500">Praktik &middot; 10 menit baca</p>
+        </div>
     </div>
-  );
+    <div class="space-y-4 text-gray-300 leading-relaxed">
+        <p>Next.js menyediakan <strong class="text-white">Server-side Data Fetching</strong> yang powerful. Di Server Components, kamu bisa langsung menggunakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">async/await</code> tanpa useEffect. Data di-fetch di server dan HTML yang sudah lengkap dikirim ke client.</p>
+        <p><strong class="text-accent">API Routes</strong> (Route Handlers) memungkinkan kamu membuat API endpoints di dalam proyek Next.js. File <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">route.ts</code> di folder app menjadi endpoint. Sangat berguna untuk webhook, form submissions, atau integrasi pihak ketiga.</p>
+        <p>Untuk <strong class="text-accent">SEO</strong>, Next.js menyediakan <code class="bg-dark-700 px-2 py-0.5 rounded text-accent text-xs">generateMetadata()</code> untuk mengatur title, description, dan meta tags secara dinamis per halaman. Ini sangat penting untuk performa SEO.</p>
+    </div>
+    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
+        <div class="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-dark-600"><span class="text-xs text-gray-400 font-medium">Data Fetching &amp; API Routes</span><button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-accent transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-dark-600 min-h-[32px] min-w-[32px]">Salin</button></div>
+        <pre><code class="language-typescript">// Server-side data fetching (di Server Component)
+async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await fetch(
+    `https://api.example.com/posts/${params.slug}`,
+    { next: { revalidate: 3600 } }  // ISR: revalidate tiap 1 jam
+  ).then(r =&gt; r.json());
+
+  return &lt;article&gt;
+    &lt;h1&gt;{post.title}&lt;/h1&gt;
+    &lt;div dangerouslySetInnerHTML={{ __html: post.content }} /&gt;
+  &lt;/article&gt;;
 }
 
-// app/dashboard/page.tsx
-// Halaman ini bakal punya: Navbar + DashboardSidebar + konten + Footer
-export default function DashboardPage() {
-  return <h1>Selamat datang di Dashboard!</h1>;
-}</code></pre>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>💡 Perbedaan layout vs template:</strong> <code class="text-accent">layout.tsx</code> itu persistent &#8212; pas lo pindah halaman, layout-nya <strong>nggak re-render</strong> (state tetap hidup!). <code class="text-accent">template.tsx</code> itu tiap pindah halaman bakal <strong>re-render ulang</strong> (fresh state). Pilih layout buat kebanyakan kasus! 🎯</p></div>
-            </section>
+// Metadata/SEO
+export async function generateMetadata({ params }) {
+  const post = await getPost(params.slug);
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: { images: [post.coverImage] },
+  };
+}
 
-            <section class="lesson-card bg-accent/5 rounded-2xl p-6 lg:p-8 border border-accent/20 mb-8">
-                <h3 class="text-xl font-bold text-accent mb-4">📝 RECAP &#8212; YANG HARUS LO BAWA PULANG</h3>
-                <div class="space-y-3 mb-6">
-                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">App Router</strong> &#8212; Bikin route cuma dengan bikin folder. <code class="text-accent">page.tsx</code> = halaman, <code class="text-accent">[slug]</code> = dynamic route. Gampang banget.</p></div>
-                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Server vs Client Components</strong> &#8212; Default Server Component (lebih cepat). Tambah <code class="text-accent">'use client'</code> cuma kalau butuh interaktivitas.</p></div>
-                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Data Fetching</strong> &#8212; <code class="text-accent">force-cache</code> (SSG), <code class="text-accent">no-store</code> (SSR), <code class="text-accent">revalidate</code> (ISR). Tiga strategi, tiga kebutuhan berbeda.</p></div>
-                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">API Routes</strong> &#8212; Backend langsung di project Next.js. Nggak perlu server terpisah.</p></div>
-                    <div class="flex items-start gap-3"><span class="text-accent shrink-0">✅</span><p class="text-gray-300"><strong class="text-white">Layouts</strong> &#8212; Wrapper otomatis buat bagian yang tetap ada. Bisa nested, state persistent.</p></div>
+// API Route (app/api/contact/route.ts)
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  // Proses data...
+  return NextResponse.json(
+    { success: true, message: 'Pesan terkirim!' },
+    { status: 200 }
+  );
+}</code></pre>
+    </div></div>
+    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-gray-300"><strong class="text-accent">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
+</section>
+
+            <!-- Chapter Summary -->
+            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Ringkasan Bab 7</h2>
+                        <p class="text-sm text-gray-400 mt-1">Yang sudah kamu pelajari</p>
+                    </div>
                 </div>
-                <p class="text-gray-400 text-sm mb-6">Sekarang lo udah punya mental model Next.js yang solid. Dari sini, lo bisa explore lebih dalam &#8212; middleware, image optimization, metadata API, dan lain-lain. Tapi fondasi ini udah lebih dari cukup buat mulai bikin production app! 💪</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-accent hover:bg-accent-light text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✨</button>
-                <div class="flex gap-4 mt-4"><a href="chapter-6.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">← Chapter sebelumnya</a><a href="chapter-8.html" class="text-sm text-gray-400 hover:text-accent transition-colors duration-200">Chapter selanjutnya →</a></div>
-            </section>        </div>
+                <ul class="space-y-3 text-gray-300">
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>App Router menggunakan folder-based routing dengan page.tsx, loading.tsx, error.tsx</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Server Components (default) vs Client Components (&apos;use client&apos;), kapan menggunakan masing-masing</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>Server-side data fetching dengan async/await, API Routes dengan route.ts</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accent mt-1">&#10003;</span><span>SEO dengan generateMetadata() untuk title, description, dan Open Graph</span></li>
+                </ul>
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="markChapterComplete(7)" id="completeBtn7" class="flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-dark-900 font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Tandai Bab Selesai
+                    </button>
+                    <a href="chapter-8.html" class="flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-300 font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                        Lanjut ke Bab 8
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </section>
+</section>
+
+        </div>
     </main>
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg shadow-accent/25 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 min-w-[48px] min-h-[48px]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-    <script>function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch7']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch7']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();</script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark-900 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-accent-dark z-30">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.remove('opacity-0', 'pointer-events-none');
+                btn.classList.add('opacity-100');
+            } else {
+                btn.classList.add('opacity-0', 'pointer-events-none');
+                btn.classList.remove('opacity-100');
+            }
+        });
+
+        // Highlight Code
+        hljs.highlightAll();
+
+        // Copy Code
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        // Progress Tracking
+        function getProgress() {
+            const saved = localStorage.getItem('react-course-progress');
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        function saveProgress(data) {
+            localStorage.setItem('react-course-progress', JSON.stringify(data));
+        }
+
+        function updateProgress() {
+            const progress = getProgress();
+            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            progress['chapter-7'] = { completed: checked, total: totalChecks };
+            saveProgress(progress);
+            renderGlobalProgress();
+        }
+
+        function renderGlobalProgress() {
+            const progress = getProgress();
+            let totalCompleted = 0;
+            let totalLessons = 0;
+            for (let i = 1; i <= 10; i++) {
+                const ch = progress[`chapter-${i}`];
+                if (ch) {
+                    totalCompleted += ch.completed;
+                    totalLessons += ch.total;
+                }
+            }
+            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
+        }
+
+        function markChapterComplete(ch) {
+            const progress = getProgress();
+            const checks = document.querySelectorAll(`.lesson-checkbox`);
+            checks.forEach(c => c.checked = true);
+            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(progress);
+            renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) {
+                btn.textContent = '✓ Bab Selesai!';
+                btn.classList.add('opacity-75');
+                btn.disabled = true;
+            }
+        }
+
+        // Restore checkbox states
+        function restoreChecks() {
+            const progress = getProgress();
+            const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => {
+                if (c.checked) c.checked = true;
+            });
+        }
+
+        // Init
+        renderGlobalProgress();
+    </script>
 </body>
 </html>
