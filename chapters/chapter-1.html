@@ -298,7 +298,11 @@ npm run dev
                         <li>Hanya DOM yang beda yang di-update di layar ✨</li>
                     </ol>
 
-                    <p>Satu konsep penting lagi yang perlu kamu tahu: <strong class="text-white">one-way data flow</strong>. Di React, data itu mengalir dari atas ke bawah — dari komponen <em>parent</em> ke komponen <em>child</em> lewat sesuatu yang namanya <em>props</em>. Ini bikin alur datanya gampang ditebak dan gampang di-debug, dibanding framework yang pake two-way binding yang kadang bikin bingung "ini datanya berubah dari mana sih?!" 😅</p>
+                    <p>Satu konsep penting lagi yang perlu kamu tahu: <strong class="text-white">one-way data flow</strong>. Di React, data itu mengalir dari atas ke bawah — dari komponen <em>parent</em> ke komponen <em>child</em> lewat sesuatu yang namanya <em>props</em>.
+
+                    <p class="mt-3">🧳 <strong class="text-accent">Analogi Koper Travel:</strong> Bayangin kamu punya satu koper bagus (itu component-nya). Tiap anggota keluarga bisa isi koper yang sama dengan barang-barang berbeda — baju kamu, mainan adik, alat masak ibu. Tapi aturan utamanya: kamu cuma bisa <em>masukin</em> barang ke koper dari luar. Nggak bisa minta koper buka sendiri dan ngeliat isinya. Isi koper itu <strong class="text-white">read-only</strong> — kalau mau ganti isi, ya harus buka koper lagi dari luar. Itulah props!</p>
+
+                    <p>Props bikin alur datanya gampang ditebak dan gampang di-debug, dibanding framework yang pake two-way binding yang kadang bikin bingung "ini datanya berubah dari mana sih?!" 😅</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
