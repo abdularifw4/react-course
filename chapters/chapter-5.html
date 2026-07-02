@@ -1363,14 +1363,94 @@ expect('Klik tab ketiga -> panel jadi Alamat', !!panel3 && /Alamat/.test(panel3.
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SIAP DITANYA INTERVIEWER? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview senior soal form, state & pattern. Skor terbaik lo kesimpen otomatis.</p></div></div>
 <script type="application/json" id="quiz-5">
 [
-  {"q": "Lo nulis <code>&lt;input value={nama} /&gt;</code> tanpa onChange. Apa yang user rasain?", "options": ["Input jalan normal, React ngisi otomatis", "Input jadi read-only alias 'beku' — ketikan langsung ditimpa balik nilai state lama", "React nampilin error dan app crash", "Input jadi uncontrolled dan tetap bisa diketik"], "answer": 1, "explain": "Input controlled nilainya dikunci ke <code>value</code> dari state. Tanpa <code>onChange</code>, tiap ketikan langsung di-render ulang dengan nilai state lama, jadi keliatan beku. Aturan: controlled = value DAN onChange selalu sepasang."},
-  {"q": "Kenapa handler submit form WAJIB manggil <code>e.preventDefault()</code> di baris pertama?", "options": ["Biar handler-nya jalan lebih cepat", "Biar validasi otomatis jalan", "Karena tanpa itu, browser nge-reload halaman (behavior default <form>) dan semua state React hilang", "Karena React nggak bisa baca form tanpa itu"], "answer": 2, "explain": "Tag <code>&lt;form&gt;</code> HTML defaultnya nge-reload/navigasi pas submit. Di SPA itu artinya app di-mount ulang dan state lenyap. <code>e.preventDefault()</code> matiin behavior itu."},
-  {"q": "State: <code>{ user: { nama: 'Budi', kota: 'Bandung' } }</code>. Cara BENAR ganti kota doang?", "options": ["setState({ user: { kota: 'Jakarta' } })", "state.user.kota = 'Jakarta'; setState(state)", "setState(prev => ({ ...prev, user: { ...prev.user, kota: 'Jakarta' } }))", "setState({ kota: 'Jakarta' })"], "answer": 2, "explain": "setState me-REPLACE, bukan merge. Dan mutasi langsung bikin referensi sama sehingga render di-skip. Spread tiap level yang disentuh biar dapet object baru dan field lain (nama) tetap ada."},
-  {"q": "Di mana <code>key</code> harus ditaruh saat me-render list dengan <code>.map()</code>?", "options": ["Di elemen mana aja di dalam map, bebas", "Di elemen/komponen paling LUAR yang di-return oleh callback map", "Di elemen paling dalam biar spesifik", "Nggak wajib kalau list-nya pendek"], "answer": 1, "explain": "React cuma 'lihat' key di elemen terluar hasil map — itu yang dia pakai buat nyocokin item antar render. Key di anak bagian dalam diabaikan dan React balik pakai posisi (index) buat diffing."},
-  {"q": "Lo lagi bikin komponen <code>&lt;Accordion&gt;</code> yang punya beberapa item yang disusun bebas oleh user dan berbagi state buka/tutup. Pattern paling pas?", "options": ["HOC withAccordion()", "Compound components + Context", "Polymorphic dengan prop as", "Render props tunggal"], "answer": 1, "explain": "Beberapa bagian yang saling terkait, disusun user, dan berbagi state internal = definisi kasus compound components (pakai Context buat share state). Ini nomor 2 di decision framework."},
-  {"q": "Menurut preferensi React modern, mana urutan yang BENAR saat mau share LOGIC antar komponen?", "options": ["Coba HOC dulu, baru custom hook kalau gagal", "Custom hook dulu (default); HOC cuma pilihan terakhir buat kasus khusus", "Selalu render props karena paling fleksibel", "Selalu Context supaya global"], "answer": 1, "explain": "Sejak hooks (2019), custom hook jadi default buat share logic — datar, testable, komposabel. HOC dan render props turun jadi kasus khusus. HOC dipakai terutama buat bungkus komponen pihak-ketiga / integrasi library lama."},
-  {"q": "Lo mau tau apakah form valid buat nge-disable tombol submit. Cara paling senior?", "options": ["Simpan isValid di useState, update lewat useEffect tiap field berubah", "Hitung isValid langsung saat render dari nilai field yang udah ada", "Simpan isValid di ref biar nggak re-render", "Panggil API validasi tiap ketikan"], "answer": 1, "explain": "Validitas itu TURUNAN dari input yang udah ada di state. Apa pun yang bisa dihitung dari state/props jangan disimpan di state lagi — hitung saat render. State ganda + useEffect sinkronisasi = sumber bug nomor satu."},
-  {"q": "Kapan render props masih pilihan yang tepat dibanding custom hook?", "options": ["Selalu, karena render props lebih modern dari hook", "Pas lo mau ngasih consumer kendali penuh atas OUTPUT rendering (misal list virtual yang manggil rowRenderer)", "Pas lo cuma mau share data fetching", "Pas lo butuh state global"], "answer": 1, "explain": "Butuh share DATA/LOGIC → custom hook. Butuh consumer yang nentuin JSX yang di-render (kendali rendering) → render props/children-as-function. Contoh klasik: komponen list virtual yang ngasih tiap baris ke fungsi consumer."}
+  {
+    "q": "Lo nulis <input value={nama} /> tanpa onChange. Apa yang user rasain?",
+    "options": [
+      "Input jadi read-only alias 'beku' — ketikan langsung ditimpa balik nilai state lama",
+      "React nampilin error dan app crash",
+      "Input jadi uncontrolled dan tetap bisa diketik",
+      "Input jalan normal, React ngisi otomatis"
+    ],
+    "answer": 0,
+    "explain": "Input controlled nilainya dikunci ke <code>value</code> dari state. Tanpa <code>onChange</code>, tiap ketikan langsung di-render ulang dengan nilai state lama, jadi keliatan beku. Aturan: controlled = value DAN onChange selalu sepasang."
+  },
+  {
+    "q": "Kenapa handler submit form WAJIB manggil e.preventDefault() di baris pertama?",
+    "options": [
+      "Biar validasi otomatis jalan",
+      "Karena tanpa itu, browser nge-reload halaman (behavior default <form>) dan semua state React hilang",
+      "Karena React nggak bisa baca form tanpa itu",
+      "Biar handler-nya jalan lebih cepat"
+    ],
+    "answer": 1,
+    "explain": "Tag <code>&lt;form&gt;</code> HTML defaultnya nge-reload/navigasi pas submit. Di SPA itu artinya app di-mount ulang dan state lenyap. <code>e.preventDefault()</code> matiin behavior itu."
+  },
+  {
+    "q": "State: { user: { nama: 'Budi', kota: 'Bandung' } }. Cara BENAR ganti kota doang?",
+    "options": [
+      "setState({ user: { kota: 'Jakarta' } })",
+      "state.user.kota = 'Jakarta'; setState(state)",
+      "setState(prev => ({ ...prev, user: { ...prev.user, kota: 'Jakarta' } }))",
+      "setState({ kota: 'Jakarta' })"
+    ],
+    "answer": 2,
+    "explain": "setState me-REPLACE, bukan merge. Dan mutasi langsung bikin referensi sama sehingga render di-skip. Spread tiap level yang disentuh biar dapet object baru dan field lain (nama) tetap ada."
+  },
+  {
+    "q": "Di mana key harus ditaruh saat me-render list dengan .map()?",
+    "options": [
+      "Di elemen paling dalam biar spesifik",
+      "Nggak wajib kalau list-nya pendek",
+      "Di elemen mana aja di dalam map, bebas",
+      "Di elemen/komponen paling LUAR yang di-return oleh callback map"
+    ],
+    "answer": 3,
+    "explain": "React cuma 'lihat' key di elemen terluar hasil map — itu yang dia pakai buat nyocokin item antar render. Key di anak bagian dalam diabaikan dan React balik pakai posisi (index) buat diffing."
+  },
+  {
+    "q": "Lo lagi bikin komponen <Accordion> yang punya beberapa item yang disusun bebas oleh user dan berbagi state buka/tutup. Pattern paling pas?",
+    "options": [
+      "Compound components + Context",
+      "Polymorphic dengan prop as",
+      "Render props tunggal",
+      "HOC withAccordion()"
+    ],
+    "answer": 0,
+    "explain": "Beberapa bagian yang saling terkait, disusun user, dan berbagi state internal = definisi kasus compound components (pakai Context buat share state). Ini nomor 2 di decision framework."
+  },
+  {
+    "q": "Menurut preferensi React modern, mana urutan yang BENAR saat mau share LOGIC antar komponen?",
+    "options": [
+      "Coba HOC dulu, baru custom hook kalau gagal",
+      "Custom hook dulu (default); HOC cuma pilihan terakhir buat kasus khusus",
+      "Selalu render props karena paling fleksibel",
+      "Selalu Context supaya global"
+    ],
+    "answer": 1,
+    "explain": "Sejak hooks (2019), custom hook jadi default buat share logic — datar, testable, komposabel. HOC dan render props turun jadi kasus khusus. HOC dipakai terutama buat bungkus komponen pihak-ketiga / integrasi library lama."
+  },
+  {
+    "q": "Lo mau tau apakah form valid buat nge-disable tombol submit. Cara paling senior?",
+    "options": [
+      "Panggil API validasi tiap ketikan",
+      "Simpan isValid di useState, update lewat useEffect tiap field berubah",
+      "Hitung isValid langsung saat render dari nilai field yang udah ada",
+      "Simpan isValid di ref biar nggak re-render"
+    ],
+    "answer": 2,
+    "explain": "Validitas itu TURUNAN dari input yang udah ada di state. Apa pun yang bisa dihitung dari state/props jangan disimpan di state lagi — hitung saat render. State ganda + useEffect sinkronisasi = sumber bug nomor satu."
+  },
+  {
+    "q": "Kapan render props masih pilihan yang tepat dibanding custom hook?",
+    "options": [
+      "Pas lo cuma mau share data fetching",
+      "Pas lo butuh state global",
+      "Selalu, karena render props lebih modern dari hook",
+      "Pas lo mau ngasih consumer kendali penuh atas OUTPUT rendering (misal list virtual yang manggil rowRenderer)"
+    ],
+    "answer": 3,
+    "explain": "Butuh share DATA/LOGIC → custom hook. Butuh consumer yang nentuin JSX yang di-render (kendali rendering) → render props/children-as-function. Contoh klasik: komponen list virtual yang ngasih tiap baris ke fungsi consumer."
+  }
 ]
 </script>
 <div class="quiz-mount mt-6" data-quiz-id="quiz-5"></div>

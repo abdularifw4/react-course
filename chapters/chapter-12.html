@@ -941,14 +941,94 @@ import { CartItemRow } from '@/features/cart';        // masih cross-feature �
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ BAB 12 — BUKTIIN PEMAHAMAN LO 🎓</h2><p class="text-sm text-muted mt-1">8 soal. Skor kesimpen otomatis — santai, bisa diulang kapan aja.</p></div></div>
 <script type="application/json" id="quiz-12">
 [
-  {"q": "Kapan struktur folder by-feature mulai WAJIB dipakai dibanding by-type?", "options": ["Sejak hari pertama project apa pun, tanpa kecuali", "Saat ada 2+ developer atau fitur mulai banyak dan saling silang", "Cuma kalau pakai TypeScript", "Kalau app-nya pakai Next.js"], "answer": 1, "explain": "By-type masih oke buat app kecil yang dikerjain sendirian. Sinyal pindah ke by-feature: tim bertambah, fitur nyata bertambah, dan lo mulai susah jawab 'kalau file ini berubah, apa aja yang kena?'"},
-  {"q": "Di era hooks, peran 'container component' dari pattern lama paling sering digantikan oleh apa?", "options": ["Higher-Order Component", "Custom hook yang megang logic + state", "Redux middleware", "Komponen class dengan lifecycle method"], "answer": 1, "explain": "Pemisahan logic vs tampilan tetap hidup, tapi bentuknya berubah: logic pindah ke custom hook (misal <code>useOrderList</code>), dan komponen tinggal manggil hook lalu fokus ke markup — tanpa wrapper component perantara."},
-  {"q": "Sinyal paling tepat buat MECAH sebuah komponen adalah...", "options": ["Jumlah barisnya lewat 100", "Ada bagian yang berubah karena alasan berbeda, atau state yang cuma dipakai sebagian kecil JSX", "Ada lebih dari satu useEffect", "Komponen punya lebih dari 3 props"], "answer": 1, "explain": "Baris itu gejala, bukan penyakit. Alasan mecah yang bener: tanggung jawab yang beda alasan berubah, state yang bisa diturunin biar re-render mengecil, atau kebutuhan reuse nyata."},
-  {"q": "Di compound components (misal Tabs), gimana Tabs.Tab tahu tab mana yang lagi aktif?", "options": ["Lewat props yang dioper manual ke tiap Tab", "Lewat variabel global di module", "Lewat Context yang di-provide oleh parent Tabs", "Lewat localStorage"], "answer": 2, "explain": "Parent <code>Tabs</code> megang state dan mem-provide-nya lewat Context. Anak-anaknya (<code>Tabs.Tab</code>, <code>Tabs.Panel</code>) consume Context itu — makanya bisa ditaruh di mana aja di dalam parent tanpa prop drilling."},
-  {"q": "Kenapa pattern 'children as props' bisa mencegah komponen berat ikut re-render saat parent-nya update state?", "options": ["Karena children otomatis dibungkus React.memo", "Karena element children dibuat di komponen luar yang nggak re-render, jadi referensinya sama dan React skip", "Karena children dirender di thread terpisah", "Karena React selalu skip children dalam kondisi apa pun"], "answer": 1, "explain": "Kuncinya identitas element: kalau element JSX yang diterima sama persis (referensinya) dengan render sebelumnya, React nggak nge-render ulang subtree itu. Children dibuat oleh komponen luar yang nggak ikut re-render — makanya referensinya stabil."},
-  {"q": "Di Feature-Sliced Design, arah import yang DIBOLEHKAN adalah...", "options": ["entities boleh import dari features, asal lewat index.js", "features boleh import dari pages kalau kepepet", "features boleh import dari entities dan shared, tapi nggak boleh dari sesama features", "Semua layer bebas saling import asal nggak circular"], "answer": 2, "explain": "Aturan emas FSD: panah cuma boleh nurun — app → pages → features → entities → shared. Sesama slice di layer yang sama juga dilarang saling import. Barang yang direbutin dua fitur diturunin ke layer bawah."},
-  {"q": "Apa fungsi utama file index.js (public API) di root tiap feature/slice?", "options": ["Biar import path-nya lebih pendek doang", "Nandain entry point buat bundler", "Jadi kontrak resmi: yang nggak di-export dari situ = internal, bebas di-refactor tanpa ngerusak pihak luar", "Syarat wajib dari React biar folder dianggap module"], "answer": 2, "explain": "Public API misahin kontrak dari implementasi. Pihak luar cuma boleh lewat pintu resmi — jadi struktur internal slice bisa dirombak total selama export di index.js-nya tetap sama."},
-  {"q": "Saat review, lo nemu: <code>const [filtered, setFiltered] = useState(props.items)</code> lalu ada useEffect yang nge-set filtered tiap props.items berubah. Komentar review yang paling tepat?", "options": ["Tambahin useCallback biar lebih cepat", "Ini derived value — hapus state + effect, hitung langsung saat render dari props", "Pindahin ke Redux biar konsisten", "Bungkus komponennya dengan React.memo"], "answer": 1, "explain": "State yang menduplikasi props = dua sumber kebenaran + re-render ekstra + bug sinkronisasi. Nilai yang bisa dihitung dari props/state lain dihitung aja langsung saat render — kalau mahal, baru useMemo."}
+  {
+    "q": "Kapan struktur folder by-feature mulai WAJIB dipakai dibanding by-type?",
+    "options": [
+      "Saat ada 2+ developer atau fitur mulai banyak dan saling silang",
+      "Cuma kalau pakai TypeScript",
+      "Kalau app-nya pakai Next.js",
+      "Sejak hari pertama project apa pun, tanpa kecuali"
+    ],
+    "answer": 0,
+    "explain": "By-type masih oke buat app kecil yang dikerjain sendirian. Sinyal pindah ke by-feature: tim bertambah, fitur nyata bertambah, dan lo mulai susah jawab 'kalau file ini berubah, apa aja yang kena?'"
+  },
+  {
+    "q": "Di era hooks, peran 'container component' dari pattern lama paling sering digantikan oleh apa?",
+    "options": [
+      "Higher-Order Component",
+      "Custom hook yang megang logic + state",
+      "Redux middleware",
+      "Komponen class dengan lifecycle method"
+    ],
+    "answer": 1,
+    "explain": "Pemisahan logic vs tampilan tetap hidup, tapi bentuknya berubah: logic pindah ke custom hook (misal <code>useOrderList</code>), dan komponen tinggal manggil hook lalu fokus ke markup — tanpa wrapper component perantara."
+  },
+  {
+    "q": "Sinyal paling tepat buat MECAH sebuah komponen adalah...",
+    "options": [
+      "Komponen punya lebih dari 3 props",
+      "Jumlah barisnya lewat 100",
+      "Ada bagian yang berubah karena alasan berbeda, atau state yang cuma dipakai sebagian kecil JSX",
+      "Ada lebih dari satu useEffect"
+    ],
+    "answer": 2,
+    "explain": "Baris itu gejala, bukan penyakit. Alasan mecah yang bener: tanggung jawab yang beda alasan berubah, state yang bisa diturunin biar re-render mengecil, atau kebutuhan reuse nyata."
+  },
+  {
+    "q": "Di compound components (misal Tabs), gimana Tabs.Tab tahu tab mana yang lagi aktif?",
+    "options": [
+      "Lewat localStorage",
+      "Lewat props yang dioper manual ke tiap Tab",
+      "Lewat variabel global di module",
+      "Lewat Context yang di-provide oleh parent Tabs"
+    ],
+    "answer": 3,
+    "explain": "Parent <code>Tabs</code> megang state dan mem-provide-nya lewat Context. Anak-anaknya (<code>Tabs.Tab</code>, <code>Tabs.Panel</code>) consume Context itu — makanya bisa ditaruh di mana aja di dalam parent tanpa prop drilling."
+  },
+  {
+    "q": "Kenapa pattern 'children as props' bisa mencegah komponen berat ikut re-render saat parent-nya update state?",
+    "options": [
+      "Karena element children dibuat di komponen luar yang nggak re-render, jadi referensinya sama dan React skip",
+      "Karena children dirender di thread terpisah",
+      "Karena React selalu skip children dalam kondisi apa pun",
+      "Karena children otomatis dibungkus React.memo"
+    ],
+    "answer": 0,
+    "explain": "Kuncinya identitas element: kalau element JSX yang diterima sama persis (referensinya) dengan render sebelumnya, React nggak nge-render ulang subtree itu. Children dibuat oleh komponen luar yang nggak ikut re-render — makanya referensinya stabil."
+  },
+  {
+    "q": "Di Feature-Sliced Design, arah import yang DIBOLEHKAN adalah...",
+    "options": [
+      "features boleh import dari pages kalau kepepet",
+      "features boleh import dari entities dan shared, tapi nggak boleh dari sesama features",
+      "Semua layer bebas saling import asal nggak circular",
+      "entities boleh import dari features, asal lewat index.js"
+    ],
+    "answer": 1,
+    "explain": "Aturan emas FSD: panah cuma boleh nurun — app → pages → features → entities → shared. Sesama slice di layer yang sama juga dilarang saling import. Barang yang direbutin dua fitur diturunin ke layer bawah."
+  },
+  {
+    "q": "Apa fungsi utama file index.js (public API) di root tiap feature/slice?",
+    "options": [
+      "Biar import path-nya lebih pendek doang",
+      "Nandain entry point buat bundler",
+      "Jadi kontrak resmi: yang nggak di-export dari situ = internal, bebas di-refactor tanpa ngerusak pihak luar",
+      "Syarat wajib dari React biar folder dianggap module"
+    ],
+    "answer": 2,
+    "explain": "Public API misahin kontrak dari implementasi. Pihak luar cuma boleh lewat pintu resmi — jadi struktur internal slice bisa dirombak total selama export di index.js-nya tetap sama."
+  },
+  {
+    "q": "Saat review, lo nemu: const [filtered, setFiltered] = useState(props.items) lalu ada useEffect yang nge-set filtered tiap props.items berubah. Komentar review yang paling tepat?",
+    "options": [
+      "Pindahin ke Redux biar konsisten",
+      "Bungkus komponennya dengan React.memo",
+      "Tambahin useCallback biar lebih cepat",
+      "Ini derived value — hapus state + effect, hitung langsung saat render dari props"
+    ],
+    "answer": 3,
+    "explain": "State yang menduplikasi props = dua sumber kebenaran + re-render ekstra + bug sinkronisasi. Nilai yang bisa dihitung dari props/state lain dihitung aja langsung saat render — kalau mahal, baru useMemo."
+  }
 ]
 </script>
 <div class="quiz-mount mt-4" data-quiz-id="quiz-12"></div>

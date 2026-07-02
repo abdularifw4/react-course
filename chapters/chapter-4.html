@@ -1079,14 +1079,94 @@ expect('Setelah reset, count = 0 (butuh case reset)', countVal() === '0');</scri
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA PAHAM LO SAMA HOOKS ADVANCED? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
 <script type="application/json" id="quiz-4">
 [
-  {"q": "Kapan <code>useMemo</code> beneran layak dipakai?", "options": ["Di semua kalkulasi biar aman", "Cuma buat kalkulasi berat (filter/sort data besar), nilai yang jadi dependency effect lain, atau props buat komponen React.memo", "Setiap kali komponen punya lebih dari 3 variabel", "Buat semua string yang di-render"], "answer": 1, "explain": "useMemo punya ongkos (nyimpen hasil + cek deps tiap render). Buat kalkulasi murah, ongkosnya lebih besar dari manfaatnya. Pakai cuma saat kalkulasi beneran berat, atau saat referensi hasilnya perlu stabil buat effect / React.memo."},
-  {"q": "Secara internal, <code>useCallback(fn, deps)</code> itu ekivalen dengan apa?", "options": ["useRef(fn)", "useMemo(() => fn, deps)", "useEffect(fn, deps)", "useState(fn)"], "answer": 1, "explain": "useCallback cuma useMemo yang di-spesialisasi buat function. useMemo nge-cache nilai hasil pemanggilan, useCallback nge-cache function-nya sendiri. Konsep sama, target beda."},
-  {"q": "Lo update <code>ref.current</code> yang nilainya ditampilin di UI. Apa yang kejadian?", "options": ["UI langsung update kayak useState", "Nilai berubah di memory, tapi komponen NGGAK re-render jadi UI diem", "React lempar error", "Ref otomatis dikonversi jadi state"], "answer": 1, "explain": "Update ref NGGAK memicu re-render — itu memang gunanya. Tapi kalau nilainya dirender di UI, layar nggak ikut berubah. Aturan: nilai yang tampil di UI wajib useState; ref cuma buat data 'di belakang layar' (timer id, DOM node, flag)."},
-  {"q": "Kenapa <code>useCallback</code> yang salah satu deps-nya object dibuat inline itu sering percuma?", "options": ["Object nggak boleh jadi dependency", "Object inline itu referensi BARU tiap render, jadi deps selalu berubah → useCallback bikin function baru terus (sama kayak nggak pakai)", "useCallback cuma menerima array kosong", "React otomatis membekukan object inline"], "answer": 1, "explain": "Tujuan useCallback jaga referensi stabil. Kalau deps-nya object/array inline (referensi baru tiap render), function-nya ikut dibuat ulang tiap render — memoize-nya sia-sia. Solusi: pakai deps primitif, atau memoize objek-nya juga pakai useMemo."},
-  {"q": "Reducer nerima action <code>{ payload: 'x' }</code> tapi lupa field <code>type</code>. Apa yang terjadi di reducer yang punya <code>default: return state</code>?", "options": ["React lempar error 'missing action type'", "Reducer jatuh ke case default → state nggak berubah, tanpa error (bug senyap)", "React nebak type dari payload", "Semua case dijalankan"], "answer": 1, "explain": "Reducer nyocokin action lewat action.type. Kalau type undefined, switch jatuh ke default dan state balik apa adanya — nggak ada yang berubah, nggak ada error. Bug senyap ini alasan kenapa action shape wajib konsisten (biasanya { type, payload })."},
-  {"q": "Kenapa <code>ref.current</code> untuk DOM nggak boleh dibaca saat render (di body komponen)?", "options": ["Karena ref selalu null", "Karena ref.current untuk DOM baru diisi SETELAH commit; saat render dia bisa masih null / nilai lama, dan render harus pure", "Karena membaca ref itu lambat", "Karena React melarang semua akses ref"], "answer": 1, "explain": "DOM ref baru terisi di commit phase (setelah render). Baca saat render = bisa dapat null (render pertama) atau nilai lama, dan bikin render nggak pure. Tempat yang benar: event handler atau useEffect/useLayoutEffect."},
-  {"q": "Apa yang PALING benar soal custom hook yang dipakai dua komponen berbeda?", "options": ["Kedua komponen berbagi state yang sama", "Tiap komponen dapat state-nya sendiri yang independen; yang di-share cuma logic-nya", "Custom hook otomatis bikin Context", "Perubahan di satu komponen memicu re-render komponen lain"], "answer": 1, "explain": "Custom hook berbagi stateful LOGIC, bukan state. Tiap pemakaian punya instance state sendiri. Mau share nilai yang sama antar komponen? Itu tugas Context, bukan custom hook."},
-  {"q": "Prinsip 'Rule of Three' untuk custom hook artinya apa?", "options": ["Custom hook maksimal boleh manggil 3 hook", "Ekstrak jadi custom hook setelah lo nulis pola logic yang sama 2-3 kali, bukan spekulatif di awal", "Setiap hook wajib return 3 nilai", "Nama hook maksimal 3 kata"], "answer": 1, "explain": "Abstraksi punya ongkos kognitif. Jangan bikin custom hook cuma karena 'mungkin dipake lagi'. Tunggu sampai pola yang sama muncul beberapa kali, baru ekstrak — abstraksi yang terbukti dibutuhkan, bukan tebakan."}
+  {
+    "q": "Kapan useMemo beneran layak dipakai?",
+    "options": [
+      "Cuma buat kalkulasi berat (filter/sort data besar), nilai yang jadi dependency effect lain, atau props buat komponen React.memo",
+      "Setiap kali komponen punya lebih dari 3 variabel",
+      "Buat semua string yang di-render",
+      "Di semua kalkulasi biar aman"
+    ],
+    "answer": 0,
+    "explain": "useMemo punya ongkos (nyimpen hasil + cek deps tiap render). Buat kalkulasi murah, ongkosnya lebih besar dari manfaatnya. Pakai cuma saat kalkulasi beneran berat, atau saat referensi hasilnya perlu stabil buat effect / React.memo."
+  },
+  {
+    "q": "Secara internal, useCallback(fn, deps) itu ekivalen dengan apa?",
+    "options": [
+      "useRef(fn)",
+      "useMemo(() => fn, deps)",
+      "useEffect(fn, deps)",
+      "useState(fn)"
+    ],
+    "answer": 1,
+    "explain": "useCallback cuma useMemo yang di-spesialisasi buat function. useMemo nge-cache nilai hasil pemanggilan, useCallback nge-cache function-nya sendiri. Konsep sama, target beda."
+  },
+  {
+    "q": "Lo update ref.current yang nilainya ditampilin di UI. Apa yang kejadian?",
+    "options": [
+      "Ref otomatis dikonversi jadi state",
+      "UI langsung update kayak useState",
+      "Nilai berubah di memory, tapi komponen NGGAK re-render jadi UI diem",
+      "React lempar error"
+    ],
+    "answer": 2,
+    "explain": "Update ref NGGAK memicu re-render — itu memang gunanya. Tapi kalau nilainya dirender di UI, layar nggak ikut berubah. Aturan: nilai yang tampil di UI wajib useState; ref cuma buat data 'di belakang layar' (timer id, DOM node, flag)."
+  },
+  {
+    "q": "Kenapa useCallback yang salah satu deps-nya object dibuat inline itu sering percuma?",
+    "options": [
+      "useCallback cuma menerima array kosong",
+      "React otomatis membekukan object inline",
+      "Object nggak boleh jadi dependency",
+      "Object inline itu referensi BARU tiap render, jadi deps selalu berubah → useCallback bikin function baru terus (sama kayak nggak pakai)"
+    ],
+    "answer": 3,
+    "explain": "Tujuan useCallback jaga referensi stabil. Kalau deps-nya object/array inline (referensi baru tiap render), function-nya ikut dibuat ulang tiap render — memoize-nya sia-sia. Solusi: pakai deps primitif, atau memoize objek-nya juga pakai useMemo."
+  },
+  {
+    "q": "Reducer nerima action { payload: 'x' } tapi lupa field type. Apa yang terjadi di reducer yang punya default: return state?",
+    "options": [
+      "Reducer jatuh ke case default → state nggak berubah, tanpa error (bug senyap)",
+      "React nebak type dari payload",
+      "Semua case dijalankan",
+      "React lempar error 'missing action type'"
+    ],
+    "answer": 0,
+    "explain": "Reducer nyocokin action lewat action.type. Kalau type undefined, switch jatuh ke default dan state balik apa adanya — nggak ada yang berubah, nggak ada error. Bug senyap ini alasan kenapa action shape wajib konsisten (biasanya { type, payload })."
+  },
+  {
+    "q": "Kenapa ref.current untuk DOM nggak boleh dibaca saat render (di body komponen)?",
+    "options": [
+      "Karena ref selalu null",
+      "Karena ref.current untuk DOM baru diisi SETELAH commit; saat render dia bisa masih null / nilai lama, dan render harus pure",
+      "Karena membaca ref itu lambat",
+      "Karena React melarang semua akses ref"
+    ],
+    "answer": 1,
+    "explain": "DOM ref baru terisi di commit phase (setelah render). Baca saat render = bisa dapat null (render pertama) atau nilai lama, dan bikin render nggak pure. Tempat yang benar: event handler atau useEffect/useLayoutEffect."
+  },
+  {
+    "q": "Apa yang PALING benar soal custom hook yang dipakai dua komponen berbeda?",
+    "options": [
+      "Perubahan di satu komponen memicu re-render komponen lain",
+      "Kedua komponen berbagi state yang sama",
+      "Tiap komponen dapat state-nya sendiri yang independen; yang di-share cuma logic-nya",
+      "Custom hook otomatis bikin Context"
+    ],
+    "answer": 2,
+    "explain": "Custom hook berbagi stateful LOGIC, bukan state. Tiap pemakaian punya instance state sendiri. Mau share nilai yang sama antar komponen? Itu tugas Context, bukan custom hook."
+  },
+  {
+    "q": "Prinsip 'Rule of Three' untuk custom hook artinya apa?",
+    "options": [
+      "Setiap hook wajib return 3 nilai",
+      "Nama hook maksimal 3 kata",
+      "Custom hook maksimal boleh manggil 3 hook",
+      "Ekstrak jadi custom hook setelah lo nulis pola logic yang sama 2-3 kali, bukan spekulatif di awal"
+    ],
+    "answer": 3,
+    "explain": "Abstraksi punya ongkos kognitif. Jangan bikin custom hook cuma karena 'mungkin dipake lagi'. Tunggu sampai pola yang sama muncul beberapa kali, baru ekstrak — abstraksi yang terbukti dibutuhkan, bukan tebakan."
+  }
 ]
 </script>
 <div class="quiz-mount mt-6" data-quiz-id="quiz-4"></div>

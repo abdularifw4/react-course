@@ -1240,14 +1240,94 @@ expect('Dikosongin lagi, counter balik ke 0', !!countEl && /(^|\D)0(\D|$)/.test(
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGUASAIN HOOKS DASAR? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
 <script type="application/json" id="quiz-3">
 [
-  {"q": "Lo manggil <code>setCount(count + 1)</code> tiga kali berturut-turut di satu event handler (count awalnya 0). Nilai akhir count jadi berapa, dan kenapa?", "options": ["3 — tiap panggilan menambah 1", "1 — ketiga panggilan baca nilai count yang sama (0) dari closure render ini, lalu di-batch", "3 — tapi butuh 3 kali render", "0 — setState tidak berpengaruh di dalam handler"], "answer": 1, "explain": "<code>count</code> itu const yang beku untuk satu render. Ketiganya baca 0 → antri \"jadi 1\" → di-batch jadi satu render. Pakai <code>setCount(c =&gt; c + 1)</code> supaya tiap panggilan dapet nilai antrian terbaru → hasil 3."},
-  {"q": "Apa beda utama useState dan useRef?", "options": ["useState cuma buat angka, useRef buat object", "Mengubah useState memicu re-render; mengubah <code>ref.current</code> tidak memicu re-render", "useRef lebih cepat karena disimpan di server", "Tidak ada beda, cuma gaya penulisan"], "answer": 1, "explain": "useState = data yang harus keliatan di UI (perubahannya nge-trigger render). useRef = laci mutable yang perubahannya senyap (nggak render). Pilih berdasarkan: perlu keliatan di layar atau nggak."},
-  {"q": "State lo <code>const [user, setUser] = useState({ name: '', age: 0 })</code>. Lo panggil <code>setUser({ name: 'Budi' })</code>. Apa yang terjadi ke <code>age</code>?", "options": ["age tetap 0 karena React otomatis merge", "age hilang — object diganti seluruhnya, bukan di-merge", "Error: object state tidak boleh di-set parsial", "age jadi undefined tapi masih ada key-nya"], "answer": 1, "explain": "setState untuk object itu <em>mengganti</em>, bukan <em>merge</em> (beda sama this.setState di class dulu). Field yang nggak disebut lenyap. Fix: <code>setUser(prev =&gt; ({ ...prev, name: 'Budi' }))</code>."},
-  {"q": "Apa efek dari dependency array KOSONG <code>[]</code> di useEffect?", "options": ["Effect jalan setiap render", "Effect jalan sekali saat mount (dan cleanup-nya saat unmount)", "Effect tidak pernah jalan", "Effect jalan setiap 1 detik"], "answer": 1, "explain": "<code>[]</code> = nggak ada dependency yang berubah, jadi effect cuma jalan pas mount, cleanup-nya pas unmount. Mirip componentDidMount + componentWillUnmount. Tanpa array sama sekali = jalan tiap render."},
-  {"q": "Kenapa fetch di useEffect tanpa cleanup bisa nampilin data yang salah?", "options": ["Karena fetch selalu gagal tanpa cleanup", "Race condition — kalau argumen (misal userId) ganti cepat, respons request lama bisa datang belakangan dan nimpa data baru", "Karena React melarang fetch di useEffect", "Karena fetch butuh useMemo"], "answer": 1, "explain": "Dua request bisa melayang bareng dan respons nggak dateng berurutan. Yang nyampe belakangan menang. Fix: flag <code>ignore</code> di cleanup atau <code>AbortController</code>, supaya respons dari run yang udah basi diabaikan/dibatalin."},
-  {"q": "useEffect fetch lo jalan 2x di development. Diagnosis level senior-nya?", "options": ["Bug React 18, harus downgrade", "Itu StrictMode dev-only (mount→cleanup→mount) buat nge-tes cleanup; solusinya tulis cleanup yang bener, bukan nyopot StrictMode", "Hapus &lt;StrictMode&gt; dari main.jsx", "Bungkus fetch pakai useMemo"], "answer": 1, "explain": "StrictMode sengaja nyimulasi unmount/remount di dev (di production nol efek) buat mendeteksi effect tanpa cleanup. Kalau kode lo pakai ignore/AbortController, double-run nggak berbekas. Nyopot StrictMode = nyembunyiin bug."},
-  {"q": "Mana kasus yang PALING TEPAT untuk <strong>tidak</strong> pakai useEffect?", "options": ["Fetch data dari API saat komponen mount", "Menghitung <code>fullName</code> dari <code>firstName + lastName</code> (nilai turunan)", "Pasang event listener ke window", "Mulai interval timer"], "answer": 1, "explain": "Nilai turunan bisa dihitung langsung pas render — nggak perlu disimpan di state + di-sync pakai effect (itu bikin render ekstra + dua sumber kebenaran). useEffect itu buat sinkronisasi dengan sistem LUAR React (jaringan, DOM, timer, langganan)."},
-  {"q": "Kode: <code>const [c, setC] = useState(0); useEffect(() =&gt; { setC(c + 1); }, [c]);</code> — apa yang terjadi?", "options": ["c berhenti di 1", "Infinite loop: set state → re-render → effect jalan lagi → set state → ...", "Error saat compile", "Effect jalan sekali lalu berhenti"], "answer": 1, "explain": "Effect nge-set state yang jadi dependency-nya sendiri: tiap update memicu render, render memicu effect, effect update lagi — tanpa henti. Ini pola klasik yang harusnya nggak butuh effect sama sekali (nilai turunan) atau butuh syarat berhenti."}
+  {
+    "q": "Lo manggil setCount(count + 1) tiga kali berturut-turut di satu event handler (count awalnya 0). Nilai akhir count jadi berapa, dan kenapa?",
+    "options": [
+      "1 — ketiga panggilan baca nilai count yang sama (0) dari closure render ini, lalu di-batch",
+      "3 — tapi butuh 3 kali render",
+      "0 — setState tidak berpengaruh di dalam handler",
+      "3 — tiap panggilan menambah 1"
+    ],
+    "answer": 0,
+    "explain": "<code>count</code> itu const yang beku untuk satu render. Ketiganya baca 0 → antri \"jadi 1\" → di-batch jadi satu render. Pakai <code>setCount(c =&gt; c + 1)</code> supaya tiap panggilan dapet nilai antrian terbaru → hasil 3."
+  },
+  {
+    "q": "Apa beda utama useState dan useRef?",
+    "options": [
+      "useState cuma buat angka, useRef buat object",
+      "Mengubah useState memicu re-render; mengubah ref.current tidak memicu re-render",
+      "useRef lebih cepat karena disimpan di server",
+      "Tidak ada beda, cuma gaya penulisan"
+    ],
+    "answer": 1,
+    "explain": "useState = data yang harus keliatan di UI (perubahannya nge-trigger render). useRef = laci mutable yang perubahannya senyap (nggak render). Pilih berdasarkan: perlu keliatan di layar atau nggak."
+  },
+  {
+    "q": "State lo const [user, setUser] = useState({ name: '', age: 0 }). Lo panggil setUser({ name: 'Budi' }). Apa yang terjadi ke age?",
+    "options": [
+      "age jadi undefined tapi masih ada key-nya",
+      "age tetap 0 karena React otomatis merge",
+      "age hilang — object diganti seluruhnya, bukan di-merge",
+      "Error: object state tidak boleh di-set parsial"
+    ],
+    "answer": 2,
+    "explain": "setState untuk object itu <em>mengganti</em>, bukan <em>merge</em> (beda sama this.setState di class dulu). Field yang nggak disebut lenyap. Fix: <code>setUser(prev =&gt; ({ ...prev, name: 'Budi' }))</code>."
+  },
+  {
+    "q": "Apa efek dari dependency array KOSONG [] di useEffect?",
+    "options": [
+      "Effect tidak pernah jalan",
+      "Effect jalan setiap 1 detik",
+      "Effect jalan setiap render",
+      "Effect jalan sekali saat mount (dan cleanup-nya saat unmount)"
+    ],
+    "answer": 3,
+    "explain": "<code>[]</code> = nggak ada dependency yang berubah, jadi effect cuma jalan pas mount, cleanup-nya pas unmount. Mirip componentDidMount + componentWillUnmount. Tanpa array sama sekali = jalan tiap render."
+  },
+  {
+    "q": "Kenapa fetch di useEffect tanpa cleanup bisa nampilin data yang salah?",
+    "options": [
+      "Race condition — kalau argumen (misal userId) ganti cepat, respons request lama bisa datang belakangan dan nimpa data baru",
+      "Karena React melarang fetch di useEffect",
+      "Karena fetch butuh useMemo",
+      "Karena fetch selalu gagal tanpa cleanup"
+    ],
+    "answer": 0,
+    "explain": "Dua request bisa melayang bareng dan respons nggak dateng berurutan. Yang nyampe belakangan menang. Fix: flag <code>ignore</code> di cleanup atau <code>AbortController</code>, supaya respons dari run yang udah basi diabaikan/dibatalin."
+  },
+  {
+    "q": "useEffect fetch lo jalan 2x di development. Diagnosis level senior-nya?",
+    "options": [
+      "Bug React 18, harus downgrade",
+      "Itu StrictMode dev-only (mount→cleanup→mount) buat nge-tes cleanup; solusinya tulis cleanup yang bener, bukan nyopot StrictMode",
+      "Hapus <StrictMode> dari main.jsx",
+      "Bungkus fetch pakai useMemo"
+    ],
+    "answer": 1,
+    "explain": "StrictMode sengaja nyimulasi unmount/remount di dev (di production nol efek) buat mendeteksi effect tanpa cleanup. Kalau kode lo pakai ignore/AbortController, double-run nggak berbekas. Nyopot StrictMode = nyembunyiin bug."
+  },
+  {
+    "q": "Mana kasus yang PALING TEPAT untuk <strong>tidak</strong> pakai useEffect?",
+    "options": [
+      "Mulai interval timer",
+      "Fetch data dari API saat komponen mount",
+      "Menghitung fullName dari firstName + lastName (nilai turunan)",
+      "Pasang event listener ke window"
+    ],
+    "answer": 2,
+    "explain": "Nilai turunan bisa dihitung langsung pas render — nggak perlu disimpan di state + di-sync pakai effect (itu bikin render ekstra + dua sumber kebenaran). useEffect itu buat sinkronisasi dengan sistem LUAR React (jaringan, DOM, timer, langganan)."
+  },
+  {
+    "q": "Kode: const [c, setC] = useState(0); useEffect(() => { setC(c + 1); }, [c]); — apa yang terjadi?",
+    "options": [
+      "Error saat compile",
+      "Effect jalan sekali lalu berhenti",
+      "c berhenti di 1",
+      "Infinite loop: set state → re-render → effect jalan lagi → set state → ..."
+    ],
+    "answer": 3,
+    "explain": "Effect nge-set state yang jadi dependency-nya sendiri: tiap update memicu render, render memicu effect, effect update lagi — tanpa henti. Ini pola klasik yang harusnya nggak butuh effect sama sekali (nilai turunan) atau butuh syarat berhenti."
+  }
 ]
 </script>
 <div class="quiz-mount mt-6" data-quiz-id="quiz-3"></div>

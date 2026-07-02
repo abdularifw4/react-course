@@ -843,14 +843,94 @@ const visibleItems = items.filter((item) =&gt;
 <div class="flex items-start gap-4 mb-2"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-base">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ FINAL — SIMULASI SCREENING INTERVIEW</h2><p class="text-sm text-muted mt-1">8 soal yang diambil dari pertanyaan interview nyata. Anggap ini technical screening lo!</p></div></div>
 <script type="application/json" id="quiz-14">
 [
-  {"q": "Interviewer: \"Kenapa index array sebaiknya nggak dipakai sebagai key kalau list-nya bisa berubah urutan?\"", "options": ["Karena index bikin render lebih lambat dari id", "Karena React nge-match elemen pakai key saat diffing — index yang bergeser bikin state nyasar ke item yang salah", "Karena index itu tipe number, key harus string", "Karena ESLint bakal error kalau pakai index"], "answer": 1, "explain": "Key adalah identitas elemen saat reconciliation. Kalau item dihapus/reorder, index tiap item bergeser — React mengira item di posisi itu 'masih sama', jadi state lokal (misal isi input) nempel ke posisi, bukan ke datanya. Bukan soal performa atau tipe data."},
-  {"q": "Interviewer: \"Habis manggil setCount(count + 1), kenapa console.log(count) di baris berikutnya masih nilai lama?\"", "options": ["Karena JavaScript itu asynchronous semua", "Karena ada bug batching di React", "Karena state itu snapshot per render — nilai baru hanya tersedia di render berikutnya", "Karena console.log punya delay"], "answer": 2, "explain": "setState menjadwalkan re-render, bukan mengubah variabel di tempat. Variabel count di render sekarang adalah snapshot yang nggak akan berubah. Butuh nilai terkini berbasis nilai sebelumnya? Pakai functional update: setCount(c => c + 1)."},
-  {"q": "Interviewer: \"Kapan fungsi cleanup di useEffect dipanggil?\"", "options": ["Cuma sekali, pas komponen unmount", "Setiap kali komponen re-render, sebelum apa pun terjadi", "Sebelum effect berikutnya jalan (saat deps berubah) dan saat unmount", "Cuma kalau kita manggil cleanup() manual"], "answer": 2, "explain": "Urutannya: render → effect. Kalau deps berubah: cleanup effect lama dulu → baru effect baru jalan. Plus sekali lagi saat unmount. Makanya cleanup jadi tempat yang tepat buat clear interval, unsubscribe, dan abort fetch."},
-  {"q": "Interviewer: \"Bedain useMemo dan useCallback dalam satu kalimat.\"", "options": ["useMemo buat komponen, useCallback buat fungsi biasa", "useMemo nge-cache hasil pemanggilan fungsi (nilai), useCallback nge-cache fungsinya sendiri (referensi)", "useMemo jalan sebelum render, useCallback sesudah render", "Sama aja, cuma beda nama karena sejarah"], "answer": 1, "explain": "useMemo(fn, deps) menjalankan fn dan menyimpan HASIL-nya; useCallback(fn, deps) menyimpan FUNGSI-nya tanpa menjalankan. Makanya useCallback(fn, deps) ekuivalen dengan useMemo(() => fn, deps)."},
-  {"q": "Interviewer: \"Lo bungkus komponen pakai React.memo tapi dia tetap re-render terus. Penyebab paling umum?\"", "options": ["React.memo cuma jalan di production build", "Ada props object/fungsi yang dibikin baru tiap render parent, jadi shallow comparison selalu bilang 'beda'", "React.memo nggak kompatibel dengan hooks", "Komponennya harus class component dulu"], "answer": 1, "explain": "React.memo membandingkan props secara shallow (per referensi). onClick={() => ...} atau style={{...}} yang ditulis inline menghasilkan referensi baru setiap render — selalu dianggap berubah. Solusinya: useCallback/useMemo di parent, atau restrukturisasi komponen."},
-  {"q": "Interviewer: \"Pernyataan mana yang PALING akurat soal Virtual DOM?\"", "options": ["Virtual DOM selalu lebih cepat daripada manipulasi DOM langsung", "Virtual DOM adalah representasi UI berupa object JS; React men-diff-nya untuk meminimalkan operasi DOM asli", "Virtual DOM adalah salinan DOM yang disimpan browser di GPU", "Virtual DOM menghilangkan kebutuhan re-render"], "answer": 1, "explain": "VDOM itu object JS ringan yang di-diff antar render (reconciliation) supaya update DOM asli minimal. Klaim 'selalu lebih cepat dari DOM manual' itu mitos — manipulasi manual yang optimal bisa lebih cepat; VDOM menang di developer experience + kecepatan yang cukup."},
-  {"q": "Interviewer: \"Counter lo pakai setInterval di useEffect dengan deps [], manggil setCount(count + 1), tapi stuck di angka 1. Kenapa?\"", "options": ["setInterval nggak boleh dipakai di dalam useEffect", "Stale closure — callback interval 'ngunci' nilai count dari render pertama (0) selamanya", "React membatasi interval maksimal satu kali update", "Karena belum pakai useLayoutEffect"], "answer": 1, "explain": "Callback dibuat sekali saat mount dan menutup (close over) count = 0, jadi tiap tick menghitung 0 + 1. Fix paling bersih: functional update setCount(c => c + 1) yang selalu menerima nilai terkini tanpa perlu dependency."},
-  {"q": "Interviewer: \"Di development, useEffect lo jalan dua kali padahal deps-nya []. Respons yang paling bener?\"", "options": ["Itu bug React 18, downgrade ke React 17", "Hapus StrictMode dari main.jsx biar normal", "Itu StrictMode yang sengaja me-remount di dev untuk menguji cleanup — pastikan effect idempotent dan cleanup-nya benar", "Pindahkan semua logic ke useLayoutEffect"], "answer": 2, "explain": "StrictMode sengaja mount → unmount → mount di development (production nggak) untuk mengekspos effect yang nggak punya cleanup benar. Menghapus StrictMode = mematikan alarm kebakaran. Yang benar: tulis cleanup yang bener, dan double-run jadi nggak berdampak."}
+  {
+    "q": "Interviewer: \"Kenapa index array sebaiknya nggak dipakai sebagai key kalau list-nya bisa berubah urutan?\"",
+    "options": [
+      "Karena React nge-match elemen pakai key saat diffing — index yang bergeser bikin state nyasar ke item yang salah",
+      "Karena index itu tipe number, key harus string",
+      "Karena ESLint bakal error kalau pakai index",
+      "Karena index bikin render lebih lambat dari id"
+    ],
+    "answer": 0,
+    "explain": "Key adalah identitas elemen saat reconciliation. Kalau item dihapus/reorder, index tiap item bergeser — React mengira item di posisi itu 'masih sama', jadi state lokal (misal isi input) nempel ke posisi, bukan ke datanya. Bukan soal performa atau tipe data."
+  },
+  {
+    "q": "Interviewer: \"Habis manggil setCount(count + 1), kenapa console.log(count) di baris berikutnya masih nilai lama?\"",
+    "options": [
+      "Karena ada bug batching di React",
+      "Karena state itu snapshot per render — nilai baru hanya tersedia di render berikutnya",
+      "Karena console.log punya delay",
+      "Karena JavaScript itu asynchronous semua"
+    ],
+    "answer": 1,
+    "explain": "setState menjadwalkan re-render, bukan mengubah variabel di tempat. Variabel count di render sekarang adalah snapshot yang nggak akan berubah. Butuh nilai terkini berbasis nilai sebelumnya? Pakai functional update: setCount(c => c + 1)."
+  },
+  {
+    "q": "Interviewer: \"Kapan fungsi cleanup di useEffect dipanggil?\"",
+    "options": [
+      "Cuma sekali, pas komponen unmount",
+      "Setiap kali komponen re-render, sebelum apa pun terjadi",
+      "Sebelum effect berikutnya jalan (saat deps berubah) dan saat unmount",
+      "Cuma kalau kita manggil cleanup() manual"
+    ],
+    "answer": 2,
+    "explain": "Urutannya: render → effect. Kalau deps berubah: cleanup effect lama dulu → baru effect baru jalan. Plus sekali lagi saat unmount. Makanya cleanup jadi tempat yang tepat buat clear interval, unsubscribe, dan abort fetch."
+  },
+  {
+    "q": "Interviewer: \"Bedain useMemo dan useCallback dalam satu kalimat.\"",
+    "options": [
+      "useMemo jalan sebelum render, useCallback sesudah render",
+      "Sama aja, cuma beda nama karena sejarah",
+      "useMemo buat komponen, useCallback buat fungsi biasa",
+      "useMemo nge-cache hasil pemanggilan fungsi (nilai), useCallback nge-cache fungsinya sendiri (referensi)"
+    ],
+    "answer": 3,
+    "explain": "useMemo(fn, deps) menjalankan fn dan menyimpan HASIL-nya; useCallback(fn, deps) menyimpan FUNGSI-nya tanpa menjalankan. Makanya useCallback(fn, deps) ekuivalen dengan useMemo(() => fn, deps)."
+  },
+  {
+    "q": "Interviewer: \"Lo bungkus komponen pakai React.memo tapi dia tetap re-render terus. Penyebab paling umum?\"",
+    "options": [
+      "Ada props object/fungsi yang dibikin baru tiap render parent, jadi shallow comparison selalu bilang 'beda'",
+      "React.memo nggak kompatibel dengan hooks",
+      "Komponennya harus class component dulu",
+      "React.memo cuma jalan di production build"
+    ],
+    "answer": 0,
+    "explain": "React.memo membandingkan props secara shallow (per referensi). onClick={() => ...} atau style={{...}} yang ditulis inline menghasilkan referensi baru setiap render — selalu dianggap berubah. Solusinya: useCallback/useMemo di parent, atau restrukturisasi komponen."
+  },
+  {
+    "q": "Interviewer: \"Pernyataan mana yang PALING akurat soal Virtual DOM?\"",
+    "options": [
+      "Virtual DOM selalu lebih cepat daripada manipulasi DOM langsung",
+      "Virtual DOM adalah representasi UI berupa object JS; React men-diff-nya untuk meminimalkan operasi DOM asli",
+      "Virtual DOM adalah salinan DOM yang disimpan browser di GPU",
+      "Virtual DOM menghilangkan kebutuhan re-render"
+    ],
+    "answer": 1,
+    "explain": "VDOM itu object JS ringan yang di-diff antar render (reconciliation) supaya update DOM asli minimal. Klaim 'selalu lebih cepat dari DOM manual' itu mitos — manipulasi manual yang optimal bisa lebih cepat; VDOM menang di developer experience + kecepatan yang cukup."
+  },
+  {
+    "q": "Interviewer: \"Counter lo pakai setInterval di useEffect dengan deps [], manggil setCount(count + 1), tapi stuck di angka 1. Kenapa?\"",
+    "options": [
+      "Karena belum pakai useLayoutEffect",
+      "setInterval nggak boleh dipakai di dalam useEffect",
+      "Stale closure — callback interval 'ngunci' nilai count dari render pertama (0) selamanya",
+      "React membatasi interval maksimal satu kali update"
+    ],
+    "answer": 2,
+    "explain": "Callback dibuat sekali saat mount dan menutup (close over) count = 0, jadi tiap tick menghitung 0 + 1. Fix paling bersih: functional update setCount(c => c + 1) yang selalu menerima nilai terkini tanpa perlu dependency."
+  },
+  {
+    "q": "Interviewer: \"Di development, useEffect lo jalan dua kali padahal deps-nya []. Respons yang paling bener?\"",
+    "options": [
+      "Pindahkan semua logic ke useLayoutEffect",
+      "Itu bug React 18, downgrade ke React 17",
+      "Hapus StrictMode dari main.jsx biar normal",
+      "Itu StrictMode yang sengaja me-remount di dev untuk menguji cleanup — pastikan effect idempotent dan cleanup-nya benar"
+    ],
+    "answer": 3,
+    "explain": "StrictMode sengaja mount → unmount → mount di development (production nggak) untuk mengekspos effect yang nggak punya cleanup benar. Menghapus StrictMode = mematikan alarm kebakaran. Yang benar: tulis cleanup yang bener, dan double-run jadi nggak berdampak."
+  }
 ]
 </script>
 <div class="quiz-mount mt-6" data-quiz-id="quiz-14"></div>

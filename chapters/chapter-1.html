@@ -1529,14 +1529,94 @@ function App() {
                 </div>
 <script type="application/json" id="quiz-1">
 [
-  {"q": "JSX itu sebenarnya apa?", "options": ["HTML asli yang dibaca browser", "Template engine terpisah dari JavaScript", "Sugar syntax untuk React.createElement() yang menghasilkan object JavaScript", "Bahasa pemrograman baru bikinan Meta"], "answer": 2, "explain": "JSX di-compile jadi panggilan <code>React.createElement()</code>, yang me-return object JS polos ({type, props, ...}). Browser nggak pernah baca JSX — yang dijalankan adalah JavaScript hasil compile."},
-  {"q": "React itu library atau framework, dan kenapa?", "options": ["Library, karena fokus cuma ke rendering UI; routing & state global diserahkan ke ekosistem", "Framework, karena mengatur seluruh struktur aplikasi", "Framework, karena punya React Router bawaan", "Library, karena ukurannya kecil"], "answer": 0, "explain": "React adalah library yang fokus di satu hal: rendering UI. Routing (React Router), state global (Zustand/Redux), data fetching (TanStack Query) itu semua library terpisah — lo yang milih."},
-  {"q": "Kenapa di JSX kita nulis className, bukan class?", "options": ["Karena React lebih suka nama yang panjang", "Karena class cuma buat CSS eksternal", "Karena browser nggak mengenal atribut class", "Karena class adalah keyword JavaScript, jadi dipakai className biar nggak bentrok"], "answer": 3, "explain": "JSX itu JavaScript. <code>class</code> udah jadi keyword JS (buat OOP), jadi React pakai <code>className</code>. Serupa: <code>for</code> di label jadi <code>htmlFor</code>."},
-  {"q": "Apa beda mendasar cara berpikir deklaratif (React) vs imperatif (jQuery/vanilla)?", "options": ["Deklaratif lebih cepat karena pakai Virtual DOM", "Imperatif: lo perintah DOM langkah demi langkah. Deklaratif: lo deskripsikan UI untuk state tertentu, React yang urus perubahan DOM-nya", "Deklaratif nggak butuh JavaScript sama sekali", "Nggak ada beda, cuma gaya penulisan"], "answer": 1, "explain": "Persamaan intinya <code>UI = f(state)</code>. Lo deskripsikan kondisi akhir berdasarkan state; React ngitung sendiri mutasi DOM minimal. Fokus geser dari 'manipulasi DOM' ke 'manajemen state'."},
-  {"q": "Kode ini error: 'Objects are not valid as a React child'. Penyebab paling mungkin?", "options": ["Lupa import React", "Pakai key={index} di list", "Nge-render object mentah langsung ke JSX, misal {user} padahal user = {nama, role}", "Komponen namanya huruf kecil"], "answer": 2, "explain": "JSX bisa nampilin string/number/element, tapi bukan object mentah. Fix: ambil field-nya (<code>{user.nama}</code>) atau map array-nya jadi element."},
-  {"q": "Manakah yang BENAR untuk me-render sebuah komponen bernama Profil?", "options": ["&lt;Profil /&gt; — biar React kelola sebagai unit (punya state & re-render sendiri)", "{Profil()} — panggil kayak fungsi biasa", "&lt;profil /&gt; — huruf kecil biar mirip tag HTML", "Profil.render()"], "answer": 0, "explain": "Render komponen pakai <code>&lt;Profil /&gt;</code>, bukan <code>Profil()</code>. Nama WAJIB huruf besar di awal — kalau huruf kecil (<code>&lt;profil /&gt;</code>), React kira itu tag HTML biasa, bukan komponenmu."},
-  {"q": "Kenapa fungsi return JSX ini error? return (&lt;h1&gt;A&lt;/h1&gt; &lt;p&gt;B&lt;/p&gt;)", "options": ["Karena h1 dan p nggak boleh dicampur", "Karena lupa key", "Karena p harus di atas h1", "Karena return cuma boleh satu nilai — dua elemen bersebelahan butuh satu pembungkus (Fragment atau div)"], "answer": 3, "explain": "Sebuah return cuma bisa menghasilkan SATU element. Bungkus keduanya dengan Fragment <code>&lt;&gt;...&lt;/&gt;</code> (nggak nambah node DOM) atau satu <code>&lt;div&gt;</code>."},
-  {"q": "Apa fungsi Virtual DOM di React?", "options": ["Menggantikan DOM asli sepenuhnya di browser", "Membuat React jadi library tercepat di dunia tanpa syarat", "Salinan ringan DOM di memori; React diff versi lama vs baru lalu update HANYA bagian DOM yang berubah", "Menyimpan state komponen"], "answer": 2, "explain": "Virtual DOM = object JS ringan. Saat state berubah, React bikin VDOM baru, bandingin (diffing) dengan yang lama, lalu terapkan perubahan minimal ke DOM asli (reconciliation). Tujuannya update efisien + model deklaratif."}
+  {
+    "q": "JSX itu sebenarnya apa?",
+    "options": [
+      "HTML asli yang dibaca browser",
+      "Template engine terpisah dari JavaScript",
+      "Sugar syntax untuk React.createElement() yang menghasilkan object JavaScript",
+      "Bahasa pemrograman baru bikinan Meta"
+    ],
+    "answer": 2,
+    "explain": "JSX di-compile jadi panggilan <code>React.createElement()</code>, yang me-return object JS polos ({type, props, ...}). Browser nggak pernah baca JSX — yang dijalankan adalah JavaScript hasil compile."
+  },
+  {
+    "q": "React itu library atau framework, dan kenapa?",
+    "options": [
+      "Library, karena fokus cuma ke rendering UI; routing & state global diserahkan ke ekosistem",
+      "Framework, karena mengatur seluruh struktur aplikasi",
+      "Framework, karena punya React Router bawaan",
+      "Library, karena ukurannya kecil"
+    ],
+    "answer": 0,
+    "explain": "React adalah library yang fokus di satu hal: rendering UI. Routing (React Router), state global (Zustand/Redux), data fetching (TanStack Query) itu semua library terpisah — lo yang milih."
+  },
+  {
+    "q": "Kenapa di JSX kita nulis className, bukan class?",
+    "options": [
+      "Karena React lebih suka nama yang panjang",
+      "Karena class cuma buat CSS eksternal",
+      "Karena browser nggak mengenal atribut class",
+      "Karena class adalah keyword JavaScript, jadi dipakai className biar nggak bentrok"
+    ],
+    "answer": 3,
+    "explain": "JSX itu JavaScript. <code>class</code> udah jadi keyword JS (buat OOP), jadi React pakai <code>className</code>. Serupa: <code>for</code> di label jadi <code>htmlFor</code>."
+  },
+  {
+    "q": "Apa beda mendasar cara berpikir deklaratif (React) vs imperatif (jQuery/vanilla)?",
+    "options": [
+      "Deklaratif lebih cepat karena pakai Virtual DOM",
+      "Imperatif: lo perintah DOM langkah demi langkah. Deklaratif: lo deskripsikan UI untuk state tertentu, React yang urus perubahan DOM-nya",
+      "Deklaratif nggak butuh JavaScript sama sekali",
+      "Nggak ada beda, cuma gaya penulisan"
+    ],
+    "answer": 1,
+    "explain": "Persamaan intinya <code>UI = f(state)</code>. Lo deskripsikan kondisi akhir berdasarkan state; React ngitung sendiri mutasi DOM minimal. Fokus geser dari 'manipulasi DOM' ke 'manajemen state'."
+  },
+  {
+    "q": "Kode ini error: 'Objects are not valid as a React child'. Penyebab paling mungkin?",
+    "options": [
+      "Lupa import React",
+      "Pakai key={index} di list",
+      "Nge-render object mentah langsung ke JSX, misal {user} padahal user = {nama, role}",
+      "Komponen namanya huruf kecil"
+    ],
+    "answer": 2,
+    "explain": "JSX bisa nampilin string/number/element, tapi bukan object mentah. Fix: ambil field-nya (<code>{user.nama}</code>) atau map array-nya jadi element."
+  },
+  {
+    "q": "Manakah yang BENAR untuk me-render sebuah komponen bernama Profil?",
+    "options": [
+      "<Profil /> — biar React kelola sebagai unit (punya state & re-render sendiri)",
+      "{Profil()} — panggil kayak fungsi biasa",
+      "<profil /> — huruf kecil biar mirip tag HTML",
+      "Profil.render()"
+    ],
+    "answer": 0,
+    "explain": "Render komponen pakai <code>&lt;Profil /&gt;</code>, bukan <code>Profil()</code>. Nama WAJIB huruf besar di awal — kalau huruf kecil (<code>&lt;profil /&gt;</code>), React kira itu tag HTML biasa, bukan komponenmu."
+  },
+  {
+    "q": "Kenapa fungsi return JSX ini error? return (<h1>A</h1> <p>B</p>)",
+    "options": [
+      "Karena h1 dan p nggak boleh dicampur",
+      "Karena lupa key",
+      "Karena p harus di atas h1",
+      "Karena return cuma boleh satu nilai — dua elemen bersebelahan butuh satu pembungkus (Fragment atau div)"
+    ],
+    "answer": 3,
+    "explain": "Sebuah return cuma bisa menghasilkan SATU element. Bungkus keduanya dengan Fragment <code>&lt;&gt;...&lt;/&gt;</code> (nggak nambah node DOM) atau satu <code>&lt;div&gt;</code>."
+  },
+  {
+    "q": "Apa fungsi Virtual DOM di React?",
+    "options": [
+      "Menggantikan DOM asli sepenuhnya di browser",
+      "Membuat React jadi library tercepat di dunia tanpa syarat",
+      "Salinan ringan DOM di memori; React diff versi lama vs baru lalu update HANYA bagian DOM yang berubah",
+      "Menyimpan state komponen"
+    ],
+    "answer": 2,
+    "explain": "Virtual DOM = object JS ringan. Saat state berubah, React bikin VDOM baru, bandingin (diffing) dengan yang lama, lalu terapkan perubahan minimal ke DOM asli (reconciliation). Tujuannya update efisien + model deklaratif."
+  }
 ]
 </script>
                 <div class="quiz-mount mt-6" data-quiz-id="quiz-1"></div>

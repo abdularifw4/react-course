@@ -766,14 +766,94 @@ expect('Isi input tetap nempel ke item yang benar (key = identitas?)', cocok);</
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SIAP DITANYA INTERVIEWER? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview senior. Skor terbaik lo kesimpen otomatis.</p></div></div>
 <script type="application/json" id="quiz-11">
 [
-  {"q": "Lo manggil <code>setCount(5)</code> di sebuah event handler. Apa yang PALING TEPAT menggambarkan yang terjadi persis setelah baris itu dieksekusi?", "options": ["Variabel count langsung berubah jadi 5 dan DOM langsung di-update", "Komponen langsung re-render secara sinkron sebelum baris berikutnya jalan", "React menjadwalkan update ke antrian; count di scope sekarang masih nilai lama, render terjadi setelah handler selesai (di-batch)", "React langsung mengubah Virtual DOM, lalu menunggu 16ms untuk diff"], "answer": 2, "explain": "setState itu <em>menjadwalkan</em> update, bukan assignment. Nilai di closure yang sedang jalan tetap lama, dan semua setState dalam handler yang sama di-batch jadi satu render setelah handler selesai (Lesson 7)."},
-  {"q": "JSX <code>&lt;Tombol label=\"Beli\" /&gt;</code> di-compile jadi apa, dan menghasilkan apa?", "options": ["String HTML yang langsung dimasukkan ke DOM lewat innerHTML", "Panggilan createElement/jsx yang me-return object polos {type: Tombol, props: {label: 'Beli'}, ...}", "Pemanggilan langsung fungsi Tombol({label: 'Beli'}) saat itu juga", "Instance class virtual DOM node dengan method render()"], "answer": 1, "explain": "JSX = sugar untuk createElement (atau jsx() di automatic runtime), hasilnya React element — object JS murah berisi type + props. Fungsi Tombol BELUM dipanggil; React yang manggil nanti saat render (Lesson 2)."},
-  {"q": "Saat re-render, elemen root sebuah subtree berubah dari <code>&lt;div&gt;</code> jadi <code>&lt;section&gt;</code> tapi isinya sama persis. Apa yang dilakukan React ke komponen-komponen di dalamnya?", "options": ["Mempertahankan semuanya karena isinya identik, cuma ganti tag-nya", "Diff mendalam untuk menemukan bagian yang bisa dipertahankan", "Unmount seluruh subtree (state hilang semua) lalu mount ulang dari nol", "Menampilkan warning dan membatalkan render"], "answer": 2, "explain": "Heuristik #1 reconciliation: type beda = buang seluruh subtree, tanpa ngecek dalamnya. Semua state anak hilang. Inilah kenapa diffing bisa O(n) — dan kenapa gonta-ganti tag pembungkus itu bahaya diam-diam (Lesson 5)."},
-  {"q": "Kenapa <code>key={index}</code> berbahaya di list yang bisa dihapus/di-sort?", "options": ["Karena index bisa duplikat kalau list-nya panjang", "Karena key harus selalu string, bukan number", "Karena bikin diffing jadi O(n³) dan lambat", "Karena index = posisi, bukan identitas — saat urutan berubah, state yang nempel di posisi (input, useState, fokus) 'diwariskan' ke data yang salah"], "answer": 3, "explain": "React mencocokkan item list pakai key. Index selalu 0,1,2,... apa pun datanya, jadi hapus item pertama bikin semua item 'bergeser identitas' dan state DOM/komponen nyasar ke tetangga (Lesson 5 + playground pg-11-1)."},
-  {"q": "Mana pernyataan yang BENAR soal render phase vs commit phase?", "options": ["Render phase harus pure dan bisa di-pause/diulang/dibuang; commit phase sinkron, atomik, dan di sinilah DOM dimutasi + refs diisi", "Render phase menulis ke DOM sedikit demi sedikit; commit phase menyelesaikan sisanya", "useEffect jalan di render phase, useLayoutEffect di commit phase", "Keduanya bisa diinterupsi kapan saja demi update yang lebih urgent"], "answer": 0, "explain": "Render = mikir (pure, interruptible), commit = eksekusi (sinkron, sekali jalan). DOM cuma disentuh saat commit; useLayoutEffect jalan setelah mutasi DOM sebelum paint, useEffect setelah paint (Lesson 4)."},
-  {"q": "React 18, di dalam <code>setTimeout</code> lo manggil 3 setState berturut-turut. Berapa kali komponen re-render, dan gimana kalau ini React 17?", "options": ["React 18: 3 render; React 17: 3 render — setTimeout memang nggak pernah di-batch", "React 18: 1 render (automatic batching di mana pun); React 17: 3 render (batching cuma di event handler React)", "React 18: 1 render; React 17: 1 render — batching udah ada dari dulu", "React 18: 0 render sampai user berinteraksi lagi"], "answer": 1, "explain": "Automatic batching adalah perubahan besar React 18 (via createRoot): update di timeout, promise, dan native handler pun digabung jadi satu render. Di React 17 batching cuma berlaku di dalam event handler React (Lesson 7)."},
-  {"q": "Apa masalah utama arsitektur lama (stack reconciler) yang diselesaikan Fiber?", "options": ["Diffing-nya masih O(n³) sehingga lambat di list besar", "Render rekursif nggak bisa diinterupsi — tree besar ngunci main thread, bikin input/animasi nge-freeze", "Nggak support functional component dan hooks", "Ukuran bundle React terlalu besar"], "answer": 1, "explain": "Stack reconciler pakai rekursi call stack: sekali mulai harus tuntas. Fiber mengganti rekursi dengan linked list fiber node yang diproses per 'unit of work' + double buffering (current vs workInProgress), sehingga render bisa di-pause, dilanjut, atau dibuang — fondasi concurrent rendering (Lesson 6)."},
-  {"q": "Effect fetch lo jalan 2x di development. Apa diagnosis dan solusi level senior-nya?", "options": ["Bug React 18 — downgrade ke versi 17", "StrictMode dev-only sengaja mount→cleanup→mount untuk mendeteksi efek tanpa cleanup; solusinya tulis cleanup (AbortController), yang sekaligus benerin race condition di production", "Hapus <StrictMode> dari main.jsx supaya nggak double render", "Tambah useRef penanda 'sudah jalan' supaya run kedua di-skip"], "answer": 1, "explain": "Double-invoke StrictMode itu simulasi unmount/remount + race condition gratis, dan nggak terjadi di production. Matiin StrictMode atau nge-skip run kedua = nyembunyiin bug beneran. Solusi yang benar selalu: efek yang bisa membatalkan dirinya sendiri (Lesson 9)."}
+  {
+    "q": "Lo manggil setCount(5) di sebuah event handler. Apa yang PALING TEPAT menggambarkan yang terjadi persis setelah baris itu dieksekusi?",
+    "options": [
+      "React menjadwalkan update ke antrian; count di scope sekarang masih nilai lama, render terjadi setelah handler selesai (di-batch)",
+      "React langsung mengubah Virtual DOM, lalu menunggu 16ms untuk diff",
+      "Variabel count langsung berubah jadi 5 dan DOM langsung di-update",
+      "Komponen langsung re-render secara sinkron sebelum baris berikutnya jalan"
+    ],
+    "answer": 0,
+    "explain": "setState itu <em>menjadwalkan</em> update, bukan assignment. Nilai di closure yang sedang jalan tetap lama, dan semua setState dalam handler yang sama di-batch jadi satu render setelah handler selesai (Lesson 7)."
+  },
+  {
+    "q": "JSX <Tombol label=\"Beli\" /> di-compile jadi apa, dan menghasilkan apa?",
+    "options": [
+      "String HTML yang langsung dimasukkan ke DOM lewat innerHTML",
+      "Panggilan createElement/jsx yang me-return object polos {type: Tombol, props: {label: 'Beli'}, ...}",
+      "Pemanggilan langsung fungsi Tombol({label: 'Beli'}) saat itu juga",
+      "Instance class virtual DOM node dengan method render()"
+    ],
+    "answer": 1,
+    "explain": "JSX = sugar untuk createElement (atau jsx() di automatic runtime), hasilnya React element — object JS murah berisi type + props. Fungsi Tombol BELUM dipanggil; React yang manggil nanti saat render (Lesson 2)."
+  },
+  {
+    "q": "Saat re-render, elemen root sebuah subtree berubah dari <div> jadi <section> tapi isinya sama persis. Apa yang dilakukan React ke komponen-komponen di dalamnya?",
+    "options": [
+      "Mempertahankan semuanya karena isinya identik, cuma ganti tag-nya",
+      "Diff mendalam untuk menemukan bagian yang bisa dipertahankan",
+      "Unmount seluruh subtree (state hilang semua) lalu mount ulang dari nol",
+      "Menampilkan warning dan membatalkan render"
+    ],
+    "answer": 2,
+    "explain": "Heuristik #1 reconciliation: type beda = buang seluruh subtree, tanpa ngecek dalamnya. Semua state anak hilang. Inilah kenapa diffing bisa O(n) — dan kenapa gonta-ganti tag pembungkus itu bahaya diam-diam (Lesson 5)."
+  },
+  {
+    "q": "Kenapa key={index} berbahaya di list yang bisa dihapus/di-sort?",
+    "options": [
+      "Karena index bisa duplikat kalau list-nya panjang",
+      "Karena key harus selalu string, bukan number",
+      "Karena bikin diffing jadi O(n³) dan lambat",
+      "Karena index = posisi, bukan identitas — saat urutan berubah, state yang nempel di posisi (input, useState, fokus) 'diwariskan' ke data yang salah"
+    ],
+    "answer": 3,
+    "explain": "React mencocokkan item list pakai key. Index selalu 0,1,2,... apa pun datanya, jadi hapus item pertama bikin semua item 'bergeser identitas' dan state DOM/komponen nyasar ke tetangga (Lesson 5 + playground pg-11-1)."
+  },
+  {
+    "q": "Mana pernyataan yang BENAR soal render phase vs commit phase?",
+    "options": [
+      "Render phase harus pure dan bisa di-pause/diulang/dibuang; commit phase sinkron, atomik, dan di sinilah DOM dimutasi + refs diisi",
+      "Render phase menulis ke DOM sedikit demi sedikit; commit phase menyelesaikan sisanya",
+      "useEffect jalan di render phase, useLayoutEffect di commit phase",
+      "Keduanya bisa diinterupsi kapan saja demi update yang lebih urgent"
+    ],
+    "answer": 0,
+    "explain": "Render = mikir (pure, interruptible), commit = eksekusi (sinkron, sekali jalan). DOM cuma disentuh saat commit; useLayoutEffect jalan setelah mutasi DOM sebelum paint, useEffect setelah paint (Lesson 4)."
+  },
+  {
+    "q": "React 18, di dalam setTimeout lo manggil 3 setState berturut-turut. Berapa kali komponen re-render, dan gimana kalau ini React 17?",
+    "options": [
+      "React 18: 3 render; React 17: 3 render — setTimeout memang nggak pernah di-batch",
+      "React 18: 1 render (automatic batching di mana pun); React 17: 3 render (batching cuma di event handler React)",
+      "React 18: 1 render; React 17: 1 render — batching udah ada dari dulu",
+      "React 18: 0 render sampai user berinteraksi lagi"
+    ],
+    "answer": 1,
+    "explain": "Automatic batching adalah perubahan besar React 18 (via createRoot): update di timeout, promise, dan native handler pun digabung jadi satu render. Di React 17 batching cuma berlaku di dalam event handler React (Lesson 7)."
+  },
+  {
+    "q": "Apa masalah utama arsitektur lama (stack reconciler) yang diselesaikan Fiber?",
+    "options": [
+      "Ukuran bundle React terlalu besar",
+      "Diffing-nya masih O(n³) sehingga lambat di list besar",
+      "Render rekursif nggak bisa diinterupsi — tree besar ngunci main thread, bikin input/animasi nge-freeze",
+      "Nggak support functional component dan hooks"
+    ],
+    "answer": 2,
+    "explain": "Stack reconciler pakai rekursi call stack: sekali mulai harus tuntas. Fiber mengganti rekursi dengan linked list fiber node yang diproses per 'unit of work' + double buffering (current vs workInProgress), sehingga render bisa di-pause, dilanjut, atau dibuang — fondasi concurrent rendering (Lesson 6)."
+  },
+  {
+    "q": "Effect fetch lo jalan 2x di development. Apa diagnosis dan solusi level senior-nya?",
+    "options": [
+      "Hapus <StrictMode> dari main.jsx supaya nggak double render",
+      "Tambah useRef penanda 'sudah jalan' supaya run kedua di-skip",
+      "Bug React 18 — downgrade ke versi 17",
+      "StrictMode dev-only sengaja mount→cleanup→mount untuk mendeteksi efek tanpa cleanup; solusinya tulis cleanup (AbortController), yang sekaligus benerin race condition di production"
+    ],
+    "answer": 3,
+    "explain": "Double-invoke StrictMode itu simulasi unmount/remount + race condition gratis, dan nggak terjadi di production. Matiin StrictMode atau nge-skip run kedua = nyembunyiin bug beneran. Solusi yang benar selalu: efek yang bisa membatalkan dirinya sendiri (Lesson 9)."
+  }
 ]
 </script>
 <div class="quiz-mount mt-6" data-quiz-id="quiz-11"></div>

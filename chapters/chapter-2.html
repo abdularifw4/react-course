@@ -1410,16 +1410,96 @@ expect('Tiap <li> punya data-id dari p.id (pakai identitas, bukan index)', punya
                 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGERTI PROPS &amp; LIST? 🎤</h2><p class="text-sm text-muted mt-1">8 soal. Skor terbaik lo kesimpen otomatis.</p></div></div>
                 <script type="application/json" id="quiz-2">
 [
-  {"q": "Props di React sifatnya apa, dan apa konsekuensinya?", "options": ["Read-write — komponen anak boleh mengubahnya biar praktis", "Read-only — anak nggak boleh memutasi props; kalau butuh versi ubahan, bikin salinan", "Selalu string, jadi angka harus di-parse dulu", "Otomatis reactive — ubah props langsung memicu setState"], "answer": 1, "explain": "Props itu <strong>read-only</strong>. Aliran data React satu arah (parent → child). Memutasi props (misal <code>items.push()</code>) melanggar aturan ini dan bisa merusak data parent. Butuh berubah? Salin dulu: <code>[...items]</code>."},
-  {"q": "Kenapa tiap elemen dalam list <code>.map()</code> butuh prop <code>key</code>?", "options": ["Biar CSS-nya bisa di-styling per item", "Cuma budaya biar linter nggak ngomel, nggak ada efek nyata", "Supaya React bisa mencocokkan elemen antar-render dan tahu mana yang berubah/pindah/dihapus", "Karena key otomatis jadi id di HTML hasilnya"], "answer": 2, "explain": "Key = identitas yang dipakai React saat reconciliation untuk mencocokkan elemen lama dan baru. Tanpa key yang stabil, React nebak-nebak — update jadi lambat dan state bisa nyasar. Key TIDAK muncul di DOM sebagai atribut."},
-  {"q": "Kapan <code>key={index}</code> jadi masalah?", "options": ["Selalu — index dilarang total sebagai key", "Nggak pernah — index selalu unik jadi selalu aman", "Saat list bisa di-hapus/di-sort/disisipin dari tengah: index = posisi, bukan identitas, jadi state (input, checkbox, fokus) nyasar ke item yang salah", "Cuma kalau list-nya lebih dari 100 item"], "answer": 2, "explain": "Index itu posisi (0,1,2...), bukan identitas. Di list statis yang nggak pernah berubah urutan, index oke. Tapi begitu bisa di-hapus/sort/insert, item 'bergeser posisi' sementara index tetap, bikin state DOM/komponen nempel ke tetangga yang salah — persis bug di playground pg-2-2."},
-  {"q": "Apa itu prop <code>children</code>?", "options": ["Prop khusus yang berisi elemen di antara tag buka &amp; tutup komponen — <code>&lt;Card&gt;isi&lt;/Card&gt;</code> menaruh 'isi' di children", "Daftar semua komponen anak yang di-import file itu", "Array otomatis berisi semua props yang dikirim", "Fungsi bawaan untuk me-render ulang anak"], "answer": 0, "explain": "<code>children</code> cuma prop biasa yang isinya diambil dari antara tag buka-tutup. <code>&lt;Card&gt;halo&lt;/Card&gt;</code> setara <code>&lt;Card children=\"halo\" /&gt;</code>. Inilah fondasi pola composition &amp; wrapper yang fleksibel."},
-  {"q": "Mana cara paling tepat menerima props di komponen?", "options": ["<code>function Card(title, author)</code> — tiap prop jadi argumen terpisah", "<code>function Card(props)</code> lalu selalu akses <code>props.title</code>, destructure dilarang", "<code>function Card({ title, author })</code> — destructure dari satu object props", "<code>function Card()</code> lalu ambil dari variabel global"], "answer": 2, "explain": "Komponen SELALU menerima tepat satu argumen: object props. <code>function Card(title)</code> bikin <code>title</code> jadi seluruh object props (bug!). Destructuring <code>{ title, author }</code> = standar modern: ringkas + langsung kelihatan prop apa yang dipakai."},
-  {"q": "Lo punya <code>const Anak = React.memo(RowMahal)</code> lalu render <code>&lt;Anak onClick={() =&gt; pilih(id)} /&gt;</code>. Kenapa memo-nya bisa sia-sia?", "options": ["Karena React.memo cuma bekerja untuk class component", "Karena arrow function inline bikin referensi onClick baru tiap render, jadi memo menganggap props berubah dan tetap re-render", "Karena onClick tidak boleh dikirim ke komponen ber-memo", "Karena memo butuh key untuk bekerja"], "answer": 1, "explain": "<code>() =&gt; pilih(id)</code> membuat fungsi (referensi) BARU tiap render. React.memo membandingkan props secara dangkal (<code>Object.is</code>), lihat referensi beda = 'props berubah' = tetap re-render. Solusi (Bab 10): <code>useCallback</code> untuk fungsi, <code>useMemo</code> untuk object."},
-  {"q": "Prinsip \"composition over configuration\" menyarankan apa saat komponen mulai punya banyak prop boolean?", "options": ["Gabung semua boolean jadi satu string biar hemat", "Ganti flag boolean dengan menyusun isi lewat children/slot, biar pemanggil yang merakit tampilan", "Pindahkan semua boolean ke Context global", "Bikin satu komponen mega yang meng-handle semua kasus lewat if"], "answer": 1, "explain": "Tiap prop boolean baru melipatgandakan kombinasi yang harus dipikir &amp; dites (<code>&lt;Card compact bordered elevated /&gt;</code> = 8 kombinasi). Composition: bikin wadah tipis + biarkan pemanggil menyusun isinya via children/slot. Fleksibel tanpa ledakan flag."},
-  {"q": "Kapan sebuah item list sebaiknya dipecah jadi komponennya sendiri?", "options": ["Selalu — tiap <code>&lt;li&gt;</code> wajib jadi komponen terpisah", "Tidak pernah — memecah komponen selalu over-engineering", "Saat item punya state sendiri, logika non-trivial, atau JSX-nya kepanjangan sampai <code>.map()</code> parent susah dibaca", "Hanya saat item lebih dari 5 baris teks"], "answer": 2, "explain": "Pecah kalau ada alasan nyata: state sendiri (checkbox/expand/favorit), logika (format tanggal, hitung diskon), atau JSX panjang yang bikin parent berantakan. Item yang cuma nampilin satu-dua teks statis? Biarin inline — memecah tanpa alasan cuma nambah beban mental."}
+  {
+    "q": "Props di React sifatnya apa, dan apa konsekuensinya?",
+    "options": [
+      "Read-only — anak nggak boleh memutasi props; kalau butuh versi ubahan, bikin salinan",
+      "Selalu string, jadi angka harus di-parse dulu",
+      "Otomatis reactive — ubah props langsung memicu setState",
+      "Read-write — komponen anak boleh mengubahnya biar praktis"
+    ],
+    "answer": 0,
+    "explain": "Props itu <strong>read-only</strong>. Aliran data React satu arah (parent → child). Memutasi props (misal <code>items.push()</code>) melanggar aturan ini dan bisa merusak data parent. Butuh berubah? Salin dulu: <code>[...items]</code>."
+  },
+  {
+    "q": "Kenapa tiap elemen dalam list .map() butuh prop key?",
+    "options": [
+      "Cuma budaya biar linter nggak ngomel, nggak ada efek nyata",
+      "Supaya React bisa mencocokkan elemen antar-render dan tahu mana yang berubah/pindah/dihapus",
+      "Karena key otomatis jadi id di HTML hasilnya",
+      "Biar CSS-nya bisa di-styling per item"
+    ],
+    "answer": 1,
+    "explain": "Key = identitas yang dipakai React saat reconciliation untuk mencocokkan elemen lama dan baru. Tanpa key yang stabil, React nebak-nebak — update jadi lambat dan state bisa nyasar. Key TIDAK muncul di DOM sebagai atribut."
+  },
+  {
+    "q": "Kapan key={index} jadi masalah?",
+    "options": [
+      "Selalu — index dilarang total sebagai key",
+      "Nggak pernah — index selalu unik jadi selalu aman",
+      "Saat list bisa di-hapus/di-sort/disisipin dari tengah: index = posisi, bukan identitas, jadi state (input, checkbox, fokus) nyasar ke item yang salah",
+      "Cuma kalau list-nya lebih dari 100 item"
+    ],
+    "answer": 2,
+    "explain": "Index itu posisi (0,1,2...), bukan identitas. Di list statis yang nggak pernah berubah urutan, index oke. Tapi begitu bisa di-hapus/sort/insert, item 'bergeser posisi' sementara index tetap, bikin state DOM/komponen nempel ke tetangga yang salah — persis bug di playground pg-2-2."
+  },
+  {
+    "q": "Apa itu prop children?",
+    "options": [
+      "Daftar semua komponen anak yang di-import file itu",
+      "Array otomatis berisi semua props yang dikirim",
+      "Fungsi bawaan untuk me-render ulang anak",
+      "Prop khusus yang berisi elemen di antara tag buka & tutup komponen — <Card>isi</Card> menaruh 'isi' di children"
+    ],
+    "answer": 3,
+    "explain": "<code>children</code> cuma prop biasa yang isinya diambil dari antara tag buka-tutup. <code>&lt;Card&gt;halo&lt;/Card&gt;</code> setara <code>&lt;Card children=\"halo\" /&gt;</code>. Inilah fondasi pola composition &amp; wrapper yang fleksibel."
+  },
+  {
+    "q": "Mana cara paling tepat menerima props di komponen?",
+    "options": [
+      "function Card({ title, author }) — destructure dari satu object props",
+      "function Card() lalu ambil dari variabel global",
+      "function Card(title, author) — tiap prop jadi argumen terpisah",
+      "function Card(props) lalu selalu akses props.title, destructure dilarang"
+    ],
+    "answer": 0,
+    "explain": "Komponen SELALU menerima tepat satu argumen: object props. <code>function Card(title)</code> bikin <code>title</code> jadi seluruh object props (bug!). Destructuring <code>{ title, author }</code> = standar modern: ringkas + langsung kelihatan prop apa yang dipakai."
+  },
+  {
+    "q": "Lo punya const Anak = React.memo(RowMahal) lalu render <Anak onClick={() => pilih(id)} />. Kenapa memo-nya bisa sia-sia?",
+    "options": [
+      "Karena React.memo cuma bekerja untuk class component",
+      "Karena arrow function inline bikin referensi onClick baru tiap render, jadi memo menganggap props berubah dan tetap re-render",
+      "Karena onClick tidak boleh dikirim ke komponen ber-memo",
+      "Karena memo butuh key untuk bekerja"
+    ],
+    "answer": 1,
+    "explain": "<code>() =&gt; pilih(id)</code> membuat fungsi (referensi) BARU tiap render. React.memo membandingkan props secara dangkal (<code>Object.is</code>), lihat referensi beda = 'props berubah' = tetap re-render. Solusi (Bab 10): <code>useCallback</code> untuk fungsi, <code>useMemo</code> untuk object."
+  },
+  {
+    "q": "Prinsip \"composition over configuration\" menyarankan apa saat komponen mulai punya banyak prop boolean?",
+    "options": [
+      "Bikin satu komponen mega yang meng-handle semua kasus lewat if",
+      "Gabung semua boolean jadi satu string biar hemat",
+      "Ganti flag boolean dengan menyusun isi lewat children/slot, biar pemanggil yang merakit tampilan",
+      "Pindahkan semua boolean ke Context global"
+    ],
+    "answer": 2,
+    "explain": "Tiap prop boolean baru melipatgandakan kombinasi yang harus dipikir &amp; dites (<code>&lt;Card compact bordered elevated /&gt;</code> = 8 kombinasi). Composition: bikin wadah tipis + biarkan pemanggil menyusun isinya via children/slot. Fleksibel tanpa ledakan flag."
+  },
+  {
+    "q": "Kapan sebuah item list sebaiknya dipecah jadi komponennya sendiri?",
+    "options": [
+      "Hanya saat item lebih dari 5 baris teks",
+      "Selalu — tiap <li> wajib jadi komponen terpisah",
+      "Tidak pernah — memecah komponen selalu over-engineering",
+      "Saat item punya state sendiri, logika non-trivial, atau JSX-nya kepanjangan sampai .map() parent susah dibaca"
+    ],
+    "answer": 3,
+    "explain": "Pecah kalau ada alasan nyata: state sendiri (checkbox/expand/favorit), logika (format tanggal, hitung diskon), atau JSX panjang yang bikin parent berantakan. Item yang cuma nampilin satu-dua teks statis? Biarin inline — memecah tanpa alasan cuma nambah beban mental."
+  }
 ]
-                </script>
+</script>
                 <div class="quiz-mount mt-6" data-quiz-id="quiz-2"></div>
             </section>
 
