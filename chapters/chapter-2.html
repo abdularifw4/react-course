@@ -274,7 +274,7 @@ const element = (
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Props — Kirim Data antar Komponen</span>
+                            <span class="text-xs text-muted font-medium">Aturan 1 — Root Element & Fragment</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// Parent kirim props ke child
@@ -380,7 +380,7 @@ function ProfilPengguna({ nama, umur, isOnline }) {
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">State — Data yang Bisa Berubah</span>
+                            <span class="text-xs text-muted font-medium">Ekspresi JS di dalam Kurung Kurawal</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// useState = hook untuk state
@@ -412,9 +412,9 @@ function LoginForm() {
 }</code></pre>
                     </div>
 
-                    <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓
+                    <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓</p>
 
-                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-ink">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p></p>
+                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-ink">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
@@ -509,7 +509,7 @@ export default DaftarBelanja;</code></pre>
 
                     <p><strong class="text-ink">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 😂
 
-                    <p><strong class="text-ink">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p></p>
+                    <p><strong class="text-ink">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
@@ -531,7 +531,7 @@ function KartuInline() {
     border: '1px solid #D1D1D1',
     // angka otomatis ditambah 'px'
     fontSize: 16,  
-    color: '#f3f4f6',
+    color: '#333333',
     transition: 'background-color 0.3s ease',
     boxShadow: hovered 
       ? '0 8px 30px rgba(39,216,144,0.15)' 
@@ -587,7 +587,557 @@ function TombolStatus({ isActive }) {
                 </div>
             </section>
 
-            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">05</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">PROPS — KIRIM DATA ANTAR KOMPONEN 📦</h2>
+                            <input type="checkbox" id="check-2-5" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Fundamental &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Bayangin kamu lagi pesan ojek online. Kamu kasih tahu driver: "jemput di rumah, tujuan kantor, lewat jalan tol". Driver nggak perlu tau kenapa kamu ke kantor, driver cuma perlu tau <em>data</em> yang kamu kasih. Nah, di React, konsep ini namanya <strong class="text-ink">Props</strong> (Properties). Dia itu kayak data yang kamu lempar dari komponen induk ke komponen anak 🏍️</p>
+
+                    <p>Props itu sifatnya <strong class="text-ink">read-only</strong>. Komponen anak <em>nggak boleh</em> mengubah props yang dikasih induk. Ini aturan fundamental React — kalau kamu melanggar ini, aplikasi kamu bakal jadi unpredictable. Mikirin aja kayak driver ojol nggak bisa tiba-tiba ngubah tujuan kamu tanpa kamu bilang 😅</p>
+
+                    <p>Berikut cara-cara mengirim dan menerima props:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Props Basics — kirim &amp; terima data</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ===== CARA 1: Props biasa =====
+function Card({ title, author }) {
+  return (
+    &lt;div className="bg-white rounded-xl p-4 shadow-sm"&gt;
+      &lt;h3 className="font-bold"&gt;{title}&lt;/h3&gt;
+      &lt;p className="text-gray-500"&gt;Oleh: {author}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Kirim dari parent
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Card title="Belajar React" author="Arif" /&gt;
+      &lt;Card title="TypeScript Mastery" author="Budi" /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ===== CARA 2: Default Props =====
+function Tombol({ label = "Klik Saya", variant = "primary" }) {
+  const bgColor = variant === "primary"
+    ? "bg-black text-white"
+    : "bg-gray-100 text-gray-800";
+
+  return (
+    &lt;button className={`px-4 py-2 rounded-lg ${bgColor}`}&gt;
+      {label}
+    &lt;/button&gt;
+  );
+}
+
+// Kalo nggak kirim props, pake default
+&lt;Tombol /&gt;                        // "Klik Saya", primary
+&lt;Tombol label="Hapus" variant="danger" /&gt;  // "Hapus", danger</code></pre>
+                    </div>
+
+                    <p>Sekarang kita bahas <strong class="text-ink">children prop</strong> — ini props spesial yang otomatis tersedia di setiap komponen. Children itu berisi semua elemen yang kamu taruh <em>di antara</em> opening dan closing tag komponen. Super berguna buat bikin komponen wrapper yang fleksibel!</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Children Prop — wrapper component fleksibel</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Children = semua yang ada di antara tag pembuka &amp; penutup
+function Modal({ isOpen, title, children }) {
+  if (!isOpen) return null;
+
+  return (
+    &lt;div className="fixed inset-0 bg-black/50 flex items-center justify-center"&gt;
+      &lt;div className="bg-white rounded-2xl p-6 max-w-md w-full mx-4"&gt;
+        &lt;h2 className="text-xl font-bold mb-4"&gt;{title}&lt;/h2&gt;
+        {/* children = konten apapun dari parent */}
+        {children}
+        &lt;button className="mt-4 px-4 py-2 bg-gray-100 rounded-lg"&gt;
+          Tutup
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Pakai modal buat berbagai keperluan — fleksibel!
+function App() {
+  return (
+    &lt;div&gt;
+      {/* Modal konfirmasi hapus */}
+      &lt;Modal isOpen={true} title="Konfirmasi"&gt;
+        &lt;p&gt;Yakin mau hapus data ini? Aksi ini nggak bisa di-undo.&lt;/p&gt;
+      &lt;/Modal&gt;
+
+      {/* Modal form — PAKAI KOMPONEN YANG SAMA! */}
+      &lt;Modal isOpen={false} title="Edit Profil"&gt;
+        &lt;input placeholder="Nama" className="border p-2 rounded-lg w-full" /&gt;
+        &lt;input placeholder="Email" className="border p-2 rounded-lg w-full mt-2" /&gt;
+      &lt;/Modal&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <p>Satu konsep penting yang perlu kamu tau: <strong class="text-ink">Prop Drilling</strong>. Kalau data perlu sampai ke komponen yang sangat dalam (misal App → Navbar → UserMenu → Avatar), kamu harus lempar props dari setiap level. Ini bisa jadi ribet kalau komponennya banyak. Nanti di Bab 8 (State Management) kita bakal bahas cara mengatasinya. Buat sekarang, prop drilling untuk 2-3 level masih oke kok 👍</p>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Selalu destructure props di parameter fungsi — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Card({ title, author })</code> — daripada akses lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props.title</code>. Kode jadi lebih ringkas, dan kamu langsung keliatan prop apa aja yang dipakai komponen itu. Standar industri modern!</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">06</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">STATE — DATA YANG BISA BERUBAH 🔄</h2>
+                            <input type="checkbox" id="check-2-6" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Fundamental &middot; 12 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Kalau props itu data statis yang dikasih dari atas (read-only), maka <strong class="text-ink">state</strong> adalah data internal komponen yang <em>bisa berubah</em> sendiri. Bayangin props itu kayak CD musik (isi-nya tetap, kamu cuma putar), sementara state itu kayak Spotify playlist — kamu bisa tambah, hapus, shuffle kapan aja 🎵</p>
+
+                    <p>Di React modern, state dikelola lewat hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState()</code>. Hook ini mengembalikan dua hal: <strong>nilai state saat ini</strong> dan <strong>fungsi buat mengubahnya</strong>. Setiap kali state berubah, React otomatis re-render komponen itu (dan semua anak-anaknya) dengan data terbaru. Ini konsep yang bikin React "reactive"!</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">useState — dasar-dasar state management</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+// State dengan nilai awal sederhana
+function LikeButton() {
+  const [likes, setLikes] = useState(0);
+
+  return (
+    &lt;button onClick={() =&gt; setLikes(likes + 1)}&gt;
+      ❤️ {likes} suka
+    &lt;/button&gt;
+  );
+}
+
+// State dengan objek — WAJIB SPREAD!
+function FormPendaftaran() {
+  const [form, setForm] = useState({
+    nama: '',
+    email: '',
+    jurusan: 'Informatika'
+  });
+
+  const handleChange = (e) =&gt; {
+    const { name, value } = e.target;
+    // SPREAD existing state, lalu update field-nya
+    setForm((prev) =&gt; ({ ...prev, [name]: value }));
+  };
+
+  return (
+    &lt;form&gt;
+      &lt;input
+        name="nama"
+        value={form.nama}
+        onChange={handleChange}
+        placeholder="Nama kamu"
+      /&gt;
+      &lt;input
+        name="email"
+        value={form.email}
+        onChange={handleChange}
+        placeholder="Email kamu"
+      /&gt;
+      &lt;select name="jurusan" value={form.jurusan}
+        onChange={handleChange}&gt;
+        &lt;option value="Informatika"&gt;Informatika&lt;/option&gt;
+        &lt;option value="Desain"&gt;Desain Komunikasi Visual&lt;/option&gt;
+        &lt;option value="Manajemen"&gt;Manajemen&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;p&gt;Nama: {form.nama}, Email: {form.email}, Jurusan: {form.jurusan}&lt;/p&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Aturan Emas #1: State itu IMMUTABLE.</strong> Jangan pernah mengubah state langsung. Kalau state kamu objek atau array, <em>selalu buat copy baru</em> sebelum mengubah. Kalau langsung mutasi, React nggak bakal ngeh kalau ada perubahan — dan UI-nya nggak akan update! Ini salah satu penyebab bug paling bikin pusing di React 😤</p>
+
+                    <p><strong class="text-ink">Aturan Emas #2: Pake Updater Function untuk state yang bergantung pada state sebelumnya.</strong> Kalau kamu butuh nilai state lama buat ngitung nilai baru (misalnya counter +1), jangan tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> — tapi tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(prev =&gt; prev + 1)</code>. Kenapa? Karena React bisa nge-batch update state, dan nilai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> mungkin udah "stale" pas eksekusi 🧠</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Updater Function &amp; Derived State</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+// ❌ SALAH — state-nya bisa stuck karena stale closure
+function BrokenCounter() {
+  const [count, setCount] = useState(0);
+
+  const addThreeWrong = () =&gt; {
+    setCount(count + 1); // pakai count yang sama 3x!
+    setCount(count + 1); // hasilnya cuma +1, bukan +3
+    setCount(count + 1);
+  };
+
+  // ✅ BENAR — updater function selalu pakai nilai terbaru
+  const addThreeRight = () =&gt; {
+    setCount(prev =&gt; prev + 1); // chain update
+    setCount(prev =&gt; prev + 1); // masing-masing pakai latest value
+    setCount(prev =&gt; prev + 1); // hasilnya: +3 ✅
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={addThreeRight}&gt;+3 (aman)&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Derived State — nggak perlu state terpisah!
+function ProductCard({ price, taxRate = 0.11 }) {
+  // ❌ JANGAN: simpan total di state terpisah
+  // const [total, setTotal] = useState(price * (1 + taxRate));
+
+  // ✅ BENAR: hitung langsung dari state/props yang ada
+  const total = price * (1 + taxRate);
+  const formatted = new Intl.NumberFormat('id-ID', {
+    style: 'currency', currency: 'IDR',
+  }).format(total);
+
+  return &lt;p&gt;Total: {formatted} (termasuk PPN)&lt;/p&gt;;
+}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Aturan Emas #3: Derived state nggak perlu state terpisah.</strong> Kalau suatu nilai bisa <em>dihitung</em> dari state atau props lain, jangan simpan dia di state sendiri. Contoh: total harga bisa dihitung dari harga satuan × jumlah. Simpen di state justru bikin data inkonsisten (harga berubah tapi total lupa di-update). Hitung aja langsung di render!</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Kesalahan Pemula Paling Sering:</strong> Lupa bahwa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> itu <strong>asynchronous</strong> — nilai state nggak langsung berubah di baris berikutnya. Kalau kamu nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(5); console.log(count);</code> — yang ke-log masih nilai <em>lama</em>, bukan 5. Ini bukan bug, ini cara React bekerja. Butuh nilai baru? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> (bahas di Bab 3)!</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-7">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">07</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">EVENT HANDLING — REAKSI KETIKA USER AKSI 💥</h2>
+                            <input type="checkbox" id="check-2-7" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Praktik &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Aplikasi tanpa event handling itu kayak restoran tanpa pelayan — makanan ada, tapi nggak ada yang nganterin ke meja kamu 😂. Event handling itu cara kita bikin aplikasi React <em>merespons</em> aksi user: klik tombol, ketik di input, submit form, hover mouse, scroll halaman, dan lain-lain.</p>
+
+                    <p>Di React, event handling mirip dengan HTML biasa tapi ada <strong class="text-ink">3 perbedaan penting</strong>: pertama, nama eventnya pakai camelCase (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> bukan <code>onclick</code>). Kedua, kamu kasih <em>fungsi</em> sebagai handler, bukan string. Ketiga, React pakai <em>Synthetic Events</em> — wrapper buatan React yang konsisten di semua browser 🌐</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Event Handlers — onClick, onChange, onSubmit</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+// onClick — klik tombol
+function TombolCetak() {
+  const [log, setLog] = useState([]);
+
+  const handleClick = () =&gt; {
+    setLog(prev =&gt; [...prev, `Klik terakhir: ${new Date().toLocaleTimeString('id-ID')}`]);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={handleClick}&gt;Cetak Log&lt;/button&gt;
+      {log.map((entry, i) =&gt; &lt;p key={i}&gt;{entry}&lt;/p&gt;)}
+    &lt;/div&gt;
+  );
+}
+
+// onChange — input berubah
+function Pencarian() {
+  const [query, setQuery] = useState('');
+
+  return (
+    &lt;div&gt;
+      &lt;input
+        type="text"
+        value={query}
+        onChange={(e) =&gt; setQuery(e.target.value)}
+        placeholder="Cari sesuatu..."
+      /&gt;
+      &lt;p&gt;Kamu mengetik: {query || '...'}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// onSubmit — form submission
+function FormLogin() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) =&gt; {
+    e.preventDefault(); // WAJIB! cegah page reload
+    setLoading(true);
+
+    // Simulasi API call
+    setTimeout(() =&gt; {
+      console.log('Login dengan:', email);
+      setLoading(false);
+    }, 1500);
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input
+        type="email"
+        value={email}
+        onChange={(e) =&gt; setEmail(e.target.value)}
+        placeholder="email@contoh.com"
+        required
+      /&gt;
+      &lt;button type="submit" disabled={loading}&gt;
+        {loading ? 'Memproses...' : 'Login'}
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Sintaks inline vs Handler Terpisah:</strong> Kamu bisa tulis handler langsung di JSX (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; setX(true)}</code>) atau pisahkan ke fungsi terpisah (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={handleClick}</code>). Untuk handler yang cuma 1 baris, inline itu oke. Tapi kalau logic-nya lebih dari 2 baris, PISAHKAN. Kode jadi rapi dan bisa di-test 👌</p>
+
+                    <p><strong class="text-ink">Synthetic Events:</strong> React membungkus event browser native dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">SyntheticEvent</code> — objek yang punya API sama persis dengan event native tapi konsisten di semua browser (Chrome, Firefox, Safari). Jadi kamu nggak perlu khawatir tentang perbedaan implementasi event antar browser 🎯</p>
+
+                    <p><strong class="text-ink">Event Object yang berguna:</strong> Setiap handler menerima objek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e</code> (event) yang berisi informasi penting: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target</code> (elemen yang trigger event), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target.value</code> (nilai input), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> (cegah default behavior), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.stopPropagation()</code> (hentikan event naik ke parent).</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jangan lupa preventDefault!:</strong> Kalau kamu punya form dan handler <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onSubmit</code>, SELALU panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> di baris pertama handler. Kalau nggak, browser bakal nge-reload halaman setiap kali form disubmit — dan semua state kamu hilang! Ini error paling sering buat pemula yang bikin form di React.</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">08</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">MINI PROJECT: KALKULATOR REACT 🧮</h2>
+                            <input type="checkbox" id="check-2-8" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Praktik &middot; 15 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Oke, teori udah cukup. Sekarang saatnya kita gabungkan semua yang udah dipelajari — <strong class="text-ink">JSX, props, state, event handling, dan styling</strong> — dalam satu mini project. Kita bikin kalkulator React sederhana yang bisa melakukan operasi matematika dasar. Seru kan? 🎉</p>
+
+                    <p><strong class="text-ink">Langkah 1: Layout</strong> — Pertama, kita bikin struktur UI kalkulator. Di sini kita pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">display</code> buat nampilin angka, dan grid tombol buat angka 0-9 plus operator (+, -, ×, ÷, =, C).</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step 1 — Layout Kalkulator</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+function Kalkulator() {
+  const [display, setDisplay] = useState('0');
+  const [previousValue, setPreviousValue] = useState(null);
+  const [operator, setOperator] = useState(null);
+  const [waitingForOperand, setWaitingForOperand] = useState(false);
+
+  // Tombol-tombol kalkulator
+  const buttons = [
+    { label: 'C', type: 'clear' },
+    { label: '±', type: 'negate' },
+    { label: '%', type: 'percent' },
+    { label: '÷', type: 'operator', value: '/' },
+    { label: '7', type: 'number' },
+    { label: '8', type: 'number' },
+    { label: '9', type: 'number' },
+    { label: '×', type: 'operator', value: '*' },
+    { label: '4', type: 'number' },
+    { label: '5', type: 'number' },
+    { label: '6', type: 'number' },
+    { label: '-', type: 'operator', value: '-' },
+    { label: '1', type: 'number' },
+    { label: '2', type: 'number' },
+    { label: '3', type: 'number' },
+    { label: '+', type: 'operator', value: '+' },
+    { label: '0', type: 'number' },
+    { label: '.', type: 'decimal' },
+    { label: '=', type: 'equals' },
+  ];
+
+  return (
+    &lt;div className="w-72 bg-gray-900 rounded-2xl p-4 shadow-lg"&gt;
+      {/* Display */}
+      &lt;div className="bg-gray-800 rounded-xl p-4 mb-4 text-right"&gt;
+        &lt;p className="text-4xl font-light text-white font-mono"&gt;
+          {display}
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      {/* Tombol-tombol */}
+      &lt;div className="grid grid-cols-4 gap-2"&gt;
+        {buttons.map((btn, i) =&gt; {
+          // Styling berdasarkan tipe tombol
+          let btnClass = "h-14 rounded-xl text-lg font-medium transition-colors ";
+
+          if (btn.type === 'operator') {
+            btnClass += "bg-amber-500 text-white hover:bg-amber-600";
+          } else if (btn.type === 'clear' || btn.type === 'negate' || btn.type === 'percent') {
+            btnClass += "bg-gray-700 text-white hover:bg-gray-600";
+          } else {
+            btnClass += "bg-gray-800 text-white hover:bg-gray-700";
+          }
+
+          return (
+            &lt;button
+              key={i}
+              className={btnClass}
+              onClick={() =&gt; handleButton(btn)}
+            &gt;
+              {btn.label}
+            &lt;/button&gt;
+          );
+        })}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Langkah 2: Logic</strong> — Sekarang kita implementasikan fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">handleButton()</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">calculate()</code> yang jadi otak kalkulator.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step 2 — Logic Kalkulator</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Tambahkan ini di dalam komponen Kalkulator (di atas return)
+
+const calculate = (a, b, op) =&gt; {
+  switch (op) {
+    case '+': return a + b;
+    case '-': return a - b;
+    case '*': return a * b;
+    case '/': return b !== 0 ? a / b : 'Error';
+    default: return b;
+  }
+};
+
+const handleButton = (btn) =&gt; {
+  switch (btn.type) {
+    case 'number':
+      if (waitingForOperand) {
+        setDisplay(btn.label);
+        setWaitingForOperand(false);
+      } else {
+        setDisplay(display === '0' ? btn.label : display + btn.label);
+      }
+      break;
+
+    case 'operator':
+      const current = parseFloat(display);
+      if (previousValue !== null &amp;&amp; !waitingForOperand) {
+        const result = calculate(previousValue, current, operator);
+        setDisplay(String(result));
+        setPreviousValue(result);
+      } else {
+        setPreviousValue(current);
+      }
+      setOperator(btn.value);
+      setWaitingForOperand(true);
+      break;
+
+    case 'equals':
+      if (previousValue !== null &amp;&amp; operator) {
+        const current = parseFloat(display);
+        const result = calculate(previousValue, current, operator);
+        setDisplay(String(result));
+        setPreviousValue(null);
+        setOperator(null);
+        setWaitingForOperand(true);
+      }
+      break;
+
+    case 'clear':
+      setDisplay('0');
+      setPreviousValue(null);
+      setOperator(null);
+      setWaitingForOperand(false);
+      break;
+
+    case 'decimal':
+      if (!display.includes('.')) {
+        setDisplay(display + '.');
+      }
+      break;
+
+    case 'negate':
+      setDisplay(String(parseFloat(display) * -1));
+      break;
+
+    case 'percent':
+      setDisplay(String(parseFloat(display) / 100));
+      break;
+  }
+};
+
+export default Kalkulator;</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Langkah 3: Challenge!</strong> Kalkulator dasar udah jadi. Sekarang coba extend sendiri sebagai latihan:</p>
+
+                    <ul class="list-disc list-inside space-y-2 text-[#333] ml-2">
+                        <li>✅ Tambahkan <strong class="text-ink">keyboard support</strong> — tekan angka/operator di keyboard langsung ke-input ke kalkulator</li>
+                        <li>✅ Tambahkan <strong class="text-ink">history</strong> — simpan 5 operasi terakhir dan tampilin di bawah kalkulator</li>
+                        <li>✅ Tambahkan <strong class="text-ink">animation</strong> — tombol scale-down pas ditekan, display fade-in pas angka berubah</li>
+                        <li>✅ Tambahkan <strong class="text-ink">scientific mode</strong> — sin, cos, tan, akar pangkat, dan memory (M+, M-, MR)</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Perhatikan pola di kalkulator ini — kita punya <strong>beberapa state terpisah</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">display</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">previousValue</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">operator</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitingForOperand</code>) yang bekerja bareng. Ini pola umum di React: kalau data-nya independen, simpan di state terpisah. Kalau data-nya saling terkait, gabung jadi satu objek state (kayak form di lesson sebelumnya). Pilih yang paling masuk akal!</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="summary">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -602,7 +1152,10 @@ function TombolStatus({ isActive }) {
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error 🚫</span></li>
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Kurung kurawal {} itu superpower</strong> — bisa masukin variabel, fungsi, ternary operator, sampe render array pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>. Tapi cuma expression ya, bukan statement!</span></li>
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">3 cara styling di React:</strong> inline styles (buat dynamic), CSS Modules (buat skala besar dan aman dari konflik), conditional class names (buat dinamis sederhana). Pilih sesuai kebutuhan!</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Fragment <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code></strong> itu lifesaver kalau kamu butuh return beberapa elemen tanpa nambahin div wrapper yang nggak perlu. Wrapper bayangan yang invisible!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Props = data one-way dari parent ke child.</strong> Read-only, support default values, dan children prop buat komposisi fleksibel. Jangan lupa destructure!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">State = data internal yang berubah.</strong> Pakai updater function buat chain update, derived state jangan disimpen terpisah, dan ingat bahwa setState itu async!</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Event handling:</strong> camelCase (onClick), kirim fungsi bukan string, selalu e.preventDefault() di form submit. Synthetic Events bikin cross-browser konsisten.</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project Kalkulator</strong> — menggabungkan JSX + state + events + styling dalam satu project nyata. Kalau udah sampai sini, kamu udah punya fondasi React yang solid!</span></li>
                 </ul>
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
                     <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
