@@ -166,6 +166,300 @@
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
+            
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">05</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">React.lazy + Suspense — Load Yang Penting Doang</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted">Bayangin lo lagi makan di restoran. Nggak mungkin lo pesen SEMUA menu sekaligus kan? Lo pesen yang mau dimakan sekarang. Kalau mau tambah, tinggal pesan lagi. <strong class="text-ink">React.lazy</strong> itu kayak gitu — load komponen cuma saat dibutuhkan, bukan sekali gus.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">React.lazy + Suspense Dasar</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">import { lazy, Suspense } from "react";
+
+// Lazy load komponen berat (misal: chart library 200KB)
+const HeavyChart = lazy(() =&gt; import("./HeavyChart"));
+const Dashboard = lazy(() =&gt; import("./pages/Dashboard"));
+const Settings = lazy(() =&gt; import("./pages/Settings"));
+
+function App() {
+  return (
+    &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+        &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/Suspense&gt;
+  );
+}
+
+// User buka "/" = cuma load Home (kecil!)
+// User klik "/dashboard" = baru load Dashboard chunk
+// Bundle awal jadi jauh lebih kecil = load cepat!</code></pre>
+                    </div>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Suspense dengan Custom Fallback + Error Boundary</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// Multiple Suspense boundaries
+function App() {
+  return (
+    &lt;Layout&gt;
+      &lt;Suspense fallback={&lt;HeaderSkeleton /&gt;}&gt;
+        &lt;Header /&gt;
+      &lt;/Suspense&gt;
+      &lt;Suspense fallback={&lt;ChartSkeleton /&gt;}&gt;
+        &lt;HeavyChart data={data} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/Layout&gt;
+  );
+}
+
+// Error Boundary untuk catch lazy load failure
+import { Component } from "react";
+
+class ChartErrorBoundary extends Component {
+  state = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return &lt;p&gt;Gagal load chart. &lt;button onClick={() =&gt; location.reload()}&gt;Retry&lt;/button&gt;&lt;/p&gt;;
+    }
+    return this.props.children;
+  }
+}
+
+// Pakai:
+&lt;ChartErrorBoundary&gt;
+  &lt;Suspense fallback={&lt;ChartSkeleton /&gt;}&gt;
+    &lt;HeavyChart /&gt;
+  &lt;/Suspense&gt;
+&lt;/ChartErrorBoundary&gt;</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Tanpa lazy loading, user download SEMUA code saat buka halaman pertama. Dengan lazy loading, user cuma download yang dia butuhin sekarang. Bundle awal dari 500KB bisa turun ke 80KB!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">06</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Bundle Analysis &amp; Image Optimization</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted">Lo nggak bisa optimize apa yang lo nggak tau. <strong class="text-ink">Bundle analysis</strong> itu kayak MRI — lo scan body loe, liat bagian mana yang bermasalah, baru tau cara ngobatinnya.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Analyze Bundle Size</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-bash"># Webpack Bundle Analyzer
+npm install --save-dev webpack-bundle-analyzer
+
+# Package.json:
+{
+  "scripts": {
+    "analyze": "ANALYZE=true next build"
+  }
+}
+
+# Next.js bundle analyzer (built-in!)
+npx @next/bundle-analyzer
+
+# Cek ukuran tiap dependency:
+npx bundlephobia moment lodash axios
+
+# Hasilnya: tree map yang nunjukin
+# - Library mana yang paling gede
+# - Code yang nggak dipake (dead code)
+# - Duplicate dependencies
+
+# Tips reduce bundle:
+# 1. moment.js -&gt; date-fns (lebih kecil 10x!)
+# 2. lodash -&gt; lodash-es + tree shaking
+# 3. Ganti icon library besar dengan individual SVG</code></pre>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">Image Optimization</strong> — gambar sering jadi 70%+ dari page weight!</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">next/image — Auto Optimize Gambar</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// Next.js Image: auto resize, compress, lazy load, WebP
+import Image from "next/image";
+
+// Next.js handle SEMUA:
+// - Resize ke ukuran yang tepat
+// - Convert ke WebP/AVIF (lebih kecil)
+// - Lazy load (load saat scroll ke sini)
+// - Prevent layout shift (blur placeholder)
+&lt;Image
+  src="/hero-photo.jpg"
+  alt="Hero"
+  width={1200}
+  height={630}
+  priority          // load langsung (untuk above-the-fold)
+  placeholder="blur" // blur saat loading
+/&gt;
+
+// Responsive: beda ukuran untuk beda device
+&lt;Image
+  src="/banner.jpg"
+  alt="Banner"
+  sizes="(max-width: 768px) 100vw, 50vw"
+  fill              // fill parent container
+/&gt;
+
+// Pure React (tanpa Next.js): pakai loading="lazy"
+&lt;img src="/photo.jpg" loading="lazy" /&gt;</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Foto 5MB dari kamera HP bisa jadi 200KB setelah optimization. next/image handle compress + resize + format conversion otomatis. User di mobile nggak perlu download foto 4K!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">07</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Server Components &amp; React Compiler</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted"><strong class="text-ink">Server Components</strong> itu revolusi. Bayangin komponen yang render di server, kirim HTML ke browser, <em>zero JavaScript</em> dikirim. Bundle jadi lebih kecil, loading jadi lebih cepat.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Server vs Client Components</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// Server Component (DEFAULT di App Router)
+// - Bisa akses database langsung
+// - Nggak kirim JS ke browser
+// - Nggak bisa pakai useState, onClick, dll
+
+// app/products/page.tsx
+export default async function ProductsPage() {
+  // Fetch langsung dari server (no API needed!)
+  const products = await db.product.findMany();
+
+  return (
+    &lt;div&gt;
+      {products.map(p =&gt; (
+        &lt;ProductCard key={p.id} {...p} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+
+// Client Component (kasih "use client")
+// - Bisa pakai hooks, event handlers
+// - JS dikirim ke browser
+"use client";
+import { useState } from "react";
+
+export default function AddToCart({ productId }: { productId: string }) {
+  const [added, setAdded] = useState(false);
+  return (
+    &lt;button onClick={() =&gt; setAdded(true)}&gt;
+      {added ? "Ditambahkan!" : "Add to Cart"}
+    &lt;/button&gt;
+  );
+}
+
+// Best practice: pisahkan!
+// Server Component untuk data &amp; layout
+// Client Component CUMA untuk interaktif parts</code></pre>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">React Compiler</strong> (baru!) — automatic memoization tanpa manual useMemo/useCallback!</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">React Compiler — Auto Optimization</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// SEBELUM React Compiler:
+// Lo harus manual optimize SEMUA
+function App() {
+  const [count, setCount] = useState(0);
+  const data = useMemo(() =&gt; expensiveCalc(count), [count]);
+  const handleClick = useCallback(() =&gt; {}, []);
+  return &lt;Child data={data} onClick={handleClick} /&gt;;
+}
+
+// DENGAN React Compiler (react-compiler-runtime):
+// Lo bik kode biasa, compiler auto-optimize
+function App() {
+  const [count, setCount] = useState(0);
+  const data = expensiveCalc(count);      // auto memoized!
+  const handleClick = () =&gt; {};            // auto memoized!
+  return &lt;Child data={data} onClick={handleClick} /&gt;;
+}
+
+// Setup (Next.js 15+):
+// next.config.js
+module.exports = {
+  experimental: {
+    reactCompiler: true,
+  },
+};
+
+// Catatan: React Compiler masih experimental (2025)
+// Tapi ini masa depan React — nggak perlu lagi
+// mikir "apa perlu di-memo?"</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Server Components = zero JS dikirim. React Compiler = auto-memoize tanpa kode manual. Dua-duanya bikin app lo cepat TANPA lo pusing mikirin optimization. Ini masa depan React!</p>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">Performance Checklist:</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Performance Audit Checklist</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-bash"># 1. Cek Lighthouse score (Chrome DevTools)
+#    Target: 90+ untuk Performance
+
+# 2. Analyze bundle size
+npx @next/bundle-analyzer
+
+# 3. Check Core Web Vitals:
+#    - LCP (Largest Contentful Paint) &lt; 2.5s
+#    - FID (First Input Delay) &lt; 100ms
+#    - CLS (Cumulative Layout Shift) &lt; 0.1
+
+# Checklist:
+[ ] React.memo untuk komponen yang sering re-render
+[ ] useMemo untuk kalkulasi mahal
+[ ] useCallback untuk event handlers di child components
+[ ] React.lazy untuk route-based code splitting
+[ ] next/image untuk semua gambar
+[ ] Suspense untuk lazy-loaded components
+[ ] Server Components untuk data fetching
+[ ] virtualization untuk list &gt; 100 items
+[ ] Bundle &lt; 200KB (gzip) untuk first load
+[ ] Lighthouse score &gt; 90</code></pre>
+                    </div>
+                </div>
+            </section>
+
+
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
                 <h3 class="text-xl font-bold text-ink mb-4">🧠 MEMO — STOP RE-RENDER YANG NGGAK PERLU</h3>
                 <p class="text-[#333] mb-3">Pernah ngalamin yang namanya ngetik di search bar, terus seluruh list di bawahnya re-render? Padahal cuma ngetik huruf "a"? <strong>Itu bikin app terasa lambat, bro.</strong></p>

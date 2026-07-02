@@ -166,6 +166,196 @@
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
+            
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">05</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Server Actions &amp; Form Handling Tanpa API</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted">Bayangin lo mau bikin form kontak. Dulu, lo harus bikin API route, handle POST request, parse body, save ke database... capek banget. Nah, <strong class="text-ink">Server Actions</strong> bikin itu semua jadi <em>satu function doang</em> yang jalan di server. Nggak perlu API route!</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Server Action — Form Kontak</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// app/actions/contact.ts
+"use server";
+
+import { revalidatePath } from "next/cache";
+
+export async function submitContact(formData: FormData) {
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const message = formData.get("message") as string;
+
+  // Validasi
+  if (!name || !email) {
+    return { error: "Nama dan email wajib diisi!" };
+  }
+
+  // Save ke database
+  await db.contact.create({ data: { name, email, message } });
+
+  // Revalidate cache
+  revalidatePath("/admin/contacts");
+  return { success: true };
+}</code></pre>
+                    </div>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Pakai Server Action di Form</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// app/contact/page.tsx
+import { submitContact } from "@/app/actions/contact";
+
+export default function ContactPage() {
+  return (
+    &lt;form action={submitContact}&gt;
+      &lt;input name="name" placeholder="Nama" /&gt;
+      &lt;input name="email" type="email" placeholder="Email" /&gt;
+      &lt;textarea name="message" placeholder="Pesan" /&gt;
+      &lt;button type="submit"&gt;Kirim&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+// Dengan loading state pakai useFormStatus:
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    &lt;button type="submit" disabled={pending}&gt;
+      {pending ? "Mengirim..." : "Kirim"}
+    &lt;/button&gt;
+  );
+}</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Server Actions = form handling tanpa bikin API route, tanpa fetch, tanpa JSON parse. Cukup bikin function dengan <code>"use server"</code> dan hubungkan ke form. Next.js urus sisanya!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">06</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Middleware, Caching &amp; Error UI</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted"><strong class="text-ink">Middleware</strong> itu kayak satpam di gerbang. Setiap request yang masuk lewati dia dulu sebelum sampe ke page. Bisa dipake buat auth check, redirect, rewrite URL, dan banyak lagi.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Middleware — Auth Protection</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// middleware.ts (di root folder)
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("token")?.value;
+
+  // Protected routes
+  if (request.nextUrl.pathname.startsWith("/dashboard")) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // Redirect kalau udah login tapi buka /login
+  if (request.nextUrl.pathname === "/login" &amp;&amp; token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/dashboard/:path*", "/login", "/admin/:path*"],
+};</code></pre>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">Error &amp; Loading UI</strong> — Next.js punya special files untuk handle ini:</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">error.tsx, loading.tsx, not-found.tsx</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// app/dashboard/loading.tsx
+export default function Loading() {
+  return &lt;div className="animate-pulse"&gt;Loading dashboard...&lt;/div&gt;;
+}
+
+// app/dashboard/error.tsx ("use client" WAJIB!)
+"use client";
+export default function Error({ error, reset }: {
+  error: Error; reset: () =&gt; void;
+}) {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Ada yang salah!&lt;/h2&gt;
+      &lt;p&gt;{error.message}&lt;/p&gt;
+      &lt;button onClick={reset}&gt;Coba lagi&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// app/not-found.tsx
+export default function NotFound() {
+  return &lt;h1&gt;404 - Halaman nggak ketemu&lt;/h1&gt;;
+}
+
+// app/blog/[slug]/page.tsx — generateStaticParams
+export async function generateStaticParams() {
+  const posts = await fetch("https://api.blog.com/posts").then(r =&gt; r.json());
+  return posts.map((post) =&gt; ({ slug: post.slug }));
+}
+// Sekarang semua blog post di-generate saat build time!</code></pre>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">Caching Strategies:</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Next.js Fetch Caching</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-tsx">// SSG: fetch sekali saat build (default)
+const data = await fetch("https://api.example.com/data");
+
+// SSR: fetch setiap request
+const data = await fetch("https://api.example.com/data", {
+  cache: "no-store",
+});
+
+// ISR: revalidate tiap 60 detik
+const data = await fetch("https://api.example.com/data", {
+  next: { revalidate: 60 },
+});
+
+// Tag-based: invalidate manual
+const data = await fetch("https://api.example.com/data", {
+  next: { tags: ["users"] },
+});
+// Di server action:
+import { revalidateTag } from "next/cache";
+revalidateTag("users"); // refresh semua fetch dengan tag "users"</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Middleware = satpam gerbang. Caching = memory React. generateStaticParams = pre-generate halaman saat build. Error/loading UI = safety net otomatis. Semuanya bekerja sama bikin app lo cepat dan robust!</p>
+                    </div>
+                </div>
+            </section>
+
+
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
     <div class="flex items-start gap-4 mb-6">
         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>

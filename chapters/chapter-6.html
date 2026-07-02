@@ -166,6 +166,207 @@
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
+            
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">06</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Type Narrowing — Ngedeteksi Tipe di Jalan</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted">Bayangin lo punya kotak misterius. Lo nggak tau isinya apa. Nah, <strong class="text-ink">Type Narrowing</strong> itu kayak ngecek isi kotak sebelum membukanya. TypeScript bantu kita tau isi kotaknya tanpa harus buka paksa.</p>
+                    <p class="text-sm text-muted">Kadang kita punya variable yang tipenya bisa <em>beberapa kemungkinan</em>. Misalnya function parameter bisa terima <code>string</code> atau <code>number</code>. Type narrowing itu cara TypeScript ngetahui tipe yang sebenarnya di titik tertentu dalam kode.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">typeof &amp; instanceof Narrowing</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">// typeof cuma untuk primitif: string, number, boolean
+function formatInput(input: string | number) {
+  if (typeof input === "string") {
+    return input.toUpperCase(); // TS tau: input pasti string
+  }
+  return input.toFixed(2); // TS tau: input pasti number
+}
+
+// instanceof untuk class
+class User { name: string; }
+class Admin { permissions: string[]; }
+
+function process(entity: User | Admin) {
+  if (entity instanceof User) {
+    console.log(entity.name);
+  } else {
+    console.log(entity.permissions);
+  }
+}</code></pre>
+                    </div>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">in operator &amp; Custom Type Guard</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">// in operator: cek property ada atau nggak
+type Fish = { swim: () =&gt; void };
+type Bird = { fly: () =&gt; void };
+
+function move(animal: Fish | Bird) {
+  if ("swim" in animal) {
+    animal.swim();
+  } else {
+    animal.fly();
+  }
+}
+
+// Custom Type Guard: bikin pengecek sendiri
+function isUser(obj: any): obj is { name: string; age: number } {
+  return obj &amp;&amp; typeof obj.name === "string";
+}
+
+function process(data: unknown) {
+  if (isUser(data)) {
+    console.log(data.name); // TS tau shape-nya!
+  }
+}</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Type narrowing itu kayak security check di bandara. Tiap pengecekan, TypeScript mastiin tipe sebelum ngasih akses ke property.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">07</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Discriminated Unions — Satu Nama, Banyak Wajah</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted">Pernah denger "Satu untuk semua"? <strong class="text-ink">Discriminated Unions</strong> itu konsep kayak gitu. Lo punya beberapa tipe berbeda, tapi semuanya punya <em>satu property yang sama</em> sebagai <strong>penanda (discriminator)</strong>. TypeScript pakai property ini untuk ngetahui tipe mana yang aktif.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Discriminated Union — API Response</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">type APIState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: User[] }
+  | { status: "error"; error: string };
+
+function renderUI(state: APIState) {
+  switch (state.status) {
+    case "idle":
+      return &lt;p&gt;Klik untuk mulai.&lt;/p&gt;;
+    case "loading":
+      return &lt;Spinner /&gt;;
+    case "success":
+      // TS tau: state.data ada, tipenya User[]
+      return state.data.map(u =&gt; &lt;li&gt;{u.name}&lt;/li&gt;);
+    case "error":
+      // TS tau: state.error ada, tipenya string
+      return &lt;p&gt;{state.error}&lt;/p&gt;;
+  }
+}
+
+// Akses state.data saat status="idle" = ERROR!
+// Property 'data' does not exist on type '{ status: "idle" }'</code></pre>
+                    </div>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Real-World: useReducer dengan Discriminated Unions</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">type FetchAction&lt;T&gt; =
+  | { type: "fetch" }
+  | { type: "success"; payload: T }
+  | { type: "error"; payload: string };
+
+function reducer&lt;T&gt;(state, action: FetchAction&lt;T&gt;) {
+  switch (action.type) {
+    case "fetch":
+      return { status: "loading" };
+    case "success":
+      return { status: "success", data: action.payload };
+    case "error":
+      return { status: "error", error: action.payload };
+  }
+}
+
+// Aman! TS mastiin payload tipenya benar
+dispatch({ type: "success", payload: { id: 1, name: "Arif" } });</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Discriminated unions sakti banget untuk: state management (idle/loading/success/error), API responses, form handling. Setelah lo pakai, nggak akan balik ke &lt;code&gt;any&lt;/code&gt; lagi!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">08</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">satisfies Operator &amp; Migrasi JS ke TS</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p class="text-sm text-muted"><strong class="text-ink">satisfies</strong> itu kayak quality check. Lo bik sesuatu, terus bilang ke TypeScript: "Tolong cek ya, apakah ini cocok sama tipe yang kuinginkan?". Bedanya sama &lt;code&gt;as&lt;/code&gt;, &lt;code&gt;satisfies&lt;/code&gt; nggak mengubah tipe aslinya.</p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">satisfies — Konfigurasi Type-Safe</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-typescript">// satisfies verifikasi tapi tetep ingat tipe asli
+const config = {
+  darkMode: true,
+  apiUrl: "https://api.example.com",
+  timeout: 5000,
+} satisfies Record&lt;string, string | number | boolean&gt;;
+
+config.darkMode;   // TS tau: boolean (spesifik!)
+config.apiUrl;     // TS tau: string (spesifik!)
+config.timeout;    // TS tau: number (spesifik!)
+
+// Kalau pakai Record doang: darkMode jadi string|number|boolean (terlalu lebar)</code></pre>
+                    </div>
+                    <p class="text-sm text-muted"><strong class="text-ink">Migrasi JS ke TS bertahap:</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step-by-step Migrasi</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-bash"># Step 1: Install TypeScript
+npm install --save-dev typescript @types/react @types/node
+
+# Step 2: Bikin tsconfig dengan allowJs
+npx tsc --init --allowJs --jsx react-jsx
+
+# Step 3: Rename file satu per satu
+mv src/App.jsx src/App.tsx
+
+# Step 4: Tambah types bertahap
+# Mulai dengan any, lalu perlahan ganti proper types
+
+# Step 5: Nyalakan strict mode bertahap
+# tsconfig.json:
+# { "strict": false }        // tahap 1
+# { "strict": true }          // tahap akhir</code></pre>
+                    </div>
+                    <div class="tip-box rounded-xl p-4 mt-4">
+                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Urutan migrasi yang aman: 1) Setup tooling. 2) Convert util/helper dulu. 3) Convert leaf components. 4) Convert pages. 5) Nyalakan strict mode bertahap.</p>
+                    </div>
+                </div>
+            </section>
+
+
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
     <div class="flex items-start gap-4 mb-6">
         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
