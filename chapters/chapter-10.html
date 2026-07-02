@@ -482,6 +482,268 @@ export function Dashboard({ data }: { data: RowData[] }) {
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend dashboard: (1) Tambahkan web-vitals monitoring yang report ke console, (2) Implement infinite scroll dengan virtualized list, (3) Tambahkan dark mode toggle dengan Context, (4) Implement prefetching buat next page data.</p></div></div></section>
 
+<!-- LESSON 9 — KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA PERFORMANCE YANG PALING SERING 🚨</h2><input type="checkbox" id="check-10-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Enam kesalahan yang paling sering muncul di code review — pola: kode salah → kenapa → kode benar</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ironi terbesar di dunia performance React: <strong class="text-ink">lebih banyak app yang jadi lambat GARA-GARA usaha optimasi</strong> daripada karena kurang optimasi. Enam kesalahan di bawah ini muncul terus-menerus di code review — dan hampir semuanya lahir dari niat baik yang salah arah. Baca pelan-pelan, karena tiap poin di sini bakal nyelametin lo dari bug yang susah dilacak. 😤</p>
+<p><strong class="text-ink">1. Memoize semuanya (premature optimization).</strong> <em>Salah:</em> bungkus SETIAP komponen pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> dan SETIAP nilai pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code> "biar aman". <em>Kenapa salah:</em> memo itu bukan gratis — React harus menyimpan hasil lama + array deps di memory, lalu membandingkan props/deps tiap render. Buat komponen murah (cuma render teks) atau kalkulasi murah (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">a + b</code>), ongkos perbandingannya lebih besar dari yang dihemat. <em>Benar:</em> tulis kode paling sederhana dulu; tambahkan memo cuma setelah Profiler nunjukin komponen itu beneran mahal.</p>
+<p><strong class="text-ink">2. Object / function inline yang bikin memo percuma.</strong> <em>Salah:</em> lo bungkus child pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>, tapi ngasih prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style={{ margin: 8 }}</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; ...}</code> yang dibikin inline. <em>Kenapa salah:</em> object dan function literal itu <strong class="text-ink">referensi baru tiap render</strong>. Shallow comparison React.memo lihat "prop berubah" → child tetap re-render. Memo-nya jadi hiasan doang. <em>Benar:</em> angkat object ke konstanta di luar komponen, atau stabilkan pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCallback</code>.</p>
+<p><strong class="text-ink">3. Dependency array useMemo yang salah.</strong> <em>Salah:</em> lupa masukin salah satu variabel yang dipakai di dalam useMemo (atau sengaja dikosongin biar "nggak jalan lagi"). <em>Kenapa salah:</em> hasilnya jadi <strong class="text-ink">stale (basi)</strong> — variabel berubah tapi memo nahan nilai lama, jadi UI nunjukin data usang. Kebalikannya juga bahaya: masukin object inline ke deps bikin deps selalu berubah → memo nggak pernah nge-cache apa pun. <em>Benar:</em> deps harus berisi SEMUA nilai reaktif yang dibaca di dalam callback — nggak lebih, nggak kurang. Pasang plugin ESLint <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-hooks/exhaustive-deps</code> biar ketauan otomatis.</p>
+<p><strong class="text-ink">4. Optimasi tanpa mengukur.</strong> <em>Salah:</em> nebak "pasti komponen X yang lambat" lalu langsung nambahin memo di mana-mana. <em>Kenapa salah:</em> intuisi soal performance <strong class="text-ink">hampir selalu meleset</strong>. Sering bottleneck-nya bukan di render React sama sekali — tapi di image 4MB, request API yang lambat, atau layout thrashing. Optimasi buta bikin kode berantakan tanpa perbaikan nyata. <em>Benar:</em> ukur dulu pakai React DevTools Profiler + Lighthouse, temukan angka yang jelek, baru sentuh kode itu.</p>
+<p><strong class="text-ink">5. List raksasa tanpa virtualization.</strong> <em>Salah:</em> render 5.000 baris tabel sekaligus, lalu nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> di tiap baris "biar cepat". <em>Kenapa salah:</em> masalahnya bukan re-render — tapi 5.000 DOM node yang harus dibuat, di-layout, dan di-paint browser. Memo nggak menyelesaikan itu. <em>Benar:</em> pakai virtualization (TanStack Virtual / react-window) supaya cuma ~20-30 baris yang terlihat yang benar-benar ada di DOM.</p>
+<p><strong class="text-ink">6. Kerja berat langsung di body render + key churn.</strong> <em>Salah:</em> jalanin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.sort()</code> / parsing / kalkulasi berat langsung di body komponen, DAN pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={index}</code> di list yang bisa berubah urutan. <em>Kenapa salah:</em> body komponen jalan TIAP render, jadi kerja berat itu diulang terus. Dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={index}</code> bikin React salah mencocokkan elemen saat list disisip/diurut ulang — state & DOM bisa "nyangkut" di item yang salah (ini disebut <em>key churn</em>). <em>Benar:</em> pindahkan kalkulasi berat ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>, dan pakai key ID yang stabil & unik (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={item.id}</code>).</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — inline prop bikin React.memo percuma</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const Row = React.memo(function Row({ user, style, onSelect }) {
+  return &lt;div style={style} onClick={onSelect}&gt;{user.name}&lt;/div&gt;;
+});
+
+// ❌ SALAH — style & onSelect referensi BARU tiap render → memo sia-sia
+function List({ users }) {
+  return users.map(u =&gt; (
+    &lt;Row key={u.id} user={u}
+      style={{ padding: 8 }}                 // object baru tiap render
+      onSelect={() =&gt; console.log(u.id)} /&gt;  // function baru tiap render
+  ));
+}
+
+// ✅ BENAR — referensi stabil, memo baru beneran bekerja
+const rowStyle = { padding: 8 };            // konstanta di luar komponen
+function List({ users }) {
+  const handleSelect = React.useCallback((id) =&gt; console.log(id), []);
+  return users.map(u =&gt; (
+    &lt;Row key={u.id} user={u} style={rowStyle}
+      onSelect={() =&gt; handleSelect(u.id)} /&gt;
+  ));
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #6 — key=index bikin state nyangkut di item salah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — key pakai index; hapus item ke-0, checkbox "nyangkut" di baris salah
+{todos.map((todo, index) =&gt; (
+  &lt;TodoItem key={index} todo={todo} /&gt;
+))}
+
+// ✅ BENAR — key ID stabil; React cocokin elemen ke data yang benar
+{todos.map((todo) =&gt; (
+  &lt;TodoItem key={todo.id} todo={todo} /&gt;
+))}</code></pre></div></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Kalau lo cuma boleh ingat satu kalimat dari bab ini, ingat ini: <strong class="text-ink">memoization itu obat, bukan vitamin.</strong> Obat diminum saat sakit (setelah Profiler nunjukin masalah), bukan tiap hari "biar sehat". Menaburkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">memo</code> di mana-mana bikin kode susah dibaca DAN sering nggak ngefek karena prop-nya inline.</p></div>
+</section>
+
+<!-- LESSON 10 — LEVEL SENIOR: MEASURE BEFORE YOU OPTIMIZE -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: MEASURE BEFORE YOU OPTIMIZE — KAPAN MEMO MALAH BIKIN LAMBAT 🔬</h2><input type="checkbox" id="check-10-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 15 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Junior nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> karena "kayaknya bakal lambat". Senior nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> karena <strong class="text-ink">Profiler nunjukin komponen itu render 8ms dan dipanggil 200 kali</strong>. Bedanya satu kata: <em>data</em>. Lesson ini soal mindset senior — mengukur dulu, dan tahu kapan optimasi malah jadi beban. 🎯</p>
+<p><strong class="text-ink">React DevTools Profiler.</strong> Ini alat utamamu. Buka tab Profiler → klik Record → interaksi dengan app → Stop. Lo dapat <em>flamegraph</em>: tiap batang = satu komponen, lebarnya = lama render-nya. Klik komponen → panel "Why did this render?" ngasih tau persis apa yang memicu render (props berubah? hook? parent?). Aktifkan setting "Highlight updates when components render" biar lo LIHAT komponen mana yang berkedip tiap interaksi — kalau ada yang berkedip padahal datanya nggak berubah, itu kandidat optimasi. Oh ternyata gitu! 🤯</p>
+<p><strong class="text-ink">Mengukur ongkos render.</strong> Angka yang penting bukan "berapa kali render", tapi "berapa lama TOTAL render itu makan waktu". Komponen yang render 1ms tapi 500 kali (500ms) jauh lebih penting dioptimasi daripada komponen yang render 3ms tapi cuma sekali. Prioritaskan berdasarkan <em>total time</em>, bukan frekuensi. Fokus di top offenders di "Ranked chart" — impact terbesar dengan effort terkecil.</p>
+<p><strong class="text-ink">Kapan React.memo / useMemo malah bikin LAMBAT.</strong> Ini bagian yang jarang diajarin. Memo punya dua ongkos tetap: (1) menyimpan hasil lama + array deps di memory, dan (2) membandingkan props/deps tiap render. Memo cuma menguntungkan kalau <em>ongkos render yang dihindari &gt; ongkos perbandingan</em>. Dua situasi di mana memo justru rugi:</p>
+<p>&bull; <strong class="text-ink">Komponen murah.</strong> Kalau komponen cuma render sepotong teks, render-nya mungkin 0.05ms. Membandingkan props bisa makan waktu setara atau lebih. Lo membayar ongkos perbandingan untuk menghindari kerja yang nyaris gratis — net loss.</p>
+<p>&bull; <strong class="text-ink">Props yang hampir selalu berubah.</strong> Kalau komponen menerima prop yang berubah tiap render (misal nilai yang di-derive dari state yang sering update), React.memo <strong class="text-ink">selalu</strong> gagal perbandingan lalu tetap re-render — jadi lo cuma nambah ongkos perbandingan di atas render yang tetap terjadi. Murni pemborosan.</p>
+<p><strong class="text-ink">Mental model: perbaiki penyebab, bukan gejala.</strong> Kalau komponen re-render terlalu sering, jangan langsung tambal pakai memo. Tanya dulu: <em>kenapa</em> dia re-render? Sering jawabannya adalah masalah struktur yang lebih dalam — state ditaruh terlalu tinggi di tree (angkat ke bawah / colocate), context yang terlalu gemuk (pecah jadi beberapa context), atau parent yang bikin object inline. Memperbaiki penyebab (misal memindahkan state lebih dekat ke tempat pakainya) sering menghapus kebutuhan memo sama sekali. Memo itu solusi terakhir, bukan pertama.</p>
+<p><strong class="text-ink">Kemenangan yang realistis.</strong> Di dunia nyata, perbaikan performa terbesar hampir nggak pernah datang dari React.memo. Urutan impact dari yang paling besar: (1) <strong class="text-ink">virtualize</strong> list panjang — bisa 100x; (2) <strong class="text-ink">code-split</strong> route & library berat — potong bundle awal separuh; (3) <strong class="text-ink">optimasi image</strong> — sering ini penyebab #1 LCP jelek; (4) <strong class="text-ink">defer</strong> kerja non-urgent pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDeferredValue</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useTransition</code>. React.memo/useMemo ada di urutan buncit — berguna, tapi cuma setelah semua di atas beres dan Profiler nunjukin komponen spesifik yang mahal. 🔥</p>
+</div>
+
+<div class="mt-6">
+<p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">🎮 Playground 1 — LIHAT SENDIRI React.memo.</strong> Klik "Re-render parent" beberapa kali. Perhatikan angka render: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">PlainChild</code> naik terus tiap klik (padahal prop-nya nggak berubah!), sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">MemoChild</code> diam di 1. Coba hapus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo(...)</code> dari MemoChild, klik Jalankan — sekarang dua-duanya naik.</p>
+<script type="text/plain" id="pg-10-1">// React.memo — LIHAT bedanya lewat penghitung render di layar.
+// plainRenders & memoRenders di module-level, jadi angkanya BERTAHAN antar render.
+let plainRenders = 0;
+let memoRenders = 0;
+
+function PlainChild({ label }) {
+  plainRenders += 1; // naik tiap kali fungsi ini dipanggil React
+  return (
+    <div style={{ padding: 10, background: '#FEF2F2', borderRadius: 8, marginBottom: 8 }}>
+      PlainChild (TANPA memo) — sudah render <b>{plainRenders}x</b> · prop label = "{label}"
+    </div>
+  );
+}
+
+const MemoChild = React.memo(function MemoChild({ label }) {
+  memoRenders += 1;
+  return (
+    <div style={{ padding: 10, background: '#F0FDF4', borderRadius: 8 }}>
+      MemoChild (React.memo) — sudah render <b>{memoRenders}x</b> · prop label = "{label}"
+    </div>
+  );
+});
+
+function App() {
+  const [tick, setTick] = React.useState(0);
+  // Prop `label` yang dikirim ke anak SELALU sama ("halo") — jadi anak
+  // sebenarnya nggak perlu render ulang. Tapi cuma MemoChild yang tahu itu.
+  return (
+    <div>
+      <p>Parent sudah re-render <b>{tick}x</b>. Klik tombol → parent render lagi.</p>
+      <button onClick={() => setTick(t => t + 1)}>Re-render parent</button>
+      <div style={{ marginTop: 12 }}>
+        <PlainChild label="halo" />
+        <MemoChild label="halo" />
+      </div>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-10-1"></div>
+</div>
+
+<div class="mt-6">
+<p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">🎮 Playground 2 — useMemo & dependency.</strong> Angka "kalkulasi berat sudah jalan" cuma naik saat lo klik <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">num + 1</code> — karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">num</code> ada di dependency array. Klik "Toggle theme" sepuluh kali: angkanya <strong class="text-ink">nggak naik</strong>, karena useMemo pakai hasil cache. Coba ganti baris useMemo jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">slowSquare(num)</code> biasa → sekarang toggle theme pun ikut menjalankan kalkulasi.</p>
+<script type="text/plain" id="pg-10-2">// useMemo — kalkulasi mahal cuma jalan saat dependency-nya berubah.
+let calcRuns = 0;
+
+function slowSquare(n) {
+  calcRuns += 1;              // catat: kalkulasi ini beneran dieksekusi
+  let waste = 0;
+  for (let i = 0; i < 500000; i++) waste += 1; // pura-pura berat
+  return n * n;
+}
+
+function App() {
+  const [num, setNum] = React.useState(2);
+  const [theme, setTheme] = React.useState('light');
+
+  // useMemo: slowSquare cuma jalan lagi kalau `num` berubah.
+  // COBA ganti ke:  const squared = slowSquare(num);
+  // → sekarang toggle theme pun memicu kalkulasi (calcRuns ikut naik).
+  const squared = React.useMemo(() => slowSquare(num), [num]);
+
+  return (
+    <div>
+      <p style={{ fontSize: 18 }}>{num}² = <b>{squared}</b></p>
+      <p>Kalkulasi berat sudah dijalankan: <b>{calcRuns}x</b></p>
+      <p style={{ color: '#666', fontSize: 13 }}>Theme sekarang: {theme}</p>
+      <button onClick={() => setNum(n => n + 1)}>num + 1 (harus re-calc)</button>{' '}
+      <button onClick={() => setTheme(t => (t === 'light' ? 'dark' : 'light'))}>
+        Toggle theme (TIDAK memicu re-calc)
+      </button>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-10-2"></div>
+</div>
+
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Trik dua counter di atas (module-level <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">let</code> yang naik tiap fungsi render dipanggil) adalah cara paling cepat "mengukur" render tanpa buka DevTools. Di kode produksi lo nggak nulis ini — lo pakai Profiler. Tapi buat MEMAHAMI kapan sebuah komponen render, menaruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.count('NamaKomponen')</code> di body-nya adalah eksperimen 10 detik yang mengajarkan lebih banyak daripada satu jam baca teori.</p></div>
+</section>
+
+<!-- CHALLENGE ch-10-1 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="challenge-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm">🎯</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">CHALLENGE — CEGAH RE-RENDER YANG SIA-SIA 🛠️</h2><p class="text-sm text-muted mt-1">Optimalkan komponen sampai semua test lulus. Starter-nya sengaja gagal.</p></div></div>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> nampilin prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code> yang <strong class="text-ink">nggak pernah berubah</strong>. Tapi tiap kali tombol "Lain" diklik (yang cuma nambah state nggak berhubungan), Badge ikut re-render — kelihatan dari atribut <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-renders</code> yang terus naik. Tugas lo: bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> supaya dia skip re-render yang sia-sia. Klik <strong class="text-ink">▶ Test</strong> — starter pasti gagal di test terakhir.</p>
+<script type="text/plain" id="ch-10-1">// 🎯 Badge nampilin text yang NGGAK berubah, tapi ikut re-render tiap
+// tombol "Lain" diklik. Bungkus Badge dengan React.memo biar dia diam.
+// Atribut data-renders di Badge harus tetap "1" setelah klik "Lain".
+let badgeRenders = 0;
+
+// TODO: bungkus komponen ini dengan React.memo(...)
+function Badge({ text }) {
+  badgeRenders += 1;
+  return (
+    <span data-testid="badge" data-renders={badgeRenders}
+      style={{ padding: '4px 8px', background: '#EEF', borderRadius: 6 }}>
+      {text}
+    </span>
+  );
+}
+
+function App() {
+  const [other, setOther] = React.useState(0);
+  return (
+    <div>
+      <p><Badge text="STATUS: OK" /></p>
+      <p>State lain (nggak berhubungan): {other}</p>
+      <button data-act="lain" onClick={() => setOther(o => o + 1)}>Lain +1</button>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-10-1-test">var root = document.getElementById('root');
+function badge() { return root.querySelector('[data-testid="badge"]'); }
+function clickLain() {
+  var b = root.querySelector('button[data-act="lain"]');
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Badge ada di layar', badge() !== null);
+expect('Badge nampilin teks yang benar', !!badge() && badge().textContent.indexOf('STATUS: OK') !== -1);
+expect('Render awal Badge = 1', !!badge() && badge().getAttribute('data-renders') === '1');
+clickLain(); clickLain(); clickLain();
+expect('Badge TIDAK ikut re-render pas state lain berubah (butuh React.memo)', !!badge() && badge().getAttribute('data-renders') === '1');</script>
+<!-- SOLUSI ch-10-1 (untuk maintainer — semua test lulus dengan ini):
+       const Badge = React.memo(function Badge({ text }) { ...isi sama... });
+     Starter gagal di test terakhir karena Badge tanpa memo ikut render tiap
+     App re-render → data-renders jadi "4" (bukan "1") setelah 3x klik. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-10-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Cukup bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>. Karena prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code> ("STATUS: OK") nggak pernah berubah, shallow comparison React.memo selalu lulus → Badge skip re-render → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-renders</code> tetap "1".</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const Badge = React.memo(function Badge({ text }) {
+  badgeRenders += 1;
+  return (
+    &lt;span data-testid="badge" data-renders={badgeRenders}
+      style={{ padding: '4px 8px', background: '#EEF', borderRadius: 6 }}&gt;
+      {text}
+    &lt;/span&gt;
+  );
+});</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3">Catatan senior: ini bekerja karena prop-nya stabil. Kalau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code>-nya justru berubah tiap render, React.memo malah cuma nambah ongkos perbandingan — persis kasus "memo bikin lambat" di Lesson 10.</p>
+  </div>
+</details>
+</section>
+
+<!-- LATIHAN -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="latihan-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">✏️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">LATIHAN — ASAH INSTING PERFORMANCE 🧪</h2><p class="text-sm text-muted mt-1">Kerjain di kepala dulu, baru buka solusinya</p></div></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Kenapa memo ini nggak ngefek?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Seorang teman bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Chart data={{ points: rows }} /&gt;</code> dan Chart-nya udah pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>. Tapi Chart tetap re-render tiap parent render. Kenapa, dan gimana benerinnya?</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> Prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data</code> diisi object literal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{{ points: rows }}</code> yang dibuat inline — referensi baru tiap render, jadi shallow compare React.memo selalu gagal. Perbaiki dengan menstabilkan object-nya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const data = useMemo(() =&gt; ({ points: rows }), [rows]);</code> lalu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Chart data={data} /&gt;</code>. Atau lebih baik: kirim <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rows</code> langsung sebagai prop biasa tanpa membungkusnya dalam object.</p>
+  </div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: memo atau bukan?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Untuk masing-masing komponen, putuskan React.memo layak atau malah rugi: (a) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Avatar url={user.avatar} /&gt;</code> yang cuma render satu img; (b) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;DataGrid rows={rows} /&gt;</code> yang render ribuan sel dan sering di-re-render parent dengan rows yang sama; (c) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Clock now={Date.now()} /&gt;</code> yang prop-nya berubah tiap render.</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> (a) <em>Rugi/netral</em> — render-nya murah, ongkos perbandingan setara dengan yang dihemat. Lewati. (b) <em>Layak banget</em> — render mahal (ribuan sel) tapi rows sering sama; memo mencegah re-render besar. Ini kandidat memo ideal. (c) <em>Rugi</em> — prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">now</code> berubah tiap render, jadi memo SELALU gagal perbandingan lalu tetap render — cuma nambah ongkos. Aturan main: memo layak saat <strong class="text-ink">render mahal</strong> DAN <strong class="text-ink">props sering stabil</strong>.</p>
+  </div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Diagnosa scroll yang nge-lag</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Halaman menampilkan 8.000 komentar dalam satu list. Scroll-nya patah-patah. Seorang junior mengusulkan membungkus tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Comment /&gt;</code> dengan React.memo. Apakah itu akan menyelesaikan masalah? Apa solusi yang benar, dan bagaimana urutan langkah senior-nya?</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> React.memo <strong class="text-ink">tidak</strong> menyelesaikan ini. Masalahnya bukan re-render — melainkan 8.000 DOM node yang harus dibuat, di-layout, dan di-paint browser sekaligus. Memo cuma mencegah render ulang komponen React, bukan mengurangi jumlah node di DOM. Langkah senior: (1) buka Profiler + Performance tab untuk konfirmasi bottleneck ada di layout/paint, bukan di JS; (2) terapkan <strong class="text-ink">virtualization</strong> (TanStack Virtual / react-window) supaya cuma ~20-30 komentar yang terlihat yang benar-benar dirender; (3) baru ukur ulang. Hasilnya bisa beda 100x — tanpa satu pun React.memo.</p>
+  </div>
+</details>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA TAJAM INSTING PERFORMANCE LO? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-10">
+[
+  {"q": "React.memo membandingkan props lama dan baru pakai cara apa?", "options": ["Deep comparison rekursif ke seluruh isi object", "Shallow comparison — bandingkan tiap prop dengan === (Object.is)", "JSON.stringify lalu dibandingkan string-nya", "Tidak membandingkan apa pun, selalu skip render"], "answer": 1, "explain": "React.memo pakai <em>shallow comparison</em>: tiap prop dibandingkan dengan <code>Object.is</code> (mirip <code>===</code>). Itu sebabnya object/array literal inline (referensi baru tiap render) selalu dianggap 'berubah' walau isinya sama."},
+  {"q": "Kamu membungkus child dengan React.memo tapi tetap ngasih prop style yang ditulis inline sebagai object literal. Apa akibatnya?", "options": ["Child jadi lebih cepat karena style di-cache", "React otomatis membekukan object-nya", "Memo jadi percuma — object literal itu referensi baru tiap render, jadi shallow compare selalu menganggapnya berubah dan child tetap re-render", "Terjadi error karena memo tidak menerima object"], "answer": 2, "explain": "Object literal <code>{ }</code> menghasilkan referensi baru di setiap render. Shallow compare React.memo melihat prop 'berubah' → child tetap render. Perbaiki dengan mengangkat object ke konstanta di luar komponen atau menstabilkannya dengan useMemo."},
+  {"q": "Sebelum menambahkan memoization ke komponen yang terasa lambat, langkah PERTAMA yang benar adalah?", "options": ["Ukur dulu dengan React DevTools Profiler untuk memastikan komponen mana yang benar-benar mahal", "Langsung bungkus semua komponen dengan React.memo biar aman", "Ganti semua useState jadi useRef supaya tidak re-render", "Pindahkan semua komponen ke Server Component"], "answer": 0, "explain": "Optimasi tanpa mengukur itu menembak dalam gelap. Intuisi soal performance hampir selalu meleset — sering bottleneck-nya bukan di render React sama sekali. Profiler dulu, temukan angka jelek, baru optimasi bagian itu."},
+  {"q": "Dalam situasi mana React.memo justru bisa membuat komponen lebih LAMBAT?", "options": ["Tidak pernah, React.memo selalu menguntungkan", "Hanya saat komponennya sangat besar", "Saat props-nya tidak pernah berubah sama sekali", "Saat komponennya murah untuk dirender dan/atau props-nya hampir selalu berubah, sehingga ongkos perbandingan lebih besar dari yang dihemat"], "answer": 3, "explain": "Memo punya ongkos tetap: menyimpan hasil lama + membandingkan props tiap render. Untuk komponen murah, ongkos perbandingan setara/lebih besar dari render-nya. Untuk props yang selalu berubah, perbandingan selalu gagal lalu render tetap terjadi — murni pemborosan."},
+  {"q": "Kamu menulis useMemo tapi lupa memasukkan salah satu variabel yang dibaca ke dalam dependency array. Apa risikonya?", "options": ["Selalu re-compute di setiap render", "Nilai basi (stale) — memo menahan hasil lama dan tidak re-compute saat variabel yang hilang itu berubah", "Error saat build", "Pasti terjadi memory leak"], "answer": 1, "explain": "Dependency array harus berisi SEMUA nilai reaktif yang dibaca di dalam callback. Kalau ada yang hilang, useMemo tidak tahu harus re-compute saat variabel itu berubah → UI menampilkan nilai usang. Plugin eslint exhaustive-deps menangkap bug ini otomatis."},
+  {"q": "Sebuah list berisi 10.000 baris membuat scroll patah-patah. Solusi paling tepat adalah?", "options": ["Bungkus setiap baris dengan React.memo", "Pindahkan list ke useRef supaya tidak re-render", "Virtualization — cuma render baris yang terlihat di viewport (plus sedikit buffer)", "Tambahkan useCallback di setiap handler baris"], "answer": 2, "explain": "Masalahnya bukan re-render React, melainkan 10.000 DOM node yang harus dibuat, di-layout, dan di-paint browser. React.memo tidak mengurangi jumlah node. Virtualization (TanStack Virtual / react-window) cuma merender ~20-30 baris yang terlihat — bisa 100x lebih cepat."},
+  {"q": "useCallback paling berguna terutama dalam situasi apa?", "options": ["Saat function-nya dikirim sebagai prop ke child yang dibungkus React.memo dan kamu butuh referensi function yang stabil", "Di setiap function yang ada di dalam komponen, tanpa kecuali", "Saat function-nya cuma dipanggil di dalam komponen itu sendiri", "Saat kamu ingin isi function-nya dieksekusi lebih cepat"], "answer": 0, "explain": "useCallback menjaga referensi function tetap stabil antar render. Ini penting saat function dikirim ke child ber-React.memo — tanpa itu, function baru tiap render bikin memo child gagal. Kalau function cuma dipakai lokal, useCallback biasanya cuma menambah kerumitan tanpa manfaat."},
+  {"q": "Kamu memakai index array sebagai key pada list yang bisa disisipi atau diurutkan ulang. Apa konsekuensinya?", "options": ["Performa meningkat karena index lebih ringan", "Tidak ada efek apa pun, key hanya untuk React internal", "Key otomatis menjadi unik dan aman", "Bug: React salah mencocokkan elemen sehingga state atau DOM bisa nyangkut di item yang salah (key churn)"], "answer": 3, "explain": "Key dipakai React untuk mencocokkan elemen antar render. Kalau pakai index lalu urutan berubah, elemen di posisi yang sama dianggap 'sama' padahal datanya beda → state input, fokus, atau animasi nyangkut di item salah. Pakai ID stabil dan unik: key={item.id}."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-10"></div>
+</section>
+
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
 <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -522,5 +784,7 @@ Tandai Bab Selesai ✅
     </button>
 
     <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>
