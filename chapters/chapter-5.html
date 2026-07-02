@@ -166,400 +166,894 @@
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">HOC (Higher-Order Components)</h2><input type="checkbox" id="check-5-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Pattern Lanjutan &middot; 7 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Higher-Order Component (HOC)</strong> adalah pattern di mana sebuah fungsi menerima komponen sebagai argumen dan mengembalikan komponen baru yang telah ditingkatkan dengan fungsionalitas tambahan. HOC bukan komponen &mdash; ia adalah pola arsitektural untuk memisahkan logika reusable.</p>
-        <p>HOC sangat berguna untuk <strong class="text-ink">cross-cutting concerns</strong> seperti autentikasi, logging, analytics, atau pemuatan data. Alih-alih menulis logika yang sama berulang-ulang, kamu membungkusnya sekali dalam HOC.</p>
-        <p>Kelemahan HOC: bisa menyebabkan <em>wrapping hell</em>, debugging sulit, dan props collision. Di era Hooks, banyak kasus HOC bisa digantikan dengan Custom Hooks.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">HOC &mdash; withAuth &amp; withLogger</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">// HOC: withAuth &mdash; melindungi komponen
+<!-- LESSON 1: HOC -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">HOC — HIGHER-ORDER COMPONENTS 🧥</h2><input type="checkbox" id="check-5-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Pattern Dasar &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pernah denger istilah <strong class="text-ink">Higher-Order Component</strong> (HOC)? Namanya kedengeran intelektual banget, tapi konsepnya sebenarnya super simpel. Bayangin kamu punya jas hujan — kamu bisa pakai jas itu ke mana aja, di atas baju apa aja. Jas hujannya nambahin fungsi (anti air, hangat) tanpa ngubah baju kamu. Nah, <strong class="text-ink">HOC itu jas hujan buat komponen React kamu</strong>. 🧥</p>
+<p>Secara teknis, HOC adalah <strong class="text-ink">fungsi yang nerima komponen dan return komponen baru</strong>. Komponen baru itu nggak cuma ngasih ulang komponen lama — dia nambahin behavior, props, atau logic tambahan. Pattern ini udah ada sejak React masih muda, dan dipake di banyak library populer kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">connect()</code> dari Redux dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withRouter()</code> dari React Router v4. Oh ternyata gitu! 🤯</p>
+<p>Kenapa sih butuh HOC? Misalnya kamu punya 10 komponen yang masing-masing butuh data dari API, loading state, dan error handling. Tanpa HOC, kamu nulis logic fetch yang sama 10 kali. Dengan HOC, kamu tulis sekali — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withData()</code> — dan wrap semua komponen yang butuh. Ini prinsip <strong class="text-ink">DRY (Don't Repeat Yourself)</strong> yang beneran kerasa dampaknya di codebase besar.</p>
+<p>Satu hal penting: HOC itu <strong class="text-ink">bukan</strong> tentang inheritance atau subclassing. Dia tentang <em>composition</em> — menyusun fungsi-fungsi kecil jadi behavior yang lebih kompleks. Ini filosofi React yang fundamental: composition over inheritance. Jangan kebalik ya!</p>
+<p>Tapi HOC juga punya kelemahan yang signifikan. Pertama, dia bikin <strong class="text-ink">wrapper hell</strong> — komponen ke-wrap berkali-kali jadi susah dibaca. Kedua, dia bisa <strong class="text-ink">nimpa props</strong> secara silent kalau nggak hati-hati. Ketiga, sulit di-debug karena di DevTools komponennya jadi anonymous. Itulah kenapa di era hooks modern, banyak developer pindah ke custom hooks sebagai alternatif. Tapi tetap penting buat dipahami karena masih banyak dipake di production!</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">HOC = fungsi yang nerima komponen, return komponen baru</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// HOC = fungsi yang nerima komponen, return komponen baru
 function withAuth(WrappedComponent) {
   return function AuthenticatedComponent(props) {
     const isLoggedIn = useAuth();
-    if (!isLoggedIn) return &lt;Navigate to="/login" /&gt;;
-    return &lt;WrappedComponent {...props} /&gt;;
-  };
-}
 
-// HOC: withLogger &mdash; menambahkan logging
-function withLogger(WrappedComponent, name) {
-  return function LoggedComponent(props) {
-    useEffect(() =&gt; {
-      console.log(`[${name}] mounted`);
-      return () =&gt; console.log(`[${name}] unmounted`);
-    }, []);
-    return &lt;WrappedComponent {...props} /&gt;;
-  };
-}
-
-// Penggunaan:
-const ProtectedDashboard = withAuth(Dashboard);
-const LoggedProfile = withLogger(Profile, 'Profile');</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> HOC seperti jas hujan. Baju biasa (komponen asli) dibungkus jas hujan (HOC) sehingga mendapat fungsionalitas tambahan tanpa mengubah baju di dalamnya.</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">HOC — Higher Order Component</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// HOC = fungsi yang terima komponen, return komponen baru
-function withAuth(WrappedComponent) {
-  return function ProtectedComponent(props) {
-    const { user } = useAuth();
-
-    if (!user) {
-      return &lt;Navigate to="/login" /&gt;;
+    if (!isLoggedIn) {
+      return &lt;p&gt;Kamu harus login dulu!&lt;/p&gt;;
     }
 
-    return &lt;WrappedComponent {...props} user={user} /&gt;;
+    // Kirim semua props + tambahin isAuthenticated
+    return &lt;WrappedComponent {...props} isAuthenticated={isLoggedIn} /&gt;;
   };
 }
 
-// Pakai HOC
-const Dashboard = withAuth(DashboardContent);
-const Settings = withAuth(SettingsContent);
+// Pakainya kayak pakai jas hujan:
+const ProtectedDashboard = withAuth(Dashboard);
+const ProtectedSettings = withAuth(Settings);</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useEffect } from 'react';
 
-// HOC untuk loading state
-function withLoading(WrappedComponent) {
-  return function({ isLoading, ...props }) {
-    if (isLoading) return &lt;Spinner /&gt;;
-    return &lt;WrappedComponent {...props} /&gt;;
+// HOC yang nambahin loading &amp; error state ke komponen mana aja
+function withLoading(WrappedComponent, url) {
+  return function LoadingComponent(props) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() =&gt; {
+      setLoading(true);
+      fetch(url)
+        .then(res =&gt; res.json())
+        .then(setData)
+        .catch(setError)
+        .finally(() =&gt; setLoading(false));
+    }, [url]);
+
+    if (loading) return &lt;div className="spinner"&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div className="error"&gt;{error.message}&lt;/div&gt;;
+
+    return &lt;WrappedComponent data={data} {...props} /&gt;;
   };
-}</code></pre>
-                    </div></div>
+}
+
+// Wrap komponen mana aja yang butuh fetch data:
+const UserProfile = withLoading(ProfileContent, '/api/user');
+const ProductList = withLoading(ProductsContent, '/api/products');</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 HOC vs Custom Hook:</strong> Di era hooks modern, banyak use case HOC bisa diganti dengan custom hook. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withLoading()</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetch()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withAuth()</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useAuth()</code>. Custom hooks lebih readable dan nggak bikin wrapper hell. Tapi tetap pelajari HOC karena library lama masih pake pattern ini!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha — Props Collision:</strong> Kalau HOC kamu nambahin props yang namanya sama dengan props dari parent, HOC props-nya yang menang (nimpa). Solusinya: selalu kasih prefix kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hocIsLoading</code>, atau documentasi yang jelas. Ini salah satu alasan kenapa HOC kurang populer sekarang.</p></div>
 </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Render Props</h2><input type="checkbox" id="check-5-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Pattern Lanjutan &middot; 6 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Render Props</strong> adalah pattern di mana komponen menerima fungsi (biasanya sebagai children) yang mengembalikan elemen React. Komponen induk mengelola state/logika, konsumen mengontrol rendering.</p>
-        <p>Pattern ini lebih deklaratif dan mudah dibaca dibanding HOC. Di era modern, sebagian besar render props bisa digantikan Custom Hooks, namun tetap berguna untuk kontrol rendering penuh.</p>
-        <p>Library populer yang menggunakan render props: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-query</code> (versi lama) dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Formik</code>.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Render Props &mdash; MouseTracker</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">function MouseTracker({ children }) {
+<!-- LESSON 2: Render Props -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">RENDER PROPS — CHEF YANG KASIH MENU 🍳</h2><input type="checkbox" id="check-5-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Composition &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Okay, sekarang kita masuk ke pattern yang lebih fleksibel. Kalau HOC itu jas hujan, <strong class="text-ink">Render Props</strong> itu kayak <strong class="text-ink">chef yang menyiapkan bahan, terus ngasih menu ke kamu buat tentuin masak apa</strong>. Chef-nya ngurus logic rumit (fetch data, tracking mouse, animate), kamu tinggal tentuin tampilannya. Keren banget kan? 🍳</p>
+<p>Secara teknis, Render Props itu pattern di mana komponen nerima sebuah <strong class="text-ink">fungsi sebagai prop</strong>, dan fungsi itu return JSX. Komponen pemilik data memanggil fungsi tersebut dan ngasih data yang dibutuhkan. Ini bikin <strong class="text-ink">siapa pun yang ngontrol rendering</strong> — bukan komponen yang punya data, tapi komponen yang pakai data tersebut.</p>
+<p>Contoh nyata paling terkenal: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Route&gt;</code> dari React Router v5 yang punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render</code> prop. Atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;List&gt;</code> component dari react-virtualized yang punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rowRenderer</code> prop. Semua ini memakai pattern Render Props! Oh ternyata udah dari dulu ya! 🤯</p>
+<p>Keunggulan Render Props dibanding HOC: <strong class="text-ink">nggak ada wrapper hell</strong>, nggak ada naming conflict, dan kamu bisa langsung liat apa yang di-render. Plus, Render Props bisa share state antar komponen yang sama — misalnya dua komponen berbagi satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;MouseTracker&gt;</code> yang nge-track posisi mouse.</p>
+<p>Namun Render Props juga punya kelemahan: bisa bikin <strong class="text-ink">callback nesting yang dalam</strong> (callback hell) kalau chain-nya panjang. Dan sejak React 16.8 dengan hooks, banyak use case Render Props bisa diganti dengan custom hooks yang lebih simple. Tapi pattern ini tetap powerful dan worth to know!</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+// Komponen yang nge-track mouse position
+function MouseTracker({ children }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
   useEffect(() =&gt; {
-    const handle = (e) =&gt; setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handle);
-    return () =&gt; window.removeEventListener('mousemove', handle);
+    const handleMove = (e) =&gt; {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () =&gt; window.removeEventListener('mousemove', handleMove);
   }, []);
-  return children({ x: position.x, y: position.y });
+
+  // children itu fungsi! Kirim data posisi ke parent
+  return children(position);
 }
 
+// Pakainya — chef kasih bahan, kamu tentuin masaknya:
 function App() {
   return (
     &lt;MouseTracker&gt;
       {({ x, y }) =&gt; (
-        &lt;div&gt;
-          &lt;h1&gt;Posisi: ({x}, {y})&lt;/h1&gt;
-          &lt;div style={{ position:'absolute', left:x, top:y,
-            width:20, height:20, background:'#0B0B0B',
-            borderRadius:'50%', transform:'translate(-50%,-50%)' }} /&gt;
+        &lt;h1&gt;Mouse: {x}, {y}&lt;/h1&gt;
+      )}
+    &lt;/MouseTracker&gt;
+  );
+}
+
+// Bisa juga render hal beda:
+function App2() {
+  return (
+    &lt;MouseTracker&gt;
+      {({ x, y }) =&gt; (
+        &lt;div style={{ left: x, top: y, position: 'absolute' }}&gt;
+          🎯
         &lt;/div&gt;
       )}
     &lt;/MouseTracker&gt;
   );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Render Props seperti memesan makanan. Koki (komponen induk) menyiapkan bahan (state), kamu (children fungsi) yang tentukan mau diapakan bahan itu.</p></div>
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function DataFetcher({ url, children }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    setLoading(true);
+    fetch(url)
+      .then(res =&gt; {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(setData)
+      .catch(setError)
+      .finally(() =&gt; setLoading(false));
+  }, [url]);
+
+  // Kirim semua state ke consumer via render prop
+  return children({ data, loading, error });
+}
+
+// Dua komponen beda, satu sumber data:
+function UserPage() {
+  return (
+    &lt;DataFetcher url="/api/users/me"&gt;
+      {({ data, loading, error }) =&gt; {
+        if (loading) return &lt;p&gt;Loading profile...&lt;/p&gt;;
+        if (error) return &lt;p&gt;Error: {error.message}&lt;/p&gt;;
+        return &lt;h1&gt;Halo, {data.name}!&lt;/h1&gt;;
+      }}
+    &lt;/DataFetcher&gt;
+  );
+}
+
+function ProductPage() {
+  return (
+    &lt;DataFetcher url="/api/products/featured"&gt;
+      {({ data, loading, error }) =&gt; {
+        if (loading) return &lt;div className="skeleton" /&gt;;
+        if (error) return &lt;p&gt;Gagal load produk&lt;/p&gt;;
+        return data.map(p =&gt; &lt;div key={p.id}&gt;{p.title}&lt;/div&gt;);
+      }}
+    &lt;/DataFetcher&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Render Props vs Children vs Hook:</strong> Render Props bisa pake prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> (kayak di atas) atau prop khusus kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render={(data) =&gt; ...}</code>. Keduanya sama konsepnya. Di era hooks, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">DataFetcher</code> bisa jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetch()</code> hook yang lebih simple. Tapi kalau kamu butuh share state antar sibling, Render Props masih oke!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Performance gotcha:</strong> Render Props bikin fungsi baru di setiap render — ini bisa menyebabkan child component re-render yang nggak perlu. Kalau performa jadi masalah, wrap dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo()</code> atau pertimbangkan pakai custom hook sebagai gantinya.</p></div>
 </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Compound Components</h2><input type="checkbox" id="check-5-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Pattern Lanjutan &middot; 7 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Compound Components</strong> adalah pattern di mana beberapa komponen bekerja sama membentuk satu unit UI koheren. Mereka berbagi state via React Context tanpa manual props passing.</p>
-        <p>Contoh nyata: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;select&gt;</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;option&gt;</code> &mdash; tidak perlu dihubungkan manual. Compound Components membawa filosofi sama ke React.</p>
-        <p>Keuntungan: <strong class="text-ink">API deklaratif dan fleksibel</strong>. Radix UI dan Headless UI banyak menggunakan pattern ini.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Compound Components &mdash; Accordion</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">const AccordionContext = createContext();
+<!-- LESSON 3: Compound Components -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">COMPOUND COMPONENTS — ORKESTRA YANG HARMONIS 🎵</h2><input type="checkbox" id="check-5-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">API Design &middot; 11 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pernah pake komponen kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;select&gt;&lt;option&gt;</code> di HTML? Dia punya parent (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">select</code>) dan children (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">option</code>) yang kerja bareng — padahal masing-masing bisa dipakai berbeda-beda tiap tempat. Nah, <strong class="text-ink">Compound Components</strong> adalah pola bikin komponen yang sama kayak itu — beberapa komponen yang kerja bareng sebagai satu unit, tapi fleksibel secara individual.</p>
+<p>Analoginya kayak <strong class="text-ink">orkestra atau band musik</strong> 🎵. Ada drummer, gitaris, vokalis, dan bassist — masing-masing punya peran sendiri, tapi semuanya harus harmonis dan nyambung biar musiknya enak didenger. Kalau drummer main tempo beda, musiknya jadi aneh. Di React, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Tabs&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;TabList&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;TabPanel&gt;</code> — mereka itu band-nya!</p>
+<p>Keunggulan utama Compound Components: <strong class="text-ink">API yang expressif dan clean</strong>. User komponen kamu bisa baca kode dan langsung paham hubungannya. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Tabs&gt;&lt;Tab&gt;Home&lt;/Tab&gt;&lt;Tab&gt;About&lt;/Tab&gt;&lt;/Tabs&gt;</code> — nggak perlu documentation panjang lebar, strukturnya sendiri udah nunjukkan hierarki. Oh ternyata gitu! 🤯</p>
+<p>Implementasinya biasanya pake dua teknik: <strong class="text-ink">React.Children.map()</strong> buat manipulate children, atau <strong class="text-ink">Context</strong> buat share state antar komponen. Context lebih direkomendasi karena nggak bergantung pada struktur DOM dan lebih fleksibel. Kita bakal liat contohnya pake Context.</p>
+<p>Contoh compound component yang paling populer di library: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Accordion&gt;</code> dari Radix UI, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Menu&gt;</code> dari Headless UI, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;RadioGroup&gt;</code> dari Reach UI. Semua mengikuti pattern ini karena emang UX-nya yang paling natural buat developer!</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useState } from 'react';
 
+// 1. Context buat share state antar komponen
+const AccordionContext = createContext();
+
+// 2. Parent component — kayak leader band
 function Accordion({ children, defaultIndex = 0 }) {
-  const [activeIndex, setActiveIndex] = useState(defaultIndex);
-  const toggleItem = (i) =&gt; setActiveIndex(p =&gt; p === i ? -1 : i);
+  const [openIndex, setOpenIndex] = useState(defaultIndex);
+
   return (
-    &lt;AccordionContext.Provider value={{ activeIndex, toggleItem }}&gt;
-      &lt;div className="accordion"&gt;{children}&lt;/div&gt;
+    &lt;AccordionContext.Provider value={{ openIndex, setOpenIndex }}&gt;
+      {children}
     &lt;/AccordionContext.Provider&gt;
   );
 }
 
-function AccordionItem({ index, children }) {
-  const { activeIndex, toggleItem } = useContext(AccordionContext);
-  const isOpen = activeIndex === index;
+// 3. Child item — terima klik, toggle open/close
+function AccordionItem({ index, title, children }) {
+  const { openIndex, setOpenIndex } = useContext(AccordionContext);
+  const isOpen = openIndex === index;
+
   return (
-    &lt;div className="accordion-item"&gt;
-      {typeof children === 'function'
-        ? children({ isOpen, toggle: () =&gt; toggleItem(index) })
-        : children}
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setOpenIndex(isOpen ? null : index)}&gt;
+        {title} {isOpen ? '▲' : '▼'}
+      &lt;/button&gt;
+      {isOpen &amp;&amp; &lt;div&gt;{children}&lt;/div&gt;}
     &lt;/div&gt;
   );
 }
 
+// 4. Pakainya — clean dan expressive!
 function FAQ() {
   return (
     &lt;Accordion&gt;
-      &lt;AccordionItem index={0}&gt;
-        {({ isOpen, toggle }) =&gt; (
-          &lt;&gt;
-            &lt;button onClick={toggle}&gt;Apa itu React? {isOpen ? '&#9650;' : '&#9660;'}&lt;/button&gt;
-            {isOpen &amp;&amp; &lt;p&gt;React adalah library JavaScript untuk UI.&lt;/p&gt;}
-          &lt;/&gt;
-        )}
+      &lt;AccordionItem index={0} title="Apa itu React?"&gt;
+        React adalah library JavaScript untuk bikin UI.
+      &lt;/AccordionItem&gt;
+      &lt;AccordionItem index={1} title="Kenapa pake React?"&gt;
+        Karena component-based, declarative, dan ecosystem-nya besar!
       &lt;/AccordionItem&gt;
     &lt;/Accordion&gt;
   );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Compound Components seperti orkestra. Setiap pemain punya peran sendiri, tapi berbagi skor musik (Context) yang sama untuk bermain harmoni.</p>
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const SelectContext = createContext();
 
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Compound Components — Flexible API</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// Compound Components: komponen yang bekerja bersama
-// Kayak &lt;select&gt; dan &lt;option&gt; di HTML
-
-const Select = ({ children, value, onChange }) =&gt; {
-  const [open, setOpen] = useState(false);
-  const contextValue = { value, onChange, open, setOpen };
+function Select({ children, value, onChange }) {
+  const [label, setLabel] = useState('');
 
   return (
-    &lt;SelectContext.Provider value={contextValue}&gt;
-      &lt;div className="relative"&gt;{children}&lt;/div&gt;
+    &lt;SelectContext.Provider value={{ value, onChange, label, setLabel }}&gt;
+      &lt;div className="select-wrapper"&gt;{children}&lt;/div&gt;
     &lt;/SelectContext.Provider&gt;
   );
-};
+}
 
-Select.Trigger = () =&gt; {
-  const { value, setOpen } = useContext(SelectContext);
-  return &lt;button onClick={() =&gt; setOpen(o =&gt; !o)}&gt;{value || 'Select...'}&lt;/button&gt;;
-};
+function SelectTrigger({ placeholder = 'Pilih...' }) {
+  const { label } = useContext(SelectContext);
+  return &lt;button&gt;{label || placeholder}&lt;/button&gt;;
+}
 
-Select.Option = ({ children, value: optionValue }) =&gt; {
-  const { value, onChange, setOpen } = useContext(SelectContext);
+function SelectOption({ children, value: optValue }) {
+  const { value, onChange, setLabel } = useContext(SelectContext);
+
   return (
-    &lt;div
-      onClick={() =&gt; { onChange(optionValue); setOpen(false); }}
-      className={value === optionValue ? 'bg-blue-50' : ''}
+    &lt;button
+      className={value === optValue ? 'active' : ''}
+      onClick={() =&gt; { onChange(optValue); setLabel(children); }}
     &gt;
+      {children}
+    &lt;/button&gt;
+  );
+}
+
+// Pakainya — API-nya mirip HTML select:
+function App() {
+  const [role, setRole] = useState('');
+  return (
+    &lt;Select value={role} onChange={setRole}&gt;
+      &lt;SelectTrigger /&gt;
+      &lt;SelectOption value="admin"&gt;Admin&lt;/SelectOption&gt;
+      &lt;SelectOption value="user"&gt;User&lt;/SelectOption&gt;
+      &lt;SelectOption value="guest"&gt;Guest&lt;/SelectOption&gt;
+    &lt;/Select&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Best practice:</strong> Selalu pakai Context (bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.Children.map()</code>) untuk share state di Compound Components. Context lebih fleksibel karena nggak bergantung pada urutan children — kamu bisa naro intermediate komponen di antara parent dan child tanpa nge-break logic.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Implicit dependency:</strong> Kelemahan Compound Components adalah dependency-nya <em>implicit</em>. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AccordionItem</code> harus di-dalem <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Accordion</code> — kalau lupa, error-nya nggak jelas. Solusinya: tambahin check di Context consumer dan kasih error message yang helpful.</p></div>
+</section>
+
+<!-- LESSON 4: Provider Pattern -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PROVIDER PATTERN — EVOLUSI DARI USECONTEXT 🌍</h2><input type="checkbox" id="check-5-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">State Global &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Bab 4 kita udah bahas <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useContext</code> sebagai solusi prop drilling. Nah, <strong class="text-ink">Provider Pattern</strong> itu adalah cara <em>proper</em> ngimplementasiin Context di level architecture. Bukan cuma bikin Context + Provider, tapi bikin <strong class="text-ink">API yang encapsulated</strong> — user komponen kamu nggak perlu tahu internal-nya.</p>
+<p>Bayangin kamu punya listrik di rumah. Kamu nggak perlu tahu dari mana listrik datang, siapa yang nge-generate, atau kabelnya lewat mana. Yang kamu tahu cuma: colok ke stopkontak, dapet listrik. <strong class="text-ink">Provider Pattern itu stopkontak-nya</strong> 🔌. Developer cukup wrap app dengan provider, dan semua komponen bisa akses data tanpa perlu paham bagaimana data itu disediakan.</p>
+<p>Pattern ini dipake hampir di <strong class="text-ink">semua library UI modern</strong>: React Query punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">QueryClientProvider</code>, styled-components punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeProvider</code>, Next.js punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AppProvider</code>. Semua mengikuti pattern yang sama: bikin context, bikin provider, bikin custom hook. Ini udah jadi standar de facto di React ecosystem!</p>
+<p>Yang membedakan Provider Pattern dari basic useContext adalah <strong class="text-ink">separation of concerns</strong>. Logic state management tinggal di dalam provider, komponen consumer cuma manggil custom hook. Ini bikin kode lebih testable, lebih maintainable, dan nggak ada business logic yang bocor ke komponen UI. Oh ternyata pattern ini udah standard ya! 🤯</p>
+<p>Satu hal yang penting: <strong class="text-ink">pisah context per concern</strong>. Jangan bikin satu giant context yang nampung semua state (user + theme + notification + cart). Setiap kali context value berubah, SEMUA consumer re-render. Jadi kalau cart berubah, komponen yang cuma butuh theme ikut re-render. Pisah aja: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeProvider</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AuthProvider</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">CartProvider</code> — masing-masing terpisah dan independent.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useReducer } from 'react';
+
+// 1. Bikin Context
+const NotificationContext = createContext(null);
+const NotificationDispatchContext = createContext(null);
+
+// 2. Reducer untuk state management
+function notificationReducer(state, action) {
+  switch (action.type) {
+    case 'ADD':
+      return [...state, {
+        id: Date.now(),
+        message: action.message,
+        type: action.typeOf || 'info',
+        read: false,
+      }];
+    case 'REMOVE':
+      return state.filter(n =&gt; n.id !== action.id);
+    case 'MARK_READ':
+      return state.map(n =&gt;
+        n.id === action.id ? { ...n, read: true } : n
+      );
+    case 'CLEAR_ALL':
+      return [];
+    default:
+      return state;
+  }
+}
+
+// 3. Provider component — encapsulate semua logic di sini
+function NotificationProvider({ children }) {
+  const [notifications, dispatch] = useReducer(notificationReducer, []);
+
+  return (
+    &lt;NotificationContext.Provider value={notifications}&gt;
+      &lt;NotificationDispatchContext.Provider value={dispatch}&gt;
+        {children}
+      &lt;/NotificationDispatchContext.Provider&gt;
+    &lt;/NotificationContext.Provider&gt;
+  );
+}
+
+// 4. Custom hooks — API yang clean buat consumer
+function useNotifications() {
+  const notifications = useContext(NotificationContext);
+  if (notifications === null) {
+    throw new Error('useNotifications harus di dalam NotificationProvider!');
+  }
+  return notifications;
+}
+
+function useNotificationActions() {
+  const dispatch = useContext(NotificationDispatchContext);
+  if (dispatch === null) {
+    throw new Error('useNotificationActions harus di dalam NotificationProvider!');
+  }
+  return {
+    add: (message, typeOf) =&gt;
+      dispatch({ type: 'ADD', message, typeOf }),
+    remove: (id) =&gt; dispatch({ type: 'REMOVE', id }),
+    markRead: (id) =&gt; dispatch({ type: 'MARK_READ', id }),
+    clearAll: () =&gt; dispatch({ type: 'CLEAR_ALL' }),
+  };
+}
+
+// 5. Pakai — super clean!
+function Header() {
+  const notifications = useNotifications();
+  const unread = notifications.filter(n =&gt; !n.read).length;
+  return &lt;span&gt;🔔 {unread} notif&lt;/span&gt;;
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Pisah context per concern — biar re-render minimal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Pisah context per concern — biar re-render minimal
+function App() {
+  return (
+    &lt;ThemeProvider&gt;          {/* Theme state */}
+      &lt;AuthProvider&gt;          {/* User + auth state */}
+        &lt;NotificationProvider&gt; {/* Notification state */}
+          &lt;CartProvider&gt;       {/* Shopping cart state */}
+            &lt;Router&gt;
+              &lt;Header /&gt;
+              &lt;Main /&gt;
+              &lt;Footer /&gt;
+            &lt;/Router&gt;
+          &lt;/CartProvider&gt;
+        &lt;/NotificationProvider&gt;
+      &lt;/AuthProvider&gt;
+    &lt;/ThemeProvider&gt;
+  );
+}
+
+// CartProvider berubah? Header yang cuma butuh theme NGGAK ikut re-render.
+// AuthProvider berubah? Komponen yang cuma butuh cart NGGAK ikut re-render.
+// Setiap concern terpisah, re-render-nya minimal! 🎯</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip — Separating State &amp; Dispatch:</strong> Pisah context untuk state dan dispatch (kayak di atas). Kenapa? Komponen yang cuma butuh dispatch nggak perlu re-render pas state berubah. Ini optimasi kecil tapi berdampak di app besar!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Provider nesting:</strong> Terlalu banyak nested provider bisa bikin component tree dalam. Kalau udah lebih dari 4-5 level, pertimbangkan bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">composeProviders()</code> utility function yang nggabungin semua provider jadi satu komponen wrapper.</p></div>
+</section>
+
+<!-- LESSON 5: Container vs Presentational -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CONTAINER VS PRESENTATIONAL — CHEF & PELAYAN 🍽️</h2><input type="checkbox" id="check-5-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Architecture &middot; 9 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di restoran, ada dua peran penting: <strong class="text-ink">chef</strong> yang masak (urus resep, bahan, proses) dan <strong class="text-ink">pelayan</strong> yang antar makanan ke meja (urus tampilan, presentasi, interaksi dengan tamu). Keduanya punya tanggung jawab yang beda banget, tapi harus kerja sama. Nah di React, pattern ini disebut <strong class="text-ink">Container vs Presentational</strong>. 🍽️</p>
+<p><strong class="text-ink">Container component</strong> (chef) fokus ke <em>bagaimana</em> data bekerja — fetch, state management, business logic. Dia nggak punya style atau markup yang spesifik. <strong class="text-ink">Presentational component</strong> (pelayan) fokus ke <em>bagaimana</em> data ditampilkan — UI, styling, animasi. Dia nerima data lewat props dan nggak punya state sendiri (kecuali UI state kecil kayak toggle dropdown).</p>
+<p>Kenapa ini penting? Karena <strong class="text-ink">separation of concerns</strong> bikin kode lebih maintainable. Container component bisa di-test dengan unit test (test logic-nya doang), presentational component bisa di-test dengan snapshot test (test tampilannya doang). Plus, presentational component jadi <strong class="text-ink">reusable</strong> — dia nggak terikat ke data source tertentu. Bisa dipake di halaman berbeda dengan data berbeda!</p>
+<p>Di era hooks modern, pattern ini banyak yang <strong class="text-ink">diganti dengan custom hooks</strong>. Alih-alih bikin Container component, kamu extract logic ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useUserData()</code>, terus pakai di presentational component langsung. Ini lebih simple dan nggak bikin komponen wrapper tambahan. Tapi prinsipnya tetap sama: pisah logic dari presentation! Oh ternyata gitu! 🤯</p>
+<p>Yang perlu diwaspadai: jangan terlalu kaku. Nggak semua komponen harus dipisah jadi container + presentational. Untuk komponen kecil yang simple, gabungkan aja jadi satu. Over-engineering juga masalah! Pakai pattern ini kalau komponen-nya emang punya logic yang cukup kompleks dan dipake di beberapa tempat. 🎯</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Presentational: fokus tampilan, nerima data via props</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Presentational: fokus tampilan, nerima data via props
+// Nggak tahu dari mana data berasal
+function UserCard({ name, email, avatar, role, onEdit }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src={avatar} alt={name} /&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;{email}&lt;/p&gt;
+      &lt;span className="badge"&gt;{role}&lt;/span&gt;
+      &lt;button onClick={onEdit}&gt;Edit Profile&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Bisa dipake ulang di konteks berbeda:
+function TeamPage() {
+  const members = useTeamMembers();
+  return members.map(m =&gt; (
+    &lt;UserCard key={m.id} {...m} onEdit={() =&gt; {}} /&gt;
+  ));
+}
+
+function SearchResults() {
+  const results = useSearchResults();
+  return results.map(u =&gt; (
+    &lt;UserCard key={u.id} {...u} onEdit={() =&gt; navigate(`/user/${u.id}`)} /&gt;
+  ));
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ CARA LAMA: Container Component</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ CARA LAMA: Container Component
+function UserCardContainer() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    fetch('/api/user/me')
+      .then(res =&gt; res.json())
+      .then(data =&gt; { setUser(data); setLoading(false); });
+  }, []);
+
+  if (loading) return &lt;Spinner /&gt;;
+  return &lt;UserCard {...user} onEdit={handleEdit} /&gt;;
+}
+
+// ✅ CARA BARU: Custom Hook (lebih simple, tanpa wrapper)
+function useUser() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    fetch('/api/user/me')
+      .then(res =&gt; res.json())
+      .then(data =&gt; { setUser(data); setLoading(false); });
+  }, []);
+
+  return { user, loading };
+}
+
+// Pakai langsung tanpa container wrapper:
+function ProfilePage() {
+  const { user, loading } = useUser();
+  if (loading) return &lt;Spinner /&gt;;
+  return &lt;UserCard {...user} onEdit={handleEdit} /&gt;;
+}
+
+// Presentational component tetap sama — reusable dan pure!
+function UserCard({ name, email, avatar, onEdit }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src={avatar} alt={name} /&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;{email}&lt;/p&gt;
+      &lt;button onClick={onEdit}&gt;Edit&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Cara modern:</strong> Alih-alih bikin Container component, extract logic ke custom hook. Komponen presentational tetap sama — dia nerima data lewat props. Tapi sekarang logic-nya ada di hook, bukan di komponen wrapper. Ini lebih simple, lebih testable, dan nggak bikin extra DOM node!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jangan kebablasan:</strong> Nggak semua komponen harus dipisah. Kalau komponen-nya kecil dan cuma dipake satu tempat, gabung aja jadi satu. Yang penting prinsipnya: logic dan presentation terpisah secara <em>mental model</em>. Nggak harus selalu berupa file/komponen terpisah!</p></div>
+</section>
+
+<!-- LESSON 6: Props Getters -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PROPS GETTERS PATTERN — KUNCI HOTEL YANG FLEKSIBEL 🔑</h2><input type="checkbox" id="check-5-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">API Design &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Bayangin kamu check-in ke hotel dan resepsionis ngasih kamu kunci kamar. Kunci itu bisa langsung dipake buat buka pintu — tinggal colok dan putar. Tapi kamu juga bisa <strong class="text-ink">nambahin gantungan kunci sendiri</strong>, atau minta kunci cadangan. Kuncinya udah berfungsi, tapi tetap fleksibel. Nah, <strong class="text-ink">Props Getters</strong> itu konsepnya persis kayak kunci hotel 🔑.</p>
+<p>Props Getters adalah fungsi yang <strong class="text-ink">return object props yang udah siap pakai</strong>. Komponen kamu manggil fungsi tersebut, dapet props yang udah di-set dengan logic internal (onClick, aria attributes, className, dsb), terus kamu bisa langsung spread ke JSX element. Tapi — dan ini yang penting — kamu juga bisa <strong class="text-ink">override</strong> atau <strong class="text-ink">extend</strong> props yang dikasih.</p>
+<p>Kenapa ini berguna? Bayangin kamu bikin library toggle. User library kamu mau pakai toggle-nya, tapi mereka pengen nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onMouseDown</code> sendiri, atau nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code> custom. Kalau kamu cuma kirim boolean prop kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isToggled</code>, mereka harus bikin semua handler sendiri. Dengan props getters, mereka cuma spread object yang dikasih — semua udah siap, tapi tetap bisa dikustomisasi!</p>
+<p>Pattern ini dipake di <strong class="text-ink">Downshift</strong> (library autocomplete/headless UI karya Kent C. Dodds), dan juga jadi inspiration buat library headless UI kayak Headless UI dan Radix UI. Konsepnya emang simple tapi bikin API library kamu jadi jauh lebih powerful dan user-friendly. Oh ternyata pattern ini yang dipake library populer! 🤯</p>
+<p>Implementasinya: fungsi getter nerima parameter <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props</code> dari user, lalu merge dengan internal props, dan return hasilnya. User bisa override prop apapun — onClick mereka akan merge dengan onClick internal. Ini bikin kolaborasi antara library developer dan consumer jadi smooth!</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useCallback } from 'react';
+
+function useToggle(initialValue = false) {
+  const [isToggled, setIsToggled] = useState(initialValue);
+  const toggle = useCallback(() =&gt; setIsToggled(t =&gt; !t), []);
+
+  // ✅ Props Getter — return props object yang siap di-spread
+  const getTogglerProps = useCallback((props = {}) =&gt; {
+    return {
+      'aria-pressed': isToggled,
+      onClick: (e) =&gt; {
+        // Jalankan user handler dulu (kalau ada)
+        props.onClick?.(e);
+        // Terus toggle internal
+        toggle();
+      },
+      role: 'switch',
+      tabIndex: 0,
+      // Merge semua props dari user — user bisa override!
+      ...props,
+    };
+  }, [isToggled, toggle]);
+
+  return { isToggled, toggle, getTogglerProps };
+}
+
+// Pakainya — super fleksibel:
+function MyToggle() {
+  const { isToggled, getTogglerProps } = useToggle();
+
+  return (
+    &lt;div&gt;
+      &lt;button {...getTogglerProps()}&gt;
+        {isToggled ? 'ON' : 'OFF'}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// User bisa nambahin props sendiri:
+function CustomToggle() {
+  const { isToggled, getTogglerProps } = useToggle();
+
+  return (
+    &lt;button
+      {...getTogglerProps({
+        className: `toggle-btn ${isToggled ? 'active' : ''}`,
+        onMouseDown: () =&gt; console.log('mouse down!'),
+        onClick: () =&gt; console.log('custom click!'), // dijalankan DULU
+      })}
+    &gt;
+      {isToggled ? 'Besar' : 'Kecil'}
+    &lt;/button&gt;
+  );
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useCallback } from 'react';
+
+function useDisclosure(initial = false) {
+  const [isOpen, setIsOpen] = useState(initial);
+
+  const open = useCallback(() =&gt; setIsOpen(true), []);
+  const close = useCallback(() =&gt; setIsOpen(false), []);
+  const toggle = useCallback(() =&gt; setIsOpen(v =&gt; !v), []);
+
+  // Props getter buat trigger (button)
+  const getButtonProps = useCallback((props = {}) =&gt; ({
+    'aria-expanded': isOpen,
+    'aria-haspopup': true,
+    onClick: (e) =&gt; {
+      props.onClick?.(e);
+      toggle();
+    },
+    ...props,
+  }), [isOpen, toggle]);
+
+  // Props getter buat content (panel)
+  const getPanelProps = useCallback((props = {}) =&gt; ({
+    role: 'region',
+    hidden: !isOpen,
+    'aria-hidden': !isOpen,
+    style: { display: isOpen ? 'block' : 'none' },
+    ...props,
+  }), [isOpen]);
+
+  return { isOpen, open, close, toggle, getButtonProps, getPanelProps };
+}
+
+// Pakai di dropdown/modal/dialog:
+function Dropdown() {
+  const { isOpen, getButtonProps, getPanelProps } = useDisclosure();
+
+  return (
+    &lt;div&gt;
+      &lt;button {...getButtonProps({ className: 'dropdown-trigger' })}&gt;
+        Menu {isOpen ? '▲' : '▼'}
+      &lt;/button&gt;
+      &lt;div {...getPanelProps({ className: 'dropdown-panel' })}&gt;
+        &lt;a href="#"&gt;Profile&lt;/a&gt;
+        &lt;a href="#"&gt;Settings&lt;/a&gt;
+        &lt;a href="#"&gt;Logout&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Tips merge:</strong> Di getter, pastikan user props di-spread <strong class="text-ink">setelah</strong> internal props, biar user bisa override. Tapi untuk event handler kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>, jangan di-override — merge dua handler biar dua-duanya jalan (user handler dulu, internal handler belakangan).</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ ARIA attributes:</strong> Props Getters cocok banget buat nambahin accessibility attributes secara otomatis. Tapi jangan lupa: accessibility attributes yang kamu set via getter <strong class="text-ink">bisa di-override user</strong>. Pastikan documentasi menjelaskan mana yang sebaiknya nggak di-override.</p></div>
+</section>
+
+<!-- LESSON 7: Polymorphic Components -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">POLYMORPHIC COMPONENTS — KOMIK YANG BISA JADI APA AJA 🦸</h2><input type="checkbox" id="check-5-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">API Design &middot; 9 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pernah ngerasa ribet punya komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Text&gt;</code> yang kadang harus render sebagai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;p&gt;</code>, kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;h1&gt;</code>, kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;span&gt;</code>, atau bahkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;button&gt;</code>? Tanpa pattern khusus, kamu harus bikin tiga komponen terpisah atau nambahin if-else yang messy. Nah, <strong class="text-ink">Polymorphic Components</strong> solusinya — satu komponen, bisa render jadi element HTML mana aja!</p>
+<p>Konsepnya gampang: komponen nerima prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> yang tentuin element apa yang harus di-render. Default-nya bisa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'div'</code>, tapi user bisa override jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'button'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'a'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'section'</code>, atau bahkan komponen React lain! Ini kayak <strong class="text-ink">superhero yang bisa berubah bentuk</strong> jadi apa aja yang dibutuhkan. 🦸</p>
+<p>Contoh nyata di library populer: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Box as="section"&gt;</code> dari Chakra UI, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Typography component="h2"&gt;</code> dari MUI, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Text as="span"&gt;</code> dari banyak design system. Semua memakai konsep polymorphism yang sama! Oh ternyata library besar semua pake ini ya! 🤯</p>
+<p>Implementasinya bisa pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> atau dynamic tag. Yang penting: semua props yang nggak kamu pakai internal harus di-forward ke element yang di-render. Ini supaya user bisa tetap nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style</code>, atau props HTML lainnya.</p>
+<p>Yang perlu diwaspadai: kalau komponen kamu nerima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref</code>, kamu perlu pake <code class="bg-[F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.forwardRef</code> biar ref bisa diteruskan ke element as-nya. Ini detail teknis yang sering lupa tapi penting buat accessibility dan library kompatibilitas. Oh ternyata ref juga harus di-forward ya! 🤯</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { forwardRef } from 'react';
+
+// Polymorphic Text component — bisa render jadi element apa aja
+const Text = forwardRef(function Text({ as: Element = 'p', variant, size, color, className = '', children, ...rest }, ref) {
+  // Map variant ke Tailwind classes
+  const baseClasses = 'font-sans leading-relaxed';
+  const sizeClasses = {
+    xs: 'text-xs', sm: 'text-sm', md: 'text-base',
+    lg: 'text-lg', xl: 'text-xl', '2xl': 'text-2xl',
+  };
+  const colorClasses = {
+    ink: 'text-ink', muted: 'text-muted',
+    accent: 'text-purple-600', danger: 'text-red-600',
+  };
+
+  const classes = [
+    baseClasses,
+    sizeClasses[size] || '',
+    colorClasses[color] || '',
+    className,
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;Element ref={ref} className={classes} {...rest}&gt;
+      {children}
+    &lt;/Element&gt;
+  );
+});
+
+// Pakainya — satu komponen, banyak kemungkinan:
+function Page() {
+  return (
+    &lt;article&gt;
+      &lt;Text as="h1" size="2xl" color="ink"&gt;
+        Judul Artikel
+      &lt;/Text&gt;
+
+      &lt;Text as="p" size="md" color="muted"&gt;
+        Paragraf biasa...
+      &lt;/Text&gt;
+
+      &lt;Text as="span" size="sm" color="accent"&gt;
+        Highlighted text
+      &lt;/Text&gt;
+
+      &lt;Text as="label" size="sm" htmlFor="email"&gt;
+        Email Address
+      &lt;/Text&gt;
+
+      &lt;Text as="a" href="/about" color="accent"&gt;
+        Learn more →
+      &lt;/Text&gt;
+    &lt;/article&gt;
+  );
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { forwardRef } from 'react';
+
+// Button yang bisa jadi link, atau element lain!
+const Button = forwardRef(function Button(
+  { as: Element = 'button', variant = 'primary', size = 'md', children, ...rest },
+  ref
+) {
+  const base = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 press';
+  const variants = {
+    primary: 'bg-ink text-white hover:bg-ink-soft focus:ring-ink',
+    secondary: 'bg-[#F5F4F1] text-ink hover:bg-black/10 focus:ring-gray-400',
+    ghost: 'text-ink hover:bg-black/5 focus:ring-gray-400',
+  };
+  const sizes = {
+    sm: 'px-3 py-1.5 text-sm min-h-[32px]',
+    md: 'px-4 py-2 text-sm min-h-[40px]',
+    lg: 'px-6 py-3 text-base min-h-[48px]',
+  };
+
+  const className = `${base} ${variants[variant]} ${sizes[size]}`;
+
+  return (
+    &lt;Element ref={ref} className={className} {...rest}&gt;
+      {children}
+    &lt;/Element&gt;
+  );
+});
+
+// Pakainya — button biasa:
+&lt;Button variant="primary"&gt;Simpan&lt;/Button&gt;
+
+// Jadi link ke halaman lain (dengan React Router):
+import { Link } from 'react-router-dom';
+&lt;Button as={Link} to="/dashboard" variant="primary"&gt;
+  Ke Dashboard
+&lt;/Button&gt;
+
+// Jadi external link:
+&lt;Button as="a" href="https://example.com" target="_blank"&gt;
+  Kunjungi Website
+&lt;/Button&gt;
+
+// Jadi submit button di form:
+&lt;Button type="submit" variant="secondary" size="lg"&gt;
+  Kirim Formulir
+&lt;/Button&gt;</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 TypeScript bonus:</strong> Kalau kamu pake TypeScript, polymorphic component bisa dibuat lebih type-safe dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as keyof JSX.IntrinsicElements</code> atau generic type. Jadi kalau kamu set <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as="a"</code>, TypeScript bakal nge-wajibin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">href</code> prop. Kita bakal bahas ini di Bab 6 TypeScript!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Accessibility:</strong> Kalau user set <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as="div"</code> tapi komponennya sebenarnya clickable, kamu harus nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">role="button"</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">tabIndex={0}</code> secara manual. Polymorphic component nggak otomatis nge-handle accessibility berdasarkan element yang dipilih!</p></div>
+</section>
+
+<!-- LESSON 8: MINI PROJECT -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — ACCESSIBLE TABS COMPONENT 🚀</h2><input type="checkbox" id="check-5-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Sekarang saatnya gabungin tiga pattern yang udah kita pelajari jadi satu project nyata! Kita bakal bikin <strong class="text-ink">Accessible Tabs Component</strong> yang pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Compound Components</code> buat API-nya, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Props Getters</code> buat aksesibilitas props, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Context</code> buat share state antar komponen. Keren banget kan? 🚀</p>
+<p>Kenapa tabs sebagai contoh? Karena tabs itu salah satu UI pattern yang paling umum, tapi paling sering salah implementasi dari sisi accessibility. W3C WAI-ARIA punya spesifikasi khusus buat tabs — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">role="tablist"</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">role="tab"</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">role="tabpanel"</code>, keyboard navigation, dan lain-lain. Dengan Props Getters, semua attributes ini otomatis dikasih — user nggak perlu pusing!</p>
+<p>Project ini nge-gabungin 3 pattern sekaligus: Compound Components bikin API-nya expressif (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Tabs&gt;&lt;Tab&gt;&lt;TabPanel&gt;</code>), Props Getters bikin accessibility otomatis (user nggak perlu paham ARIA), dan Context bikin state sharing antar komponen seamless. Ini contoh nyata gimana pattern-pattern ini bekerja bareng di production! 🔥</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useState, useCallback, useRef } from 'react';
+
+// 1. Context untuk share state antar compound components
+const TabsContext = createContext(null);
+
+// 2. Parent — Tabs (Compound Component Leader)
+function Tabs({ defaultIndex = 0, onChange, children }) {
+  const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
+
+  const selectTab = useCallback((index) =&gt; {
+    setSelectedIndex(index);
+    onChange?.(index);
+  }, [onChange]);
+
+  // Ref buat focus management (keyboard navigation)
+  const tabListRef = useRef(null);
+
+  const contextValue = {
+    selectedIndex,
+    selectTab,
+    tabListRef,
+    // Props getter buat tab list
+    getTabListProps: (props = {}) =&gt; ({
+      role: 'tablist',
+      ref: tabListRef,
+      ...props,
+    }),
+    // Props getter buat tab button
+    getTabProps: (index, props = {}) =&gt; ({
+      role: 'tab',
+      id: `tab-${index}`,
+      'aria-selected': selectedIndex === index,
+      'aria-controls': `panel-${index}`,
+      tabIndex: selectedIndex === index ? 0 : -1,
+      onClick: (e) =&gt; {
+        props.onClick?.(e);
+        selectTab(index);
+      },
+      ...props,
+    }),
+    // Props getter buat tab panel
+    getTabPanelProps: (index, props = {}) =&gt; ({
+      role: 'tabpanel',
+      id: `panel-${index}`,
+      'aria-labelledby': `tab-${index}`,
+      hidden: selectedIndex !== index,
+      tabIndex: 0,
+      ...props,
+    }),
+  };
+
+  return (
+    &lt;TabsContext.Provider value={contextValue}&gt;
+      {children}
+    &lt;/TabsContext.Provider&gt;
+  );
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">3. Child — TabList (wrapper buat tab buttons)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// 3. Child — TabList (wrapper buat tab buttons)
+function TabList({ children }) {
+  const { getTabListProps, selectedIndex, selectTab, tabListRef } = useContext(TabsContext);
+
+  // Keyboard navigation: Arrow keys, Home, End
+  const handleKeyDown = (e) =&gt; {
+    const tabs = tabListRef.current?.querySelectorAll('[role="tab"]');
+    if (!tabs) return;
+
+    const tabCount = tabs.length;
+    let newIndex = selectedIndex;
+
+    switch (e.key) {
+      case 'ArrowRight': newIndex = (selectedIndex + 1) % tabCount; break;
+      case 'ArrowLeft': newIndex = (selectedIndex - 1 + tabCount) % tabCount; break;
+      case 'Home': newIndex = 0; break;
+      case 'End': newIndex = tabCount - 1; break;
+      default: return; // jangan prevent default kalau bukan key kita
+    }
+
+    e.preventDefault();
+    selectTab(newIndex);
+    tabs[newIndex].focus(); // pindah focus ke tab baru
+  };
+
+  return (
+    &lt;div {...getTabListProps({ onKeyDown: handleKeyDown })}&gt;
       {children}
     &lt;/div&gt;
   );
-};
+}
 
-// Cara pakai — bersih dan fleksibel!
-&lt;Select value={country} onChange={setCountry}&gt;
-  &lt;Select.Trigger /&gt;
-  &lt;Select.Option value="id"&gt;Indonesia&lt;/Select.Option&gt;
-  &lt;Select.Option value="us"&gt;USA&lt;/Select.Option&gt;
-  &lt;Select.Option value="jp"&gt;Japan&lt;/Select.Option&gt;
-&lt;/Select&gt;</code></pre>
-                    </div></div>
-</section>
+// 4. Child — Tab (satu tab button)
+function Tab({ index, children }) {
+  const { getTabProps, selectedIndex } = useContext(TabsContext);
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Provider Pattern</h2><input type="checkbox" id="check-5-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Pattern Lanjutan &middot; 6 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Provider Pattern</strong> menggunakan React Context untuk menyebarkan data ke seluruh tree tanpa prop drilling. Berguna untuk data global: tema, autentikasi, bahasa, konfigurasi.</p>
-        <p>Dua bagian utama: <strong class="text-ink">Provider</strong> yang membungkus aplikasi dan <strong class="text-ink">Custom Hook</strong> untuk akses data. Ini membersihkan kode dari prop drilling berantakan.</p>
-        <p>Pisahkan Provider ke file tersendiri dengan Custom Hook-nya. Provider harus &quot;pasif&quot; &mdash; hanya merender children tanpa UI tambahan.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Provider Pattern &mdash; ThemeProvider</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">const ThemeContext = createContext(undefined);
-
-function ThemeProvider({ children, defaultTheme = 'dark' }) {
-  const [theme, setTheme] = useState(defaultTheme);
-  const toggleTheme = () =&gt; setTheme(p =&gt; p === 'dark' ? 'light' : 'dark');
   return (
-    &lt;ThemeContext.Provider value={{ theme, toggleTheme }}&gt;
+    &lt;button {...getTabProps(index)}&gt;
       {children}
-    &lt;/ThemeContext.Provider&gt;
-  );
-}
-
-function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (ctx === undefined) throw new Error('useTheme harus di ThemeProvider');
-  return ctx;
-}
-
-function Navbar() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    &lt;nav style={{ background: theme === 'dark' ? '#111' : '#fff' }}&gt;
-      &lt;button onClick={toggleTheme}&gt;{theme === 'dark' ? '&#9728;&#65039;' : '&#127769;'}&lt;/button&gt;
-    &lt;/nav&gt;
-  );
-}
-
-function App() {
-  return (
-    &lt;ThemeProvider defaultTheme="dark"&gt;
-      &lt;Navbar /&gt;&lt;MainContent /&gt;
-    &lt;/ThemeProvider&gt;
-  );
-}</code></pre>
-    </div></div>
-    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan gunakan Context untuk data yang berubah sangat sering (posisi mouse). Setiap perubahan Context me-rerender semua konsumen.</p></div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-4" id="lesson-5">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Container vs Presentational</h2><input type="checkbox" id="check-5-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Arsitektur &middot; 5 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>Pattern <strong class="text-ink">Container vs Presentational</strong> memisahkan komponen: <strong class="text-ink">Container</strong> bertanggung jawab logika (fetch, state), <strong class="text-ink">Presentational</strong> fokus tampilan (menerima data via props).</p>
-        <p>Container tidak memiliki styling sendiri. Presentational tidak memiliki state dan berfungsi sebagai &quot;template&quot;. Komunikasi terjadi melalui props.</p>
-        <p>Di era Hooks, pattern ini kurang populer karena Custom Hooks bisa memisahkan logika tanpa komponen terpisah. Tapi konsep pemisahan concern tetap relevan.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Container vs Presentational</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">// Presentational &mdash; fokus tampilan
-function UserList({ users, isLoading, error }) {
-  if (isLoading) return &lt;p&gt;Memuat...&lt;/p&gt;;
-  if (error) return &lt;p&gt;Error: {error.message}&lt;/p&gt;;
-  return &lt;ul&gt;{users.map(u =&gt;
-    &lt;li key={u.id}&gt;{u.name} &mdash; {u.email}&lt;/li&gt;
-  )}&lt;/ul&gt;;
-}
-
-// Container &mdash; fokus logika
-function UserListContainer() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() =&gt; {
-    fetch('/api/users').then(r =&gt; r.json()).then(setUsers)
-      .catch(setError).finally(() =&gt; setLoading(false));
-  }, []);
-  return &lt;UserList users={users} isLoading={loading} error={error} /&gt;;
-}
-
-function App() {
-  return &lt;div&gt;&lt;h1&gt;Daftar User&lt;/h1&gt;&lt;UserListContainer /&gt;&lt;/div&gt;;
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Container adalah chef di dapur yang menyiapkan bahan, Presentational adalah pelayan yang menyajikan makanan. Chef tidak bertemu tamu, pelayan tidak memasak.</p></div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-5" id="lesson-6">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Props Getters & Control Props</h2><input type="checkbox" id="check-5-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Pattern Lanjutan &middot; 7 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Props Getters</strong> menyediakan fungsi yang mengembalikan objek props yang sudah dikonfigurasi. Pengguna menyebarkan props tersebut ke elemen DOM &mdash; mengurangi boilerplate dan memastikan konsistensi.</p>
-        <p><strong class="text-ink">Control Props</strong> melangkah lebih jauh: komponen bisa dikontrol sepenuhnya dari luar (controlled), mengelola state sendiri (uncontrolled), atau campuran. Pattern ini memberikan fleksibilitas maksimal.</p>
-        <p>Library headless UI seperti Downshift, React Table, dan Radix UI menggunakan kedua pattern ini secara ekstensif.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Props Getters &mdash; Toggle</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">function useToggle({ defaultOn = false, onToggle } = {}) {
-  const [isOn, setIsOn] = useState(defaultOn);
-  const toggle = () =&gt; {
-    const next = !isOn;
-    setIsOn(next);
-    onToggle?.(next);
-  };
-
-  // Props Getter &mdash; kembalikan semua props yang dibutuhkan
-  const getTogglerProps = (props = {}) =&gt; ({
-    'aria-pressed': isOn,
-    onClick: (e) =&gt; { props.onClick?.(e); toggle(); },
-    ...props,
-  });
-
-  return { isOn, toggle, getTogglerProps };
-}
-
-// Penggunaan dengan Props Getter:
-function App() {
-  const { isOn, getTogglerProps } = useToggle();
-  return (
-    &lt;button {...getTogglerProps({
-      style: { background: isOn ? '#0B0B0B' : '#6b7280' },
-      className: 'toggle-btn',
-    })}&gt;
-      {isOn ? 'ON' : 'OFF'}
     &lt;/button&gt;
   );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Props Getters seperti kunci pintu otomatis hotel. Kamu cukup menggesek kartu (memanggil getter), dan pintu terbuka dengan konfigurasi tepat tanpa perlu tahu mekanisme internalnya.</p></div>
+}
+
+// 5. Child — TabPanel (konten panel)
+function TabPanel({ index, children }) {
+  const { getTabPanelProps, selectedIndex } = useContext(TabsContext);
+
+  if (selectedIndex !== index) return null; // optional: hide yang inactive
+
+  return (
+    &lt;div {...getTabPanelProps(index)}&gt;
+      {children}
+    &lt;/div&gt;
+  );
+}
+
+// Export semua sebagai compound component
+Tabs.TabList = TabList;
+Tabs.Tab = Tab;
+Tabs.TabPanel = TabPanel;</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Pakainya — API-nya super clean dan expressive:</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Pakainya — API-nya super clean dan expressive:
+function App() {
+  return (
+    &lt;Tabs defaultIndex={0} onChange={(i) =&gt; console.log('Tab:', i)}&gt;
+      &lt;Tabs.TabList&gt;
+        &lt;Tabs.Tab index={0}&gt;Profil&lt;/Tabs.Tab&gt;
+        &lt;Tabs.Tab index={1}&gt;Pengaturan&lt;/Tabs.Tab&gt;
+        &lt;Tabs.Tab index={2}&gt;Keamanan&lt;/Tabs.Tab&gt;
+      &lt;/Tabs.TabList&gt;
+
+      &lt;Tabs.TabPanel index={0}&gt;
+        &lt;h2&gt;Profil Saya&lt;/h2&gt;
+        &lt;p&gt;Edit informasi profil kamu di sini.&lt;/p&gt;
+      &lt;/Tabs.TabPanel&gt;
+
+      &lt;Tabs.TabPanel index={1}&gt;
+        &lt;h2&gt;Pengaturan&lt;/h2&gt;
+        &lt;p&gt;Atur preferensi aplikasi kamu.&lt;/p&gt;
+      &lt;/Tabs.TabPanel&gt;
+
+      &lt;Tabs.TabPanel index={2}&gt;
+        &lt;h2&gt;Keamanan&lt;/h2&gt;
+        &lt;p&gt;Ubah password dan pengaturan keamanan.&lt;/p&gt;
+      &lt;/Tabs.TabPanel&gt;
+    &lt;/Tabs&gt;
+  );
+}
+
+// ✅ Semua ARIA attributes udah otomatis (Props Getters)
+// ✅ API-nya clean dan expressive (Compound Components)
+// ✅ State shared via Context (Provider Pattern)
+// ✅ Keyboard navigation (Arrow keys, Home, End)
+// ✅ Focus management (otomatis pindah focus)
+// Tiga pattern, satu komponen yang powerful! 🎉</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend Tabs component ini: (1) Tambahkan animasi slide/fade pas switch tab, (2) Tambahkan vertical tabs mode, (3) Tambahkan lazy loading panel content, (4) Buat versi TypeScript dengan proper typing. Semua ini bisa ditambahin tanpa ngubah API yang udah ada!</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Accessibility note:</strong> Tabs component ini udah mengikuti WAI-ARIA Tabs Pattern dari W3C. Tapi testing accessibility itu harus manual juga — coba pake keyboard aja tanpa mouse, coba pake screen reader. Automated test (kayak axe-core) nggak bisa nge-test semuanya!</p></div>
 </section>
 
-            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-ink">Ringkasan Bab 5</h2>
-                        <p class="text-sm text-muted mt-1">Yang sudah kamu pelajari</p>
-                    </div>
-                </div>
-                <ul class="space-y-3 text-[#333]">
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>HOC membungkus komponen untuk menambahkan fungsionalitas reusable, meski di era Hooks penggunaannya berkurang</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Render Props memberikan state/logika melalui fungsi children untuk kontrol rendering penuh</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Compound Components membuat sub-komponen berbagi state via Context untuk API deklaratif</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Provider Pattern menyebarkan data global tanpa prop drilling menggunakan React Context</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Container vs Presentational memisahkan logika dan tampilan ke komponen terpisah</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Props Getters &amp; Control Props memberikan fleksibilitas maksimal pada pengguna komponen</span></li>
-                </ul>
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(5)" id="completeBtn5" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai
-                    </button>
-                    <a href="chapter-6.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        Lanjut ke Bab 6
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </section>
+<!-- SUMMARY/RECAP -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+<p class="text-sm text-muted mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">HOC (Higher-Order Components)</strong> — Fungsi yang wrap komponen dan nambahin behavior. kayak jas hujan. Masih dipake library lama (Redux connect), tapi di era hooks banyak diganti custom hook. Waspada wrapper hell dan props collision!</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Render Props</strong> — Komponen nerima fungsi sebagai prop yang return JSX. Chef kasih bahan, kamu tentuin masaknya. Fleksibel tapi bisa bikin callback nesting kalau kebanyakan chain.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Compound Components</strong> — Beberapa komponen yang kerja bareng sebagai satu unit. kayak orkestra. API-nya expressive, implementasi pake Context. Dipake hampir semua headless UI library.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Provider Pattern</strong> — Evolusi useContext yang proper. Encapsulate state logic di dalam provider, consumer cuma panggil custom hook. Pisah context per concern biar re-render minimal.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Container vs Presentational</strong> — Pisah logic (chef) dari presentation (pelayan). Di era hooks, container component diganti custom hook. Prinsipnya tetap: logic dan UI terpisah!</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Props Getters</strong> — Fungsi yang return props object siap pakai. kayak kunci hotel yang bisa dikustomisasi. Dipake Downshift dan headless UI library. Sempurna buat accessibility attributes otomatis.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Polymorphic Components</strong> — Komponen yang bisa render element berbeda via prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code>. Superhero yang bisa berubah bentuk. Dipake Chakra UI, MUI, dan design system lainnya.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project: Accessible Tabs</strong> — Gabungin Compound Components + Props Getters + Context jadi satu komponen tabs yang accessible. Bukti kalo pattern-pattern ini powerful kalau dipakai bareng!</span></li>
+</ul>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(5)" id="completeBtn5" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="chapter-6.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 6 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-4.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-6.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
+</div>
+</section>
 
-            
         </div>
     </main>
 
