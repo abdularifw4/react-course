@@ -165,485 +165,503 @@
 
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">NEXT.JS — KENAPA BUKAN CREATE REACT APP? 🚀</h2><input type="checkbox" id="check-7-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Pengenalan &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>React itu library — dia cuma handle UI. Buat routing? Kamu harus install React Router. Buat data fetching? Install TanStack Query. Buat SEO? Install react-helmet. Tiap project jadi puzzle yang harus kamu rakit sendiri. Capek kan? 😩</p>
+<p>Next.js itu kayak <strong class="text-ink">smartphone</strong> vs React yang kayak <strong class="text-ink">komponen elektronik</strong>. Next.js udah jadi produk jadi — tinggal pakai. React kamu harus solder sendiri. Next.js ngasih routing, data fetching, SEO, optimization, deployment — semua dalam satu package. Oh ternyata gitu! 🤯</p>
+<p>Yang bikin Next.js spesial: <strong class="text-ink">Server Components</strong>. Ini fitur revolusioner yang nge-bedain Next.js dari framework lain. Komponen bisa jalan di server (nggak ada JavaScript ke client), yang artinya page load super cepat, SEO auto bagus, dan bundle size kecil. User cuma download JavaScript yang benar-benar butuh interaktivitas.</p>
+<p>Versi Next.js sekarang udah 14+ dan sangat mature. Vercel (company di belakang Next.js) actively develop dan punya deployment platform yang seamless. Deploy Next.js ke Vercel cuma satu command: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vercel deploy</code>. Auto HTTPS, auto CDN, auto preview per PR. Developer experience-nya top tier.
 
-            
-            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-ink font-bold text-sm">05</span>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-xl font-bold text-ink">Server Actions &amp; Form Handling Tanpa API</h2>
-                    </div>
-                </div>
-                <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p class="text-sm text-muted">Bayangin lo mau bikin form kontak. Dulu, lo harus bikin API route, handle POST request, parse body, save ke database... capek banget. Nah, <strong class="text-ink">Server Actions</strong> bikin itu semua jadi <em>satu function doang</em> yang jalan di server. Nggak perlu API route!</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Server Action — Form Kontak</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-tsx">// app/actions/contact.ts
-"use server";
+<p>Tapi Next.js bukan buat semua project. Kalau app kamu pure client-side ( kayak game, canvas editor, atau dashboard yang semua interaktif ), mungkin Vite + React lebih cocok. Next.js paling powerful buat content-heavy app: blog, e-commerce, landing page, SaaS. 🎯</p>
+<p>Next.js App Router (v14+) itu paradigma baru — nggak lagi pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pages/</code> folder, tapi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/</code> folder dengan file-based routing yang lebih powerful. Layout, loading state, error boundary — semuanya otomatis berdasarkan folder structure. Developer experience-nya next level.</p>
 
-import { revalidatePath } from "next/cache";
+<p><strong class="text-ink">Getting started</strong> cuma satu command: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx create-next-app@latest</code>. Next.js bakal nanya beberapa pertanyaan (TypeScript? ESLint? Tailwind? App Router?) — pilih Yes buat semua default. Dalam 1 menit, kamu punya project Next.js lengkap dengan TypeScript, Tailwind, dan hot reload. Nggak perlu konfigurasi manual. 🔥</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">App Router — Folder Structure</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">my-nextjs-app/
+├── app/
+│   ├── layout.tsx          # Root layout (wrap semua page)
+│   ├── page.tsx            # Home page (/)
+│   ├── about/
+│   │   └── page.tsx        # /about
+│   ├── blog/
+│   │   ├── layout.tsx      # Blog layout (sidebar)
+│   │   ├── page.tsx        # /blog
+│   │   └── [slug]/
+│   │       └── page.tsx    # /blog/:slug (dynamic route)
+│   ├── loading.tsx         # Global loading state
+│   ├── error.tsx           # Global error boundary
+│   └── not-found.tsx       # 404 page
+├── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   └── ui/
+│       └── Button.tsx
+├── lib/
+│   └── utils.ts
+├── public/
+├── package.json
+└── next.config.js</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Fitur gratis Next.js:</strong> Image optimization (auto resize, WebP), Font optimization (self-hosted Google Fonts), Script optimization (defer, partial hydration), CSS optimization (autoprefixer, minify). Semua tanpa config tambahan.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">SERVER vs CLIENT COMPONENTS — DUA DUNIA YANG BERBEDA 🌍</h2><input type="checkbox" id="check-7-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Core Concept &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ini konsep paling penting di Next.js — dan yang paling sering bikin bingung. Jadi dengarin baik-baik ya. Di Next.js App Router, ada dua jenis komponen: <strong class="text-ink">Server Components</strong> (default) dan <strong class="text-ink">Client Components</strong> (pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code>).</p>
+<p>Analoginya: Server Components itu kayak <strong class="text-ink">dapur restoran</strong> — masak di belakang, hasilnya udah jadi pas sampai ke meja. Client Components itu kayak <strong class="text-ink">barbekyu di meja</strong> — kamu masak sendiri di depan customer. Dua-duanya penting, tapi tempatnya beda. Oh ternyata gitu! 🤯</p>
+<p><strong class="text-ink">Server Components</strong> jalan di server saat request. Nggak ada JavaScript yang dikirim ke browser untuk komponen ini. Cocok buat: fetch data, akses database, read file system, render static HTML. Keuntungannya: page load cepat, SEO bagus, bundle kecil, aman (secret nggak exposed ke client).</p>
+<p><strong class="text-ink">Client Components</strong> jalan di browser. Butuh JavaScript. Cocok buat: interaktivitas (onClick, onChange), hooks (useState, useEffect), browser API (localStorage, geolocation), event listeners. Keuntungannya: user bisa interact langsung tanpa request ke server.</p>
+<p>Satu kesalahan umum: taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di layout atau page-level. Ini bikin SEMUA child component jadi Client Component — kehilangan benefit Server Component. Solution? Taruh "use client" di leaf component (komponen paling dalam yang butuh interaktivitas). Parent tetap Server Component. 🎯
 
-export async function submitContact(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const message = formData.get("message") as string;
+<p><strong class="text-ink">Aturan emas: mulai dari Server Component, turun ke Client Component kalau butuh interaktivitas</strong>. Jangan taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di semua file — itu kebablasan. Server Component bisa render Client Component sebagai child, tapi Client Component nggak bisa import Server Component sebagai prop yang di-render secara dinamis.</p>
 
-  // Validasi
-  if (!name || !email) {
-    return { error: "Nama dan email wajib diisi!" };
-  }
+<p>Best practice: <strong class="text-ink">composition pattern</strong>. Server Component fetch data, terus pass ke Client Component sebagai prop (JSX). Client Component fokus handle interaktivitas. Data-nya udah ada — nggak perlu loading state di client. Pattern ini bikin client bundle kecil dan page load cepat. 🎯</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Component — Default</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Server Component (default — nggak perlu "use client")
+// File: app/page.tsx
 
-  // Save ke database
-  await db.contact.create({ data: { name, email, message } });
+import { db } from '@/lib/db';
+import { ProductCard } from '@/components/ProductCard';
+import { AddToCartButton } from '@/components/AddToCartButton';
 
-  // Revalidate cache
-  revalidatePath("/admin/contacts");
-  return { success: true };
-}</code></pre>
-                    </div>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Pakai Server Action di Form</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-tsx">// app/contact/page.tsx
-import { submitContact } from "@/app/actions/contact";
-
-export default function ContactPage() {
-  return (
-    &lt;form action={submitContact}&gt;
-      &lt;input name="name" placeholder="Nama" /&gt;
-      &lt;input name="email" type="email" placeholder="Email" /&gt;
-      &lt;textarea name="message" placeholder="Pesan" /&gt;
-      &lt;button type="submit"&gt;Kirim&lt;/button&gt;
-    &lt;/form&gt;
-  );
+// Data fetching langsung di komponen — nggak perlu useEffect!
+async function getProducts() {
+  const products = await db.product.findMany();
+  return products;
 }
 
-// Dengan loading state pakai useFormStatus:
-import { useFormStatus } from "react-dom";
+export default async function HomePage() {
+  const products = await getProducts();
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
   return (
-    &lt;button type="submit" disabled={pending}&gt;
-      {pending ? "Mengirim..." : "Kirim"}
+    &lt;main&gt;
+      &lt;h1&gt;Produk Terbaru&lt;/h1&gt;
+      {products.map(product =&gt; (
+        &lt;div key={product.id}&gt;
+          &lt;ProductCard product={product} /&gt;        {/* ✅ Server Component */}
+          &lt;AddToCartButton productId={product.id} /&gt; {/* ✅ Client Component */}
+        &lt;/div&gt;
+      ))}
+    &lt;/main&gt;
+  );
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Client Component — Interactive</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Client Component — WAJIB "use client" di baris pertama
+// File: components/AddToCartButton.tsx
+
+'use client';
+
+import { useState } from 'react';
+
+export function AddToCartButton({ productId }: { productId: string }) {
+  const [added, setAdded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleAdd = async () =&gt; {
+    setLoading(true);
+    await fetch('/api/cart', {
+      method: 'POST',
+      body: JSON.stringify({ productId }),
+    });
+    setAdded(true);
+    setLoading(false);
+  };
+
+  return (
+    &lt;button onClick={handleAdd} disabled={loading}&gt;
+      {loading ? 'Menambahkan...' : added ? '✅ Udah di Keranjang' : 'Tambah ke Keranjang'}
     &lt;/button&gt;
   );
-}</code></pre>
-                    </div>
-                    <div class="tip-box rounded-xl p-4 mt-4">
-                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Server Actions = form handling tanpa bikin API route, tanpa fetch, tanpa JSON parse. Cukup bikin function dengan <code>"use server"</code> dan hubungkan ke form. Next.js urus sisanya!</p>
-                    </div>
-                </div>
-            </section>
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Error paling sering:</strong> Lupa "use client" di komponen yang pake hooks atau event handler. Error-nya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState is not a client component</code>. Solution? Tambah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> di baris pertama file tersebut.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">ROUTING — FILE SYSTEM YANG CERDAS 🗺️</h2><input type="checkbox" id="check-7-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Routing &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Next.js, kamu nggak perlu konfigurasi router. Cukup bikin folder dan file — Next.js otomatis bikin route berdasarkan struktur folder. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/about/page.tsx</code> = route <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/about</code>. Sederhana kan? 🎯</p>
+<p>Yang bikin powerful: <strong class="text-ink">dynamic routes</strong>. Pake bracket notation — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[slug]</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[id]</code>. Route-nya jadi dinamis: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/blog/hello-world</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/123</code>. Parameter-nya accessible via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">params</code> prop di page component.</p>
+<p>Layout itu wrapper yang persist di semua child routes. Root layout (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/layout.tsx</code>) wrap SEMUA page. Nested layout (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/blog/layout.tsx</code>) cuma wrap page di folder blog. Layout nggak re-render pas navigasi — jadi sidebar, header, footer tetap ada tanpa flash. Oh ternyata gitu! 🤯</p>
 
-            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-ink font-bold text-sm">06</span>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-xl font-bold text-ink">Middleware, Caching &amp; Error UI</h2>
-                    </div>
-                </div>
-                <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p class="text-sm text-muted"><strong class="text-ink">Middleware</strong> itu kayak satpam di gerbang. Setiap request yang masuk lewati dia dulu sebelum sampe ke page. Bisa dipake buat auth check, redirect, rewrite URL, dan banyak lagi.</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Middleware — Auth Protection</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-tsx">// middleware.ts (di root folder)
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+<p>Untuk navigasi antar halaman, Next.js punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Link&gt;</code> component. Dia handle prefetching otomatis — pas kamu hover link, Next.js udah fetch data di background. Jadi pas klik, page langsung tampil. Nggak ada loading spinner. Ini yang bikin Next.js app terasa secepat native app. ⚡</p>
+<p>Yang juga powerful: <strong class="text-ink">parallel routes</strong> dan <strong class="text-ink">intercepting routes</strong>. Parallel routes load multiple page di same URL secara bersamaan — cocok buat dashboard dengan panel samping. Intercepting routes buat "modal routing" — buka content di modal tanpa pindah halaman. Ini fitur advanced yang jarang dipake tapi super powerful pas butuh.
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+<p>Special files yang auto-kerja: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">loading.tsx</code> (skeleton UI pas loading), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> (error boundary), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">not-found.tsx</code> (404 page), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code> (route handler). Semuanya based on convention — nggak perlu config.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Dynamic Route dengan Params</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/blog/[slug]/page.tsx
+// Route: /blog/:slug — slug accessible via params
 
-  // Protected routes
-  if (request.nextUrl.pathname.startsWith("/dashboard")) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  }
+type PageProps = {
+  params: Promise&lt;{ slug: string }&gt;;
+};
 
-  // Redirect kalau udah login tapi buka /login
-  if (request.nextUrl.pathname === "/login" &amp;&amp; token) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+export default async function BlogPost({ params }: PageProps) {
+  const { slug } = await params;
 
-  return NextResponse.next();
-}
+  // Fetch blog post berdasarkan slug
+  const post = await fetch(`https://api.example.com/blog/${slug}`)
+    .then(res =&gt; res.json());
 
-export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/admin/:path*"],
-};</code></pre>
-                    </div>
-                    <p class="text-sm text-muted"><strong class="text-ink">Error &amp; Loading UI</strong> — Next.js punya special files untuk handle ini:</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">error.tsx, loading.tsx, not-found.tsx</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-tsx">// app/dashboard/loading.tsx
-export default function Loading() {
-  return &lt;div className="animate-pulse"&gt;Loading dashboard...&lt;/div&gt;;
-}
-
-// app/dashboard/error.tsx ("use client" WAJIB!)
-"use client";
-export default function Error({ error, reset }: {
-  error: Error; reset: () =&gt; void;
-}) {
   return (
-    &lt;div&gt;
-      &lt;h2&gt;Ada yang salah!&lt;/h2&gt;
-      &lt;p&gt;{error.message}&lt;/p&gt;
-      &lt;button onClick={reset}&gt;Coba lagi&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;article&gt;
+      &lt;h1&gt;{post.title}&lt;/h1&gt;
+      &lt;p&gt;{post.content}&lt;/p&gt;
+      &lt;span&gt;Published: {new Date(post.createdAt).toLocaleDateString('id-ID')}&lt;/span&gt;
+    &lt;/article&gt;
   );
-}
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Layout — Nested & Persistent</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/layout.tsx — Root layout (wrap SEMUA page)
+import './globals.css';
 
-// app/not-found.tsx
-export default function NotFound() {
-  return &lt;h1&gt;404 - Halaman nggak ketemu&lt;/h1&gt;;
-}
-
-// app/blog/[slug]/page.tsx — generateStaticParams
-export async function generateStaticParams() {
-  const posts = await fetch("https://api.blog.com/posts").then(r =&gt; r.json());
-  return posts.map((post) =&gt; ({ slug: post.slug }));
-}
-// Sekarang semua blog post di-generate saat build time!</code></pre>
-                    </div>
-                    <p class="text-sm text-muted"><strong class="text-ink">Caching Strategies:</strong></p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Next.js Fetch Caching</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-tsx">// SSG: fetch sekali saat build (default)
-const data = await fetch("https://api.example.com/data");
-
-// SSR: fetch setiap request
-const data = await fetch("https://api.example.com/data", {
-  cache: "no-store",
-});
-
-// ISR: revalidate tiap 60 detik
-const data = await fetch("https://api.example.com/data", {
-  next: { revalidate: 60 },
-});
-
-// Tag-based: invalidate manual
-const data = await fetch("https://api.example.com/data", {
-  next: { tags: ["users"] },
-});
-// Di server action:
-import { revalidateTag } from "next/cache";
-revalidateTag("users"); // refresh semua fetch dengan tag "users"</code></pre>
-                    </div>
-                    <div class="tip-box rounded-xl p-4 mt-4">
-                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Middleware = satpam gerbang. Caching = memory React. generateStaticParams = pre-generate halaman saat build. Error/loading UI = safety net otomatis. Semuanya bekerja sama bikin app lo cepat dan robust!</p>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Routing (App Router)</h2><input type="checkbox" id="check-7-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Fundamental &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Next.js App Router</strong> menggunakan folder-based routing. Setiap folder di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/</code> menjadi route, dan file <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code> di dalamnya menjadi halaman yang di-render. Ini jauh lebih intuitif dibanding Pages Router yang lama.</p>
-        <p>Dynamic routes menggunakan folder dengan nama diapit kurung siku: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[id]/</code> untuk parameter dinamis. Catch-all routes menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[...slug]/</code>. Route groups menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(group)/</code> tanpa mempengaruhi URL.</p>
-        <p>App Router juga mendukung <strong class="text-ink">loading.tsx</strong> (automatic loading UI), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> (error boundary), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">not-found.tsx</code> (404 page), dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">layout.tsx</code> (shared layout) secara built-in.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">App Router &mdash; Struktur Folder</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-bash">app/
-├── layout.tsx          # Root layout (wajib)
-├── page.tsx            # Halaman utama (/)
-├── loading.tsx         # Loading UI global
-├── error.tsx           # Error boundary global
-├── not-found.tsx       # 404 page
-├── about/
-│   └── page.tsx        # /about
-├── blog/
-│   ├── page.tsx        # /blog
-│   ├── [slug]/
-│   │   └── page.tsx    # /blog/:slug (dynamic)
-│   └── loading.tsx     # Loading untuk /blog/*
-└── dashboard/
-    ├── layout.tsx      # Layout khusus dashboard
-    ├── page.tsx        # /dashboard
-    └── settings/
-        └── page.tsx    # /dashboard/settings</code></pre>
-    </div></div>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Navigasi dengan Link &amp; useParams</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">// app/layout.tsx — navigasi pakai &lt;Link&gt; (client-side, tanpa reload!)
-import Link from 'next/link';
-
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    &lt;html&gt;
+    &lt;html lang="id"&gt;
       &lt;body&gt;
-        &lt;nav className="flex gap-4 p-4 border-b"&gt;
-          {/* prefetch otomatis — halaman di-load di background */}
-          &lt;Link href="/" className="text-ink hover:underline"&gt;Home&lt;/Link&gt;
-          &lt;Link href="/blog" className="text-ink hover:underline"&gt;Blog&lt;/Link&gt;
-          &lt;Link href="/about" className="text-ink hover:underline"&gt;About&lt;/Link&gt;
-        &lt;/nav&gt;
-        {children}
+        &lt;Header /&gt;
+        &lt;main&gt;{children}&lt;/main&gt;
+        &lt;Footer /&gt;
       &lt;/body&gt;
     &lt;/html&gt;
   );
 }
 
-// app/blog/[slug]/page.tsx — akses parameter dinamis
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise&lt;{ slug: string }&gt;;
-}) {
-  const { slug } = await params;  // Next.js 15: params adalah Promise
-  const post = await getPost(slug);
-  return &lt;article&gt;&lt;h1&gt;{post.title}&lt;/h1&gt;&lt;/article&gt;;
-}</code></pre>
-    </div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Folder-based routing seperti sistem folder di komputer. Setiap folder adalah &quot;alamat&quot; dan file page.tsx adalah &quot;isi halaman&quot; di alamat tersebut. Semakin dalam folder, semakin spesifik URL-nya.</p></div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Server vs Client Components</h2><input type="checkbox" id="check-7-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Konsep Inti &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>Di Next.js App Router, <strong class="text-ink">Server Components</strong> adalah default. Mereka di-render di server, tidak mengirim JavaScript ke client, dan bisa langsung mengakses database atau file system. Ini mengurangi bundle size dan meningkatkan performa.</p>
-        <p><strong class="text-ink">Client Components</strong> ditandai dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> di baris pertama file. Mereka di-render di browser dan bisa menggunakan useState, useEffect, event handlers, dan browser API.</p>
-        <p>Peraturan praktis: gunakan Server Components sebanyak mungkin. Hanya gunakan Client Components ketika benar-benar membutuhkan interaktivitas (onClick, onChange, useState, useEffect). Komponen Server bisa me-render Komponen Client, tapi tidak sebaliknya.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Server vs Client Components</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-typescript">// Server Component (default) &mdash; no directive needed
-// Bisa akses database, file system, env variables langsung
-async function UserProfile({ userId }: { userId: string }) {
-  // Ini berjalan di server!
-  const user = await db.user.findUnique({ where: { id: userId } });
+// File: app/blog/layout.tsx — Blog-specific layout
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
-    &lt;div&gt;
-      &lt;h1&gt;{user.name}&lt;/h1&gt;
-      &lt;p&gt;{user.bio}&lt;/p&gt;
-      &lt;LikeButton postId={userId} /&gt;  {/* Client Component */}
+    &lt;div className="flex"&gt;
+      &lt;aside className="w-64"&gt;
+        &lt;BlogSidebar /&gt; {/* Persist di semua /blog/* routes */}
+      &lt;/aside&gt;
+      &lt;div className="flex-1"&gt;{children}&lt;/div&gt;
     &lt;/div&gt;
   );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Route Groups:</strong> Pake folder dengan prefix <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(marketing)</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(dashboard)</code> — folder-nya nggak jadi bagian dari URL, tapi layout-nya tetap apply. Cocok buat organize routes tanpa affect URL structure.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">DATA FETCHING — NGGAK PERLU USEEFFECT LAGI 📡</h2><input type="checkbox" id="check-7-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Data &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di React biasa, data fetching pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>. Result? Waterfall loading — browser download JS, render empty UI, fetch data, re-render dengan data. User lihat loading spinner dulu, baru lihat konten. Nggak optimal. 😤</p>
+<p>Di Next.js Server Components, kamu bisa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code> langsung di komponen! Data di-fetch di server, HTML udah lengkap pas sampai ke browser. User langsung lihat konten — no loading spinner, no waterfall. Ini game changer buat UX. Oh ternyata gitu! 🤯</p>
+
+<p>Di real project, Server Component biasanya nggak fetch dari external API — mereka langsung query database via ORM kayak <strong class="text-ink">Prisma</strong> atau <strong class="text-ink">Drizzle</strong>. Ini lebih efisien: nggak ada HTTP overhead, type-safe query, dan bisa langsung akses environment variable tanpa expose ke client. Pattern-nya: Prisma client di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">lib/db.ts</code>, import di Server Component, query langsung. Clean dan efisien. 🔥</p>
+<p>Tapi Server Component fetching bukan buat semua kasus. Kalau data-nya real-time (chat, stock price), butuh Client Component + SWR/React Query. Kalau data-nya user-specific (dashboard auth), gabung server fetch + client revalidation.</p>
+<p>Next.js juga punya <strong class="text-ink">caching strategy</strong> built-in: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default cache (ISR-like), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat always fresh, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate</code> buat periodic refresh. Pattern yang recommended: <strong class="text-ink">Server Component fetch</strong> buat initial data, <strong class="text-ink">Client Component + SWR</strong> buat real-time update. Dua pattern ini bisa kombinasikan — Server Component render initial data, Client Component mount dan mulai polling buat update. User langsung lihat data, tapi data tetap fresh. Best of both worlds! ⚡
+
+<p>Nggak perlu library external buat caching — Next.js handle semuanya.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Component — Direct Fetch</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Direct await di Server Component — super clean!
+// File: app/products/page.tsx
+
+async function getProducts() {
+  const res = await fetch('https://api.example.com/products', {
+    next: { revalidate: 3600 } // cache 1 jam, auto-refresh
+  });
+  if (!res.ok) throw new Error('Failed to fetch');
+  return res.json();
 }
 
-// Client Component &mdash; perlu directive
-&apos;use client&apos;;
-import { useState } from 'react';
-
-function LikeButton({ postId }: { postId: string }) {
-  const [liked, setLiked] = useState(false);
-  return (
-    &lt;button onClick={() =&gt; setLiked(!liked)}&gt;
-      {liked ? '&#10084;&#65039;' : '&#128150;'} Suka
-    &lt;/button&gt;
-  );
-}</code></pre>
-    </div></div>
-    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&apos;use client&apos;</code> jika komponen menggunakan useState, useEffect, onClick, atau browser API. Tanpa directive ini, kamu akan mendapat error hydration.</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Trik penting: kamu bisa <strong class="text-ink">mengirim props dari Server Component ke Client Component</strong> &mdash; tapi props tersebut harus <em>serializable</em> (string, number, array, object). Tidak boleh kirim function atau instance class!</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Pola Server &rarr; Client Composition</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">// app/dashboard/page.tsx (Server Component)
-import { db } from '@/lib/db';
-import DeleteButton from './DeleteButton';  // Client Component
-
-export default async function Dashboard() {
-  const user = await db.user.findFirst();  // query DB di server
+export default async function ProductsPage() {
+  const products = await getProducts();
 
   return (
-    &lt;main&gt;
-      &lt;h1&gt;Halo, {user.name}!&lt;/h1&gt;
-      {/* ✅ OKE: kirim data serializable ke Client Component */}
-      &lt;DeleteButton userId={user.id} /&gt;
-      {/* ❌ ERROR: tidak boleh kirim function! */}
-      {/* &lt;DeleteButton onDelete={() =&gt; db.delete()} /&gt; */}
-    &lt;/main&gt;
+    &lt;div&gt;
+      &lt;h1&gt;Produk Kami ({products.length} items)&lt;/h1&gt;
+      &lt;div className="grid grid-cols-3 gap-4"&gt;
+        {products.map((p: any) =&gt; (
+          &lt;div key={p.id}&gt;
+            &lt;img src={p.image} alt={p.name} /&gt;
+            &lt;h3&gt;{p.name}&lt;/h3&gt;
+            &lt;p&gt;Rp {p.price.toLocaleString('id-ID')}&lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
   );
-}
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Client Component — SWR Pattern</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Client Component + SWR buat real-time data
+// File: components/RealtimeStock.tsx
 
-// app/dashboard/DeleteButton.tsx (Client Component)
 'use client';
-import { useState } from 'react';
 
-export default function DeleteButton({ userId }: { userId: string }) {
-  const [confirming, setConfirming] = useState(false);
-  return (
-    &lt;button onClick={() =&gt; setConfirming(true)}&gt;
-      {confirming ? 'Yakin hapus?' : 'Hapus Akun'}
-    &lt;/button&gt;
+import useSWR from 'swr';
+
+const fetcher = (url: string) =&gt; fetch(url).then(r =&gt; r.json());
+
+export function RealtimeStock({ productId }: { productId: string }) {
+  const { data, error, isLoading } = useSWR(
+    `/api/stock/${productId}`,
+    fetcher,
+    { refreshInterval: 5000 } // poll setiap 5 detik
   );
-}</code></pre>
-    </div>
-</section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Data Fetching, API Routes & SEO</h2><input type="checkbox" id="check-7-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Praktik &middot; 10 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>Next.js menyediakan <strong class="text-ink">Server-side Data Fetching</strong> yang powerful. Di Server Components, kamu bisa langsung menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async/await</code> tanpa useEffect. Data di-fetch di server dan HTML yang sudah lengkap dikirim ke client.</p>
-        <p><strong class="text-ink">API Routes</strong> (Route Handlers) memungkinkan kamu membuat API endpoints di dalam proyek Next.js. File <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">route.ts</code> di folder app menjadi endpoint. Sangat berguna untuk webhook, form submissions, atau integrasi pihak ketiga.</p>
-        <p>Untuk <strong class="text-ink">SEO</strong>, Next.js menyediakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata()</code> untuk mengatur title, description, dan meta tags secara dinamis per halaman. Ini sangat penting untuk performa SEO.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Data Fetching &amp; API Routes</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-typescript">// Server-side data fetching (di Server Component)
-async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await fetch(
-    `https://api.example.com/posts/${params.slug}`,
-    { next: { revalidate: 3600 } }  // ISR: revalidate tiap 1 jam
-  ).then(r =&gt; r.json());
+  if (isLoading) return &lt;span&gt;Loading...&lt;/span&gt;;
+  if (error) return &lt;span&gt;Error&lt;/span&gt;;
 
-  return &lt;article&gt;
-    &lt;h1&gt;{post.title}&lt;/h1&gt;
-    &lt;div dangerouslySetInnerHTML={{ __html: post.content }} /&gt;
-  &lt;/article&gt;;
+  return (
+    &lt;span className={data.stock &lt; 10 ? 'text-red-500' : 'text-green-500'}&gt;
+      Stok: {data.stock} {data.stock &lt; 10 &amp;&amp; '— Hampir habis!'}
+    &lt;/span&gt;
+  );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Kapan pilih mana:</strong> Server fetch → static/semi-static data (blog, product catalog, profile). Client fetch (SWR/React Query) → real-time data, user-specific data, data yang sering berubah. Bisa juga gabung: server fetch buat initial load, client revalidate buat update berikutnya.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">METADATA & SEO — AUTO RANKING #1 GOOGLE 🔍</h2><input type="checkbox" id="check-7-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">SEO &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>React biasa itu SPA — single HTML file yang isinya kosong <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;div id="root"&gt;</code>. Semua content di-render oleh JavaScript di browser. Google bot bisa baca, tapi butuh waktu — dan kadang skip JavaScript altogether. Result? SEO buruk. 😤</p>
+<p>Next.js beda — tiap page udah punya HTML lengkap di server. Google bot langsung baca konten, title, meta description, structured data. Nggak perlu tunggu JavaScript execute. SEO auto bagus tanpa effort extra. Oh ternyata gitu! 🤯</p>
+<p>Metadata bisa didefinisikan via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata()</code> (dynamic, buat halaman berbeda-beda tiap request) atau static <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">metadata</code> export (fixed per page). Next.js otomatis convert ke proper <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;head&gt;</code> tags.</p>
+<p>Contoh nyata: blog post yang share ke LinkedIn. Tanpa Open Graph, preview-nya cuma URL kosong — nggak ada gambar, judul, atau deskripsi. Dengan OG metadata yang bener, preview-nya kaya dan menarik. Ini bisa meningkatkan CTR (click-through rate) secara signifikan. SEO bukan cuma Google — social media juga penting! 📱
+
+<p>Yang sering dilupakan: <strong class="text-ink">Open Graph</strong> buat social media preview (Facebook, Twitter, LinkedIn), <strong class="text-ink">JSON-LD</strong> structured data buat Google rich snippets, dan <strong class="text-ink">sitemap</strong> buat crawl efficiency. Next.js punya semua built-in — tinggal pake.</p>
+
+<p><strong class="text-ink">JSON-LD structured data</strong> itu senjata rahasia SEO. Dengan markup yang bener, Google bisa tampilin rich snippets: star rating, price, FAQ accordion, breadcrumb. Ini langsung meningkatkan visibility di search results. Next.js bisa generate JSON-LD dari Server Component — data langsung dari database, nggak perlu manual update. Automation = consistency. 📊</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Static & Dynamic Metadata</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Static metadata — fixed per page
+// File: app/about/page.tsx
+
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Tentang Kami — React Course',
+  description: 'Belajar React dari nol sampai mahir. Kursus gratis bahasa Indonesia.',
+  openGraph: {
+    title: 'Tentang Kami — React Course',
+    description: 'Kursus React gratis #1 di Indonesia',
+    images: ['/og-about.png'],
+  },
+};
+
+export default function AboutPage() {
+  return &lt;h1&gt;Tentang Kami&lt;/h1&gt;;
 }
 
-// Metadata/SEO
-export async function generateMetadata({ params }) {
-  const post = await getPost(params.slug);
+// ✅ Dynamic metadata — berbeda tiap request
+// File: app/blog/[slug]/page.tsx
+
+type Props = { params: Promise&lt;{ slug: string }&gt; };
+
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const post = await fetch(`https://api.example.com/blog/${slug}`).then(r =&gt; r.json());
+
   return {
-    title: post.title,
+    title: `${post.title} — Blog Kami`,
     description: post.excerpt,
     openGraph: { images: [post.coverImage] },
   };
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata</code> cuma jalan di Server Component. Jangan taruh di file yang ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>. Metadata selalu di-resolve di server — ini yang bikin SEO-nya auto bagus.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MIDDLEWARE, CACHING & ERROR UI 🛡️</h2><input type="checkbox" id="check-7-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Tiga fitur Next.js yang sering diabaikan padahal powerful banget. Middleware buat auth redirect dan geo-routing, caching buat performance, error boundary buat graceful failure. Mari bahas satu-satu. 🎯</p>
+<p><strong class="text-ink">Middleware</strong> jalan sebelum request sampai ke page. Cocok buat: auth check (redirect ke login kalau belum login), A/B testing, geo-based routing, rate limiting. Middleware cuma bisa jadi Server Component — nggak bisa pake hooks atau event handlers. Tapi dia bisa access cookies, headers, dan request URL — cukup buat sebagian besar use case auth dan routing.</p>
+
+<p><strong class="text-ink">Edge Runtime</strong> — middleware jalan di edge (CDN), bukan di server Node.js. Artinya super cepat, latency rendah, dan bisa nge-handle jutaan request. Tapi ada limitation: nggak bisa akses Node.js API kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fs</code> atau native modules. Buat logic yang simple (auth, redirect), ini lebih dari cukup.</p>
+<p><strong class="text-ink">Caching</strong> di Next.js App Router udah built-in. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default-nya cache (dengan revalidate). Kamu bisa override per-request: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat fresh data, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate: 60</code> buat auto-refresh tiap 60 detik. Ini menggantikan getServerSideProps + getStaticProps dari Pages Router. Oh ternyata gitu! 🤯</p>
+<p><strong class="text-ink">Error UI</strong> lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> — komponen khusus yang nampilin pas ada error. Dengan pattern ini, error di satu bagian nggak nge-crash seluruh halaman. Error boundary paling dekat yang handle — jadi error di blog post tetap tampilin header dan sidebar. User bisa navigate ke halaman lain tanpa refresh.
+
+<p>Bisa nested (blog error, dashboard error) atau global. Yang keren: error.tsx bisa jadi Client Component jadi bisa punya "Try Again" button. Satu lagi: <strong class="text-ink">loading.tsx</strong>. Ini skeleton UI yang auto-tampil pas Next.js fetching data. Nggak perlu state management buat loading — cukup bikin loading.tsx di folder yang sama dengan page.tsx. React Suspense otomatis wrap dan tampilin skeleton. User experience-nya smooth banget — nggak ada blank page, cuma skeleton yang smooth fade in. 🎨
+
+<p>Auto-wrap error boundary tanpa install apapun.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Middleware — Auth Check</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">// File: middleware.ts (di ROOT project, bukan di app/)
+
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('auth-token');
+  const isProtected = request.nextUrl.pathname.startsWith('/dashboard');
+
+  if (isProtected &amp;&amp; !token) {
+    // Redirect ke login, simpan original URL
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  return NextResponse.next();
 }
 
-// API Route (app/api/contact/route.ts)
-import { NextRequest, NextResponse } from 'next/server';
+// Konfigurasi matcher — middleware cuma jalan di route tertentu
+export const config = {
+  matcher: ['/dashboard/:path*', '/settings/:path*'],
+};</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Error Boundary — error.tsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/error.tsx — Global error boundary
+// WAJIB Client Component!
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  // Proses data...
-  return NextResponse.json(
-    { success: true, message: 'Pesan terkirim!' },
-    { status: 200 }
-  );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Server Components itu seperti restoran dengan chef yang sudah masak sebelum tamu datang. Makanan sudah siap (HTML sudah lengkap), tamu tinggal makan (client tinggal render). Client Components seperti self-service buffet &mdash; tamu bisa ambil dan campur sendiri (interaksi dinamis).</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Selain <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch()</code> biasa, Next.js punya strategi caching yang bisa kamu atir. Pahami bedanya <strong class="text-ink">SSG, SSR, dan ISR</strong> biar nggak bingung pas production nanti.</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Loading UI, Error Boundary &amp; Caching Strategy</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">// app/blog/loading.tsx — muncul otomatis selama fetch berjalan
-export default function Loading() {
-  return (
-    &lt;div className="animate-pulse space-y-4"&gt;
-      &lt;div className="h-8 bg-black/10 rounded w-3/4" /&gt;
-      &lt;div className="h-4 bg-black/10 rounded" /&gt;
-      &lt;div className="h-4 bg-black/10 rounded w-5/6" /&gt;
-    &lt;/div&gt;
-  );
-}
-
-// app/blog/error.tsx — tangkap error, wajib "use client"
 'use client';
-export default function Error({ error, reset }: {
-  error: Error; reset: () =&gt; void;
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error &amp; { digest?: string };
+  reset: () =&gt; void;
 }) {
   return (
-    &lt;div className="p-6 text-center"&gt;
-      &lt;h2&gt;Yah, ada error 😵&lt;/h2&gt;
-      &lt;p className="text-muted"&gt;{error.message}&lt;/p&gt;
-      &lt;button onClick={reset} className="mt-4 bg-ink text-white px-4 py-2 rounded-lg"&gt;
-        Coba lagi
+    &lt;div className="flex flex-col items-center justify-center min-h-[50vh] gap-4"&gt;
+      &lt;h2 className="text-2xl font-bold"&gt;Oops! Ada yang salah 😅&lt;/h2&gt;
+      &lt;p className="text-muted"&gt;{error.message || 'Terjadi kesalahan tak terduga.'}&lt;/p&gt;
+      &lt;button
+        onClick={reset}
+        className="bg-ink text-white px-6 py-3 rounded-xl hover:bg-ink-soft"
+      &gt;
+        Coba Lagi 🔄
       &lt;/button&gt;
     &lt;/div&gt;
   );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Nested error.tsx:</strong> Buat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/dashboard/error.tsx</code> buat error spesifik dashboard, terpisah dari global error. Error boundary paling dekat yang handle — jadi error di dashboard nggak nge-crash seluruh app.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">SERVER ACTIONS — BIKIN FORM TANPA API 📝</h2><input type="checkbox" id="check-7-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Forms &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Dulu bikin form di React: handleSubmit → fetch ke API endpoint → handle response. Backend-nya harus bikin route terpisah buat handle POST. Banyak boilerplate. Next.js Server Actions nge-simplify semua ini. Kamu bisa langsung panggil server function dari form — nggak perlu API endpoint. 🔥</p>
+<p>Analoginya: Server Actions itu kayak <strong class="text-ink">pesan langsung ke dapur</strong> vs lewat waiter (API). Lebih cepat, nggak perlu middleware. Form submit → langsung ke server function → return result. Clean, simple, dan type-safe. Oh ternyata gitu! 🤯</p>
+<p>Server Actions itu async function yang jalan di server. Bisa didefinisikan di Server Component atau file terpisah. Dipanggil via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">action</code> prop di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;form&gt;</code> atau via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">formAction</code> di hook. Result bisa di-access via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useActionState</code> (React 19).</p>
+<p>Yang powerful: Server Actions bisa return data (bukan cuma void), bisa throw error (auto-catch oleh error boundary), bisa revalidate cache (auto-update UI pas data berubah). Ini menggantikan pola lama: API route + fetch + state management. Server Actions juga support <strong class="text-ink">progressive enhancement</strong> — kalau JavaScript disabled di browser, form tetap bisa submit (dengan full page reload). Ini yang bikin Next.js form lebih resilient dari form React biasa. Accessibility + reliability = win-win.
+
+<p>Satu function, semua handled. ⚡</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Action — Form Handling</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/actions.ts — Server Actions di file terpisah
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
+export async function createPost(formData: FormData) {
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
+
+  if (!title || !content) {
+    return { error: 'Title dan content wajib diisi!' };
+  }
+
+  // Simpan ke database
+  await db.post.create({ data: { title, content } });
+
+  // Revalidate cache + redirect
+  revalidatePath('/blog');
+  redirect('/blog');
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Form dengan Server Action</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/blog/new/page.tsx
+
+import { createPost } from '@/app/actions';
+
+export default function NewPostPage() {
+  return (
+    &lt;form action={createPost} className="space-y-4 max-w-lg"&gt;
+      &lt;div&gt;
+        &lt;label htmlFor="title" className="block mb-2 font-medium"&gt;Judul&lt;/label&gt;
+        &lt;input id="title" name="title" className="w-full rounded-xl border p-3"
+          placeholder="Judul blog post..." /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label htmlFor="content" className="block mb-2 font-medium"&gt;Konten&lt;/label&gt;
+        &lt;textarea id="content" name="content" rows={10}
+          className="w-full rounded-xl border p-3"
+          placeholder="Tulis konten blog..." /&gt;
+      &lt;/div&gt;
+      &lt;button type="submit"
+        className="bg-ink text-white px-6 py-3 rounded-xl hover:bg-ink-soft"&gt;
+        Publish 🚀
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Security:</strong> Server Actions BUKAN client-side function. Mereka jalan di server — jadi secret (API key, database URL) tetap aman. Tapi tetap validasi input! Client bisa manipulasi formData sebelum dikirim. Selalu server-side validation. Plus, Server Actions bisa di-pair dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useActionState</code> (React 19) buat handle loading, success, dan error state — mirip useState tapi khusus buat form. Tapi tetap validasi input! Client bisa manipulasi formData sebelum dikirim. Selalu server-side validation.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — BLOG DENGAN NEXT.JS 📰</h2><input type="checkbox" id="check-7-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Sekarang saatnya gabungin semua konsep jadi satu project nyata! Bikin <strong class="text-ink">blog sederhana</strong> dengan Next.js App Router — Server Components, Client Components, dynamic routing, metadata, error handling, semuanya ada. Ini contoh nyata gimana Next.js bikin development blog jadi super cepat. 🔥</p>
+<p>Project ini nge-gabungin: Server Component buat data fetching (list post), Client Component buat interaktivitas (like button, search), dynamic route <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[slug]</code> buat blog post, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata</code> buat SEO, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">loading.tsx</code> buat skeleton UI, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> buat error handling.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Blog Project — Struktur File</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">blog-nextjs/
+├── app/
+│   ├── layout.tsx           # Root layout + metadata
+│   ├── page.tsx             # Home — list semua post
+│   ├── loading.tsx          # Skeleton UI
+│   ├── error.tsx            # Error boundary
+│   ├── blog/
+│   │   ├── layout.tsx       # Blog layout
+│   │   └── [slug]/
+│   │       ├── page.tsx     # Blog post detail
+│   │       ├── loading.tsx  # Post skeleton
+│   │       └── error.tsx    # Post error
+│   └── actions.ts           # Server Actions (like post)
+├── components/
+│   ├── PostCard.tsx         # Server Component
+│   ├── LikeButton.tsx       # Client Component
+│   └── SearchBar.tsx        # Client Component
+└── lib/
+    └── data.ts              # Mock data / DB helper</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Blog Project — Key Files</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// lib/data.ts — Mock data helper
+export interface Post {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  date: string;
+  likes: number;
 }
 
-// === STRATEGI CACHING fetch() ===
-// 1. Static (SSG) — di-build saat npm run build
-const staticData = await fetch(url);
+export const posts: Post[] = [
+  { slug: 'hello-nextjs', title: 'Hello Next.js!',
+    excerpt: 'Pengenalan Next.js App Router',
+    content: 'Next.js adalah framework React yang powerful...',
+    author: 'Arif', date: '2026-07-02', likes: 42 },
+  { slug: 'server-components', title: 'Server Components',
+    excerpt: 'Mengapa Server Components game changer',
+    content: 'Server Components nge-revolusi...',
+    author: 'Arif', date: '2026-07-01', likes: 28 },
+];
 
-// 2. ISR — revalidate tiap N detik
-const isrData = await fetch(url, { next: { revalidate: 60 } });
+export async function getPost(slug: string) {
+  return posts.find(p =&gt; p.slug === slug) ?? null;
+}
 
-// 3. SSR selalu fresh — fetch ulang tiap request
-const freshData = await fetch(url, { cache: 'no-store' });
+// app/page.tsx — Home (Server Component)
+import { posts } from '@/lib/data';
+import { PostCard } from '@/components/PostCard';
 
-// 4. Tag-based revalidation — invalidate manual lewat API
-const tagged = await fetch(url, { next: { tags: ['posts'] } });
-// Di route handler: revalidateTag('posts');</code></pre>
-    </div>
+export const metadata = {
+  title: 'Blog — Belajar Next.js',
+  description: 'Blog tentang React dan Next.js',
+};
+
+export default function HomePage() {
+  return (
+    &lt;div className="max-w-2xl mx-auto"&gt;
+      &lt;h1 className="text-3xl font-bold mb-8"&gt;Blog 📰&lt;/h1&gt;
+      &lt;div className="space-y-6"&gt;
+        {posts.map(post =&gt; &lt;PostCard key={post.slug} post={post} /&gt;)}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// components/LikeButton.tsx — Client Component
+'use client';
+import { useState } from 'react';
+
+export function LikeButton({ slug, initialLikes }: { slug: string; initialLikes: number }) {
+  const [likes, setLikes] = useState(initialLikes);
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = async () =&gt; {
+    if (liked) return;
+    setLikes(l =&gt; l + 1);
+    setLiked(true);
+    await fetch('/api/like', { method: 'POST', body: JSON.stringify({ slug }) });
+  };
+
+  return (
+    &lt;button onClick={handleLike} className={liked ? 'text-red-500' : 'text-muted'}&gt;
+      ❤️ {likes}
+    &lt;/button&gt;
+  );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend blog ini: (1) Tambahkan Server Action buat create new post dengan form, (2) Tambahkan search dengan URL params, (3) Tambahkan pagination, (4) Tambahkan dark mode toggle (Client Component), (5) Deploy ke Vercel. Semua konsep udah kita bahas!</p></div></div></section>
+
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+<p class="text-sm text-muted mt-1">Next.js App Router — framework React yang lengkap dari A sampai Z</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Kenapa Next.js</strong> — Semua dalam satu: routing, data fetching, SEO, optimization, deployment. Lebih efisien dari rakit React sendiri.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Server vs Client Components</strong> — Default Server, Client kalau butuh interaktivitas. Server = dapur, Client = barbekyu di meja.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Routing</strong> — File-based routing otomatis. Dynamic route [slug], nested layout, loading/error/not-found built-in.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Data Fetching</strong> — await langsung di Server Component. Nggak perlu useEffect. Caching built-in.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Metadata & SEO</strong> — generateMetadata buat dynamic OG tags. Auto HTML lengkap buat Google bot.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Middleware, Caching, Error UI</strong> — Auth check di middleware, caching strategy, error.tsx buat graceful failure.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Server Actions</strong> — Form handling tanpa API endpoint. Direct server function dari form action.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project Blog</strong> — Gabung semua konsep: Server/Client Components, dynamic routes, metadata, error handling.</span></li>
+</ul>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(7)" id="completeBtn7" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="chapter-8.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 8 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-6.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-8.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
+</div>
 </section>
+</div>
 
-            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-ink">Ringkasan Bab 7</h2>
-                        <p class="text-sm text-muted mt-1">Yang sudah kamu pelajari</p>
-                    </div>
-                </div>
-                <ul class="space-y-3 text-[#333]">
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>App Router menggunakan folder-based routing dengan page.tsx, loading.tsx, error.tsx</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Server Components (default) vs Client Components (&apos;use client&apos;), kapan menggunakan masing-masing</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Server-side data fetching dengan async/await, API Routes dengan route.ts</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>SEO dengan generateMetadata() untuk title, description, dan Open Graph</span></li>
-                </ul>
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(7)" id="completeBtn7" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai
-                    </button>
-                    <a href="chapter-8.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        Lanjut ke Bab 8
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </section>
-
-            
-        </div>
-    </main>
-
-    <!-- Back to top -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+</main>
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
