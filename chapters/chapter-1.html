@@ -353,6 +353,34 @@ function Card({ title, desc, image }) {
                     </div>
                 </div>
 
+                <p class="text-sm text-[#333] leading-relaxed mt-4 mb-2"><strong class="text-ink">🧪 RASAIN SENDIRI — conditional rendering + list:</strong> Playground di bawah gabungin dua pola paling sering dipakai: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{kondisi &amp;&amp; ...}</code> buat nampilin/sembunyiin, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code> buat render list. Klik tombolnya, terus coba ubah stok jadi 0.</p>
+<script type="text/plain" id="pg-1-2">// Conditional rendering (&&, ternary) + list rendering (.map + key)
+function App() {
+  const [tampil, setTampil] = React.useState(true);
+  const buah = [
+    { id: 1, nama: '🍎 Apel', stok: 3 },
+    { id: 2, nama: '🍌 Pisang', stok: 0 },
+    { id: 3, nama: '🍒 Ceri', stok: 12 },
+  ];
+  return (
+    <div style={{ fontFamily: 'system-ui', padding: 8 }}>
+      <button onClick={() => setTampil(!tampil)}>
+        {tampil ? 'Sembunyikan' : 'Tampilkan'} daftar buah
+      </button>
+      {tampil && (
+        <ul>
+          {buah.map((b) => (
+            <li key={b.id}>
+              {b.nama} — {b.stok > 0 ? `stok ${b.stok}` : '❌ HABIS'}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-1-2"></div>
+
                 <div class="tip-box rounded-xl p-4 mt-6">
                     <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> JSX itu <strong>nggak ada hubungannya dengan HTML</strong>. JSX di-compile jadi React.createElement() — yang nge-return JavaScript object. Browser nggak pernah ngebaca JSX. Yang browser lihat cuma JavaScript murni. JSX cuma bikin hidup kita lebih mudah. 🪄</p>
                 </div>
@@ -480,7 +508,7 @@ function Avatar({ src, alt, size = 40 }) {
 }
 
 // STEP 2: Gabung jadi komponen menengah (molecules)
-function User Info({ user }) {
+function UserInfo({ user }) {
   return (
     &lt;div className="flex items-center gap-3"&gt;
       &lt;Avatar src={user.avatar} alt={user.name} /&gt;
@@ -1070,6 +1098,33 @@ export default App;</code></pre>
                     </div>
                 </div>
 
+                <div class="mt-6">
+                    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">🧪 GILIRAN LO — coba langsung di browser!</strong> Playground di bawah ini React beneran. Edit kodenya, klik <strong>▶ Jalankan</strong>, lihat hasilnya berubah. Perhatiin: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">nama</code> dilempar sebagai <em>prop</em>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{umur + 1}</code> itu <em>expression</em> JS yang dieksekusi pas render.</p>
+<script type="text/plain" id="pg-1-1">// Komponen React = fungsi yang nge-return JSX.
+// Coba: ganti nama jadi nama lo, ubah umur, lihat badge-nya berubah.
+function App() {
+  const nama = 'Arif';
+  const umur = 20;
+  return (
+    <div style={{ fontFamily: 'system-ui', padding: 8 }}>
+      <h2>Halo, {nama}! 👋</h2>
+      <p>Tahun depan umur lo jadi {umur + 1}.</p>
+      <Badge teks={nama.length > 4 ? 'Nama panjang' : 'Nama pendek'} />
+    </div>
+  );
+}
+
+// Komponen kecil yang nerima prop `teks`
+function Badge({ teks }) {
+  return (
+    <span style={{ background: '#F3F0FA', color: '#0B0B0B', padding: '2px 10px', borderRadius: 999, fontSize: 13 }}>
+      {teks}
+    </span>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-1-1"></div>
+                </div>
+
                 <div class="space-y-4 text-[#333] leading-relaxed mt-6">
                     <p><strong class="text-ink">GIMANA? KEREN NGGAK?! 🤩</strong> Coba kamu perhatiin beberapa hal keren dari kode di atas:</p>
 
@@ -1093,6 +1148,398 @@ export default App;</code></pre>
                 <div class="warning-box rounded-xl p-4 mt-4">
                     <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ KESALAHAN YANG SERING TERJADI:</strong> Lupa import <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'react'</code>? Wajar banget, hampir semua developer pernah ngalamin ini 😂 Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu cek baris import di atas file ya!</p>
                 </div>
+            </section>
+
+            <!-- LESSON SENIOR: Mental Model -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">🧠</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">Level Senior: Mental Model React — <code class="text-ink">UI = f(state)</code> 🧠</h2>
+                            <input type="checkbox" id="check-1-15" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Level Senior &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Lo udah bisa nulis komponen. Tapi ada satu <strong class="text-ink">pergeseran cara mikir</strong> yang misahin orang yang "bisa React" sama orang yang "mikir React". Kalau lo dateng dari jQuery atau JavaScript vanilla, otak lo terbiasa <strong class="text-ink">imperatif</strong>: "ambil elemen ini, ubah teksnya, tambahin class, sembunyiin yang itu." Langkah demi langkah, lo yang atur DOM-nya sendiri.</p>
+
+                    <p>React itu <strong class="text-ink">deklaratif</strong>. Lo <em>nggak</em> mikir "ubah DOM". Lo mikir: <strong class="text-ink">"untuk state seperti ini, UI-nya harus kelihatan seperti apa?"</strong> Lalu React yang urus caranya nyampe ke sana. Persamaan mental yang wajib lo tanam: <strong class="text-ink"><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UI = f(state)</code></strong> — tampilan itu <em>hasil</em> (fungsi) dari state. State berubah, React panggil ulang fungsi komponennya, dapet deskripsi UI baru, terus dia sendiri yang ngitung perubahan DOM minimal. Lo cukup jujur mendeskripsikan "kondisi akhir", bukan "urutan langkah".</p>
+
+                    <p>🍜 <strong class="text-ink">Analogi warteg vs chef pribadi:</strong> Cara imperatif itu kayak lo masuk dapur dan mandu chef langkah demi langkah — "ambil wajan, nyalain kompor, tuang minyak, masukin bawang..." Capek dan gampang salah urutan. Cara deklaratif itu kayak pesan di warteg: lo bilang <em>"mau nasi + ayam geprek + es teh"</em> (itu state akhirnya), dan dapur yang mikirin gimana bikinnya. Lo cuma deskripsikan <strong>hasil yang lo mau</strong>, bukan resepnya.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Imperatif (lo yang atur DOM) vs Deklaratif (React yang atur)</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ IMPERATIF — lo yang perintah DOM langkah demi langkah
+const btn = document.getElementById('btn');
+let suka = false;
+btn.addEventListener('click', () =&gt; {
+  suka = !suka;                          // 1. ubah data
+  btn.textContent = suka ? '❤️ Disuka' : '🤍 Suka';  // 2. update teks manual
+  btn.classList.toggle('active', suka);  // 3. update class manual
+  // Tiap penambahan fitur = tambah langkah manual. Gampang lupa sync. 😵
+});
+
+// ✅ DEKLARATIF — lo deskripsikan "UI untuk state ini", React yang sync
+function TombolSuka() {
+  const [suka, setSuka] = React.useState(false);
+  // Nggak ada 'ubah DOM'. Cuma: "kalau suka true, tampilannya begini".
+  return (
+    &lt;button className={suka ? 'active' : ''} onClick={() =&gt; setSuka(!suka)}&gt;
+      {suka ? '❤️ Disuka' : '🤍 Suka'}
+    &lt;/button&gt;
+  );
+}
+// Mau tambah counter like? Tambah 1 baris di JSX. React yang jaga konsistensi.</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kenapa ini scale?</strong> Di app kecil, bedanya keliatan sepele. Tapi bayangin dashboard dengan 40 elemen yang saling gantung ke satu state. Cara imperatif: tiap state berubah, lo harus inget <em>semua</em> tempat yang perlu di-sync manual — dan satu yang kelupaan = bug "UI-nya nggak update". Cara deklaratif: lo cuma punya <strong>satu sumber kebenaran</strong> (state), dan React jamin seluruh UI selalu cerminan dari state itu. Nggak ada "UI dan data beda cerita". Inilah kenapa senior obsesif soal <em>"di mana state ini seharusnya hidup"</em> — karena begitu state-nya bener, UI-nya ngikut otomatis.</p>
+
+                    <p><strong class="text-ink">Cara senior baca sebuah render:</strong> Pas debugging, senior nggak tanya "elemen mana yang salah di-update?" Dia tanya <strong class="text-ink">"state apa yang salah, dan komponen apa yang seharusnya render ulang saat state itu berubah?"</strong> Bug UI di React hampir selalu = <em>bug state</em>, bukan bug DOM. Geser fokus lo dari "manipulasi tampilan" ke "manajemen state", dan lo udah mikir kayak senior.</p>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Kalimat sakti yang dipegang developer React berpengalaman: <strong>"Jangan sentuh DOM, ubah state."</strong> Setiap kali tangan lo gatel mau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.getElementById(...)</code> di dalam komponen React buat ngubah tampilan — berhenti. Tanya: "state apa yang ngedeskripsikan kondisi ini?" 99% kasus, jawabannya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>, bukan manipulasi DOM langsung. 🎯</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Godaan terbesar pemula eks-jQuery: pas UI nggak update, refleks nyari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.querySelector</code> buat "maksa" ubah tampilan. Itu ngelawan React — lo dan React bakal berebut kontrol DOM, dan hasilnya bug yang lebih parah. Sumber kebenaran cuma SATU: state. UI ngikut, bukan sebaliknya.</p>
+                </div>
+            </section>
+
+            <!-- KESALAHAN UMUM -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-mistakes">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">⚠️</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">⚠️ Kesalahan Umum — 6 Jebakan Pemula React</h2>
+                            <input type="checkbox" id="check-1-14" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Debugging &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Enam error ini bakal lo temuin di <strong class="text-ink">minggu pertama</strong> belajar React — dijamin. Kabar baiknya: begitu lo hafal polanya, lo bisa fix dalam 5 detik sambil ketawa. Format tiap kesalahan: <strong>kode salah → kenapa salah → kode benar</strong>.</p>
+
+                    <p><strong class="text-ink">Kesalahan #1 — Return dua elemen tanpa satu pembungkus</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#1 Adjacent JSX elements</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ SALAH — dua elemen bersebelahan, nggak ada parent
+function App() {
+  return (
+    &lt;h1&gt;Judul&lt;/h1&gt;
+    &lt;p&gt;Isi&lt;/p&gt;   // Error: "Adjacent JSX elements must be wrapped..."
+  );
+}
+// KENAPA: return cuma boleh nge-return SATU nilai. JSX di atas =
+// dua object element sekaligus → JS bingung, mana yang di-return?
+
+// ✅ BENAR — bungkus pakai Fragment (nggak nambah div di DOM)
+function App() {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Judul&lt;/h1&gt;
+      &lt;p&gt;Isi&lt;/p&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kesalahan #2 — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">class</code> padahal harusnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code></strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#2 class vs className</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ SALAH — copas dari HTML, pakai `class`
+&lt;div class="kartu"&gt;Halo&lt;/div&gt;   // warning + styling nggak nempel
+
+// KENAPA: JSX itu JavaScript, dan `class` adalah keyword JS (buat bikin
+// class/OOP). Jadi React pakai `className` biar nggak bentrok. Sama juga:
+// `for` di label jadi `htmlFor`.
+
+// ✅ BENAR
+&lt;div className="kartu"&gt;Halo&lt;/div&gt;
+&lt;label htmlFor="email"&gt;Email&lt;/label&gt;</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kesalahan #3 — Bingung <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> untuk expression vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">""</code> untuk string</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#3 Curly braces vs quotes</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">const nama = 'Arif';
+const umur = 20;
+
+// ❌ SALAH — teksnya kebaca literal, bukan nilai variabel
+&lt;p&gt;Halo nama&lt;/p&gt;            // tampil: "Halo nama"
+&lt;img src={logo.png} /&gt;      // Error: logo is not defined (dianggap variabel)
+&lt;input value="umur" /&gt;      // value literal string "umur"
+
+// KENAPA: teks/atribut TANPA {} = string literal apa adanya. Pakai {} kalau
+// mau menyisipkan NILAI JavaScript (variabel, hitungan, panggilan fungsi).
+
+// ✅ BENAR
+&lt;p&gt;Halo {nama}&lt;/p&gt;          // tampil: "Halo Arif"
+&lt;img src="logo.png" /&gt;      // src memang string → pakai quotes
+&lt;p&gt;Umur tahun depan: {umur + 1}&lt;/p&gt;   // expression di dalam {}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kesalahan #4 — Manggil komponen kayak fungsi biasa / nama huruf kecil</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#4 Foo() vs &lt;Foo /&gt;</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">function Profil() { return &lt;h2&gt;Arif&lt;/h2&gt;; }
+
+// ❌ SALAH — dipanggil kayak fungsi biasa
+function App() {
+  return &lt;div&gt;{Profil()}&lt;/div&gt;;   // "jalan" tapi bukan komponen sungguhan:
+}                                   // nggak punya state/lifecycle sendiri
+
+// ❌ SALAH — nama huruf kecil
+function profil() { return &lt;h2&gt;Arif&lt;/h2&gt;; }
+&lt;profil /&gt;   // React kira ini tag HTML &lt;profil&gt;, bukan komponenmu!
+
+// KENAPA: React bedain komponen dari tag HTML lewat huruf BESAR di awal.
+// Dan render komponen itu &lt;Profil /&gt;, bukan Profil() — biar React yang
+// kelola sebagai unit (punya state, key, re-render sendiri).
+
+// ✅ BENAR
+function Profil() { return &lt;h2&gt;Arif&lt;/h2&gt;; }
+function App() { return &lt;div&gt;&lt;Profil /&gt;&lt;/div&gt;; }</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kesalahan #5 — Lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">import</code></strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#5 Forgotten import</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ SALAH — pakai useState tanpa import
+function App() {
+  const [n, setN] = useState(0);   // Error: useState is not defined
+  return &lt;button onClick={() =&gt; setN(n + 1)}&gt;{n}&lt;/button&gt;;
+}
+
+// KENAPA: hook & komponen dari file lain harus diimpor dulu. Error paling
+// sering pemula: "X is not defined" = 90% lupa baris import di atas.
+
+// ✅ BENAR
+import { useState } from 'react';       // hook bawaan React
+import Tombol from './Tombol';          // komponen sendiri (default export)
+import { Badge } from './ui';           // named export</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kesalahan #6 — Nge-render object langsung sebagai teks</strong></p>
+                    <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">#6 Objects are not valid as a React child</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">const user = { nama: 'Arif', role: 'Dev' };
+
+// ❌ SALAH — masukin object utuh ke JSX
+&lt;p&gt;{user}&lt;/p&gt;   // Error: "Objects are not valid as a React child"
+
+// KENAPA: JSX bisa nampilin string, number, atau element — TAPI bukan object
+// mentah. React nggak tau harus nampilin object jadi apa.
+
+// ✅ BENAR — ambil field-nya, atau map jadi element
+&lt;p&gt;{user.nama} — {user.role}&lt;/p&gt;
+// Kalau array of object: pakai .map jadi &lt;li&gt; (jangan render array object polos)</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Baca pesan error-nya! React 18 kasih error yang jelas banget — "Adjacent JSX elements...", "Objects are not valid as a React child", "X is not defined". 6 dari 6 kesalahan di atas ketebak dari kalimat pertama error-nya. Jangan panik, jangan langsung Google — <strong>baca dulu</strong>. 🔍</p>
+                </div>
+
+                <!-- LATIHAN -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-bold text-ink mb-1">✏️ Latihan — Uji Pemahaman Lo</h3>
+                    <p class="text-sm text-muted mb-3">Kerjain di kepala dulu, baru buka solusinya. Jujur ya. 😄</p>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Benerin JSX yang error</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Kode ini punya <strong>3 error</strong>. Temukan dan perbaiki tanpa lihat solusi dulu:</p>
+                            <div class="code-block rounded-xl overflow-hidden mb-3"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — cari 3 error</span></div><pre><code class="language-javascript">function Kartu() {
+  return (
+    &lt;h2 class="judul"&gt;Halo&lt;/h2&gt;
+    &lt;p&gt;Nama saya nama&lt;/p&gt;
+  );
+}</code></pre></div>
+                            <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">Solusi:</strong> (1) dua elemen bersebelahan tanpa pembungkus, (2) <code class="bg-[#F5F4F1] px-1 rounded text-xs">class</code> harusnya <code class="bg-[#F5F4F1] px-1 rounded text-xs">className</code>, (3) <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> harusnya <code class="bg-[#F5F4F1] px-1 rounded text-xs">{nama}</code> (dan variabelnya perlu didefinisikan).</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Versi benar</span></div><pre><code class="language-javascript">function Kartu({ nama }) {
+  return (
+    &lt;&gt;
+      &lt;h2 className="judul"&gt;Halo&lt;/h2&gt;
+      &lt;p&gt;Nama saya {nama}&lt;/p&gt;
+    &lt;/&gt;
+  );
+}</code></pre></div>
+                        </div>
+                    </details>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Komponen Salam pakai prop</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-[#F5F4F1] px-1 rounded text-xs">Salam</code> yang nerima prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> dan <code class="bg-[#F5F4F1] px-1 rounded text-xs">waktu</code> (misal "pagi"), lalu render <em>"Selamat pagi, Arif!"</em>. Render tiga kali dengan nama berbeda.</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Salam({ nama, waktu }) {
+  return &lt;p&gt;Selamat {waktu}, {nama}! 👋&lt;/p&gt;;
+}
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Salam nama="Arif" waktu="pagi" /&gt;
+      &lt;Salam nama="Sinta" waktu="siang" /&gt;
+      &lt;Salam nama="Budi" waktu="malam" /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+                            <p class="text-sm text-muted mt-3">💡 Perhatiin: satu komponen, dipakai 3x dengan prop beda = inti "reusable component".</p>
+                        </div>
+                    </details>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Conditional rendering status stok</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-[#F5F4F1] px-1 rounded text-xs">Produk</code> yang nerima prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> dan <code class="bg-[#F5F4F1] px-1 rounded text-xs">stok</code> (number). Kalau stok &gt; 0 tampilkan <em>"Tersedia (N)"</em>, kalau 0 tampilkan <em>"Habis"</em>. Pakai ternary.</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Produk({ nama, stok }) {
+  return (
+    &lt;div&gt;
+      &lt;strong&gt;{nama}&lt;/strong&gt;{' '}
+      &lt;span style={{ color: stok &gt; 0 ? 'green' : 'red' }}&gt;
+        {stok &gt; 0 ? `Tersedia (${stok})` : 'Habis'}
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+                            <p class="text-sm text-muted mt-3">💡 <code class="bg-[#F5F4F1] px-1 rounded text-xs">{kondisi ? A : B}</code> = ternary, cara paling umum conditional rendering di JSX.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- CHALLENGE -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — KOMPONEN PROFIL DARI PROPS</h3>
+                    <p class="text-sm text-[#333] leading-relaxed mb-4">Bikin komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Profil /&gt;</code> yang nampilin <strong class="text-ink">nama</strong> dan <strong class="text-ink">role</strong> dari props, lalu render <strong class="text-ink">dua kartu</strong> di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App</code>: <em>Arif — Frontend Dev</em> dan <em>Sinta — Backend Dev</em>. Starter di bawah masih belum lengkap (cuma 1 kartu, role-nya hilang). Perbaiki sampai semua test lulus. Klik <strong class="text-ink">▶ Test</strong>.</p>
+<script type="text/plain" id="ch-1-1">// 🎯 Tugas: <Profil /> harus nampilin NAMA + ROLE dari props.
+//    Lalu render DUA kartu: Arif (Frontend Dev) & Sinta (Backend Dev).
+//    Tiap kartu WAJIB punya className="kartu". Klik ▶ Test buat cek.
+
+function Profil({ nama }) {
+  return (
+    <div className="kartu" style={{ border: '1px solid #ddd', borderRadius: 8, padding: 12, margin: 6 }}>
+      <strong>{nama}</strong>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Profil nama="Arif" />
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-1-1-test">var root = document.getElementById('root');
+var kartu = root.querySelectorAll('.kartu');
+expect('Ada minimal 2 kartu (className="kartu")', kartu.length >= 2);
+var teks = root.textContent;
+expect('Menampilkan nama "Arif"', teks.indexOf('Arif') !== -1);
+expect('Menampilkan role "Frontend Dev"', teks.indexOf('Frontend Dev') !== -1);
+expect('Menampilkan nama "Sinta"', teks.indexOf('Sinta') !== -1);
+expect('Menampilkan role "Backend Dev"', teks.indexOf('Backend Dev') !== -1);</script>
+                    <div class="challenge-mount mt-4 mb-4" data-code-id="ch-1-1"></div>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">💡 Solusi challenge (buka kalau udah nyerah / mau bandingin)</span>
+                            <span class="text-xs text-muted">klik untuk lihat</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Dua perbaikan: (1) <code class="bg-[#F5F4F1] px-1 rounded text-xs">Profil</code> juga terima &amp; render prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">role</code>; (2) <code class="bg-[#F5F4F1] px-1 rounded text-xs">App</code> render dua kartu (di sini pakai <code class="bg-[#F5F4F1] px-1 rounded text-xs">.map</code> biar rapi).</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap — semua test lulus</span></div><pre><code class="language-javascript">function Profil({ nama, role }) {
+  return (
+    &lt;div className="kartu" style={{ border: '1px solid #ddd', borderRadius: 8, padding: 12, margin: 6 }}&gt;
+      &lt;strong&gt;{nama}&lt;/strong&gt;
+      &lt;p style={{ margin: '4px 0 0', color: '#666' }}&gt;{role}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  const orang = [
+    { id: 1, nama: 'Arif', role: 'Frontend Dev' },
+    { id: 2, nama: 'Sinta', role: 'Backend Dev' },
+  ];
+  return (
+    &lt;div&gt;
+      {orang.map((o) =&gt; (
+        &lt;Profil key={o.id} nama={o.nama} role={o.role} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- QUIZ -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">🧠</span>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-ink">Quiz Bab 1 — Udah Paham Fondasinya? 🎤</h2>
+                        <p class="text-sm text-muted mt-1">8 soal. Skor terbaik lo kesimpen otomatis.</p>
+                    </div>
+                </div>
+<script type="application/json" id="quiz-1">
+[
+  {"q": "JSX itu sebenarnya apa?", "options": ["HTML asli yang dibaca browser", "Template engine terpisah dari JavaScript", "Sugar syntax untuk React.createElement() yang menghasilkan object JavaScript", "Bahasa pemrograman baru bikinan Meta"], "answer": 2, "explain": "JSX di-compile jadi panggilan <code>React.createElement()</code>, yang me-return object JS polos ({type, props, ...}). Browser nggak pernah baca JSX — yang dijalankan adalah JavaScript hasil compile."},
+  {"q": "React itu library atau framework, dan kenapa?", "options": ["Library, karena fokus cuma ke rendering UI; routing & state global diserahkan ke ekosistem", "Framework, karena mengatur seluruh struktur aplikasi", "Framework, karena punya React Router bawaan", "Library, karena ukurannya kecil"], "answer": 0, "explain": "React adalah library yang fokus di satu hal: rendering UI. Routing (React Router), state global (Zustand/Redux), data fetching (TanStack Query) itu semua library terpisah — lo yang milih."},
+  {"q": "Kenapa di JSX kita nulis className, bukan class?", "options": ["Karena React lebih suka nama yang panjang", "Karena class cuma buat CSS eksternal", "Karena browser nggak mengenal atribut class", "Karena class adalah keyword JavaScript, jadi dipakai className biar nggak bentrok"], "answer": 3, "explain": "JSX itu JavaScript. <code>class</code> udah jadi keyword JS (buat OOP), jadi React pakai <code>className</code>. Serupa: <code>for</code> di label jadi <code>htmlFor</code>."},
+  {"q": "Apa beda mendasar cara berpikir deklaratif (React) vs imperatif (jQuery/vanilla)?", "options": ["Deklaratif lebih cepat karena pakai Virtual DOM", "Imperatif: lo perintah DOM langkah demi langkah. Deklaratif: lo deskripsikan UI untuk state tertentu, React yang urus perubahan DOM-nya", "Deklaratif nggak butuh JavaScript sama sekali", "Nggak ada beda, cuma gaya penulisan"], "answer": 1, "explain": "Persamaan intinya <code>UI = f(state)</code>. Lo deskripsikan kondisi akhir berdasarkan state; React ngitung sendiri mutasi DOM minimal. Fokus geser dari 'manipulasi DOM' ke 'manajemen state'."},
+  {"q": "Kode ini error: 'Objects are not valid as a React child'. Penyebab paling mungkin?", "options": ["Lupa import React", "Pakai key={index} di list", "Nge-render object mentah langsung ke JSX, misal {user} padahal user = {nama, role}", "Komponen namanya huruf kecil"], "answer": 2, "explain": "JSX bisa nampilin string/number/element, tapi bukan object mentah. Fix: ambil field-nya (<code>{user.nama}</code>) atau map array-nya jadi element."},
+  {"q": "Manakah yang BENAR untuk me-render sebuah komponen bernama Profil?", "options": ["&lt;Profil /&gt; — biar React kelola sebagai unit (punya state & re-render sendiri)", "{Profil()} — panggil kayak fungsi biasa", "&lt;profil /&gt; — huruf kecil biar mirip tag HTML", "Profil.render()"], "answer": 0, "explain": "Render komponen pakai <code>&lt;Profil /&gt;</code>, bukan <code>Profil()</code>. Nama WAJIB huruf besar di awal — kalau huruf kecil (<code>&lt;profil /&gt;</code>), React kira itu tag HTML biasa, bukan komponenmu."},
+  {"q": "Kenapa fungsi return JSX ini error? return (&lt;h1&gt;A&lt;/h1&gt; &lt;p&gt;B&lt;/p&gt;)", "options": ["Karena h1 dan p nggak boleh dicampur", "Karena lupa key", "Karena p harus di atas h1", "Karena return cuma boleh satu nilai — dua elemen bersebelahan butuh satu pembungkus (Fragment atau div)"], "answer": 3, "explain": "Sebuah return cuma bisa menghasilkan SATU element. Bungkus keduanya dengan Fragment <code>&lt;&gt;...&lt;/&gt;</code> (nggak nambah node DOM) atau satu <code>&lt;div&gt;</code>."},
+  {"q": "Apa fungsi Virtual DOM di React?", "options": ["Menggantikan DOM asli sepenuhnya di browser", "Membuat React jadi library tercepat di dunia tanpa syarat", "Salinan ringan DOM di memori; React diff versi lama vs baru lalu update HANYA bagian DOM yang berubah", "Menyimpan state komponen"], "answer": 2, "explain": "Virtual DOM = object JS ringan. Saat state berubah, React bikin VDOM baru, bandingin (diffing) dengan yang lama, lalu terapkan perubahan minimal ke DOM asli (reconciliation). Tujuannya update efisien + model deklaratif."}
+]
+</script>
+                <div class="quiz-mount mt-6" data-quiz-id="quiz-1"></div>
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
@@ -1155,5 +1602,7 @@ export default App;</code></pre>
     </button>
 
     <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>
