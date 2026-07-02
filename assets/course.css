@@ -76,4 +76,7 @@ details.exercise summary { cursor: pointer; list-style: none; }
 details.exercise summary::-webkit-details-marker { display: none; }
 
 @media print { .no-print { display: none !important; } }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .fade-in, .enter, .stagger > * { opacity: 1 !important; transform: none !important; }
+}

@@ -30,7 +30,12 @@ function getProgress() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
   catch { return {}; }
 }
-function saveProgress(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+function saveProgress(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.removeItem('react-course-progress'); // clean stale v1 key
+  } catch { /* storage unavailable (e.g. Safari private mode) — progress just won't persist */ }
+}
 
 /* current chapter id from <body data-chapter="N"> */
 function currentChapter() {
@@ -80,6 +85,11 @@ function restoreChecks() {
     const box = document.getElementById(id);
     if (box) box.checked = true;
   }
+  // chapter fully done → reflect it on the "Tandai Bab Selesai" button
+  if (saved.total > 0 && saved.done.length === saved.total) {
+    const btn = document.getElementById('completeBtn' + cur);
+    if (btn) { btn.textContent = '✓ Bab Selesai!'; btn.classList.add('opacity-75'); btn.disabled = true; }
+  }
 }
 
 function renderGlobalProgress() {
@@ -87,7 +97,7 @@ function renderGlobalProgress() {
   let completed = 0, total = 0;
   for (const ch of CHAPTERS) {
     const p = progress['chapter-' + ch.id];
-    if (p) { completed += p.done.length; total += p.total; }
+    if (p) { completed += (p.done || []).length; total += p.total || 0; }
   }
   const pct = total > 0 ? Math.round(completed / total * 100) : 0;
   const bar = document.getElementById('progressBar');
@@ -115,8 +125,10 @@ function copyCode(btn) {
 
 /* ---- Sidebar toggle (mobile) ---- */
 function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('-translate-x-full');
-  document.getElementById('sidebarOverlay').classList.toggle('hidden');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.toggle('-translate-x-full');
+  if (overlay) overlay.classList.toggle('hidden');
 }
 
 /* ---- Back to top button ---- */
