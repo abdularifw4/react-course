@@ -103,7 +103,7 @@ function initChallenges() {
           </div>
         </div>
         <div class="pg-editor"></div>
-        <iframe sandbox="allow-scripts" style="min-height:120px"></iframe>
+        <iframe title="Hasil test challenge" sandbox="allow-scripts" style="min-height:120px"></iframe>
       </div>`;
     const cm = CodeMirror(mount.querySelector('.pg-editor'), {
       value: starter, mode: 'jsx', lineNumbers: true, viewportMargin: Infinity, tabSize: 2,
@@ -115,7 +115,14 @@ function initChallenges() {
       const full = cm.getValue() + '\n\n/* ---- tests ---- */\n' + challengeTestRunner(id, testCode);
       mount.querySelector('iframe').srcdoc = pgSrcdoc(full);
     });
-  }));
+  })).catch(() => {
+    // CDN/SRI gagal — degradasi sama seperti playground.js: tampilkan starter read-only
+    mounts.forEach(mount => {
+      const starterEl = document.getElementById(mount.dataset.codeId);
+      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Challenge gagal dimuat — cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
+      if (starterEl) mount.querySelector('pre').textContent = starterEl.textContent.trim();
+    });
+  });
   /* Iframe di-sandbox allow-scripts (origin opaque) → listener harus origin-agnostic.
      Validasi bentuk data secara defensif: hanya terima {challenge: string, pass, msg}. */
   window.addEventListener('message', e => {
