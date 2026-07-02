@@ -32,7 +32,7 @@
         }</script>
     <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="9">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
@@ -61,49 +61,7 @@
                 </div>
             </div>
         </div>
-        <nav class="px-2 pb-6 space-y-0.5">
-            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
-        </nav>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
     </aside>
 
     <!-- Main -->
@@ -496,8 +454,6 @@ Gas ke Bab 10 →
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
-    <script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();
-    </script>
+    <script src="../assets/course.js"></script>
 </body>
 </html>

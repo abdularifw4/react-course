@@ -16,24 +16,13 @@
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['JetBrains Mono','ui-monospace','monospace']},colors:{ink:{DEFAULT:'#0B0B0B',soft:'#1A1A1A'},muted:{DEFAULT:'#666666',light:'#999999'},lavender:'#F3F0FA',cream:'#FAF8F1',surface:'#FAFAFA'}}}}</script>
 <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="4">
 <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
 <div class="p-5 border-b border-black/[0.06]"><a href="../index.html" class="flex items-center gap-2.5"><div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><span class="text-[15px] font-semibold tracking-tight">react course</span></a></div>
 <div class="p-3"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors"><svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
 <div class="px-3 pb-3"><div class="bg-surface rounded-lg p-3"><div class="flex justify-between text-xs text-muted mb-2"><span>Progress</span><span id="progressText" class="tabular-nums">0/10</span></div><div class="w-full bg-black/5 rounded-full h-1.5"><div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width:0%"></div></div></div></div></div>
-<nav class="px-2 pb-6 space-y-0.5"><p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-<a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>Intro</a>
-<a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>React Dasar</a>
-<a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>Hooks Dasar</a>
-<a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink"><span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>Hooks Advanced</a>
-<a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>Patterns</a>
-<a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>TypeScript</a>
-<a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>Next.js</a>
-<a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>State Mgmt</a>
-<a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>Testing</a>
-<a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>Performance</a>
-</nav></aside>
+<nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav></aside>
 <main class="lg:ml-72 min-h-screen">
 <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
 <div class="flex items-center justify-between px-4 lg:px-8 h-16"><div class="flex items-center gap-4">
@@ -719,16 +708,5 @@ Gas ke Bab 5 →
 </section>
 </div></main>
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-<script>
-function toggleSidebar(){const s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay');s.classList.toggle('-translate-x-full');o.classList.toggle('hidden')}
-window.addEventListener('scroll',()=>{const b=document.getElementById('backToTop');if(window.scrollY>300){b.classList.remove('opacity-0','pointer-events-none');b.classList.add('opacity-100')}else{b.classList.add('opacity-0','pointer-events-none');b.classList.remove('opacity-100')}});
-hljs.highlightAll();
-function copyCode(btn){const code=btn.closest('.code-block').querySelector('code').textContent;navigator.clipboard.writeText(code).then(()=>{const orig=btn.textContent;btn.textContent='Tersalin!';setTimeout(()=>btn.textContent=orig,2000)})}
-function getProgress(){const s=localStorage.getItem('react-course-progress');return s?JSON.parse(s):{}}
-function saveProgress(d){localStorage.setItem('react-course-progress',JSON.stringify(d))}
-function updateProgress(){const p=getProgress();const total=document.querySelectorAll('.lesson-checkbox').length;const checked=document.querySelectorAll('.lesson-checkbox:checked').length;p['chapter-4']={completed:checked,total};saveProgress(p);renderGlobalProgress()}
-function renderGlobalProgress(){const p=getProgress();let tc=0,tl=0;for(let i=1;i<=10;i++){const ch=p['chapter-'+i];if(ch){tc+=ch.completed;tl+=ch.total}}const pct=tl>0?Math.round((tc/tl)*100):0;const bar=document.getElementById('progressBar');const text=document.getElementById('progressText');if(bar)bar.style.width=pct+'%';if(text)text.textContent=tc+'/'+tl}
-function markChapterComplete(ch){const p=getProgress();const checks=document.querySelectorAll('.lesson-checkbox');checks.forEach(c=>c.checked=true);p['chapter-'+ch]={completed:checks.length,total:checks.length};saveProgress(p);renderGlobalProgress();const btn=document.getElementById('completeBtn'+ch);if(btn){btn.textContent='✓ Bab Selesai!';btn.classList.add('opacity-75');btn.disabled=true}}
-renderGlobalProgress();
-</script>
+<script src="../assets/course.js"></script>
 </body></html>
