@@ -1058,6 +1058,371 @@ export default Kalkulator;</code></pre>
                 </div>
             </section>
 
+            <!-- LESSON SENIOR: Composition over Configuration -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">09</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">LEVEL SENIOR: COMPOSITION OVER CONFIGURATION 🧩</h2>
+                            <input type="checkbox" id="check-2-14" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Level Senior &middot; 12 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Junior nanya "gimana cara bikin komponen jalan?". Senior nanya "<strong class="text-ink">kapan gue harus pecah komponen ini, dan kapan enggak?</strong>". Bedanya tipis tapi jauh — dan itu yang bikin codebase lo umur setahun masih enak diutak-atik, atau malah jadi monster 2000 baris yang semua orang takut sentuh 👻. Lesson ini soal <em>batas komponen</em> (component boundaries) — skill paling underrated di React.</p>
+
+                    <p><strong class="text-ink">Prinsip inti: composition over configuration.</strong> Artinya: daripada bikin satu komponen raksasa yang lo kendaliin lewat setumpuk prop boolean (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isPrimary</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hasIcon</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">showFooter</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withBorder</code>...), lebih baik bikin komponen kecil yang <em>disusun</em> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> dan slot. Analoginya kayak <strong class="text-ink">LEGO vs mainan action figure</strong>: action figure udah jadi, lo cuma bisa pencet tombol yang tersedia. LEGO? Lo susun sendiri sesuka hati. React lebih suka LEGO 🧱.</p>
+
+                    <p><strong class="text-ink">Gejala "boolean-prop explosion".</strong> Begitu satu komponen punya 5+ prop boolean yang saling ngatur tampilan, itu alarm. Tiap boolean baru = <em>lipat dua</em> kemungkinan kombinasi yang harus lo tes dan pikirin. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card compact bordered elevated highlighted /&gt;</code> = 16 kombinasi. Ganti pola: biarin pemanggil yang <em>nyusun isinya</em>.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Configuration (kaku) vs Composition (fleksibel)</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// ❌ CONFIGURATION — tiap kebutuhan baru = prop baru = if baru
+function Card({ title, subtitle, imageUrl, hasFooter,
+                footerText, isCompact, showBadge, badgeText }) {
+  return (
+    &lt;div className={isCompact ? 'p-2' : 'p-6'}&gt;
+      {imageUrl &amp;&amp; &lt;img src={imageUrl} /&gt;}
+      {showBadge &amp;&amp; &lt;span className="badge"&gt;{badgeText}&lt;/span&gt;}
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      {subtitle &amp;&amp; &lt;p&gt;{subtitle}&lt;/p&gt;}
+      {hasFooter &amp;&amp; &lt;footer&gt;{footerText}&lt;/footer&gt;}
+    &lt;/div&gt;
+  );
+}
+// Pemakaian: &lt;Card title="X" showBadge badgeText="Baru" hasFooter footerText="..." /&gt;
+// Tiap requirement baru, komponen ini makin bengkak 😩
+
+// ✅ COMPOSITION — komponen jadi "wadah", isinya disusun pemanggil
+function Card({ children }) {
+  return &lt;div className="rounded-xl shadow p-6 bg-white"&gt;{children}&lt;/div&gt;;
+}
+function CardTitle({ children })  { return &lt;h3 className="font-bold"&gt;{children}&lt;/h3&gt;; }
+function CardFooter({ children }) { return &lt;footer className="mt-4 pt-4 border-t"&gt;{children}&lt;/footer&gt;; }
+
+// Pemakaian: SUSUN sendiri, sefleksibel yang lo mau
+&lt;Card&gt;
+  &lt;span className="badge"&gt;Baru&lt;/span&gt;
+  &lt;CardTitle&gt;Belajar React&lt;/CardTitle&gt;
+  &lt;p&gt;Deskripsi bebas di sini...&lt;/p&gt;
+  &lt;CardFooter&gt;Oleh Arif&lt;/CardFooter&gt;
+&lt;/Card&gt;
+// Butuh layout beda? Susun ulang. NOL prop baru, NOL if baru. 🎉</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Slot pattern — kalau butuh lebih dari satu "lubang".</strong> Kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> aja nggak cukup, misal layout yang punya area <em>header</em>, <em>sidebar</em>, dan <em>konten</em> terpisah. Solusinya: terima elemen React lewat prop biasa (bukan boolean, tapi JSX). Ini yang disebut "named slots".</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Named slots — beberapa "lubang" sekaligus</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Slot = prop yang isinya JSX, bukan flag boolean
+function PageLayout({ header, sidebar, children }) {
+  return (
+    &lt;div className="grid grid-cols-[240px_1fr]"&gt;
+      &lt;header className="col-span-2"&gt;{header}&lt;/header&gt;
+      &lt;aside&gt;{sidebar}&lt;/aside&gt;
+      &lt;main&gt;{children}&lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Pemakaian — tiap slot diisi komponen bebas
+&lt;PageLayout
+  header={&lt;Navbar user={user} /&gt;}
+  sidebar={&lt;MenuFilter kategori={list} /&gt;}
+&gt;
+  &lt;DaftarProduk items={produk} /&gt;
+&lt;/PageLayout&gt;</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Kapan sebuah item list layak jadi komponen sendiri?</strong> Ini pertanyaan yang bikin banyak orang ragu. Aturan praktisnya: pecah jadi komponen terpisah kalau item itu (1) punya <em>state sendiri</em> — misal baris yang bisa di-expand, checkbox, atau tombol favorit; (2) punya <em>logika non-trivial</em> — format tanggal, hitung diskon, kondisi tampilan bertingkat; atau (3) bikin blok <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>-nya lebih dari ~10 baris JSX sampai susah dibaca. Kalau item cuma nampilin satu-dua teks statis? Biarin inline, nggak usah dipecah — over-engineering juga dosa 😅.</p>
+
+                    <p>Nih bukti hidupnya. Di bawah ada satu komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ProfilCard</code> yang dipakai berkali-kali cuma dengan ganti props — inilah kekuatan composition: <strong class="text-ink">satu definisi, banyak instance</strong>. Edit props-nya, tambahin card baru, klik Jalankan 👇</p>
+                </div>
+
+                <script type="text/plain" id="pg-2-1">// Satu komponen, dipakai BERKALI-KALI dengan props beda.
+// Coba: tambahin satu <ProfilCard ... /> lagi, atau ganti emoji-nya!
+function ProfilCard({ nama, role, emoji, online }) {
+  return (
+    <div style={{
+      border: '1px solid #e5e5e5', borderRadius: 12, padding: 16,
+      width: 150, background: '#fff'
+    }}>
+      <div style={{ fontSize: 32 }}>{emoji}</div>
+      <strong>{nama}</strong>
+      <p style={{ margin: '4px 0', color: '#666', fontSize: 13 }}>{role}</p>
+      <span style={{ fontSize: 12, color: online ? '#16a34a' : '#999' }}>
+        {online ? '● online' : '○ offline'}
+      </span>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+      <ProfilCard nama="Arif"  role="Frontend Dev" emoji="🧑‍💻" online={true} />
+      <ProfilCard nama="Bella" role="UI Designer"  emoji="🎨"   online={false} />
+      <ProfilCard nama="Citra" role="Product Mgr"  emoji="📋"   online={true} />
+    </div>
+  );
+}</script>
+                <div class="playground-mount mt-4 mb-4" data-code-id="pg-2-1"></div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> itu cuma prop biasa — cuma dapet perlakuan spesial di JSX (isinya diambil dari antara tag buka-tutup). Artinya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card&gt;halo&lt;/Card&gt;</code> 100% setara dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card children="halo" /&gt;</code>. Begitu paham ini, "slot pattern" nggak kerasa sihir lagi — itu cuma ngoper JSX lewat prop.</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Composition bukan berarti "pecah SEMUA jadi komponen mikro". Komponen 3-baris yang cuma dipakai sekali dan nggak punya state seringkali cuma nambah file dan lompatan mental tanpa manfaat. Pecah komponen pas ada alasan nyata: <strong>dipakai ulang</strong>, <strong>punya state/logika sendiri</strong>, atau <strong>bikin parent-nya kepanjangan</strong>. Kalau nggak ada satupun dari itu — biarin inline dulu, refactor nanti pas kebutuhannya muncul.</p>
+                </div>
+            </section>
+
+            <!-- KESALAHAN UMUM -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — PROPS &amp; LIST YANG SERING NGACO 🚨</h2>
+                            <input type="checkbox" id="check-2-13" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-2-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Enam jebakan &middot; 10 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Enam kesalahan ini nemplok di hampir semua code review React pemula-menengah. Buat masing-masing: <strong class="text-ink">kode salah → kenapa salah → kode benar</strong>. Hafalin polanya, bukan cuma jawabannya.</p>
+                    <p><strong class="text-ink">1. Memutasi props.</strong> Props itu <em>read-only</em>. Ngubah props di dalam komponen anak (apalagi kalau props-nya object/array) = nyalahin aturan satu-arah React, dan bisa diam-diam ngerusak data di parent. Butuh versi ubahan? Bikin salinan, jangan sentuh aslinya.</p>
+                </div>
+                <div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #1 — mutasi props</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — ngubah props langsung
+function List({ items }) {
+  items.push('baru');        // 💥 mutasi array milik parent!
+  items.sort();              // 💥 sort() = mutasi in-place
+  return items.map(x =&gt; &lt;li key={x}&gt;{x}&lt;/li&gt;);
+}
+
+// ✅ BENAR — bikin salinan dulu, props tetap utuh
+function List({ items }) {
+  const urut = [...items].sort();   // salinan baru
+  return urut.map(x =&gt; &lt;li key={x}&gt;{x}&lt;/li&gt;);
+}</code></pre></div></div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed mt-6">
+                    <p><strong class="text-ink">2. Lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key</code> di list.</strong> Tiap kali lo render array pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>, tiap elemen WAJIB punya prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key</code> yang unik &amp; stabil. Tanpa key, React ngasih warning dan diffing-nya jadi nebak-nebak — update jadi lambat dan bisa salah.</p>
+                    <p><strong class="text-ink">3. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list dinamis.</strong> Ini jebakan halus. Index (0,1,2...) itu <em>posisi</em>, bukan <em>identitas</em>. Begitu list bisa di-hapus, di-sort, atau disisipin dari tengah, key index bikin state (isi input, checkbox, fokus) "nyangkut" di posisi dan nyasar ke item yang salah. Coba sendiri di playground bawah 👇.</p>
+                </div>
+                <div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 &amp; #3 — key hilang / index key</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — nggak ada key (warning + diff lambat)
+{todos.map(t =&gt; &lt;Row todo={t} /&gt;)}
+
+// ❌ SALAH — index sebagai key di list yang bisa berubah urutan
+{todos.map((t, i) =&gt; &lt;Row key={i} todo={t} /&gt;)}
+
+// ✅ BENAR — key = identitas stabil dari data
+{todos.map(t =&gt; &lt;Row key={t.id} todo={t} /&gt;)}
+// Nggak ada id? Bikin pas data DIBUAT, bukan pas render:
+// setTodos(t =&gt; [...t, { id: crypto.randomUUID(), teks }]);</code></pre></div></div>
+
+                <p class="text-sm text-[#333] leading-relaxed mt-6 mb-2"><strong class="text-ink">Rasain sendiri bug index-key ini —</strong> centang item pertama, lalu hapus item teratas:</p>
+                <script type="text/plain" id="pg-2-2">// 🔑 EKSPERIMEN KEY (bug index sebagai key):
+// 1. CENTANG checkbox di baris "Beras" (item pertama)
+// 2. Klik "Hapus item teratas"
+// 3. Lihat: centangnya "loncat" ke item lain! State DOM nempel di POSISI.
+//
+// 👉 PERBAIKI: ganti key={i} jadi key={item.id}, klik ▶ Jalankan, ulangi 1-2.
+//    Sekarang centang ikut kehapus bareng itemnya — sesuai harapan. ✅
+function App() {
+  const [items, setItems] = React.useState([
+    { id: 'a', nama: 'Beras' },
+    { id: 'b', nama: 'Telur' },
+    { id: 'c', nama: 'Minyak' },
+  ]);
+
+  return (
+    <div>
+      <p><strong>Ceklis belanja</strong> (checkbox = state DOM tiap baris):</p>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {items.map((item, i) => (
+          <li key={i} style={{ margin: '6px 0' }}>
+            <input type="checkbox" /> {item.nama}
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => setItems(items.slice(1))}>Hapus item teratas</button>
+    </div>
+  );
+}</script>
+                <div class="playground-mount mt-4 mb-4" data-code-id="pg-2-2"></div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed mt-6">
+                    <p><strong class="text-ink">4. Prop drilling yang bau.</strong> Ngoper prop lewat 4-5 level komponen yang cuma jadi "kurir" (nggak makai prop itu, cuma nerusin) adalah <em>code smell</em>. Sekali-dua level masih wajar; lebih dari itu, tandanya butuh Context (Bab 8) atau — sering terlupa — cukup <strong class="text-ink">composition</strong>: oper komponennya sebagai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code>, jadi datanya nggak perlu jalan-jalan.</p>
+                    <p><strong class="text-ink">5. Bikin object/function baru inline di props → re-render sia-sia.</strong> Tiap render, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style={{...}}</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; ...}</code> bikin <em>referensi baru</em>. Buat komponen biasa, ini nggak masalah. Tapi begitu anaknya dibungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>, referensi baru tiap render bikin memo-nya sia-sia — anaknya tetap re-render terus. (Detail memo-nya di Bab 10.)</p>
+                    <p><strong class="text-ink">6. Lupa destructure / salah akses props.</strong> Nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Card(title)</code> (harusnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ title }</code>) bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">title</code> jadi <em>seluruh object props</em>, bukan nilai yang lo mau. Argumen pertama komponen SELALU satu object props — destructure biar jelas dan aman.</p>
+                </div>
+                <div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #4, #5, #6 — drilling, inline ref, destructure</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// #4 — prop drilling yang bau (avatar cuma numpang lewat 3 level)
+&lt;Page avatar={a}&gt;&lt;Header avatar={a}&gt;&lt;Nav avatar={a}&gt;&lt;Avatar src={a} /&gt;...
+// ✅ oper sebagai children — data nggak perlu jalan-jalan:
+&lt;Page&gt;&lt;Header&gt;&lt;Nav&gt;&lt;Avatar src={a} /&gt;&lt;/Nav&gt;&lt;/Header&gt;&lt;/Page&gt;
+
+// #5 — referensi baru tiap render mematahkan React.memo di anak
+const Anak = React.memo(RowMahal);
+&lt;Anak style={{ margin: 8 }} onClick={() =&gt; pilih(id)} /&gt;  // memo sia-sia
+// ✅ stabilkan (Bab 10): useMemo untuk object, useCallback untuk fungsi
+
+// #6 — lupa destructure: 'title' jadi SELURUH object props
+function Card(title)      { return &lt;h3&gt;{title}&lt;/h3&gt;; }   // ❌ [object Object]
+function Card({ title })  { return &lt;h3&gt;{title}&lt;/h3&gt;; }   // ✅ nilai yang benar</code></pre></div></div>
+
+                <!-- LATIHAN -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — UJI PEMAHAMAN LO</h3>
+                    <p class="text-sm text-muted mb-4">Jawab di kepala dulu sebelum buka solusinya. Ini gaya soal yang beneran keluar di code review.</p>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Ubah komponen "configuration" jadi "composition"</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Diberi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Alert type="error" title="Gagal" message="Coba lagi" hasCloseButton showIcon /&gt;</code> yang di dalamnya penuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if</code>. Rombak jadi berbasis composition.</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Wadah tipis, warna dari satu prop 'tone' (bukan setumpuk boolean)
+function Alert({ tone = 'info', children }) {
+  const warna = { info: '#eff6ff', error: '#fef2f2', ok: '#f0fdf4' }[tone];
+  return &lt;div style={{ background: warna, padding: 16, borderRadius: 12 }}&gt;{children}&lt;/div&gt;;
+}
+function AlertTitle({ children }) { return &lt;strong&gt;{children}&lt;/strong&gt;; }
+
+// Pemakaian — susun isinya bebas, tambah tombol kalau perlu, hapus kalau nggak
+&lt;Alert tone="error"&gt;
+  &lt;AlertTitle&gt;⚠️ Gagal&lt;/AlertTitle&gt;
+  &lt;p&gt;Coba lagi ya.&lt;/p&gt;
+  &lt;button onClick={tutup}&gt;Tutup&lt;/button&gt;
+&lt;/Alert&gt;</code></pre></div>
+                            <p class="text-sm text-[#333] leading-relaxed mt-3">Intinya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hasCloseButton</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">showIcon</code> hilang — kebutuhan itu sekarang diselesaikan dengan <em>menyusun children</em>, bukan menyalakan flag.</p>
+                        </div>
+                    </details>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Cari bug-nya — checkbox yang "loncat" pas item dihapus</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — user lapor: hapus 1 item, ceklis-nya kacau</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">{tugas.map((t, i) =&gt; (
+  &lt;li key={i}&gt;
+    &lt;input type="checkbox" /&gt; {t.judul}
+  &lt;/li&gt;
+))}</code></pre></div>
+                            <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Bug-nya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={i}</code>.</strong> Checkbox itu <em>uncontrolled</em> — state centangnya dipegang DOM, bukan React. Karena key = posisi, pas item pertama dihapus, React nganggep li posisi-0 "cuma ganti teks", jadi node checkbox lama (yang udah kecentang) di-reuse untuk item yang sekarang naik ke posisi 0. Fix: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={t.id}</code>. Dengan key identitas, li milik item yang dihapus di-unmount utuh, checkbox tiap item tetap nempel ke datanya.</p>
+                        </div>
+                    </details>
+
+                    <details class="exercise bg-white rounded-xl shadow-soft mt-4">
+                        <summary class="px-5 py-4 flex items-center justify-between">
+                            <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Kapan baris list ini layak jadi komponen sendiri?</span>
+                            <span class="text-xs text-muted">klik untuk lihat solusi</span>
+                        </summary>
+                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Tiga skenario, jawab "pecah" atau "biarin inline":</p>
+                            <ul class="list-disc list-inside space-y-2 text-sm text-[#333] mb-3">
+                                <li><strong class="text-ink">A.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;li&gt;{nama}&lt;/li&gt;</code> — cuma teks. → <strong class="text-ink">Biarin inline.</strong> Nggak ada state, nggak ada logika, satu baris. Pecah = over-engineering.</li>
+                                <li><strong class="text-ink">B.</strong> Baris produk dengan tombol "favorit" yang bisa di-toggle + badge diskon yang dihitung. → <strong class="text-ink">Pecah.</strong> Punya state sendiri (favorit) + logika (hitung diskon).</li>
+                                <li><strong class="text-ink">C.</strong> Baris komentar dengan avatar, nama, waktu relatif ("2 jam lalu"), dan blok JSX 15 baris. → <strong class="text-ink">Pecah.</strong> Logika format waktu + JSX kepanjangan bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code> parent susah dibaca.</li>
+                            </ul>
+                            <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Aturan ringkas:</strong> pecah kalau ada <em>state sendiri</em>, <em>logika non-trivial</em>, atau <em>JSX kepanjangan</em>. Kalau nggak ada satupun — inline dulu, refactor pas kebutuhannya muncul.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- CHALLENGE -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — RENDER LIST PRODUK: FILTER + MAP + KEY</h3>
+                    <p class="text-sm text-[#333] leading-relaxed mb-4">Diberi array <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">produk</code>. Tugas lo: render <strong class="text-ink">hanya produk yang stoknya &gt; 0</strong> ke dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;ul&gt;</code>, tiap item jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;li&gt;</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={p.id}</code> DAN <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-id={p.id}</code>, menampilkan nama produk. Starter-nya render SEMUA tanpa filter — perbaiki sampai semua test hijau. Klik <strong class="text-ink">▶ Test</strong> buat ngecek.</p>
+                    <script type="text/plain" id="ch-2-1">// 🎯 Perbaiki App() ini sampai semua test lulus. Klik "▶ Test" dulu.
+// Target:
+//   1. Tampilkan HANYA produk yang stok > 0
+//   2. Bungkus pakai <ul>, tiap item <li key={p.id} data-id={p.id}>
+//   3. Tampilkan nama tiap produk
+const produk = [
+  { id: 'p1', nama: 'Kaos Polos',  harga: 75000,  stok: 12 },
+  { id: 'p2', nama: 'Hoodie Abu',  harga: 250000, stok: 0  },
+  { id: 'p3', nama: 'Topi Rajut',  harga: 60000,  stok: 5  },
+  { id: 'p4', nama: 'Sepatu Lari', harga: 400000, stok: 0  },
+  { id: 'p5', nama: 'Kaos Kaki',   harga: 25000,  stok: 30 },
+];
+
+function App() {
+  // TODO: filter dulu (stok > 0), baru map jadi <li>
+  return (
+    <ul>
+      {produk.map((p, i) => (
+        <li key={i}>{p.nama}</li>
+      ))}
+    </ul>
+  );
+}</script>
+                    <script type="text/plain" id="ch-2-1-test">var root = document.getElementById('root');
+var lis = root.querySelectorAll('li');
+var teks = root.textContent;
+expect('Membungkus list pakai <ul>', root.querySelector('ul') !== null);
+expect('Hanya render produk stok > 0 (harusnya 3 item)', lis.length === 3);
+expect('Menampilkan "Kaos Polos" (tersedia)', teks.indexOf('Kaos Polos') !== -1);
+expect('TIDAK menampilkan "Hoodie Abu" (stok 0)', teks.indexOf('Hoodie Abu') === -1);
+expect('TIDAK menampilkan "Sepatu Lari" (stok 0)', teks.indexOf('Sepatu Lari') === -1);
+var punyaDataId = lis.length === 3;
+for (var i = 0; i < lis.length; i++) {
+  var d = lis[i].getAttribute('data-id');
+  if (!d || d.charAt(0) !== 'p') punyaDataId = false;
+}
+expect('Tiap <li> punya data-id dari p.id (pakai identitas, bukan index)', punyaDataId);</script>
+                    <!-- SOLUSI ch-2-1 (untuk maintainer — semua test lulus dengan ini):
+                         function App() {
+                           const tersedia = produk.filter(p => p.stok > 0);
+                           return (
+                             <ul>
+                               {tersedia.map(p => (
+                                 <li key={p.id} data-id={p.id}>{p.nama} — Rp{p.harga.toLocaleString('id-ID')}</li>
+                               ))}
+                             </ul>
+                           );
+                         }
+                         Kenapa starter gagal: tanpa filter, ke-render 5 li (test "3 item" gagal),
+                         "Hoodie Abu" & "Sepatu Lari" (stok 0) ikut tampil (2 test gagal), dan
+                         key={i} tanpa data-id bikin test data-id gagal. -->
+                    <div class="challenge-mount mt-4 mb-4" data-code-id="ch-2-1"></div>
+                </div>
+            </section>
+
+            <!-- QUIZ -->
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+                <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGERTI PROPS &amp; LIST? 🎤</h2><p class="text-sm text-muted mt-1">8 soal. Skor terbaik lo kesimpen otomatis.</p></div></div>
+                <script type="application/json" id="quiz-2">
+[
+  {"q": "Props di React sifatnya apa, dan apa konsekuensinya?", "options": ["Read-write — komponen anak boleh mengubahnya biar praktis", "Read-only — anak nggak boleh memutasi props; kalau butuh versi ubahan, bikin salinan", "Selalu string, jadi angka harus di-parse dulu", "Otomatis reactive — ubah props langsung memicu setState"], "answer": 1, "explain": "Props itu <strong>read-only</strong>. Aliran data React satu arah (parent → child). Memutasi props (misal <code>items.push()</code>) melanggar aturan ini dan bisa merusak data parent. Butuh berubah? Salin dulu: <code>[...items]</code>."},
+  {"q": "Kenapa tiap elemen dalam list <code>.map()</code> butuh prop <code>key</code>?", "options": ["Biar CSS-nya bisa di-styling per item", "Cuma budaya biar linter nggak ngomel, nggak ada efek nyata", "Supaya React bisa mencocokkan elemen antar-render dan tahu mana yang berubah/pindah/dihapus", "Karena key otomatis jadi id di HTML hasilnya"], "answer": 2, "explain": "Key = identitas yang dipakai React saat reconciliation untuk mencocokkan elemen lama dan baru. Tanpa key yang stabil, React nebak-nebak — update jadi lambat dan state bisa nyasar. Key TIDAK muncul di DOM sebagai atribut."},
+  {"q": "Kapan <code>key={index}</code> jadi masalah?", "options": ["Selalu — index dilarang total sebagai key", "Nggak pernah — index selalu unik jadi selalu aman", "Saat list bisa di-hapus/di-sort/disisipin dari tengah: index = posisi, bukan identitas, jadi state (input, checkbox, fokus) nyasar ke item yang salah", "Cuma kalau list-nya lebih dari 100 item"], "answer": 2, "explain": "Index itu posisi (0,1,2...), bukan identitas. Di list statis yang nggak pernah berubah urutan, index oke. Tapi begitu bisa di-hapus/sort/insert, item 'bergeser posisi' sementara index tetap, bikin state DOM/komponen nempel ke tetangga yang salah — persis bug di playground pg-2-2."},
+  {"q": "Apa itu prop <code>children</code>?", "options": ["Prop khusus yang berisi elemen di antara tag buka &amp; tutup komponen — <code>&lt;Card&gt;isi&lt;/Card&gt;</code> menaruh 'isi' di children", "Daftar semua komponen anak yang di-import file itu", "Array otomatis berisi semua props yang dikirim", "Fungsi bawaan untuk me-render ulang anak"], "answer": 0, "explain": "<code>children</code> cuma prop biasa yang isinya diambil dari antara tag buka-tutup. <code>&lt;Card&gt;halo&lt;/Card&gt;</code> setara <code>&lt;Card children=\"halo\" /&gt;</code>. Inilah fondasi pola composition &amp; wrapper yang fleksibel."},
+  {"q": "Mana cara paling tepat menerima props di komponen?", "options": ["<code>function Card(title, author)</code> — tiap prop jadi argumen terpisah", "<code>function Card(props)</code> lalu selalu akses <code>props.title</code>, destructure dilarang", "<code>function Card({ title, author })</code> — destructure dari satu object props", "<code>function Card()</code> lalu ambil dari variabel global"], "answer": 2, "explain": "Komponen SELALU menerima tepat satu argumen: object props. <code>function Card(title)</code> bikin <code>title</code> jadi seluruh object props (bug!). Destructuring <code>{ title, author }</code> = standar modern: ringkas + langsung kelihatan prop apa yang dipakai."},
+  {"q": "Lo punya <code>const Anak = React.memo(RowMahal)</code> lalu render <code>&lt;Anak onClick={() =&gt; pilih(id)} /&gt;</code>. Kenapa memo-nya bisa sia-sia?", "options": ["Karena React.memo cuma bekerja untuk class component", "Karena arrow function inline bikin referensi onClick baru tiap render, jadi memo menganggap props berubah dan tetap re-render", "Karena onClick tidak boleh dikirim ke komponen ber-memo", "Karena memo butuh key untuk bekerja"], "answer": 1, "explain": "<code>() =&gt; pilih(id)</code> membuat fungsi (referensi) BARU tiap render. React.memo membandingkan props secara dangkal (<code>Object.is</code>), lihat referensi beda = 'props berubah' = tetap re-render. Solusi (Bab 10): <code>useCallback</code> untuk fungsi, <code>useMemo</code> untuk object."},
+  {"q": "Prinsip \"composition over configuration\" menyarankan apa saat komponen mulai punya banyak prop boolean?", "options": ["Gabung semua boolean jadi satu string biar hemat", "Ganti flag boolean dengan menyusun isi lewat children/slot, biar pemanggil yang merakit tampilan", "Pindahkan semua boolean ke Context global", "Bikin satu komponen mega yang meng-handle semua kasus lewat if"], "answer": 1, "explain": "Tiap prop boolean baru melipatgandakan kombinasi yang harus dipikir &amp; dites (<code>&lt;Card compact bordered elevated /&gt;</code> = 8 kombinasi). Composition: bikin wadah tipis + biarkan pemanggil menyusun isinya via children/slot. Fleksibel tanpa ledakan flag."},
+  {"q": "Kapan sebuah item list sebaiknya dipecah jadi komponennya sendiri?", "options": ["Selalu — tiap <code>&lt;li&gt;</code> wajib jadi komponen terpisah", "Tidak pernah — memecah komponen selalu over-engineering", "Saat item punya state sendiri, logika non-trivial, atau JSX-nya kepanjangan sampai <code>.map()</code> parent susah dibaca", "Hanya saat item lebih dari 5 baris teks"], "answer": 2, "explain": "Pecah kalau ada alasan nyata: state sendiri (checkbox/expand/favorit), logika (format tanggal, hitung diskon), atau JSX panjang yang bikin parent berantakan. Item yang cuma nampilin satu-dua teks statis? Biarin inline — memecah tanpa alasan cuma nambah beban mental."}
+]
+                </script>
+                <div class="quiz-mount mt-6" data-quiz-id="quiz-2"></div>
+            </section>
+
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="summary">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -1100,5 +1465,7 @@ export default Kalkulator;</code></pre>
     </button>
 
     <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>
