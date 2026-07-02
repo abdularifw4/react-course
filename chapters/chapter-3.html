@@ -239,6 +239,32 @@ const [theme, setTheme] = useState(() =&gt; {
   return localStorage.getItem('theme') || 'light';
 });</code></pre>
         </div>
+        <p><strong class="text-ink font-bold">Sekarang giliran lo cobain langsung. 🎮</strong> Di playground bawah ini ada counter (yang pakai functional update <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">c =&gt; c + 1</code> — anti stale) plus satu controlled input. Edit kodenya, klik <strong class="text-ink">▶ Jalankan</strong>, dan rasain sendiri gimana tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> otomatis gambar ulang UI. Coba ganti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">c =&gt; c + 1</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count + 1</code> lalu klik +1 tiga kali cepat — lihat bedanya.</p>
+        <script type="text/plain" id="pg-3-1">function App() {
+  const [count, setCount] = React.useState(0);
+  const [nama, setNama] = React.useState('');
+
+  return (
+    <div>
+      <h3>Counter (functional update — anti stale)</h3>
+      <p style={{ fontSize: 34, margin: '4px 0', fontWeight: 700 }}>{count}</p>
+      <button onClick={() => setCount(c => c - 1)}>−1</button>{' '}
+      <button onClick={() => setCount(c => c + 1)}>+1</button>{' '}
+      <button onClick={() => setCount(0)}>Reset</button>
+
+      <hr style={{ margin: '16px 0', border: 0, borderTop: '1px solid #eee' }} />
+
+      <h3>Controlled input</h3>
+      <input
+        value={nama}
+        onChange={e => setNama(e.target.value)}
+        placeholder="Ketik nama lo..."
+      />
+      <p>{nama ? `Halo, ${nama}! 👋 (${nama.length} huruf)` : 'Input masih kosong — state = string kosong.'}</p>
+    </div>
+  );
+}</script>
+        <div class="playground-mount mt-4 mb-4" data-code-id="pg-3-1"></div>
     </div>
     <div class="tip-box rounded-xl p-4 mt-6">
         <p class="text-sm text-[#333]"><strong class="text-ink">💡 Mindset yang bener:</strong> Bayangin useState itu kayak <strong>variabel yang bisa update tampilan</strong>. Bedanya sama variabel biasa, kalau kamu ubah useState, React <em>otomatis</em> gambar ulang komponen. Kalau variabel biasa? Diubah di belakang layar, tapi di layar tetap yang lama. Jadi kalau mau perubahannya keliatan di UI, pakai useState! 🤯</p>
@@ -352,6 +378,39 @@ useEffect(() =&gt; {
   setCount(count + 1); // trigger re-render → effect jalan lagi → infinity!
 }); // tidak ada dependency array!</code></pre>
         </div>
+        <p><strong class="text-ink font-bold">Waktunya praktik langsung. ⏱️</strong> Playground di bawah ini gabungin dua effect: satu nge-sync <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.title</code> ke jumlah detik (cek judul tab preview!), satu lagi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setInterval</code> yang <strong class="text-ink">di-cleanup</strong> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">clearInterval</code>. Coba hapus baris <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">return () =&gt; clearInterval(id)</code> lalu klik Pause/Lanjut beberapa kali — timer bakal makin ngebut karena intervalnya numpuk. Itu memory leak di depan mata lo.</p>
+        <script type="text/plain" id="pg-3-2">function App() {
+  const [detik, setDetik] = React.useState(0);
+  const [jalan, setJalan] = React.useState(true);
+
+  // Effect 1: sync judul dokumen ke state
+  React.useEffect(() => {
+    document.title = `⏱️ ${detik} detik`;
+  }, [detik]);
+
+  // Effect 2: interval yang bersih-bersih setelah dirinya sendiri
+  React.useEffect(() => {
+    if (!jalan) return;                 // paused → nggak pasang interval
+    const id = setInterval(() => {
+      setDetik(d => d + 1);             // functional update = anti stale closure
+    }, 1000);
+    return () => clearInterval(id);     // WAJIB: cleanup biar nggak dobel/leak
+  }, [jalan]);                          // re-run tiap status jalan berubah
+
+  return (
+    <div>
+      <p style={{ fontSize: 34, fontWeight: 700 }}>{detik}s</p>
+      <button onClick={() => setJalan(j => !j)}>
+        {jalan ? '⏸ Pause' : '▶ Lanjut'}
+      </button>{' '}
+      <button onClick={() => setDetik(0)}>Reset</button>
+      <p style={{ fontSize: 13, color: '#666' }}>
+        Judul tab preview ikut berubah tiap detik — itu Effect #1 kerja.
+      </p>
+    </div>
+  );
+}</script>
+        <div class="playground-mount mt-4 mb-4" data-code-id="pg-3-2"></div>
     </div>
     <div class="tip-box rounded-xl p-4 mt-6">
         <p class="text-sm text-[#333]"><strong class="text-ink">💡 Cheat sheet dependency array:</strong></p>
@@ -852,6 +911,348 @@ export default Stopwatch;</code></pre>
     </div>
 </section>
 
+<!-- LESSON 9: LEVEL SENIOR — useEffect yang bener -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">LEVEL SENIOR: USEEFFECT YANG BENER — RACE CONDITION, CLEANUP &amp; ABORTCONTROLLER 🏁</h2>
+                <input type="checkbox" id="check-3-14" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Senior &middot; React 18 &middot; 14 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Semua tutorial ngajarin lo fetch di useEffect kayak gini: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect(() =&gt; { fetch(url).then(...).then(setData) }, [url])</code>. Kelihatan aman. Jalan di layar. Lolos demo. Tapi di production, kode ini punya <strong class="text-ink">bug diam-diam</strong> yang bikin user lihat data orang lain. Namanya <strong class="text-ink">race condition</strong>, dan ngerti cara ngatasinnya itu garis pemisah junior vs senior. 🧠</p>
+        <p><strong class="text-ink font-bold">Skenarionya begini.</strong> User buka profil A. Lo kirim <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch('/api/user/A')</code>. Sebelum respons A datang, user keburu klik profil B → effect jalan lagi → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch('/api/user/B')</code>. Sekarang ada <strong class="text-ink">DUA request melayang</strong> di udara. Masalahnya: jaringan itu nggak ngantri rapi. Request B bisa selesai duluan (server B lebih deket, data lebih kecil, apa aja), lalu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setData(B)</code>. Terus respons A yang lambat baru nyusul, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setData(A)</code> nimpa. Hasil akhir: layar nunjukin URL profil B, tapi datanya profil A. 💀 Ini analoginya kayak <strong class="text-ink">pesen ojek dua kali karena yang pertama lama</strong> — dua-duanya jalan, dan yang <em>nyampe belakangan</em> yang lo dapet, bukan yang lo mau.</p>
+        <p><strong class="text-ink font-bold">Solusi #1: flag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore</code> (paling gampang, selalu jalan).</strong> Manfaatin cleanup function. Tiap effect punya satu variabel lokal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore = false</code>; cleanup-nya nyetel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore = true</code>. Karena tiap effect run punya closure sendiri, respons yang datang setelah effect-nya di-cleanup bakal lihat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore === true</code> dan diem — nggak nimpa apa-apa. Ini pola resmi yang direkomendasiin docs React.</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Pola kanonik #1 — ignore flag (anti race condition)</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">function Profil({ userId }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    let ignore = false;        // ← "surat izin" khusus effect run ini
+    setLoading(true);
+
+    fetch(`/api/user/${userId}`)
+      .then(res =&gt; res.json())
+      .then(data =&gt; {
+        if (!ignore) {         // ← cuma update kalau run ini masih relevan
+          setUser(data);
+          setLoading(false);
+        }
+      });
+
+    return () =&gt; { ignore = true; }; // cleanup: run ini udah basi, abaikan hasilnya
+  }, [userId]);                       // ganti userId → cleanup lama jalan → fetch baru
+
+  if (loading) return &lt;p&gt;Loading… ⏳&lt;/p&gt;;
+  return &lt;p&gt;Halo, {user.name}!&lt;/p&gt;;
+}</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Solusi #2: AbortController (lebih rapi — request-nya beneran dibatalkan).</strong> Flag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore</code> cuma <em>ngabaikan</em> hasil; request-nya tetap jalan sampai selesai dan makan bandwidth. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AbortController</code> beneran <strong class="text-ink">membatalkan</strong> request di level jaringan. Bikin controller di dalam effect, kasih <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">signal</code>-nya ke fetch, lalu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">abort()</code> di cleanup. Cuma inget: fetch yang di-abort bakal nge-throw <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AbortError</code>, jadi kudu di-<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">catch</code> dan diabaikan (itu bukan error beneran, itu memang kita yang batalin).</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Pola kanonik #2 — AbortController</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">useEffect(() =&gt; {
+  const ctrl = new AbortController();
+
+  fetch(`/api/user/${userId}`, { signal: ctrl.signal })
+    .then(res =&gt; res.json())
+    .then(setUser)
+    .catch(err =&gt; {
+      if (err.name !== 'AbortError') setError(err); // abort ≠ error beneran
+    });
+
+  return () =&gt; ctrl.abort(); // ganti userId / unmount → request lama dibatalkan
+}, [userId]);</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Kenapa cleanup itu jantungnya.</strong> Perhatiin: DUA solusi di atas cuma beda satu baris — dua-duanya kerja di <strong class="text-ink">cleanup function</strong>. Model mental yang bener buat useEffect bukan "jalan pas mount" tapi <em>"tiap effect run harus bisa membatalkan dirinya sendiri sebelum run berikutnya mulai"</em>. Fetch → batalin/abaikan. Interval → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">clearInterval</code>. Event listener → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">removeEventListener</code>. Koneksi WebSocket → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">disconnect</code>. Kalau tiap effect lo "bersih-bersih setelah dirinya sendiri", lo kebal race condition <em>dan</em> memory leak sekaligus.</p>
+        <p><strong class="text-ink font-bold">StrictMode &amp; double-run di dev — itu FITUR, bukan bug.</strong> Di React 18 development, kalau app lo dibungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;StrictMode&gt;</code>, tiap effect sengaja dijalanin dengan siklus <strong class="text-ink">mount → cleanup → mount lagi</strong>. Jadi fetch lo kelihatan jalan 2x, dan seribu orang panik di StackOverflow nanya "React bug?". Bukan. Ini React sengaja "nyimulasi" komponen yang unmount-remount, buat <strong class="text-ink">ngetes apakah cleanup lo bener</strong>. Kalau kode lo pakai pola <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore</code>/AbortController di atas, double-run ini nggak ninggalin bekas — run pertama otomatis dibatalin cleanup-nya. Yang salah kaprah: nyopot <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;StrictMode&gt;</code> "biar nggak dobel", atau pasang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code> penanda "udah jalan". Dua-duanya cuma nyembunyiin bug. Ingat: di <strong class="text-ink">production build, StrictMode nol efek</strong> — effect jalan sekali. Jadi kalau double-run bikin app lo kacau di dev, itu tanda cleanup lo bolong.</p>
+        <p><strong class="text-ink font-bold">Dan yang paling sering kelewat: kapan lo NGGAK butuh useEffect sama sekali.</strong> Ini pelajaran senior paling mahal. Banyak effect di codebase itu sebenernya <em>nggak perlu ada</em>. Dua kasus terbesar:</p>
+        <ul class="list-disc list-inside space-y-2 text-[#333]">
+            <li><strong class="text-ink">Derived state (nilai turunan).</strong> Kalau sesuatu bisa <em>dihitung</em> dari props/state yang udah ada, hitung aja pas render — jangan simpen di state + sync pakai effect. Contoh: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fullName</code> dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">firstName + lastName</code>, atau list yang udah di-filter. Nyimpen turunan di state = dua sumber kebenaran yang bisa nggak sinkron, plus render ekstra.</li>
+            <li><strong class="text-ink">Respons ke event user.</strong> Kalau logika lo dipicu <em>aksi user</em> (klik, submit, ketik) — taruh di <strong class="text-ink">event handler</strong>, bukan effect. Contoh salah: user submit form → set state <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">submitted=true</code> → useEffect ngeliat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">submitted</code> berubah → kirim POST. Itu muter-muter. Langsung POST di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onSubmit</code>. Effect itu buat <em>sinkronisasi dengan sistem luar</em> (jaringan, DOM, timer, langganan) — bukan buat ngereaksi ke interaksi.</li>
+        </ul>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">You Might Not Need an Effect — 2 kasus paling sering</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ EFFECT NGGAK PERLU — sync derived state
+const [firstName, setFirstName] = useState('Budi');
+const [lastName, setLastName] = useState('Santoso');
+const [fullName, setFullName] = useState('');
+useEffect(() =&gt; { setFullName(firstName + ' ' + lastName); }, [firstName, lastName]);
+
+// ✅ CUKUP hitung pas render — satu sumber kebenaran, nol effect
+const fullName = firstName + ' ' + lastName;
+
+
+// ❌ EFFECT NGGAK PERLU — ngereaksi ke aksi user lewat state
+const [submitted, setSubmitted] = useState(false);
+useEffect(() =&gt; { if (submitted) kirimPesanan(); }, [submitted]);
+function handleSubmit() { setSubmitted(true); } // muter-muter 🌀
+
+// ✅ Langsung di event handler
+function handleSubmit() { kirimPesanan(); } // selesai</code></pre>
+        </div>
+    </div>
+    <div class="tip-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Pertanyaan sakti sebelum nulis useEffect: <em>"apakah ini nyinkronin komponen gue dengan sesuatu di LUAR React?"</em> Kalau jawabannya jaringan/DOM/timer/langganan → ya, useEffect + cleanup. Kalau cuma ngitung nilai atau ngereaksi ke klik → nggak, itu render biasa atau event handler. Effect yang paling bagus itu effect yang <strong class="text-ink">berhasil lo hapus</strong>. Ini persis materi halaman "You Might Not Need an Effect" di docs React resmi.</p>
+    </div>
+    <div class="warning-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan kosongin dependency array cuma "biar effect jalan sekali" padahal di dalamnya lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userId</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props</code>. Itu bikin stale closure — effect nyangkut ke nilai render pertama selamanya. Isi dependency array dengan JUJUR (semua yang dipake di dalam), lalu benerin masalah "kebanyakan jalan"-nya pakai cleanup yang bener, bukan dengan boong ke React. Pasang plugin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">eslint-plugin-react-hooks</code> — dia yang jagain lo.</p>
+    </div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — 6 JEBAKAN USESTATE &amp; USEEFFECT 🚨</h2>
+                <input type="checkbox" id="check-3-13" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Best Practices &middot; 10 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Enam kesalahan ini muncul di hampir <strong class="text-ink">setiap</strong> code review React. Format tiap poin: kode salah → kenapa salah → kode bener. Hafalin, dan lo udah selangkah di depan mayoritas developer. 💸</p>
+        <p><strong class="text-ink font-bold">1. Stale state — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> di dalam loop/beruntun.</strong> Kenapa salah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> itu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const</code> yang di-"beku" nilainya untuk satu render. Panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> tiga kali = tiga-tiganya baca <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> lama yang sama, hasilnya cuma +1. Fix: functional update.</p>
+        <p><strong class="text-ink font-bold">2. Mutasi state langsung.</strong> Kenapa salah: React ngecek "perlu render?" dengan bandingin <em>referensi</em> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Object.is</code>). <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">arr.push()</code> ngubah isi tapi referensinya sama → React kira nggak berubah → UI diem. Fix: bikin array/object baru (spread).</p>
+        <p><strong class="text-ink font-bold">3. useState object tanpa spread.</strong> Kenapa salah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setUser({ name: 'Budi' })</code> <strong class="text-ink">ngeganti</strong> seluruh object, bukan nge-merge — field lain (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">age</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">email</code>) lenyap. Fix: spread dulu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ ...prev, name }</code>.</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Kesalahan #1–3 — stale, mutasi, spread</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ #1 STALE STATE
+setCount(count + 1);
+setCount(count + 1); // dua-duanya baca count lama → cuma +1
+// ✅ FIX: functional update
+setCount(c =&gt; c + 1);
+setCount(c =&gt; c + 1); // +2, tiap panggilan pakai nilai terbaru
+
+// ❌ #2 MUTASI LANGSUNG
+todos.push(baru); setTodos(todos);      // referensi sama → UI diem
+// ✅ FIX: referensi baru
+setTodos(prev =&gt; [...prev, baru]);
+
+// ❌ #3 OBJECT TANPA SPREAD
+setUser({ name: 'Budi' });               // age &amp; email hilang!
+// ✅ FIX: spread field lama dulu
+setUser(prev =&gt; ({ ...prev, name: 'Budi' }));</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">4. Dependency array salah/bolong.</strong> Kenapa salah: lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userId</code> di dalam effect tapi array-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[]</code> → effect nyangkut di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userId</code> render pertama selamanya (stale closure). Fix: masukin semua yang dipake, jujur.</p>
+        <p><strong class="text-ink font-bold">5. Effect jalan tiap render (lupa array).</strong> Kenapa salah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect(() =&gt; {...})</code> tanpa array = jalan tiap render. Kalau isinya fetch → nembak API terus-terusan. Fix: kasih dependency array yang sesuai.</p>
+        <p><strong class="text-ink font-bold">6. Infinite effect loop.</strong> Kenapa salah: effect nge-<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> yang jadi dependency-nya sendiri (atau object baru tiap render dijadiin dependency) → set state → re-render → effect jalan → set state → ∞. Fix: fungsi updater, atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>-in object dependency, atau tanya "beneran butuh effect nggak?" (lihat lesson senior).</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Kesalahan #4–6 — deps salah, jalan tiap render, infinite loop</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ #4 DEPS BOLONG — pakai userId tapi array kosong
+useEffect(() =&gt; { fetch('/api/u/' + userId); }, []); // nyangkut di userId awal
+// ✅ FIX: isi dengan jujur
+useEffect(() =&gt; { fetch('/api/u/' + userId); }, [userId]);
+
+// ❌ #5 LUPA ARRAY — jalan TIAP render
+useEffect(() =&gt; { fetchData(); });        // fetch tiap render 😱
+// ✅ FIX: kasih array
+useEffect(() =&gt; { fetchData(); }, []);    // sekali saat mount
+
+// ❌ #6 INFINITE LOOP — set state yang jadi dependency-nya sendiri
+const [n, setN] = useState(0);
+useEffect(() =&gt; { setN(n + 1); }, [n]);   // set → render → effect → set → ∞
+// ✅ FIX: object dependency? useMemo-in. Butuh sekali? kosongin array.
+//         Atau: nilai turunan nggak butuh effect sama sekali.
+const [opsi] = useState(() =&gt; ({ page: 1 }));
+useEffect(() =&gt; { fetchData(opsi); }, [opsi]); // referensi stabil, aman</code></pre>
+        </div>
+    </div>
+    <div class="warning-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Lima dari enam bug di atas ketahuan otomatis kalau lo pasang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">eslint-plugin-react-hooks</code> (aturan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">exhaustive-deps</code>). Jangan pernah "silence" warning-nya pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">// eslint-disable-next-line</code> tanpa ngerti kenapa — 9 dari 10 kali itu nyembunyiin bug beneran.</p>
+    </div>
+</section>
+
+<!-- LATIHAN -->
+<div class="mt-10 max-w-4xl">
+<h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — BENERIN SENDIRI SEBELUM LIHAT SOLUSI</h3>
+<p class="text-sm text-muted mb-4">Pikirin (atau tulis) jawaban lo dulu, baru klik buat buka solusinya. Gaya soal ini persis yang keluar di interview.</p>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Tombol "+3" yang cuma nambah 1</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — kenapa angkanya cuma naik 1 tiap klik?</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Counter() {
+  const [count, setCount] = useState(0);
+  const tambahTiga = () =&gt; {
+    setCount(count + 1);
+    setCount(count + 1);
+    setCount(count + 1);
+  };
+  return &lt;button onClick={tambahTiga}&gt;{count}&lt;/button&gt;;
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Kenapa:</strong> ketiga <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> baca variabel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> yang sama (nilai render saat ini, misal 0) → tiga-tiganya ngantri "jadi 1". Di-batch, hasil akhir 1. <strong class="text-ink">Fix:</strong> functional update — tiap panggilan dapet nilai antrian terbaru.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const tambahTiga = () =&gt; {
+  setCount(c =&gt; c + 1);
+  setCount(c =&gt; c + 1);
+  setCount(c =&gt; c + 1); // sekarang beneran +3 ✅
+};</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Search yang nampilin hasil lama (race condition)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — user ngetik cepat, hasil yang muncul kadang bukan buat keyword terakhir</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Search({ query }) {
+  const [hasil, setHasil] = useState([]);
+  useEffect(() =&gt; {
+    fetch('/api/search?q=' + query)
+      .then(r =&gt; r.json())
+      .then(setHasil); // respons lambat bisa nimpa yang baru!
+  }, [query]);
+  return &lt;List items={hasil} /&gt;;
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Kenapa:</strong> tiap ketikan bikin request baru, tapi respons nggak dateng berurutan. Request lama yang nyampe belakangan nimpa hasil terbaru. <strong class="text-ink">Fix:</strong> cleanup dengan flag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ignore</code> (atau AbortController).</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">useEffect(() =&gt; {
+  let ignore = false;
+  fetch('/api/search?q=' + query)
+    .then(r =&gt; r.json())
+    .then(data =&gt; { if (!ignore) setHasil(data); });
+  return () =&gt; { ignore = true; }; // respons basi diabaikan ✅
+}, [query]);</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Effect yang harusnya nggak ada</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — hapus useEffect-nya. Gimana caranya?</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Keranjang({ items }) {
+  const [total, setTotal] = useState(0);
+  useEffect(() =&gt; {
+    setTotal(items.reduce((s, i) =&gt; s + i.harga, 0));
+  }, [items]);
+  return &lt;p&gt;Total: {total}&lt;/p&gt;;
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Kenapa dihapus:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">total</code> itu <strong class="text-ink">nilai turunan</strong> dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">items</code> — bisa dihitung langsung pas render. Nyimpen di state + sync pakai effect malah bikin render ekstra dan dua sumber kebenaran. <strong class="text-ink">Fix:</strong> hitung pas render, buang state + effect-nya.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Keranjang({ items }) {
+  const total = items.reduce((s, i) =&gt; s + i.harga, 0); // hitung aja
+  return &lt;p&gt;Total: {total}&lt;/p&gt;;
+}
+// (kalau reduce-nya berat & items besar: const total = useMemo(...))</code></pre></div>
+  </div>
+</details>
+</div>
+
+<!-- CHALLENGE -->
+<div class="mt-10 max-w-4xl">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — CONTROLLED INPUT + LIVE CHARACTER COUNT</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Bikin input yang nampilin <strong class="text-ink">jumlah karakter secara live</strong> tiap user ngetik. Starter di bawah masih bug: input-nya belum controlled dan counternya nyangkut di 0. Tugas lo: sambungin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value</code> ke state dan tampilin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">teks.length</code>. Klik <strong class="text-ink">▶ Test</strong> buat ngecek. Elemen penghitung wajib punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-testid="count"</code>.</p>
+<script type="text/plain" id="ch-3-1">// 🎯 Perbaiki bug ini biar semua test lulus.
+// Target: input controlled + counter yang update live nunjukin jumlah karakter.
+function App() {
+  const [teks, setTeks] = React.useState('');
+
+  return (
+    <div>
+      <input
+        placeholder="Ketik sesuatu..."
+        onChange={e => setTeks(e.target.value)}
+      />
+      {/* BUG: counter masih hardcoded 0, dan input belum controlled */}
+      <p data-testid="count">Jumlah karakter: 0</p>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-3-1-test">var root = document.getElementById('root');
+var input = root.querySelector('input');
+var countEl = root.querySelector('[data-testid="count"]');
+expect('Ada input di dalam #root', input !== null);
+expect('Ada elemen penghitung [data-testid="count"]', countEl !== null);
+
+var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+function ketik(nilai) {
+  ReactDOM.flushSync(function () {
+    nativeSetter.call(input, nilai);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+}
+
+if (input) ketik('React');
+expect('Setelah ketik "React" (5 huruf), counter nunjukin 5', !!countEl && /(^|\D)5(\D|$)/.test(countEl.textContent));
+
+if (input) ketik('React rocks');
+expect('Ketik ulang jadi 11 huruf, counter ikut update jadi 11', !!countEl && /(^|\D)11(\D|$)/.test(countEl.textContent));
+
+expect('Input controlled (value nyambung ke state)', !!input && input.value === 'React rocks');
+
+if (input) ketik('');
+expect('Dikosongin lagi, counter balik ke 0', !!countEl && /(^|\D)0(\D|$)/.test(countEl.textContent));</script>
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-3-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">💡 Solusi Challenge (buka kalau udah nyerah / mau bandingin)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Dua perubahan: (1) tambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value={teks}</code> biar input controlled, (2) render <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{teks.length}</code> — bukan angka hardcoded.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap — semua test lulus</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function App() {
+  const [teks, setTeks] = React.useState('');
+
+  return (
+    &lt;div&gt;
+      &lt;input
+        value={teks}
+        placeholder="Ketik sesuatu..."
+        onChange={e =&gt; setTeks(e.target.value)}
+      /&gt;
+      &lt;p data-testid="count"&gt;Jumlah karakter: {teks.length}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+  </div>
+</details>
+</div>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGUASAIN HOOKS DASAR? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-3">
+[
+  {"q": "Lo manggil <code>setCount(count + 1)</code> tiga kali berturut-turut di satu event handler (count awalnya 0). Nilai akhir count jadi berapa, dan kenapa?", "options": ["3 — tiap panggilan menambah 1", "1 — ketiga panggilan baca nilai count yang sama (0) dari closure render ini, lalu di-batch", "3 — tapi butuh 3 kali render", "0 — setState tidak berpengaruh di dalam handler"], "answer": 1, "explain": "<code>count</code> itu const yang beku untuk satu render. Ketiganya baca 0 → antri \"jadi 1\" → di-batch jadi satu render. Pakai <code>setCount(c =&gt; c + 1)</code> supaya tiap panggilan dapet nilai antrian terbaru → hasil 3."},
+  {"q": "Apa beda utama useState dan useRef?", "options": ["useState cuma buat angka, useRef buat object", "Mengubah useState memicu re-render; mengubah <code>ref.current</code> tidak memicu re-render", "useRef lebih cepat karena disimpan di server", "Tidak ada beda, cuma gaya penulisan"], "answer": 1, "explain": "useState = data yang harus keliatan di UI (perubahannya nge-trigger render). useRef = laci mutable yang perubahannya senyap (nggak render). Pilih berdasarkan: perlu keliatan di layar atau nggak."},
+  {"q": "State lo <code>const [user, setUser] = useState({ name: '', age: 0 })</code>. Lo panggil <code>setUser({ name: 'Budi' })</code>. Apa yang terjadi ke <code>age</code>?", "options": ["age tetap 0 karena React otomatis merge", "age hilang — object diganti seluruhnya, bukan di-merge", "Error: object state tidak boleh di-set parsial", "age jadi undefined tapi masih ada key-nya"], "answer": 1, "explain": "setState untuk object itu <em>mengganti</em>, bukan <em>merge</em> (beda sama this.setState di class dulu). Field yang nggak disebut lenyap. Fix: <code>setUser(prev =&gt; ({ ...prev, name: 'Budi' }))</code>."},
+  {"q": "Apa efek dari dependency array KOSONG <code>[]</code> di useEffect?", "options": ["Effect jalan setiap render", "Effect jalan sekali saat mount (dan cleanup-nya saat unmount)", "Effect tidak pernah jalan", "Effect jalan setiap 1 detik"], "answer": 1, "explain": "<code>[]</code> = nggak ada dependency yang berubah, jadi effect cuma jalan pas mount, cleanup-nya pas unmount. Mirip componentDidMount + componentWillUnmount. Tanpa array sama sekali = jalan tiap render."},
+  {"q": "Kenapa fetch di useEffect tanpa cleanup bisa nampilin data yang salah?", "options": ["Karena fetch selalu gagal tanpa cleanup", "Race condition — kalau argumen (misal userId) ganti cepat, respons request lama bisa datang belakangan dan nimpa data baru", "Karena React melarang fetch di useEffect", "Karena fetch butuh useMemo"], "answer": 1, "explain": "Dua request bisa melayang bareng dan respons nggak dateng berurutan. Yang nyampe belakangan menang. Fix: flag <code>ignore</code> di cleanup atau <code>AbortController</code>, supaya respons dari run yang udah basi diabaikan/dibatalin."},
+  {"q": "useEffect fetch lo jalan 2x di development. Diagnosis level senior-nya?", "options": ["Bug React 18, harus downgrade", "Itu StrictMode dev-only (mount→cleanup→mount) buat nge-tes cleanup; solusinya tulis cleanup yang bener, bukan nyopot StrictMode", "Hapus &lt;StrictMode&gt; dari main.jsx", "Bungkus fetch pakai useMemo"], "answer": 1, "explain": "StrictMode sengaja nyimulasi unmount/remount di dev (di production nol efek) buat mendeteksi effect tanpa cleanup. Kalau kode lo pakai ignore/AbortController, double-run nggak berbekas. Nyopot StrictMode = nyembunyiin bug."},
+  {"q": "Mana kasus yang PALING TEPAT untuk <strong>tidak</strong> pakai useEffect?", "options": ["Fetch data dari API saat komponen mount", "Menghitung <code>fullName</code> dari <code>firstName + lastName</code> (nilai turunan)", "Pasang event listener ke window", "Mulai interval timer"], "answer": 1, "explain": "Nilai turunan bisa dihitung langsung pas render — nggak perlu disimpan di state + di-sync pakai effect (itu bikin render ekstra + dua sumber kebenaran). useEffect itu buat sinkronisasi dengan sistem LUAR React (jaringan, DOM, timer, langganan)."},
+  {"q": "Kode: <code>const [c, setC] = useState(0); useEffect(() =&gt; { setC(c + 1); }, [c]);</code> — apa yang terjadi?", "options": ["c berhenti di 1", "Infinite loop: set state → re-render → effect jalan lagi → set state → ...", "Error saat compile", "Effect jalan sekali lalu berhenti"], "answer": 1, "explain": "Effect nge-set state yang jadi dependency-nya sendiri: tiap update memicu render, render memicu effect, effect update lagi — tanpa henti. Ini pola klasik yang harusnya nggak butuh effect sama sekali (nilai turunan) atau butuh syarat berhenti."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-3"></div>
+</section>
+
 <!-- SUMMARY -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
     <div class="flex items-start gap-4 mb-6">
@@ -920,5 +1321,7 @@ const value = useContext(MyContext);</code></pre>
     </button>
 
     <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>
