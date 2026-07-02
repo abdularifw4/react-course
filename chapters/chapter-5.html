@@ -668,7 +668,7 @@ function Dropdown() {
 <p>Konsepnya gampang: komponen nerima prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> yang tentuin element apa yang harus di-render. Default-nya bisa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'div'</code>, tapi user bisa override jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'button'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'a'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'section'</code>, atau bahkan komponen React lain! Ini kayak <strong class="text-ink">superhero yang bisa berubah bentuk</strong> jadi apa aja yang dibutuhkan. 🦸</p>
 <p>Contoh nyata di library populer: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Box as="section"&gt;</code> dari Chakra UI, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Typography component="h2"&gt;</code> dari MUI, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Text as="span"&gt;</code> dari banyak design system. Semua memakai konsep polymorphism yang sama! Oh ternyata library besar semua pake ini ya! 🤯</p>
 <p>Implementasinya bisa pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> atau dynamic tag. Yang penting: semua props yang nggak kamu pakai internal harus di-forward ke element yang di-render. Ini supaya user bisa tetap nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style</code>, atau props HTML lainnya.</p>
-<p>Yang perlu diwaspadai: kalau komponen kamu nerima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref</code>, kamu perlu pake <code class="bg-[F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.forwardRef</code> biar ref bisa diteruskan ke element as-nya. Ini detail teknis yang sering lupa tapi penting buat accessibility dan library kompatibilitas. Oh ternyata ref juga harus di-forward ya! 🤯</p>
+<p>Yang perlu diwaspadai: kalau komponen kamu nerima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref</code>, kamu perlu pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.forwardRef</code> biar ref bisa diteruskan ke element as-nya. Ini detail teknis yang sering lupa tapi penting buat accessibility dan library kompatibilitas. Oh ternyata ref juga harus di-forward ya! 🤯</p>
 </div>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JAVASCRIPT</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { forwardRef } from 'react';
 
@@ -938,6 +938,444 @@ function App() {
 <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Accessibility note:</strong> Tabs component ini udah mengikuti WAI-ARIA Tabs Pattern dari W3C. Tapi testing accessibility itu harus manual juga — coba pake keyboard aja tanpa mouse, coba pake screen reader. Automated test (kayak axe-core) nggak bisa nge-test semuanya!</p></div>
 </section>
 
+<!-- LESSON 9: KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">⚠️ KESALAHAN UMUM — FORM, STATE & PATTERN</h2><input type="checkbox" id="check-5-14" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Anti-Bug &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pattern keren nggak ada gunanya kalau fondasinya bocor. Form dan state di React punya ranjau yang nyaris <em>semua</em> orang pernah keinjek — dari junior sampai yang ngaku senior. Di bagian ini gue kumpulin 6 kesalahan paling sering yang bikin bug halus, form "beku", atau re-render nyasar. Format tiap poin: <strong class="text-ink">kode salah → kenapa salah → kode benar</strong>. Baca pelan-pelan, karena ini yang bakal ketauan pas code review. 🔎</p>
+</div>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">1. Bingung controlled vs uncontrolled</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH: kasih value tapi lupa onChange → input "beku", nggak bisa diketik
+&lt;input value={nama} /&gt;
+
+// ❌ SALAH JUGA: campur defaultValue (uncontrolled) + value (controlled)
+&lt;input defaultValue="Budi" value={nama} onChange={...} /&gt;
+// React warning: "A component is changing an uncontrolled input to controlled"
+
+// ✅ BENAR — controlled: value DAN onChange selalu berpasangan
+&lt;input value={nama} onChange={(e) =&gt; setNama(e.target.value)} /&gt;
+
+// ✅ BENAR — uncontrolled: pakai defaultValue + baca via ref pas submit
+&lt;input defaultValue="Budi" ref={namaRef} /&gt;</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> input controlled itu nilainya <em>dikunci</em> ke state React. Kalau lo kasih <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value</code> tanpa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange</code>, tiap ketikan langsung ditimpa balik sama state lama — kelihatannya input rusak. Pilih SATU mode: controlled (value+onChange) atau uncontrolled (defaultValue+ref). Jangan setengah-setengah.</p>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">2. Lupa preventDefault di form submit</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH: submit form → browser reload halaman, state hilang semua
+function Form() {
+  function handleSubmit(e) {
+    kirimData(); // browser keburu reload sebelum ini sempet jalan bener
+  }
+  return &lt;form onSubmit={handleSubmit}&gt;...&lt;/form&gt;;
+}
+
+// ✅ BENAR: cegah default behavior browser (reload/navigasi)
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault(); // WAJIB — matiin reload bawaan &lt;form&gt;
+    kirimData();
+  }
+  return &lt;form onSubmit={handleSubmit}&gt;...&lt;/form&gt;;
+}</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> tag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;form&gt;</code> HTML defaultnya nge-reload halaman pas submit (warisan zaman PHP). Di SPA React itu artinya seluruh app di-mount ulang dan state lo lenyap. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> di baris pertama handler = wajib. Bonus: taruh handler di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onSubmit</code> form, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> tombol — biar tombol Enter di keyboard juga jalan (aksesibilitas!).</p>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">3. Update nested state tanpa spread</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// state: { nama: 'Budi', alamat: { kota: 'Bandung', pos: '40123' } }
+
+// ❌ SALAH: nimpa seluruh object, field lain HILANG
+setForm({ nama: 'Andi' });        // alamat lenyap!
+
+// ❌ SALAH: mutasi langsung → React nggak lihat perubahan, nggak re-render
+form.alamat.kota = 'Jakarta';
+setForm(form);                    // referensi sama → di-skip
+
+// ✅ BENAR: spread level yang berubah, satu per satu
+setForm(prev =&gt; ({ ...prev, nama: 'Andi' }));
+
+// ✅ BENAR: nested → spread tiap level yang disentuh
+setForm(prev =&gt; ({
+  ...prev,
+  alamat: { ...prev.alamat, kota: 'Jakarta' },
+}));</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> state React itu <em>immutable</em> secara konvensi. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setForm({ nama })</code> nggak nge-<em>merge</em> kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">this.setState</code> zaman class — dia REPLACE. Dan kalau lo mutasi object lama terus kirim referensi yang sama, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Object.is</code> bilang "nggak berubah" dan render di-skip. Selalu bikin object BARU dengan spread. Kalau nesting-nya udah 3+ level, itu sinyal buat pecah state atau pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>.</p>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">4. Key di elemen yang salah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH: key ditaruh di dalam, bukan di elemen terluar hasil map
+{items.map(item =&gt; (
+  &lt;div&gt;
+    &lt;span key={item.id}&gt;{item.nama}&lt;/span&gt;  {/* React nggak lihat ini */}
+  &lt;/div&gt;
+))}
+// Warning: "Each child in a list should have a unique key prop"
+
+// ❌ SALAH: bikin komponen pembungkus tapi key-nya di anak, bukan di komponennya
+{items.map(item =&gt; &lt;Row&gt;&lt;Cell key={item.id} /&gt;&lt;/Row&gt;)}
+
+// ✅ BENAR: key WAJIB di elemen/komponen paling luar yang di-return map
+{items.map(item =&gt; (
+  &lt;div key={item.id}&gt;
+    &lt;span&gt;{item.nama}&lt;/span&gt;
+  &lt;/div&gt;
+))}</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key</code> dipakai React buat nyocokin item antar render — dan dia cuma "kelihatan" kalau nempel di elemen <em>terluar</em> yang dihasilkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>. Naruh key di anak bagian dalam bikin React tetap pakai posisi (index implisit) buat diffing — persis bug "state nyasar" yang kita bahas di pattern list. Kalau butuh Fragment, pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;React.Fragment key={id}&gt;</code> (bukan shorthand <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;</code> yang nggak bisa nerima key).</p>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">5. Satu handler generik yang salah baca event</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH: checkbox dibaca pakai e.target.value (isinya "on", bukan boolean)
+function ubah(e) {
+  setForm({ ...form, [e.target.name]: e.target.value });
+}
+&lt;input type="checkbox" name="setuju" onChange={ubah} /&gt; // selalu "on" 🤦
+
+// ✅ BENAR: bedakan checkbox (checked) dari input teks (value)
+function ubah(e) {
+  const { name, type, value, checked } = e.target;
+  setForm(prev =&gt; ({
+    ...prev,
+    [name]: type === 'checkbox' ? checked : value,
+  }));
+}</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> satu handler <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ubah</code> buat semua field itu pola yang bagus (DRY!) — tapi checkbox nyimpen state-nya di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checked</code>, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value</code>. Baca <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target.type</code> buat mutusin field mana yang dibaca. Angka? Inget <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value</code> selalu string — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Number(value)</code> kalau butuh angka beneran.</p>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">6. Over-using render props (pattern buat pamer)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ OVERKILL: render props buat sesuatu yang cukup pakai hook
+&lt;WindowWidth&gt;
+  {(width) =&gt; (
+    &lt;MousePos&gt;
+      {(pos) =&gt; (
+        &lt;OnlineStatus&gt;
+          {(online) =&gt; &lt;Dashboard width={width} pos={pos} online={online} /&gt;}
+        &lt;/OnlineStatus&gt;
+      )}
+    &lt;/MousePos&gt;
+  )}
+&lt;/WindowWidth&gt; // "callback hell" versi JSX 😵
+
+// ✅ BENAR: custom hook — datar, kebaca, nggak ada nesting
+function Dashboard() {
+  const width  = useWindowWidth();
+  const pos    = useMousePos();
+  const online = useOnlineStatus();
+  return &lt;DashboardView width={width} pos={pos} online={online} /&gt;;
+}</code></pre></div></div>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Kenapa salah:</strong> render props powerful, tapi begitu lo perlu gabung 2-3 sumber logic, nesting-nya meledak jadi "pyramid of doom". Sejak hooks ada (2019), <strong class="text-ink">custom hook adalah default</strong> buat share <em>logic</em>. Sisakan render props untuk kasus di mana lo perlu ngasih kendali <em>rendering</em> ke consumer (misal komponen list virtual yang manggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rowRenderer</code>). Aturan praktisnya: butuh share DATA/LOGIC? Hook. Butuh consumer nentuin JSX? Render props/children.</p>
+
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Ranjau bonus: taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> untuk tiap field terpisah itu boleh, tapi begitu field-nya banyak dan saling terkait (form validasi), satu object state (atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>) jauh lebih rapi. Dan JANGAN pernah hitung "form valid nggak" di state terpisah lalu di-<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> di useEffect — validitas itu <em>turunan</em> dari input, hitung langsung saat render (lihat playground di bawah).</p></div>
+
+<h3 class="text-lg font-bold text-ink mt-8 mb-2">🧪 Coba sendiri: controlled form + validasi (satu object state)</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-2">Form di bawah nyimpen SEMUA field di satu object state, dipakein satu handler generik, dan validitasnya dihitung langsung saat render (bukan disimpan di state terpisah). Tombol Daftar mati sampai semua field valid. Edit kodenya, klik Jalankan.</p>
+<script type="text/plain" id="pg-5-1">// Controlled form: satu object state + satu handler + validasi turunan.
+// Perhatiin: nggak ada useState buat "isValid" — dihitung saat render.
+function App() {
+  const [form, setForm] = React.useState({ nama: '', email: '', umur: '' });
+
+  function ubah(e) {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value })); // spread → object baru
+  }
+
+  // Validitas = TURUNAN dari input. Hitung langsung, jangan disimpan di state.
+  const namaValid  = form.nama.trim().length >= 3;
+  const emailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email);
+  const umurValid  = Number(form.umur) >= 17;
+  const semuaValid = namaValid && emailValid && umurValid;
+
+  function submit(e) {
+    e.preventDefault(); // cegah reload!
+    alert('Terkirim ✅\n' + JSON.stringify(form, null, 2));
+  }
+
+  const errStyle = { color: '#dc2626', fontSize: 12, margin: '2px 0 0' };
+
+  return (
+    <form onSubmit={submit} style={{ display: 'grid', gap: 12, maxWidth: 320 }}>
+      <label>
+        Nama
+        <input name="nama" value={form.nama} onChange={ubah} placeholder="min 3 huruf" style={{ display: 'block', width: '100%' }} />
+        {form.nama && !namaValid && <p style={errStyle}>Nama minimal 3 huruf</p>}
+      </label>
+      <label>
+        Email
+        <input name="email" value={form.email} onChange={ubah} placeholder="kamu@email.com" style={{ display: 'block', width: '100%' }} />
+        {form.email && !emailValid && <p style={errStyle}>Format email belum benar</p>}
+      </label>
+      <label>
+        Umur
+        <input name="umur" value={form.umur} onChange={ubah} placeholder="min 17" style={{ display: 'block', width: '100%' }} />
+        {form.umur && !umurValid && <p style={errStyle}>Harus 17 tahun ke atas</p>}
+      </label>
+      <button type="submit" disabled={!semuaValid} style={{ opacity: semuaValid ? 1 : 0.5 }}>
+        Daftar
+      </button>
+      <pre style={{ background: '#f5f5f5', padding: 8, borderRadius: 6, fontSize: 12 }}>{JSON.stringify(form, null, 2)}</pre>
+    </form>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-5-1"></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Perhatiin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">semuaValid</code> dihitung tiap render dari nilai form terkini — nggak ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> buat validitas, nggak ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> buat nyinkronin. Inilah prinsip senior: <strong class="text-ink">apa pun yang bisa dihitung dari state/props yang udah ada, JANGAN disimpan di state lagi</strong>. State ganda = sumber bug sinkronisasi nomor satu.</p></div>
+</section>
+
+<!-- LESSON 10: LEVEL SENIOR — PATTERN SELECTION -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">10</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR — PATTERN SELECTION: PILIH YANG MANA? 🧭</h2><input type="checkbox" id="check-5-15" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-5-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Decision Framework &middot; 13 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Lo udah punya 7 pattern di kotak perkakas: HOC, render props, compound components, provider, container/presentational, props getters, polymorphic. Pertanyaan yang bikin lo naik dari "tau pattern" jadi "senior" bukan <em>gimana cara nulis</em> tiap pattern — tapi <strong class="text-ink">kapan HARUS pakai yang mana, dan kapan JUSTRU nggak usah pakai apa-apa</strong>. Ini lesson paling penting di bab ini. 🧭</p>
+<p>Kesalahan klasik junior yang baru belajar pattern: <strong class="text-ink">pattern-for-pattern's-sake</strong> — maksa compound component buat tombol sederhana, bikin HOC buat sesuatu yang cukup satu fungsi. Ingat, pattern itu <em>solusi buat masalah spesifik</em>. Kalau lo belum punya masalahnya, pattern-nya cuma nambah kompleksitas. Kode paling senior seringkali kode yang paling <em>membosankan</em>: komponen biasa + custom hook. 🥱</p>
+<p>Analoginya kayak <strong class="text-ink">kotak perkakas tukang</strong> 🧰. Tukang pemula beli bor listrik mahal terus pengen ngebor semua — padahal masang satu paku cukup pakai palu. Tukang senior liat masalahnya dulu: "ini butuh nempel permanen atau bisa dilepas? kayu atau beton?" baru milih alat. Pattern React sama persis: <strong class="text-ink">diagnosis dulu, baru pilih</strong>.</p>
+<p>Framework keputusannya, gue ringkas jadi satu urutan pertanyaan. Jalanin dari atas — begitu ada yang "iya", itu jawabannya, berhenti:</p>
+</div>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Decision framework — jalanin dari atas ke bawah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ═══ PILIH PATTERN: jawab dari atas, berhenti di "IYA" pertama ═══
+
+// 1. Cuma mau share LOGIC (fetch, timer, form, subscribe)?
+//    → CUSTOM HOOK.  Default modern. 90% kasus berhenti di sini.
+//    useFetch(), useForm(), useLocalStorage()
+
+// 2. Bikin komponen dgn beberapa bagian yg saling terkait & fleksibel
+//    disusun user (Tabs, Accordion, Menu, Select)?
+//    → COMPOUND COMPONENTS (+ Context buat state internal)
+//    <Tabs><Tab/><TabPanel/></Tabs>
+
+// 3. Mau kasih consumer kendali penuh atas RENDERING output-nya
+//    (list virtual, tooltip yg isinya bebas)?
+//    → RENDER PROPS / children-as-function
+//    <VirtualList>{(row) => <MyRow {...row}/>}</VirtualList>
+
+// 4. Bikin design-system primitive yg harus bisa jadi elemen apa aja?
+//    → POLYMORPHIC (prop `as`) + forwardRef
+//    <Box as="section">  <Button as="a" href="...">
+
+// 5. Nyediain data/service ke SELURUH subtree tanpa prop drilling?
+//    → PROVIDER PATTERN (Context + custom hook)
+//    <ThemeProvider> ... useTheme()
+
+// 6. WAJIB bungkus komponen pihak-ketiga yg nggak bisa lo ubah,
+//    atau integrasi library lama (Redux connect)?
+//    → HOC.  Pilihan terakhir. Di kode baru, hampir selalu ada hook.</code></pre></div></div>
+
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Perhatiin urutannya: <strong class="text-ink">custom hook di nomor 1</strong>, HOC di nomor 6 (paling akhir). Itu bukan kebetulan — itu preferensi modern React. Sejak hooks, mayoritas kebutuhan "share behavior antar komponen" selesai dengan hook yang datar dan gampang di-test. HOC dan render props turun jadi kasus khusus, bukan alat sehari-hari.</p>
+<p>Ada satu prinsip pemersatu di balik semua ini: <strong class="text-ink">composition over configuration</strong>. Daripada bikin satu komponen raksasa dengan 30 props boolean (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">showHeader</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hideFooter</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">variant</code>...), susun dari bagian-bagian kecil yang bisa digabung. Compound components, children-as-props, dan polymorphic semuanya turunan dari filosofi ini. Kalau lo bingung milih, tanya: "gimana caranya biar consumer bisa <em>nyusun</em>, bukan cuma <em>ngonfigurasi</em>?"</p>
+</div>
+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Tradeoff singkat tiap pattern</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// PATTERN            KEKUATAN                    HARGA / RISIKO
+// Custom hook         datar, testable, komposabel  logic doang (bukan markup)
+// Compound comps      API expressif, fleksibel     dependency implisit (Context)
+// Render props        consumer kontrol render      nesting/callback hell
+// Provider            no prop drilling             re-render kalau context gemuk
+// Polymorphic         1 primitive, banyak elemen   typing ribet, a11y manual
+// HOC                 bungkus tanpa ubah source     wrapper hell, props collision
+// Container/present.   pisah logic vs UI            sering diganti hook aja</code></pre></div></div>
+
+<p class="text-sm text-[#333] leading-relaxed mt-6">Poin nomor 3 di framework (render props buat kendali rendering) paling gampang dipahami lewat contoh yang <em>nggak</em> jalan di iframe: React Router. Router beneran butuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;BrowserRouter&gt;</code>, history API, dan URL asli — nggak bisa kita demo di sandbox. Tapi <strong class="text-ink">model mental</strong>-nya bisa: "tab/halaman aktif" itu cuma sepotong state. Router = versi canggih dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> yang nyimpen state aktif di URL biar bisa di-bookmark & di-back. Playground di bawah bikin tab pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> — pattern paling sederhana yang sering udah cukup sebelum lo buru-buru narik library routing.</p>
+
+<script type="text/plain" id="pg-5-2">// State-based tabs — pattern PALING SEDERHANA buat "panel aktif".
+// CATATAN: react-router NGGAK bisa jalan di iframe sandbox ini (butuh URL
+// asli + history API). Di app beneran, "tab aktif yang mau bisa di-bookmark"
+// pakai router; tapi buat UI lokal kayak gini, useState udah lebih dari cukup.
+// Pelajarannya: jangan buru-buru narik library kalau useState udah nyelesein.
+function App() {
+  const tabs = [
+    { label: 'Beranda', isi: '🏠 Selamat datang! Ini panel Beranda.' },
+    { label: 'Produk',  isi: '📦 Daftar produk tampil di panel Produk.' },
+    { label: 'Kontak',  isi: '✉️ Hubungi kami lewat panel Kontak.' },
+  ];
+  const [aktif, setAktif] = React.useState(0);
+
+  return (
+    <div>
+      <div role="tablist" style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+        {tabs.map((t, i) => (
+          <button
+            key={i}
+            role="tab"
+            aria-selected={aktif === i}
+            onClick={() => setAktif(i)}
+            style={{
+              fontWeight: aktif === i ? 700 : 400,
+              background: aktif === i ? '#0B0B0B' : '#f5f5f5',
+              color: aktif === i ? '#fff' : '#111',
+            }}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div role="tabpanel" style={{ padding: 12, background: '#FAFAFA', borderRadius: 8 }}>
+        {tabs[aktif].isi}
+      </div>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-5-2"></div>
+
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> "Kapan naik dari useState ke library?" Jawaban senior: <strong class="text-ink">pas lo butuh sesuatu yang useState nggak kasih</strong>. Butuh state aktif bisa di-share via URL/back button? Router. Butuh state global lintas halaman yang jauh? Zustand/Context. Selama belum ada kebutuhan konkret itu, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> lokal adalah jawaban yang benar — bukan tanda lo "belum canggih".</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Tanda bahaya over-engineering yang sering keliatan di PR: HOC yang cuma dipakai SEKALI, compound component buat komponen yang nggak pernah dipecah user, Context buat state yang cuma dipakai 2 komponen bersebelahan (mending prop biasa!). Aturan emas: <strong class="text-ink">tambah abstraksi pas duplikasi ke-3 muncul, bukan sebelumnya</strong> (rule of three). Abstraksi yang salah lebih mahal daripada duplikasi.</p></div>
+</section>
+
+<!-- EXERCISES -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="exercises">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">✏️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">LATIHAN — UJI PEMAHAMAN LO 🏋️</h2><p class="text-sm text-muted mt-1">Coba jawab di kepala dulu sebelum buka solusinya. Yang jujur ya!</p></div></div>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Perbaiki input yang "beku"</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — user lapor: "ketikan gue nggak masuk"</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function CariUser() {
+  const [q, setQ] = React.useState('');
+  return (
+    &lt;input
+      placeholder="cari..."
+      value={q}
+      onInput={(e) =&gt; setQ(e.target.value)}
+    /&gt;
+  );
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Jebakannya halus.</strong> Kodenya sebenernya bakal jalan — tapi ini soal <em>idiom</em> dan jaminan React. Di React, event standar buat perubahan input adalah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange</code>, yang secara internal React <strong class="text-ink">normalisasi biar fire tiap ketikan</strong> (persis kayak event <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">input</code> native). <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onInput</code> di React juga fire tiap keystroke, jadi input-nya nggak bakal beku — tapi dia bukan API yang di-dokumentasiin & dijamin React buat controlled input, dan bikin kode lo beda dari konvensi tim/ekosistem. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange</code>: itu yang idiomatik, konsisten dengan semua contoh React, dan dijamin lintas versi.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">&lt;input
+  placeholder="cari..."
+  value={q}
+  onChange={(e) =&gt; setQ(e.target.value)}  {/* onChange, bukan onInput */}
+/&gt;</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Pilih pattern yang tepat (3 skenario)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Buat tiap skenario, tentuin pattern paling pas (pakai decision framework di lesson 10):</p>
+    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">A.</strong> Lo punya logic "ambil posisi scroll window + update pas resize" yang dipakai di 4 komponen berbeda.<br><strong class="text-ink">B.</strong> Lo bikin komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Dropdown&gt;</code> yang harus punya trigger, menu, dan item yang bisa disusun bebas oleh user.<br><strong class="text-ink">C.</strong> Lo bikin komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Text&gt;</code> di design system yang kadang jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">h1</code>, kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">p</code>, kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">label</code>.</p>
+    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">Jawaban:</strong></p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">A → Custom hook</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useScrollPosition()</code>). Ini murni share <em>logic</em>, dipakai di banyak tempat, nggak ada urusan sama markup. Nomor 1 di framework. <strong class="text-ink">B → Compound components</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Dropdown&gt;&lt;Dropdown.Trigger/&gt;&lt;Dropdown.Item/&gt;</code>) dengan Context buat state open/close. Beberapa bagian saling terkait yang disusun user = nomor 2. <strong class="text-ink">C → Polymorphic</strong> (prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code>) + forwardRef. Satu primitive, banyak elemen HTML = nomor 4.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Kenapa checkbox-nya nggak bisa dicentang?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Setuju() {
+  const [form, setForm] = React.useState({ setuju: false });
+
+  function ubah(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  return (
+    &lt;input type="checkbox" name="setuju"
+      checked={form.setuju} onChange={ubah} /&gt;
+  );
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Diagnosis:</strong> checkbox controlled itu dikunci ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checked={form.setuju}</code> (boolean). Tapi handler nyimpen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target.value</code> yang untuk checkbox nilainya string <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"on"</code> — bukan boolean. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"on"</code> itu truthy, jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">form.setuju</code> nyangkut di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"on"</code> dan nggak pernah balik ke false. Baca <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checked</code>, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value</code>.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function ubah(e) {
+  const { name, type, value, checked } = e.target;
+  setForm(prev =&gt; ({
+    ...prev,
+    [name]: type === 'checkbox' ? checked : value,
+  }));
+}</code></pre></div>
+  </div>
+</details>
+</section>
+
+<!-- CHALLENGE -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="challenge-section">
+<div class="mt-2">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — TABS YANG PANELNYA NGGAK MAU GANTI</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Komponen tabs di bawah render tombol dan panel, tapi ada bug: klik tab manapun, panelnya <strong class="text-ink">nggak ganti</strong>. Tugas lo: perbaiki supaya klik tab beneran ganti panel dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">aria-selected</code> ikut update. Hint: lihat handler <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>-nya — dia nggak ngapa-ngapain. Klik <strong class="text-ink">▶ Test</strong> buat ngecek.</p>
+<script type="text/plain" id="ch-5-1">// 🎯 Perbaiki tabs ini! Klik "▶ Test" dulu buat lihat test yang gagal.
+// Aturan: cukup benerin cara state "tab aktif" di-update.
+const tabs = [
+  { label: 'Profil',  isi: 'Ini halaman Profil' },
+  { label: 'Pesanan', isi: 'Ini halaman Pesanan' },
+  { label: 'Alamat',  isi: 'Ini halaman Alamat' },
+];
+
+function App() {
+  const [aktif, setAktif] = React.useState(0);
+
+  return (
+    <div>
+      <div role="tablist">
+        {tabs.map((t, i) => (
+          <button
+            key={i}
+            role="tab"
+            data-index={i}
+            aria-selected={aktif === i}
+            onClick={() => {}}  /* 🐛 BUG: belum update state 'aktif' */
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div role="tabpanel" data-panel>{tabs[aktif].isi}</div>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-5-1-test">var root = document.getElementById('root');
+var panel = root.querySelector('[data-panel]');
+expect('Panel awal nampilin Profil', !!panel && /Profil/.test(panel.textContent));
+var tab = root.querySelectorAll('[role="tab"]');
+expect('Ada 3 tab', tab.length === 3);
+if (tab[1]) ReactDOM.flushSync(function () { tab[1].click(); });
+var panel2 = root.querySelector('[data-panel]');
+expect('Klik tab kedua -> panel jadi Pesanan', !!panel2 && /Pesanan/.test(panel2.textContent));
+expect('Tab kedua aria-selected = true', !!tab[1] && tab[1].getAttribute('aria-selected') === 'true');
+expect('Tab pertama aria-selected = false', !!tab[0] && tab[0].getAttribute('aria-selected') === 'false');
+if (tab[2]) ReactDOM.flushSync(function () { tab[2].click(); });
+var panel3 = root.querySelector('[data-panel]');
+expect('Klik tab ketiga -> panel jadi Alamat', !!panel3 && /Alamat/.test(panel3.textContent));</script>
+<!-- SOLUSI ch-5-1 (untuk maintainer — semua test lulus dengan ini):
+     Ganti onClick jadi meng-update state aktif:
+
+       onClick={() => setAktif(i)}
+
+     Kenapa starter gagal: onClick={() => {}} nggak pernah manggil setAktif,
+     jadi 'aktif' nyangkut di 0. Panel selalu tampil tabs[0].isi ("Profil")
+     dan aria-selected cuma true di tab pertama. Test klik tab kedua/ketiga
+     (via ReactDOM.flushSync supaya update React 18 langsung ke-flush) lalu
+     ngecek isi panel + aria-selected — semua lulus setelah setAktif(i) dipasang. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-5-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">💡 Mentok? Buka solusi challenge</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Bug-nya cuma satu baris: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; {}}</code> nggak ngapa-ngapain. Panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setAktif(i)</code> supaya state "tab aktif" berubah pas diklik. Begitu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">aktif</code> berubah, React re-render, panel nunjuk <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">tabs[aktif]</code> yang baru dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">aria-selected</code> ikut betul.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">&lt;button
+  key={i}
+  role="tab"
+  data-index={i}
+  aria-selected={aktif === i}
+  onClick={() =&gt; setAktif(i)}   {/* ✅ update state tab aktif */}
+&gt;
+  {t.label}
+&lt;/button&gt;</code></pre></div>
+  </div>
+</details>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SIAP DITANYA INTERVIEWER? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview senior soal form, state & pattern. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-5">
+[
+  {"q": "Lo nulis <code>&lt;input value={nama} /&gt;</code> tanpa onChange. Apa yang user rasain?", "options": ["Input jalan normal, React ngisi otomatis", "Input jadi read-only alias 'beku' — ketikan langsung ditimpa balik nilai state lama", "React nampilin error dan app crash", "Input jadi uncontrolled dan tetap bisa diketik"], "answer": 1, "explain": "Input controlled nilainya dikunci ke <code>value</code> dari state. Tanpa <code>onChange</code>, tiap ketikan langsung di-render ulang dengan nilai state lama, jadi keliatan beku. Aturan: controlled = value DAN onChange selalu sepasang."},
+  {"q": "Kenapa handler submit form WAJIB manggil <code>e.preventDefault()</code> di baris pertama?", "options": ["Biar handler-nya jalan lebih cepat", "Biar validasi otomatis jalan", "Karena tanpa itu, browser nge-reload halaman (behavior default <form>) dan semua state React hilang", "Karena React nggak bisa baca form tanpa itu"], "answer": 2, "explain": "Tag <code>&lt;form&gt;</code> HTML defaultnya nge-reload/navigasi pas submit. Di SPA itu artinya app di-mount ulang dan state lenyap. <code>e.preventDefault()</code> matiin behavior itu."},
+  {"q": "State: <code>{ user: { nama: 'Budi', kota: 'Bandung' } }</code>. Cara BENAR ganti kota doang?", "options": ["setState({ user: { kota: 'Jakarta' } })", "state.user.kota = 'Jakarta'; setState(state)", "setState(prev => ({ ...prev, user: { ...prev.user, kota: 'Jakarta' } }))", "setState({ kota: 'Jakarta' })"], "answer": 2, "explain": "setState me-REPLACE, bukan merge. Dan mutasi langsung bikin referensi sama sehingga render di-skip. Spread tiap level yang disentuh biar dapet object baru dan field lain (nama) tetap ada."},
+  {"q": "Di mana <code>key</code> harus ditaruh saat me-render list dengan <code>.map()</code>?", "options": ["Di elemen mana aja di dalam map, bebas", "Di elemen/komponen paling LUAR yang di-return oleh callback map", "Di elemen paling dalam biar spesifik", "Nggak wajib kalau list-nya pendek"], "answer": 1, "explain": "React cuma 'lihat' key di elemen terluar hasil map — itu yang dia pakai buat nyocokin item antar render. Key di anak bagian dalam diabaikan dan React balik pakai posisi (index) buat diffing."},
+  {"q": "Lo lagi bikin komponen <code>&lt;Accordion&gt;</code> yang punya beberapa item yang disusun bebas oleh user dan berbagi state buka/tutup. Pattern paling pas?", "options": ["HOC withAccordion()", "Compound components + Context", "Polymorphic dengan prop as", "Render props tunggal"], "answer": 1, "explain": "Beberapa bagian yang saling terkait, disusun user, dan berbagi state internal = definisi kasus compound components (pakai Context buat share state). Ini nomor 2 di decision framework."},
+  {"q": "Menurut preferensi React modern, mana urutan yang BENAR saat mau share LOGIC antar komponen?", "options": ["Coba HOC dulu, baru custom hook kalau gagal", "Custom hook dulu (default); HOC cuma pilihan terakhir buat kasus khusus", "Selalu render props karena paling fleksibel", "Selalu Context supaya global"], "answer": 1, "explain": "Sejak hooks (2019), custom hook jadi default buat share logic — datar, testable, komposabel. HOC dan render props turun jadi kasus khusus. HOC dipakai terutama buat bungkus komponen pihak-ketiga / integrasi library lama."},
+  {"q": "Lo mau tau apakah form valid buat nge-disable tombol submit. Cara paling senior?", "options": ["Simpan isValid di useState, update lewat useEffect tiap field berubah", "Hitung isValid langsung saat render dari nilai field yang udah ada", "Simpan isValid di ref biar nggak re-render", "Panggil API validasi tiap ketikan"], "answer": 1, "explain": "Validitas itu TURUNAN dari input yang udah ada di state. Apa pun yang bisa dihitung dari state/props jangan disimpan di state lagi — hitung saat render. State ganda + useEffect sinkronisasi = sumber bug nomor satu."},
+  {"q": "Kapan render props masih pilihan yang tepat dibanding custom hook?", "options": ["Selalu, karena render props lebih modern dari hook", "Pas lo mau ngasih consumer kendali penuh atas OUTPUT rendering (misal list virtual yang manggil rowRenderer)", "Pas lo cuma mau share data fetching", "Pas lo butuh state global"], "answer": 1, "explain": "Butuh share DATA/LOGIC → custom hook. Butuh consumer yang nentuin JSX yang di-render (kendali rendering) → render props/children-as-function. Contoh klasik: komponen list virtual yang ngasih tiap baris ke fungsi consumer."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-5"></div>
+</section>
+
 <!-- SUMMARY/RECAP -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="summary">
 <div class="flex items-start gap-4 mb-6">
@@ -984,5 +1422,7 @@ Gas ke Bab 6 →
     </button>
 
     <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>
