@@ -165,492 +165,543 @@
 
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
-
-            
-            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-ink font-bold text-sm">06</span>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-xl font-bold text-ink">Type Narrowing — Ngedeteksi Tipe di Jalan</h2>
-                    </div>
-                </div>
-                <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p class="text-sm text-muted">Bayangin lo punya kotak misterius. Lo nggak tau isinya apa. Nah, <strong class="text-ink">Type Narrowing</strong> itu kayak ngecek isi kotak sebelum membukanya. TypeScript bantu kita tau isi kotaknya tanpa harus buka paksa.</p>
-                    <p class="text-sm text-muted">Kadang kita punya variable yang tipenya bisa <em>beberapa kemungkinan</em>. Misalnya function parameter bisa terima <code>string</code> atau <code>number</code>. Type narrowing itu cara TypeScript ngetahui tipe yang sebenarnya di titik tertentu dalam kode.</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">typeof &amp; instanceof Narrowing</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">// typeof cuma untuk primitif: string, number, boolean
-function formatInput(input: string | number) {
-  if (typeof input === "string") {
-    return input.toUpperCase(); // TS tau: input pasti string
-  }
-  return input.toFixed(2); // TS tau: input pasti number
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TYPESCRIPT & REACT — KENAPA HARUS PAKAI TS? 🛡️</h2><input type="checkbox" id="check-6-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Pengenalan &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pernah ngalamin bug di production cuma karena typo? Misalnya nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props.nam</code> bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props.nama</code>. Di JavaScript, errornya cuma muncul pas runtime — artinya user yang nemu bug-nya dulu, baru kamu. Nggak enak banget kan? 😤</p>
+<p>Nah, sekarang bayangin kamu kerja di tim 10 developer. Tanpa TypeScript, satu developer nulis komponen, developer lain pake — dan nggak tau props apa yang dibutuhkan. Doku? Kadang nggak update. Result? Bug di production karena props salah. Dengan TypeScript, props interface = living documentation yang selalu akurat. Nggak mungkin beda antara kode dan docs. 📚</p>
+<p>TypeScript itu kayak <strong class="text-ink">helm safety</strong> waktu naik motor. Kamu tetap bisa naik tanpa helm (JavaScript), tapi kalau jatuh (bug), kepala kamu nggak terlindungi. Dengan helm, kalau ada yang salah, kamu dikasih tahu <em>sebelum</em> jalan — bukan pas sudah kejebak di tengah jalan. Oh ternyata gitu! 🤯</p>
+<p>Yang bikin TypeScript spesial buat React: dia nge-catch error di <strong class="text-ink">waktu nulis kode</strong>, bukan pas runtime. IDE kamu langsung kasih merah underline kalau props salah, state type bermasalah, atau function return value nggak sesuai. Ini game changer banget buat productivity — apalagi di tim besar.</p>
+<p>Tapi TypeScript BUKAN magic bullet. Dia punya learning curve, bikin kode lebih verbose, dan kadang nge-block kamu yang mau cepat prototype. Jadi jangan kebablasan — pakai TypeScript di level yang masuk akal buat projectmu. Small side project? Mungkin JS cukup. Production app dengan tim? TypeScript wajib. Kalau masih ragu, coba dulu di satu file — rasain sendiri bedanya. 🎯 Small side project? Mungkin JS cukup. Production app dengan tim? TypeScript wajib. 🎯</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">JavaScript vs TypeScript — Beda Apa?</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ JavaScript — error baru ketahuan pas runtime
+function Greeting({ name }) {
+  return &lt;h1&gt;Hello, {name.tolowerCase()}&lt;/h1&gt;; // TypeError: name.tolowerCase is not a function
 }
 
-// instanceof untuk class
-class User { name: string; }
-class Admin { permissions: string[]; }
-
-function process(entity: User | Admin) {
-  if (entity instanceof User) {
-    console.log(entity.name);
-  } else {
-    console.log(entity.permissions);
-  }
-}</code></pre>
-                    </div>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">in operator &amp; Custom Type Guard</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">// in operator: cek property ada atau nggak
-type Fish = { swim: () =&gt; void };
-type Bird = { fly: () =&gt; void };
-
-function move(animal: Fish | Bird) {
-  if ("swim" in animal) {
-    animal.swim();
-  } else {
-    animal.fly();
-  }
+// ✅ TypeScript — error ketahuan langsung di editor
+interface GreetingProps {
+  name: string;
 }
 
-// Custom Type Guard: bikin pengecek sendiri
-function isUser(obj: any): obj is { name: string; age: number } {
-  return obj &amp;&amp; typeof obj.name === "string";
-}
+function Greeting({ name }: GreetingProps) {
+  return &lt;h1&gt;Hello, {name.toLowerCase()}&lt;/h1&gt;; // ✅ aman!
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Fact:</strong> TypeScript diciptakan oleh Microsoft tahun 2012, dan sekarang dipake hampir semua library React besar (React sendiri, Next.js, Zustand, TanStack Query). Jadi belajar TS itu investasi yang pasti balik modalnya.</p></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Perhatian:</strong> TypeScript itu <em>superset</em> JavaScript — artinya semua kode JS valid itu juga TS valid. Kamu bisa migrasi pelan-pelan, file per file, nggak harus sekaligus. Ini yang bikin adopt TS di project existing jadi smooth.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TYPING PROPS & STATE — INTERFACE VS TYPE 📝</h2><input type="checkbox" id="check-6-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Fundamental &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Kamu pasti pernah bingung: pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">interface</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code>?
+ Di TypeScript, keduanya hampir sama — kayak memilih antara pensil dan ballpoint. Bisa nulis huruf yang sama, tapi ada perbedaan halus. Interface lebih cocok buat object shape (props, API response), type lebih fleksibel (union, intersection, mapped types).
 
-function process(data: unknown) {
-  if (isUser(data)) {
-    console.log(data.name); // TS tau shape-nya!
-  }
-}</code></pre>
-                    </div>
-                    <div class="tip-box rounded-xl p-4 mt-4">
-                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Type narrowing itu kayak security check di bandara. Tiap pengecekan, TypeScript mastiin tipe sebelum ngasih akses ke property.</p>
-                    </div>
-                </div>
-            </section>
+<p>Satu hal yang sering bikin pusing: kalau interface dan type bisa buat hal yang sama, mana yang harus dipilih? Jawabannya: <strong class="text-ink">konsistensi di tim</strong>. Pilih satu dan patuhi. Di React community, interface lebih populer buat props — tapi ini preferensi, bukan aturan mutlak.</p>
+<p>Yang perlu tau: interface bisa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">extends</code> interface lain, type bisa gabung pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&</code> (intersection). Di React, kedua pattern ini equally useful — pilih yang lebih readable buat kasusmu.</p>
+<p>Analoginya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">interface</code> itu kayak <strong class="text-ink">kontrak kerja</strong> — jelas, formal, bisa di-extend. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code> itu kayak <strong class="text-ink">notes personal</strong> — lebih flexible, bisa berbagai format. Di dunia React, kebanyakan developer pilih interface untuk props/state, type untuk yang lebih kompleks.</p></p>
+<p>Analoginya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">interface</code> itu kayak <strong class="text-ink">kontrak kerja</strong> — jelas, formal, bisa di-extend. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code> itu kayak <strong class="text-ink">notes personal</strong> — lebih flexible, bisa berbagai format. Di dunia React, kebanyakan developer pilih interface untuk props/state, type untuk yang lebih kompleks.</p>
+<p>Best practice di React: buat interface untuk setiap komponen props. Ini bikin kode self-documenting — tanpa baca implementation, kamu udah tau komponen butuh apa. Plus, pas ada breaking change, TypeScript langsung kasih error di semua tempat yang perlu diperbaiki. Nggak ada lagi "tiba-tiba app crash karena nambah field baru di API". 🔥</p>
 
-            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-ink font-bold text-sm">07</span>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-xl font-bold text-ink">Discriminated Unions — Satu Nama, Banyak Wajah</h2>
-                    </div>
-                </div>
-                <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p class="text-sm text-muted">Pernah denger "Satu untuk semua"? <strong class="text-ink">Discriminated Unions</strong> itu konsep kayak gitu. Lo punya beberapa tipe berbeda, tapi semuanya punya <em>satu property yang sama</em> sebagai <strong>penanda (discriminator)</strong>. TypeScript pakai property ini untuk ngetahui tipe mana yang aktif.</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Discriminated Union — API Response</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">type APIState =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "success"; data: User[] }
-  | { status: "error"; error: string };
+<p>Yang sering terlewat: TypeScript juga bantu refactoring. Mau rename field <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">nama</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fullName</code>? Tanpa TS, kamu harus manual find-and-replace DAN berharap nggak ada yang kelewat. Dengan TS, langsung compile error di semua tempat yang perlu di-fix. Satu rename, semua ter-update. Efisiensi ×10. ⚡</p>
+<p>Optional props pake tanda <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">?</code> — artinya field itu boleh ada boleh nggak. Default values bisa didefinisikan langsung di destructuring. Children props udah built-in dari React, tinggal extend <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ReactNode</code>.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Typing Props — Interface & Type</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState, type ReactNode } from 'react';
 
-function renderUI(state: APIState) {
-  switch (state.status) {
-    case "idle":
-      return &lt;p&gt;Klik untuk mulai.&lt;/p&gt;;
-    case "loading":
-      return &lt;Spinner /&gt;;
-    case "success":
-      // TS tau: state.data ada, tipenya User[]
-      return state.data.map(u =&gt; &lt;li&gt;{u.name}&lt;/li&gt;);
-    case "error":
-      // TS tau: state.error ada, tipenya string
-      return &lt;p&gt;{state.error}&lt;/p&gt;;
-  }
-}
-
-// Akses state.data saat status="idle" = ERROR!
-// Property 'data' does not exist on type '{ status: "idle" }'</code></pre>
-                    </div>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Real-World: useReducer dengan Discriminated Unions</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">type FetchAction&lt;T&gt; =
-  | { type: "fetch" }
-  | { type: "success"; payload: T }
-  | { type: "error"; payload: string };
-
-function reducer&lt;T&gt;(state, action: FetchAction&lt;T&gt;) {
-  switch (action.type) {
-    case "fetch":
-      return { status: "loading" };
-    case "success":
-      return { status: "success", data: action.payload };
-    case "error":
-      return { status: "error", error: action.payload };
-  }
-}
-
-// Aman! TS mastiin payload tipenya benar
-dispatch({ type: "success", payload: { id: 1, name: "Arif" } });</code></pre>
-                    </div>
-                    <div class="tip-box rounded-xl p-4 mt-4">
-                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Discriminated unions sakti banget untuk: state management (idle/loading/success/error), API responses, form handling. Setelah lo pakai, nggak akan balik ke &lt;code&gt;any&lt;/code&gt; lagi!</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="lesson-card bg-surface rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span class="text-ink font-bold text-sm">08</span>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-xl font-bold text-ink">satisfies Operator &amp; Migrasi JS ke TS</h2>
-                    </div>
-                </div>
-                <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p class="text-sm text-muted"><strong class="text-ink">satisfies</strong> itu kayak quality check. Lo bik sesuatu, terus bilang ke TypeScript: "Tolong cek ya, apakah ini cocok sama tipe yang kuinginkan?". Bedanya sama &lt;code&gt;as&lt;/code&gt;, &lt;code&gt;satisfies&lt;/code&gt; nggak mengubah tipe aslinya.</p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">satisfies — Konfigurasi Type-Safe</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">// satisfies verifikasi tapi tetep ingat tipe asli
-const config = {
-  darkMode: true,
-  apiUrl: "https://api.example.com",
-  timeout: 5000,
-} satisfies Record&lt;string, string | number | boolean&gt;;
-
-config.darkMode;   // TS tau: boolean (spesifik!)
-config.apiUrl;     // TS tau: string (spesifik!)
-config.timeout;    // TS tau: number (spesifik!)
-
-// Kalau pakai Record doang: darkMode jadi string|number|boolean (terlalu lebar)</code></pre>
-                    </div>
-                    <p class="text-sm text-muted"><strong class="text-ink">Migrasi JS ke TS bertahap:</strong></p>
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Step-by-step Migrasi</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-bash"># Step 1: Install TypeScript
-npm install --save-dev typescript @types/react @types/node
-
-# Step 2: Bikin tsconfig dengan allowJs
-npx tsc --init --allowJs --jsx react-jsx
-
-# Step 3: Rename file satu per satu
-mv src/App.jsx src/App.tsx
-
-# Step 4: Tambah types bertahap
-# Mulai dengan any, lalu perlahan ganti proper types
-
-# Step 5: Nyalakan strict mode bertahap
-# tsconfig.json:
-# { "strict": false }        // tahap 1
-# { "strict": true }          // tahap akhir</code></pre>
-                    </div>
-                    <div class="tip-box rounded-xl p-4 mt-4">
-                        <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Urutan migrasi yang aman: 1) Setup tooling. 2) Convert util/helper dulu. 3) Convert leaf components. 4) Convert pages. 5) Nyalakan strict mode bertahap.</p>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Setup React + TypeScript</h2><input type="checkbox" id="check-6-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Persiapan &middot; 5 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">TypeScript</strong> adalah superset JavaScript yang menambahkan static typing. Saat digunakan bersama React, TypeScript membantu mendeteksi error lebih awal, memberikan autocompletion lebih baik di IDE, dan membuat kode lebih mudah dipahami.</p>
-        <p>Cara paling mudah memulai proyek React + TypeScript adalah dengan <strong class="text-ink">Vite</strong>. Vite mendukung template TypeScript secara native &mdash; cukup tambahkan flag <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">--template react-ts</code> saat membuat proyek.</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">TypeScript — Typing Props & State</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">// Type untuk props
-interface ButtonProps {
-  label: string;
-  onClick: () =&gt; void;
-  variant?: 'primary' | 'secondary' | 'danger';
-  disabled?: boolean;
-}
-
-function Button({ label, onClick, variant = 'primary' }: ButtonProps) {
-  return &lt;button onClick={onClick} className={`btn-${variant}`}&gt;{label}&lt;/button&gt;;
-}
-
-// Type untuk useState
-const [count, setCount] = useState&lt;number&gt;(0);
-const [name, setName] = useState&lt;string&gt;('');
-const [user, setUser] = useState&lt;User | null&gt;(null);
-
-// Event handler types
-const handleChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
-  setValue(e.target.value);
-};</code></pre>
-                    </div>
-        <p>File komponen React + TypeScript menggunakan ekstensi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.tsx</code>, file utility biasa menggunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.ts</code>. Vite otomatis mengkonfigurasi tsconfig.json.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Terminal &mdash; Setup</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-bash">npm create vite@latest my-app -- --template react-ts
-cd my-app &amp;&amp; npm install &amp;&amp; npm run dev</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> TypeScript seperti spell checker untuk kode. Seperti spell checker menangkap typo sebelum kamu mengirim email, TypeScript menangkap error type sebelum kamu deploy aplikasi.</p></div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Typing Props & State</h2><input type="checkbox" id="check-6-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Fundamental &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>Cara paling umum mendefinisikan tipe props adalah <strong class="text-ink">interface</strong>. Interface bisa di-extend dan lebih familiar bagi developer React. Untuk state, gunakan generic type parameter pada useState.</p>
-        <p>Gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.FC</code> opsional &mdash; banyak developer modern lebih suka mendefinisikan komponen sebagai fungsi biasa dengan tipe props eksplisit, karena React.FC memiliki beberapa kelemahan (seperti implisit children).</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">TypeScript — Generics & Utility Types</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-typescript">// Generic component
-function List&lt;T&gt;({ items, render }: {
-  items: T[];
-  render: (item: T) =&gt; React.ReactNode;
-}) {
-  return &lt;&gt;{items.map((item, i) =&gt; &lt;div key={i}&gt;{render(item)}&lt;/div&gt;)}&lt;/&gt;;
-}
-
-// Pakai dengan type berbeda
-&lt;List items={[1, 2, 3]} render={n =&gt; &lt;span&gt;{n}&lt;/span&gt;} /&gt;
-&lt;List items={['a', 'b']} render={s =&gt; &lt;strong&gt;{s}&lt;/strong&gt;} /&gt;
-
-// Utility Types
-type User = { id: number; name: string; email: string; role: string };
-
-type UserPreview = Pick&lt;User, 'id' | 'name'&gt;;     // ambil sebagian
-type CreateUserDTO = Omit&lt;User, 'id'&gt;;             // buang sebagian
-type UpdateUserDTO = Partial&lt;User&gt;;                 // semua jadi optional
-type UserMap = Record&lt;string, 'admin' | 'user'&gt;;   // key-value</code></pre>
-                    </div>
-        <p>Untuk children, gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.ReactNode</code> sebagai tipe. Untuk event handler, gunakan tipe event yang sesuai seperti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.ChangeEvent</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.MouseEvent</code>.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Typing Props &amp; State</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-typescript">// Mendefinisikan interface props
+// ✅ Interface — cocok buat props
 interface UserCardProps {
   name: string;
-  age: number;
-  email?: string;  // optional
-  role: 'admin' | 'user' | 'editor';  // union type
-  children?: React.ReactNode;
+  email: string;
+  role: 'admin' | 'user' | 'guest'; // literal union type
+  avatar?: string; // optional
+  children?: ReactNode;
+  onDelete: (id: string) =&gt; void;
 }
 
-// Komponen dengan typed props
-function UserCard({ name, age, email, role, children }: UserCardProps) {
-  const [isExpanded, setIsExpanded] = useState&lt;boolean&gt;(false);
+// ✅ Type — cocok buat complex types
+type Status = 'loading' | 'success' | 'error';
+type ApiResponse&lt;T&gt; = {
+  data: T | null;
+  status: Status;
+  message?: string;
+};
+
+function UserCard({ name, email, role, avatar, onDelete }: UserCardProps) {
   return (
     &lt;div&gt;
-      &lt;h2&gt;{name} ({age})&lt;/h2&gt;
-      &lt;p&gt;Role: {role}&lt;/p&gt;
-      {email &amp;&amp; &lt;p&gt;{email}&lt;/p&gt;}
-      {children}
-      &lt;button onClick={() =&gt; setIsExpanded(!isExpanded)}&gt;
-        {isExpanded ? 'Tutup' : 'Buka'}
-      &lt;/button&gt;
+      &lt;img src={avatar ?? '/default.png'} alt={name} /&gt;
+      &lt;h3&gt;{name} ({role})&lt;/h3&gt;
+      &lt;p&gt;{email}&lt;/p&gt;
+      &lt;button onClick={() =&gt; onDelete(name)}&gt;Hapus&lt;/button&gt;
     &lt;/div&gt;
   );
-}
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Typing State & useState</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState } from 'react';
 
-// Penggunaan &mdash; TypeScript akan memvalidasi props
-function App() {
-  return (
-    &lt;UserCard name="Budi" age={25} role="admin"&gt;
-      &lt;p&gt;Konten tambahan&lt;/p&gt;
-    &lt;/UserCard&gt;
-  );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Interface props seperti kontrak kerja. Keduanya menentukan apa yang wajib disediakan (required props), apa yang opsional (optional props), dan apa saja nilai yang diperbolehkan (union types).</p></div>
-</section>
+// State bisa type-infer dari initial value
+const [count, setCount] = useState(0); // inferred as number
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Generics, Events, Refs & Hooks</h2><input type="checkbox" id="check-6-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Menengah &middot; 10 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Generics</strong> memungkinkan komponen menerima tipe sebagai parameter. Ini sangat berguna untuk komponen reusable yang bekerja dengan berbagai tipe data, seperti list, form, atau data table.</p>
-        <p>Untuk <strong class="text-ink">Events</strong>, React menyediakan tipe event spesifik: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ChangeEvent&lt;HTMLInputElement&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">FormEvent</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">MouseEvent</code>, dll. Untuk refs, gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef&lt;HTMLDivElement&gt;(null)</code>.</p>
-        <p><strong class="text-ink">Custom Hooks</strong> juga bisa di-type dengan Generics. Gunakan parameter generic pada fungsi hook untuk membuat hook yang flexible namun type-safe.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Generics &amp; Typing</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-typescript">// Generic Component &mdash; List yang bisa menampilkan tipe apapun
+// State dengan explicit type
+const [user, setUser] = useState&lt;{
+  name: string;
+  age: number;
+} | null&gt;(null);
+
+// State dengan union type
+type Theme = 'light' | 'dark' | 'system';
+const [theme, setTheme] = useState&lt;Theme&gt;('system');
+
+// Null check — TypeScript ngewajibin
+if (user) {
+  console.log(user.name); // ✅ aman, user pasti bukan null
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Kalau useState type-nya nggak ketemu dari initial value (kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">null</code>), selalu kasih generic type. Contoh: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState&lt;User | null&gt;(null)</code>. Ini ngasih tahu TypeScript bahwa state bisa jadi User atau null.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">GENERIC COMPONENTS — CETAKAN KUE FLEKSIBEL 🧁</h2><input type="checkbox" id="check-6-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pernah bikin komponen list yang harus bisa nerima berbagai tipe data? Misalnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">List&lt;User&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">List&lt;Product&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">List&lt;Article&gt;</code>. Tanpa generic, kamu harus bikin tiga komponen yang logikanya sama. Dengan generic? Satu komponen, semua tipe data. 🎯</p>
+<p>Generics itu kayak <strong class="text-ink">cetakan kue</strong> — bentuk cetakannya sama, tapi adonannya bisa beda-beda. Kamu bisa cetak kue cokelat, kue vanilla, atau kue stroberi dari cetakan yang sama. Di TypeScript, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;T&gt;</code> itu "adonannya" — tipe data yang nanti diisi pas pemakaian.</p>
+<p>Ini powerful banget buat library dan reusable components. Bayangin kamu bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">DataTable&lt;T&gt;</code> yang bisa nerapa apa aja — columns-nya otomatis type-safe berdasarkan T. Nggak perlu bikin table component buat setiap entity. Satu komponen, ratusan use case. 🔥</p>
+<p>Tapi jangan over-generic! Kalau komponen cuma dipake buat satu tipe data, nggak perlu generic. Generic berguna kalau komponen emang <strong class="text-ink">reusable across different types</strong>. Komponen yang too generic jadi susah dipahami — sama kayak fungsi yang parameter-nya terlalu abstract.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Generic Component — Reusable List</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState, type ReactNode } from 'react';
+
+// Generic type T — fleksibel buat data apa aja
 interface ListProps&lt;T&gt; {
   items: T[];
-  renderItem: (item: T) =&gt; React.ReactNode;
+  renderItem: (item: T, index: number) =&gt; ReactNode;
   keyExtractor: (item: T) =&gt; string;
+  emptyMessage?: string;
+  className?: string;
 }
 
-function List&lt;T&gt;({ items, renderItem, keyExtractor }: ListProps&lt;T&gt;) {
-  return &lt;ul&gt;{items.map(item =&gt; (
-    &lt;li key={keyExtractor(item)}&gt;{renderItem(item)}&lt;/li&gt;
-  ))}&lt;/ul&gt;;
+// ✅ Satu komponen, bisa handle User, Product, apa aja
+function GenericList&lt;T&gt;({ items, renderItem, keyExtractor, emptyMessage = 'Kosong' }: ListProps&lt;T&gt;) {
+  if (items.length === 0) return &lt;p&gt;{emptyMessage}&lt;/p&gt;;
+
+  return (
+    &lt;ul className={className}&gt;
+      {items.map((item, i) =&gt; (
+        &lt;li key={keyExtractor(item)}&gt;{renderItem(item, i)}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
 }
 
-// Typing Events
-function SearchForm() {
-  const handleInput = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
-    console.log(e.target.value);
+// Pakai untuk User
+interface User { id: string; name: string; }
+const users: User[] = [{ id: '1', name: 'Arif' }];
+
+function UserList() {
+  return (
+    &lt;GenericList
+      items={users}
+      renderItem={(user) =&gt; &lt;span&gt;{user.name}&lt;/span&gt;}
+      keyExtractor={(user) =&gt; user.id}
+    /&gt;
+  );
+}
+
+// Pakai untuk Product — komponen yang SAMA
+interface Product { sku: string; title: string; price: number; }
+const products: Product[] = [{ sku: 'P1', title: 'Kaos', price: 150000 }];
+
+function ProductList() {
+  return (
+    &lt;GenericList
+      items={products}
+      renderItem={(p) =&gt; &lt;span&gt;{p.title} — Rp{p.price.toLocaleString()}&lt;/span&gt;}
+      keyExtractor={(p) =&gt; p.sku}
+      emptyMessage="Belum ada produk"
+    /&gt;
+  );
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Generic Hook — useFetch</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState, useEffect, useCallback } from 'react';
+
+// Generic hook — return type otomatis sesuai T
+interface UseFetchResult&lt;T&gt; {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+  refetch: () =&gt; void;
+}
+
+function useFetch&lt;T&gt;(url: string): UseFetchResult&lt;T&gt; {
+  const [data, setData] = useState&lt;T | null&gt;(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  const fetchData = useCallback(async () =&gt; {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json() as T;
+      setData(json);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  }, [url]);
+
+  useEffect(() =&gt; { fetchData(); }, [fetchData]);
+  return { data, loading, error, refetch: fetchData };
+}
+
+// ✅ TypeScript tau return type-nya User[] secara otomatis
+const { data: users, loading } = useFetch&lt;User[]&gt;('/api/users');
+// users inferred as User[] | null — auto-complete bekerja!</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Naming convention:</strong> Biasakan pake single letter uppercase buat generic: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">T</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">K</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">V</code>. Kalau ada beberapa generic, pake nama deskriptif: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">TData</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">TError</code>.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TYPING EVENTS — REMOTE TV YANG BEDA-BEDA 📺</h2><input type="checkbox" id="check-6-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Events &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>React events itu kayak <strong class="text-ink">remote TV</strong> — banyak tombol, tiap tombol fungsi beda. Pas nge-klik, gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">MouseEvent</code>. Pas ngetik di input, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ChangeEvent</code>. Pas submit form, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">FormEvent</code>. Masing-masing punya properti yang berbeda sesuai konteksnya.</p>
+<p>Di TypeScript, tiap event handler harus tipe event-nya sesuai. Nggak bisa sembarangan — ini yang bikin kode lebih safe. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> handler harus terima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">MouseEvent</code>, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">KeyboardEvent</code>. TypeScript pastikan kamu nggak salah pakai event. Oh ternyata gitu! 🤯</p>
+<p>Pattern yang sering dipake: eksplisit type handler function, lalu pas ke JSX. Ini lebih clean daripada inline type di JSX. Plus, reusable — bisa dipake di beberapa event yang sama.
+
+<p>Yang bikin TypeScript + React events powerful: <strong class="text-ink">auto-complete di JSX</strong>. Pas kamu nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange={}</code>, TypeScript langsung kasih tahu handler harus nerima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ChangeEvent</code>. Nggak perlu buka docs lagi — IDE jadi teacher kamu. 🔥</p>
+<p>Satu lagi yang powerful: <strong class="text-ink">event handler sebagai prop</strong>. Komponen parent bisa nge-pass typed handler ke child, dan TypeScript pastikan signature-nya cocok. Ini bikin component API lebih explicit dan safe.</p>
+<p>Di real project, event typing sering dikombinasi dengan generic. Misalnya bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useForm&lt;T&gt;</code> hook yang return type-safe handlers buat setiap field. Ini pattern yang dipake React Hook Form, Formik, dan library form lainnya.</p></p>
+<p><p>Berikutnya ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">KeyboardEvent</code> — penting banget buat accessibility. Pas user tekan Enter di input, Escape di modal, atau Tab untuk navigasi, semuanya KeyboardEvent. Type-nya udah include <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.key</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.code</code>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.metaKey</code> (Cmd/Ctrl) yang type-safe.</p>
+<p>Yang sering bikin pusing: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">event.target</code> vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">event.currentTarget</code>. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">target</code> itu element yang sebenarnya di-klik (bisa child), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">currentTarget</code> itu element yang punya handler. Di React, hampir selalu pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">currentTarget</code> atau cast <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">target</code> ke tipe spesifik.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Typing React Events</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState, type FormEvent, type ChangeEvent, type MouseEvent } from 'react';
+
+// ✅ ChangeEvent — buat input/select/textarea
+function SearchBar() {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+    setQuery(e.target.value); // e.target inferred as HTMLInputElement
   };
-  const handleSubmit = (e: React.FormEvent) =&gt; {
+
+  return &lt;input value={query} onChange={handleChange} placeholder="Cari..." /&gt;;
+}
+
+// ✅ FormEvent — buat form submit
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) =&gt; {
     e.preventDefault();
+    console.log({ email, password }); // ✅ type safe
   };
+
   return (
     &lt;form onSubmit={handleSubmit}&gt;
-      &lt;input onChange={handleInput} /&gt;
+      &lt;input onChange={(e) =&gt; setEmail(e.target.value)} /&gt;
+      &lt;input onChange={(e) =&gt; setPassword(e.target.value)} type="password" /&gt;
+      &lt;button type="submit"&gt;Login&lt;/button&gt;
     &lt;/form&gt;
   );
 }
 
-// Typing Refs
-function FocusInput() {
-  const inputRef = useRef&lt;HTMLInputElement&gt;(null);
+// ✅ MouseEvent — buat klik
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = (e: MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {
+    e.stopPropagation();
+    setCount(c =&gt; c + 1);
+  };
+
+  return &lt;button onClick={handleClick}&gt;Count: {count}&lt;/button&gt;;
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Pas pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target</code>, TypeScript nggak otomatis tau element-nya apa. Kamu harus cast: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(e.target as HTMLInputElement).value</code>. Atau lebih safe: pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">currentTarget</code> yang udah type-safe.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TYPING HOOKS — LANJUTAN BAB 4 🔗</h2><input type="checkbox" id="check-6-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Hooks &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Bab 4 kita udah bahas hooks advanced — sekarang waktunya kasih mereka "helm safety" TypeScript. useRef, useContext, useReducer — semua bisa di-type dengan aman. Dan hasilnya? Bug yang sebelumnya baru ketahuan di runtime, sekarang ketahuan langsung di editor. 🛡️</p>
+<p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code> punya dua use case utama di TypeScript: DOM ref (generic-nya element type) dan mutable value (generic-nya value type). Bedanya jelas — DOM ref itu buat akses <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.current</code> yang berupa DOM element, mutable value buat simpen data biasa.</p>
+<p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useContext</code> tinggal pass type ke createContext. Kalau kamu bikin custom hook, return type-nya otomatis inferred — tapi lebih baik eksplisit buat kejelasan. Oh ternyata gitu! 🤯</p>
+<p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code> lebih menarik — kamu harus type state, action, dan dispatch. Dengan discriminated union untuk action type, TypeScript bisa narrow otomatis di switch case. Ini pattern yang dipake Redux Toolkit juga — powerful banget.</p>
+<p>Best practice: selalu bikin custom hook buat context (kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useTheme()</code> di contoh atas). Custom hook bisa throw error kalau context undefined — ini ngasih error message yang jelas pas developer lupa wrap Provider. Nggak ada lagi bug misterius "undefined is not a function" karena context null. 🔥</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">useRef, useContext, useReducer — TypeScript</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useRef, useContext, useReducer, createContext } from 'react';
+
+// ✅ useRef — DOM ref
+function AutoFocusInput() {
+  const inputRef = useRef&lt;HTMLInputElement&gt;(null); // typed!
   useEffect(() =&gt; { inputRef.current?.focus(); }, []);
-  return &lt;input ref={inputRef} /&gt;;
+  return &lt;input ref={inputRef} placeholder="Auto focus!" /&gt;;
 }
 
-// Generic Custom Hook
-function useLocalStorage&lt;T&gt;(key: string, initial: T) {
-  const [value, setValue] = useState&lt;T&gt;(() =&gt; {
-    const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : initial;
-  });
-  useEffect(() =&gt; {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-  return [value, setValue] as const;
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Generics seperti template surat. Format suratnya sama, tapi kamu bisa mengisi dengan konten berbeda (string, number, object) sesuai kebutuhan tanpa membuat template baru.</p></div>
-</section>
+// ✅ useRef — mutable value
+function Timer() {
+  const timerId = useRef&lt;number | null&gt;(null);
+  const start = () =&gt; { timerId.current = window.setInterval(() =&gt; {}, 1000); };
+  const stop = () =&gt; { if (timerId.current) clearInterval(timerId.current); };
+  return &lt;button onClick={start}&gt;Start&lt;/button&gt;;
+}
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Utility Types & Discriminated Unions</h2><input type="checkbox" id="check-6-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Menengah &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>TypeScript menyediakan <strong class="text-ink">Utility Types</strong> bawaan yang sangat powerful: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Partial</code> (semua prop jadi optional), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Pick</code> (pilih prop tertentu), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Omit</code> (hapus prop tertentu), dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Record</code> (buat objek dari key-value).</p>
-        <p><strong class="text-ink">Discriminated Unions</strong> adalah pattern di mana union type menggunakan prop discriminator (biasanya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">status</code>) untuk membedakan antar anggota union. Ini memungkinkan TypeScript melakukan type narrowing otomatis.</p>
-        <p>Utility Types sangat berguna saat kamu perlu memanipulasi tipe tanpa copy-paste. Discriminated Unions sempurna untuk merepresentasikan state yang berbeda (loading, success, error) dalam satu type yang aman.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Utility Types &amp; Discriminated Unions</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-typescript">interface User { id: number; name: string; email: string; age: number; }
+// ✅ useContext dengan typed context
+interface ThemeCtx { theme: 'light' | 'dark'; toggle: () =&gt; void; }
+const ThemeContext = createContext&lt;ThemeCtx | undefined&gt;(undefined);
 
-// Partial &mdash; semua prop jadi optional
-type PartialUser = Partial&lt;User&gt;;
+function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be in ThemeProvider');
+  return ctx; // inferred as ThemeCtx — ✅ type safe!
+}
 
-// Pick &mdash; ambil prop tertentu saja
+// ✅ useReducer — discriminated union action
+interface Todo { id: number; text: string; done: boolean; }
+type TodoAction =
+  | { type: 'ADD'; text: string }
+  | { type: 'TOGGLE'; id: number }
+  | { type: 'DELETE'; id: number };
+
+function todoReducer(state: Todo[], action: TodoAction): Todo[] {
+  switch (action.type) {
+    case 'ADD': return [...state, { id: Date.now(), text: action.text, done: false }];
+    case 'TOGGLE': return state.map(t =&gt; t.id === action.id ? { ...t, done: !t.done } : t);
+    case 'DELETE': return state.filter(t =&gt; t.id !== action.id);
+    default: return state; // TypeScript tau action di sini "never"
+  }
+}
+
+function TodoApp() {
+  const [todos, dispatch] = useReducer(todoReducer, []);
+  // dispatch inferred: (action: TodoAction) =&gt; void — ✅ auto-complete action types!
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Discriminated union:</strong> Perhatikan TodoAction — setiap action punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code> field yang unik. TypeScript bisa narrow type otomatis di switch case. Jadi di case <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'ADD'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">action.text</code> exist. Di case <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'TOGGLE'</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">action.id</code> exist. Auto-complete bekerja dengan sempurna!</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">UTILITY TYPES — TRANSFORMER ROBOT 🤖</h2><input type="checkbox" id="check-6-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Utility Types itu kayak <strong class="text-ink">transformer robot</strong> — mereka nge-transform tipe yang udah ada jadi tipe baru tanpa kamu nulis ulang dari nol. Mau bikin semua field optional? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Partial</code>. Mau hapus field tertentu? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Omit</code>. Mau ambil field tertentu? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Pick</code>. Powerful dan hemat waktu! 🔥</p>
+<p>Ini yang bikin TypeScript berbeda dari bahasa typed lain. Di Java/C#, kalau mau variant dari tipe, kamu harus bikin class baru. Di TypeScript, cukup "transform" tipe yang sudah ada. Ini bikin kode lebih DRY dan konsisten.</p>
+<p>Yang paling sering dipake di React: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Partial</code> (form state yang bertahap), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Omit</code> (exclude field dari props), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Record</code> (dictionary/object map). Ketiganya muncul di hampir setiap project React + TypeScript. Oh ternyata gitu! 🤯</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Utility Types — Partial, Omit, Pick, Record</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+  avatar: string;
+}
+
+// ✅ Partial — semua field jadi optional (buat form step-by-step)
+type UserFormData = Partial&lt;User&gt;;
+const formData: UserFormData = { name: 'Arif' }; // ✅ hanya name, sisanya optional
+
+// ✅ Required — semua field WAJIB (override optional)
+type StrictUser = Required&lt;User&gt;;
+
+// ✅ Omit — hapus field tertentu (buat update tanpa id)
+type UpdateUserDTO = Omit&lt;User, 'id'&gt;;
+const update: UpdateUserDTO = { name: 'Arif', email: 'a@b.com', role: 'user', avatar: 'x' };
+
+// ✅ Pick — ambil field tertentu saja
 type UserPreview = Pick&lt;User, 'id' | 'name'&gt;;
+const preview: UserPreview = { id: '1', name: 'Arif' };
 
-// Omit &mdash; hapus prop tertentu
-type UserWithoutAge = Omit&lt;User, 'age'&gt;;
-
-// Record &mdash; buat tipe objek dari key-value
-type RolePermissions = Record&lt;string, string[]&gt;;
+// ✅ Record — bikin object dengan key-value type
+type RolePermissions = Record&lt;User['role'], string[]&gt;;
 const perms: RolePermissions = {
   admin: ['read', 'write', 'delete'],
-  user: ['read'],
+  user: ['read', 'write'],
 };
 
-// Discriminated Unions &mdash; state management yang type-safe
-type AsyncState&lt;T&gt; =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'error'; error: Error };
+// ✅ Combinable — Omit + Partial
+type CreateUserDTO = Partial&lt;Omit&lt;User, 'id'&gt;&gt;;
+const newUser: CreateUserDTO = { name: 'New User', role: 'user' };</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Utility Types di React — Real World</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useState } from 'react';
 
-function UserProfile() {
-  const [state, setState] = useState&lt;AsyncState&lt;User&gt;&gt;({
-    status: 'idle'
-  });
+// Partial buat form yang diisi bertahap
+interface ProfileForm {
+  name: string;
+  bio: string;
+  website: string;
+  location: string;
+}
 
-  // TypeScript tahu data hanya ada saat status === 'success'
-  if (state.status === 'success') {
-    return &lt;p&gt;{state.data.name}&lt;/p&gt;;  // state.data = User &#10003;
+function ProfileEditor() {
+  // Semua field optional — user isi pelan-pelan
+  const [form, setForm] = useState&lt;Partial&lt;ProfileForm&gt;&gt;({});
+
+  const updateField = &lt;K extends keyof ProfileForm&gt;(
+    field: K,
+    value: ProfileForm[K]
+  ) =&gt; {
+    setForm(prev =&gt; ({ ...prev, [field]: value }));
+  };
+
+  // ✅ type safe — field name dan value type di-check
+  return (
+    &lt;div&gt;
+      &lt;input onChange={e =&gt; updateField('name', e.target.value)} /&gt;
+      &lt;textarea onChange={e =&gt; updateField('bio', e.target.value)} /&gt;
+      &lt;button disabled={Object.keys(form).length === 0}&gt;Save&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Record buat dictionary
+type LabelMap = Record&lt;string, string&gt;;
+const labels: LabelMap = { name: 'Nama', email: 'Email', role: 'Peran' };</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Combo trick:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Readonly&lt;T&gt;</code> bikin semua field read-only. Pake bareng <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Omit</code>: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type Config = Readonly&lt;Omit&lt;Settings, 'debug'&gt;&gt;</code> — settings yang immutable kecuali debug.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">COMMON MISTAKES & BEST PRACTICES 🚨</h2><input type="checkbox" id="check-6-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Tips &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p><p>Sebelum masuk ke jebakan, penting bahas <strong class="text-ink">organisasi type</strong>. Di project besar, type definitions bisa jadi ratusan. Mana yang harus di-file terpisah? Rule of thumb: kalau type dipake di lebih dari 2 file, extract ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">types.ts</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">types/</code> folder. Kalau cuma dipake satu komponen, taruh di file komponen itu sendiri.</p>
+<p>Banyak developer yang baru migrasi ke TypeScript bikin error yang sama berulang-ulang. Ini jebakan yang paling sering kena — dan cara menghindarinya. Biar nggak buang-buang waktu debug type error yang sebenarnya bisa dicegah. 🎯</p>
+<p><strong class="text-ink">Jebakan #1: any everywhere.</strong> Paling sering, paling berbahaya. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">any</code> itu kayak bilang ke TypeScript "aku nggak butuh bantuan kamu" — padahal itu alasan utama pakai TS! Kalau bingung type-nya apa, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">unknown</code> dulu — dia force kamu handle sebelum pakai.</p>
+<p><strong class="text-ink">Jebakan #2: Type assertion berlebihan.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> itu override TypeScript — kamu bilang "percaya aku, ini tipe-nya X". Kadang perlu, tapi kalau kebanyakan, berarti type system-mu kurang ketat. Tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> itu potensi runtime error.</p>
+<p><strong class="text-ink">Jebakan #3: Non-null assertion abuse.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">!</code> (non-null assertion) ngasih tahu TS "ini pasti bukan null". Tapi kalau ternyata null? Crash di runtime. Lebih baik handle null properly dengan optional chaining dan nullish coalescing.</p>
+<p><strong class="text-ink">Jebakan #4: Nggak type export.</strong> Kalau interface kamu cuma dipake internal, nggak apa-apa. Tapi kalau jadi props/component type yang di-import tempat lain, selalu export. Nggak export = nggak bisa di-reuse = duplikasi type di banyak file. 🔁</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Common Mistakes — Bukan vs Benar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">// ❌ Jebakan 1: any everywhere
+function processData(data: any) {
+  return data.name.tolowerCase(); // Nggak ada error, tapi bisa crash!
+}
+
+// ✅ Fix: gunakan unknown + type guard
+function processDataSafe(data: unknown) {
+  if (typeof data === 'object' &amp;&amp; data !== null &amp;&amp; 'name' in data) {
+    return (data as { name: string }).name.toLowerCase();
   }
-  if (state.status === 'error') {
-    return &lt;p&gt;{state.error.message}&lt;/p&gt;;  // state.error = Error &#10003;
+  throw new Error('Invalid data');
+}
+
+// ❌ Jebakan 2: type assertion berlebihan
+const user = fetchData() as User; // kalau fetchData return object lain? crash!
+
+// ✅ Fix: type guard atau zod validation
+const result = fetchData();
+if (isUser(result)) {
+  console.log(result.name); // ✅ TypeScript tau ini User
+}
+
+// ❌ Jebakan 3: non-null assertion
+const el = document.getElementById('app')!;
+el.innerHTML = 'hello'; // kalau element nggak ada? crash!
+
+// ✅ Fix: optional chaining
+const el = document.getElementById('app');
+el?.innerHTML = 'hello'; // ✅ aman, cuma jalan kalau element ada
+
+// ❌ Jebakan 4: inline type tanpa export
+function Card({ user }: { user: { name: string; email: string } }) {}
+
+// ✅ Fix: extract &amp; export interface
+interface CardProps { user: Pick&lt;User, 'name' | 'email'&gt;; }
+function Card({ user }: CardProps) {}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ ESLint rule:</strong> Pasang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">@typescript-eslint/no-explicit-any</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">@typescript-eslint/no-non-null-assertion</code> sebagai error di projectmu. Ini bikin tim nggak bisa pakai any dan ! sembarangan. Discipline from the start!</p></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Best practices ringkas:</strong> (1) Selalu type props dan state, (2) Export reusable interfaces, (3) Pake unknown bukan any, (4) Minimalisir type assertion, (5) Pake discriminated union buat action types, (6) Pasang strict mode di tsconfig.json.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — TYPE-SAFE TODO APP 🚀</h2><input type="checkbox" id="check-6-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-6-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Sekarang saatnya gabungin semua yang udah kita pelajari jadi satu project! Bikin <strong class="text-ink">Todo App</strong> yang fully type-safe — interface, generics, utility types, discriminated union action, semuanya ada. Ini contoh nyata gimana TypeScript bikin React app lebih robust. 🔥</p>
+<p>Project ini nge-gabungin: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">interface</code> buat data model, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Omit</code> buat create/update DTO, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">discriminated union</code> buat reducer actions, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Pick</code> buat filter state, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Partial</code> buat form state. Semua utility types yang udah kita bahas!</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Todo App — Types & Reducer</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">import { useReducer, useRef, useMemo, type FormEvent } from 'react';
+
+// ===== DATA MODEL =====
+interface Todo {
+  id: string;
+  text: string;
+  done: boolean;
+  priority: 'low' | 'medium' | 'high';
+  createdAt: number;
+}
+
+// ===== UTILITY TYPES =====
+type CreateTodoDTO = Omit&lt;Todo, 'id' | 'done' | 'createdAt'&gt;;
+type TodoFilter = Pick&lt;Todo, 'done'&gt; &amp; { priority?: Todo['priority'] };
+
+// ===== DISCRIMINATED UNION ACTIONS =====
+type TodoAction =
+  | { type: 'ADD'; payload: CreateTodoDTO }
+  | { type: 'TOGGLE'; payload: string }
+  | { type: 'DELETE'; payload: string }
+  | { type: 'UPDATE'; payload: { id: string; text: string } }
+  | { type: 'SET_FILTER'; payload: TodoFilter };
+
+// ===== REDUCER =====
+const initialState: Todo[] = [];
+function todoReducer(state: Todo[], action: TodoAction): Todo[] {
+  switch (action.type) {
+    case 'ADD':
+      return [...state, {
+        id: crypto.randomUUID(),
+        ...action.payload,
+        done: false,
+        createdAt: Date.now(),
+      }];
+    case 'TOGGLE':
+      return state.map(t =&gt; t.id === action.payload ? { ...t, done: !t.done } : t);
+    case 'DELETE':
+      return state.filter(t =&gt; t.id !== action.payload);
+    case 'UPDATE':
+      return state.map(t =&gt; t.id === action.payload.id ? { ...t, text: action.payload.text } : t);
+    case 'SET_FILTER':
+      return state; // filter handled in component via useMemo
+    default:
+      const _: never = action;
+      return state;
   }
-  return &lt;p&gt;Loading...&lt;/p&gt;;
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Utility Types seperti alat multitool di Swiss Army Knife. Partial, Pick, Omit, Record masing-masing punya fungsi spesialis tapi semuanya berguna untuk memanipulasi tipe tanpa menulis ulang definisi type yang sama berulang kali.</p></div>
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Todo App — Component</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">function TodoApp() {
+  const [todos, dispatch] = useReducer(todoReducer, initialState);
+  const [form, setForm] = useState&lt;Partial&lt;CreateTodoDTO&gt;&gt;({});
+  const inputRef = useRef&lt;HTMLInputElement&gt;(null);
+
+  // Type-safe filter
+  const [filter, setFilter] = useState&lt;TodoFilter&gt;({ done: undefined });
+
+  const filtered = useMemo(() =&gt; {
+    return todos.filter(t =&gt; {
+      if (filter.done !== undefined &amp;&amp; t.done !== filter.done) return false;
+      if (filter.priority &amp;&amp; t.priority !== filter.priority) return false;
+      return true;
+    });
+  }, [todos, filter]);
+
+  const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+    e.preventDefault();
+    if (!form.text || !form.priority) return;
+    dispatch({ type: 'ADD', payload: { text: form.text, priority: form.priority } });
+    setForm({});
+    inputRef.current?.focus();
+  };
+
+  return (
+    &lt;div className="max-w-md mx-auto p-6"&gt;
+      &lt;h1&gt;Todo App ✅&lt;/h1&gt;
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;input ref={inputRef} value={form.text ?? ''}
+          onChange={e =&gt; setForm(f =&gt; ({ ...f, text: e.target.value }))} placeholder="Todo..." /&gt;
+        &lt;select value={form.priority ?? 'medium'}
+          onChange={e =&gt; setForm(f =&gt; ({ ...f, priority: e.target.value as Todo['priority'] }))}&gt;
+          &lt;option value="low"&gt;Low&lt;/option&gt;
+          &lt;option value="medium"&gt;Medium&lt;/option&gt;
+          &lt;option value="high"&gt;High&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;button type="submit"&gt;Tambah&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;div className="flex gap-2 my-4"&gt;
+        {(['all','active','done'] as const).map(f =&gt; (
+          &lt;button key={f} onClick={() =&gt; setFilter({ done: f === 'all' ? undefined : f === 'done' })}&gt;
+            {f}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;ul&gt;{filtered.map(t =&gt; (
+        &lt;li key={t.id}&gt;
+          &lt;input type="checkbox" checked={t.done}
+            onChange={() =&gt; dispatch({ type: 'TOGGLE', payload: t.id })} /&gt;
+          &lt;span className={t.done ? 'line-through' : ''}&gt;{t.text}&lt;/span&gt;
+          &lt;span className="text-xs"&gt;{t.priority}&lt;/span&gt;
+          &lt;button onClick={() =&gt; dispatch({ type: 'DELETE', payload: t.id })}&gt;×&lt;/button&gt;
+        &lt;/li&gt;
+      ))}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend Todo App ini: (1) Tambahkan edit inline dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UPDATE</code> action, (2) Tambahkan drag-and-drop reordering, (3) Tambahkan due date dengan sorting, (4) Extract reducer ke file terpisah. Semua type-safe!</p></div></div></section>
+
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+<p class="text-sm text-muted mt-1">TypeScript di React bukan opsional — ini standar industry 2024+</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">TypeScript + React</strong> — Helm safety buat kode kamu. Catch error di editor, bukan di runtime. Migrasi pelan-pelan, file per file.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Typing Props & State</strong> — Interface buat object shape, type buat union/complex types. Selalu buat interface untuk setiap komponen props.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Generic Components</strong> — Satu komponen, semua tipe data. Pake &lt;T&gt; buat reusable components dan hooks. Jangan over-generic!</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Typing Events</strong> — MouseEvent, ChangeEvent, FormEvent. Tiap event handler harus tipe event-nya sesuai. Pake currentTarget, bukan target.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Typing Hooks</strong> — useRef&lt;HTMLInputElement&gt;, typed context, discriminated union buat useReducer action types.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Utility Types</strong> — Partial, Omit, Pick, Record. Transformer tipe yang hemat waktu dan bikin kode lebih DRY.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Common Mistakes</strong> — Hindari any, minimasi assertion, handle null properly, export reusable types.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project Todo App</strong> — Full type-safe app dengan interface, utility types, discriminated union, dan typed hooks.</span></li>
+</ul>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(6)" id="completeBtn6" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="chapter-7.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 7 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-5.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-7.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
+</div>
 </section>
+</div>
 
-            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-ink">Ringkasan Bab 6</h2>
-                        <p class="text-sm text-muted mt-1">Yang sudah kamu pelajari</p>
-                    </div>
-                </div>
-                <ul class="space-y-3 text-[#333]">
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Setup proyek React + TypeScript menggunakan Vite dengan template react-ts</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Mendefinisikan tipe Props menggunakan interface dan typing State dengan generics</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Generics di komponen, typing Events, Refs, dan Custom Hooks</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Utility Types (Partial, Pick, Omit, Record) dan Discriminated Unions</span></li>
-                </ul>
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(6)" id="completeBtn6" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai
-                    </button>
-                    <a href="chapter-7.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        Lanjut ke Bab 7
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </section>
-
-            
-        </div>
-    </main>
-
-    <!-- Back to top -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+</main>
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
