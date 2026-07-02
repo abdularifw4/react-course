@@ -166,6 +166,646 @@
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
+                        <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">05</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">Ekosistem React — Peta Jalan untuk Nggak Nyasar 🗺️</h2>
+                            <input type="checkbox" id="check-1-5" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Konsep &middot; 8 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Oke, sebelum kita makin dalam, ada satu hal yang sering bikin pemula <strong class="text-ink">overwhelmed dan akhirnya nyerah</strong>: ekosistem React yang kayak <em>hutan belantara</em>. Ada Next.js, Gatsby, Remix, React Router, Redux, Zustand, Recoil, TanStack Query... pusing lihatnya semua! 😵‍💫</p>
+
+                    <p>Tenang. Kita bakal pecahin satu-satu. Bayangin React itu kayak <strong class="text-ink">beli mobil</strong>. React itu mesinnya. Tapi mesin doang nggak cukup kan? Lo butuh body, ban, jok, AC, sistem audio — itu semua ekosistemnya. Dan yang paling penting: <strong class="text-ink">nggak semua harus lo pakai sekaligus</strong>.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">React Tech Stack 2025 — Yang Lo Wajib Tau</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// === INTI (Wajib) ===
+React          // Library UI component
+React DOM      // Render ke browser
+TypeScript     // Type safety (opsional tapi STRONG recommended)
+
+// === BUILD TOOL ===
+Vite           // Dev server + build (CEPAT, default choice)
+// Alternatif: Next.js (full-stack framework)
+
+// === ROUTING ===
+React Router   // SPA routing (untuk Vite)
+App Router     // Built-in routing (untuk Next.js)
+
+// === STATE MANAGEMENT ===
+useState       // Local component state (cukup buat 80% kasus!)
+Zustand        // Global state (simple, ringan)
+// Nggak perlu Redux kecuali app lo BESAR banget
+
+// === DATA FETCHING ===
+TanStack Query // Fetch, cache, sync server state (GAME CHANGER)
+fetch/SWR      // Alternatif lebih simpel
+
+// === STYLING ===
+Tailwind CSS   // Utility-first (paling populer saat ini)
+CSS Modules    // Scoped CSS (built-in)
+// Alternatif: Styled Components, vanilla-extract
+
+// === TESTING ===
+Vitest         // Unit testing (Vite-compatible)
+Playwright     // E2E testing
+
+// === DEPLOYMENT ===
+Vercel         // Paling gampang (klik-klik jadi)
+Netlify        // Alternatif
+// Atau VPS + Docker untuk production custom</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Analogi yang bikin nempel:</strong> React itu kayak <strong>smartphone</strong>. Beli HP doang sih fine, tapi buat apaan kalau nggak install app? Nah, library-library di atas itu "aplikasi"-nya. Tapi beda sama HP, lo <em>nggak perlu install semuanya</em>. Mulai dari yang lo butuhin aja. Nanti lama-lama nambah sendiri. 📱</p>
+
+                    <p><strong class="text-ink">Pertanyaan yang sering muncul:</strong> "Harus pakai Next.js atau Vite + React biasa?" Jawabannya tergantung kebutuhan:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Vite vs Next.js — Kapan Pakai Yang Mana?</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Vite + React = untuk:
+// - Dashboard internal
+// - Admin panel
+// - SPA yang nggak butuh SEO
+// - Prototyping cepat
+// - Belajar React (INI YANG KITA PAKAI!)
+
+// Next.js = untuk:
+// - Website yang butuh SEO (blog, toko online)
+// - Full-stack app (API + Frontend)
+// - E-commerce, company profile
+// - Production app yang scale
+
+// RULE OF THUMB:
+// Belajar React dasar -> Vite
+// Production beneran -> Next.js
+// Nggak yakin? -> Mulai Vite dulu, pindah ke Next.js gampang</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Lo nggak perlu belajar semua library di hari pertama! Mulai dari: <strong>React + Vite + Tailwind</strong>. Itu udah cukup buat bikin app keren. Tambah TanStack Query + Zustand pas lo udah nyaman. Next.js belakangan. Nggak ada buru-buru! 🎯</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Banyak pemula stuck karena langsung belajar Redux + Next.js + GraphQL sekaligus. Itu kayak langsung nyetir truk sebelum bisa motor. Bertahap! React dulu sampe lancar, baru expand.</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">06</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">JSX Deep Dive — Lebih dari Sekadar "HTML di JS" 🎨</h2>
+                            <input type="checkbox" id="check-1-6" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Konsep &middot; 12 menit baca</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Oke, di Lesson 1 kita udah sempat ngeliat JSX. Tapi sekarang kita bakal <strong class="text-ink">bongkar habis-habisan</strong>. Soalnya, kalau lo nggak paham JSX sampe akar, lo bakal sering ketemu error aneh yang bikin emosi. 😤</p>
+
+                    <p>Pertanyaan fundamental: <strong class="text-ink">JSX itu apa sih sebenernya?</strong> Banyak orang pikir JSX = "HTML yang ditulis di JavaScript". <strong>ITUPAYAH BESAR.</strong> JSX itu bukan HTML. JSX itu <em>sugar syntax</em> (syntactic sugar) untuk function call React. Yang sebenarnya terjadi di balik layar:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">JSX vs React.createElement — Apa yang Sebenarnya Terjadi</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Yang lo tulis (JSX):
+const element = (
+  &lt;div className="container"&gt;
+    &lt;h1&gt;Halo Dunia&lt;/h1&gt;
+    &lt;p&gt;Ini paragraf&lt;/p&gt;
+  &lt;/div&gt;
+);
+
+// Yang sebenarnya di-compile jadi:
+const element = React.createElement(
+  'div',
+  { className: 'container' },
+  React.createElement('h1', null, 'Halo Dunia'),
+  React.createElement('p', null, 'Ini paragraf')
+);
+
+// Hasil akhirnya = JavaScript object:
+// {
+//   type: 'div',
+//   props: {
+//     className: 'container',
+//     children: [
+//       { type: 'h1', props: { children: 'Halo Dunia' } },
+//       { type: 'p', props: { children: 'Ini paragraf' } }
+//     ]
+//   }
+// }
+//
+// JSX itu cuma "cara cantik" nulis React.createElement()
+// Biar kita nggak nulis kayak robot 🤖</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Aturan-aturan JSX yang WAJIB lo tau (sering bikin error!):</strong></p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">7 Aturan JSX yang Bikin Nggak Error</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// 1. WAJIB return SATU parent element
+// BAD: dua element berdampingan tanpa parent
+function Bad() {
+  return (
+    &lt;h1&gt;Judul&lt;/h1&gt;
+    &lt;p&gt;Paragraf&lt;/p&gt;  // ERROR! Adjacent JSX elements
+  );
+}
+
+// FIX 1: Bungkus dengan div
+function Good1() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Judul&lt;/h1&gt;
+      &lt;p&gt;Paragraf&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// FIX 2: Fragment (lebih baik - nggak nyuntah DOM)
+function Good2() {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;Judul&lt;/h1&gt;
+      &lt;p&gt;Paragraf&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+
+// 2. className, BUKAN class
+&lt;div className="box"&gt;  // YES
+&lt;div class="box"&gt;      // NO (class adalah keyword JS)
+
+// 3. Self-closing tag WAJIB untuk tag kosong
+&lt;img src="logo.png" /&gt;   // YES
+&lt;input type="text" /&gt;    // YES
+&lt;img src="logo.png"&gt;     // ERROR di JSX
+
+// 4. Expression di curly braces {}, BUKAN string
+&lt;p&gt;{count + 1}&lt;/p&gt;       // YES - expression
+&lt;p&gt;"{count + 1}"&lt;/p&gt;     // NO - string literal
+
+// 5. Conditional pakai ternary atau &amp;&amp;
+{klik &gt; 10 ? &lt;Bonus /&gt; : null}  // ternary
+{showMenu &amp;&amp; &lt;Menu /&gt;}            // short-circuit
+
+// 6. style butuh object, bukan string
+&lt;div style={{ color: 'red', fontSize: '20px' }}&gt;  // YES
+&lt;div style="color: red;"&gt;                          // ERROR
+
+// 7. List RENDER WAJIB punya key
+{items.map(item =&gt; (
+  &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;  // key WAJIB!
+))}</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">JSX Pro Tips</strong> yang membedakan pemula sama developer berpengalaman:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">JSX Pro Patterns</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Pattern 1: Spread attributes (copy semua props)
+const commonProps = { className: 'btn', disabled: false };
+&lt;button {...commonProps} onClick={handleClick}&gt;
+  Klik
+&lt;/button&gt;
+
+// Pattern 2: Conditional className
+&lt;div className={`box ${isActive ? 'active' : ''}`}&gt;
+
+// Pattern 3: Inline IIFE untuk complex logic (jarang dipakai tapi tau)
+{(() =&gt; {
+  if (status === 'loading') return &lt;Spinner /&gt;;
+  if (status === 'error') return &lt;Error /&gt;;
+  return &lt;Content /&gt;;
+})()}
+
+// Pattern 4: Render array of elements
+const fruits = [
+  { id: 1, name: 'Apple' },
+  { id: 2, name: 'Banana' },
+  { id: 3, name: 'Cherry' }
+];
+
+// Map selalu butuh key prop!
+// Key harus UNIK dan STABIL (jangan pakai index kalau bisa)
+&lt;ul&gt;
+  {fruits.map(fruit =&gt; (
+    &lt;li key={fruit.id}&gt;{fruit.name}&lt;/li&gt;
+  ))}
+&lt;/ul&gt;
+
+// Pattern 5: Destructuring di parameter
+// Lebih bersih dari: function Card(props) { return props.title }
+function Card({ title, desc, image }) {
+  return &lt;div&gt;&lt;h2&gt;{title}&lt;/h2&gt;&lt;p&gt;{desc}&lt;/p&gt;&lt;/div&gt;;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> JSX itu <strong>nggak ada hubungannya dengan HTML</strong>. JSX di-compile jadi React.createElement() — yang nge-return JavaScript object. Browser nggak pernah ngebaca JSX. Yang browser lihat cuma JavaScript murni. JSX cuma bikin hidup kita lebih mudah. 🪄</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ MISTAKE PALING MAHAL!</strong> Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list render. Ini kelihatan fine saat development, tapi bakal bikin bug aneh pas lo add/remove/reorder items. Selalu pakai ID yang stabil (database ID, UUID). Kalau nggak ada, generate sendiri!</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">07</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">Component Composition — Seni Merakit Komponen 🧩</h2>
+                            <input type="checkbox" id="check-1-7" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Konsep + Praktik &middot; 15 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Di Lesson 1 kita udah ngomongin bahwa komponen itu kayak LEGO. Tapi <strong class="text-ink">bikin komponen</strong> sama <strong class="text-ink">merakit komponen jadi sistem yang baik</strong> itu dua hal berbeda. Ini skill yang membedakan "React newbie" sama "React pro". 💼</p>
+
+                    <p>Bayangin lo bikin Card komponen. Versi newbie:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">BAD: Komponen Rigidity (Nggak Fleksibel)</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// NGGAK BAGUS: Komponen kaku, hardcode semua
+function UserCard() {
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src="/avatar.png" /&gt;
+      &lt;h2&gt;Arif Wibowo&lt;/h2&gt;
+      &lt;p&gt;Software Engineer&lt;/p&gt;
+      &lt;button&gt;Follow&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Masalahnya:
+// - Cuma bisa dipake untuk 1 user (hardcode!)
+// - Mau ganti tombol jadi link? Harus edit komponen
+// - Mau tambah badge? Harus edit komponen
+// - Nggak bisa dipake ulang di tempat lain</code></pre>
+                    </div>
+
+                    <p>Sekarang versi pro — pakai <strong class="text-ink">props</strong> dan <strong class="text-ink">composition</strong>:</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">GOOD: Komponen Fleksibel + Composition</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// BAGUS: Props bikin komponen reusable
+function Card({ image, title, subtitle, action, children }) {
+  return (
+    &lt;div className="card rounded-2xl p-5 shadow-sm"&gt;
+      {image &amp;&amp; &lt;img src={image} className="rounded-xl mb-3" /&gt;}
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      {subtitle &amp;&amp; &lt;p className="text-muted"&gt;{subtitle}&lt;/p&gt;}
+      {children &amp;&amp; &lt;div className="mt-3"&gt;{children}&lt;/div&gt;}
+      {action &amp;&amp; &lt;div className="mt-4"&gt;{action}&lt;/div&gt;}
+    &lt;/div&gt;
+  );
+}
+
+// Sekarang bisa dipake di mana-mana dengan bentuk berbeda:
+&lt;Card
+  image="/arif.jpg"
+  title="Arif Wibowo"
+  subtitle="Software Engineer"
+  action={&lt;button className="btn-primary"&gt;Follow&lt;/button&gt;}
+/&gt;
+
+&lt;Card title="Tips React" action={&lt;a href="/blog"&gt;Read more&lt;/a&gt;}&gt;
+  &lt;p&gt;Ini content custom lewat children. Bisa apapun!&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Tip 1: Pecah komponen jadi kecil&lt;/li&gt;
+    &lt;li&gt;Tip 2: Props bikin fleksibel&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/Card&gt;
+
+&lt;Card title="Notification"&gt;
+  &lt;p&gt;You have 3 new messages&lt;/p&gt;
+&lt;/Card&gt;</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Prinsip Composition yang pro player tau:</strong></p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Composition Patterns — Small to Large</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// STEP 1: Bikin komponen terkecil (atoms)
+function Button({ variant, children, ...props }) {
+  const styles = {
+    primary: 'bg-ink text-white',
+    ghost: 'bg-transparent border',
+  };
+  return (
+    &lt;button className={`px-4 py-2 rounded-lg ${styles[variant]}`} {...props}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+}
+
+function Avatar({ src, alt, size = 40 }) {
+  return (
+    &lt;img
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      className="rounded-full"
+    /&gt;
+  );
+}
+
+// STEP 2: Gabung jadi komponen menengah (molecules)
+function User Info({ user }) {
+  return (
+    &lt;div className="flex items-center gap-3"&gt;
+      &lt;Avatar src={user.avatar} alt={user.name} /&gt;
+      &lt;div&gt;
+        &lt;p className="font-semibold"&gt;{user.name}&lt;/p&gt;
+        &lt;p className="text-sm text-muted"&gt;{user.role}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// STEP 3: Rakit jadi halaman (organisms/pages)
+function Navbar() {
+  const user = { name: 'Arif', role: 'Admin', avatar: '/me.jpg' };
+  return (
+    &lt;nav className="flex items-center justify-between p-4"&gt;
+      &lt;h1&gt;My App&lt;/h1&gt;
+      &lt;div className="flex items-center gap-4"&gt;
+        &lt;Button variant="ghost"&gt;Settings&lt;/Button&gt;
+        &lt;Button variant="primary"&gt;Logout&lt;/Button&gt;
+        &lt;UserInfo user={user} /&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  );
+}
+
+// Hasil: komponen yang reusable, testable, dan maintainable!</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Aturan praktis: kapan pecah komponen?</strong></p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                        <li><strong>Rule of 3:</strong> Kalau lo nulis komponen yang sama (atau mirip) di 3 tempat berbeda, saatnya bikin komponen reusable.</li>
+                        <li><strong>Single Responsibility:</strong> Satu komponen = satu tugas. Kalau komponen ngerjain terlalu banyak hal, pecah.</li>
+                        <li><strong>Maximum depth:</strong> Kalau JSX lo punya nested div lebih dari 4-5 level, pertimbangkan pecah jadi sub-komponen.</li>
+                        <li><strong>Props too many:</strong> Kalau komponen punya &gt;5 props, mungkin terlalu kompleks — pecah jadi 2 komponen.</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Composition itu <strong>senjata utama React</strong>. Bayangin kalau lo bikin Button komponen yang bagus di awal project — lo bisa pakai komponen itu di RATUSAN tempat tanpa duplicate code. Inilah yang bikin React developer produktif: <strong>bikin sekali, pakai di mana-mana</strong>.</p>
+                </div>
+            </section>
+
+            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-ink font-bold text-sm">08</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <h2 class="text-xl font-bold text-ink">Mini Project — Todo App dari Nol 🚀</h2>
+                            <input type="checkbox" id="check-1-8" class="lesson-checkbox hidden" onchange="updateProgress()">
+                            <label for="check-1-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                        </div>
+                        <p class="text-sm text-muted">Praktik &middot; 20 menit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[#333] leading-relaxed">
+                    <p>Cukup teori! Sekarang waktunya bikin sesuatu yang <strong class="text-ink">beneran jalan</strong>. Kita bakal bikin <strong>Todo App</strong> — hello world-nya React world. App ini bakal punya: add todo, delete todo, mark complete, filter, dan local storage persistence.</p>
+
+                    <p>Kenapa Todo App? Karena di app kecil ini, lo udah nyentuh <strong class="text-ink">80% konsep React</strong> yang lo butuhin: state, event handling, conditional rendering, list rendering, composition, dan persistence. Ini bukan sembarang latihan — ini fondasi.</p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step 1: Basic Todo — Add &amp; List</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState } from 'react';
+
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState('');
+
+  const addTodo = () =&gt; {
+    if (!input.trim()) return; // jangan add yang kosong
+    setTodos([...todos, {
+      id: Date.now(),
+      text: input,
+      done: false
+    }]);
+    setInput(''); // reset input
+  };
+
+  const deleteTodo = (id) =&gt; {
+    setTodos(todos.filter(t =&gt; t.id !== id));
+  };
+
+  const toggleTodo = (id) =&gt; {
+    setTodos(todos.map(t =&gt;
+      t.id === id ? { ...t, done: !t.done } : t
+    ));
+  };
+
+  return (
+    &lt;div style={{ maxWidth: 500, margin: '0 auto', padding: 20 }}&gt;
+      &lt;h1&gt;Todo App 📝&lt;/h1&gt;
+
+      {/* Input + Add button */}
+      &lt;div style={{ display: 'flex', gap: 8 }}&gt;
+        &lt;input
+          value={input}
+          onChange={(e) =&gt; setInput(e.target.value)}
+          onKeyDown={(e) =&gt; e.key === 'Enter' &amp;&amp; addTodo()}
+          placeholder="Tambah todo..."
+          style={{ flex: 1, padding: 8 }}
+        /&gt;
+        &lt;button onClick={addTodo}&gt;Tambah&lt;/button&gt;
+      &lt;/div&gt;
+
+      {/* Todo list */}
+      &lt;ul&gt;
+        {todos.map(todo =&gt; (
+          &lt;li
+            key={todo.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: 8,
+              textDecoration: todo.done ? 'line-through' : 'none',
+              opacity: todo.done ? 0.5 : 1
+            }}
+          &gt;
+            &lt;input
+              type="checkbox"
+              checked={todo.done}
+              onChange={() =&gt; toggleTodo(todo.id)}
+            /&gt;
+            &lt;span style={{ flex: 1 }}&gt;{todo.text}&lt;/span&gt;
+            &lt;button onClick={() =&gt; deleteTodo(todo.id)}&gt;Hapus&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+
+      {/* Empty state */}
+      {todos.length === 0 &amp;&amp; (
+        &lt;p style={{ color: '#999' }}&gt;Belum ada todo. Yuk tambah!&lt;/p&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default TodoApp;</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Step 2: Tambah filter (All / Active / Completed)</strong></p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step 2: Filter + Stats</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">// Tambahin filter state ke komponen yang sama
+const [filter, setFilter] = useState('all'); // all | active | done
+
+// Derived state (nggak perlu useState untuk ini!)
+const filtered = todos.filter(t =&gt; {
+  if (filter === 'active') return !t.done;
+  if (filter === 'done') return t.done;
+  return true;
+});
+
+// Stats
+const stats = {
+  total: todos.length,
+  done: todos.filter(t =&gt; t.done).length,
+  active: todos.filter(t =&gt; !t.done).length,
+};
+
+// Di JSX, tambahin filter buttons:
+/*
+&lt;div className="flex gap-2 mb-4"&gt;
+  &lt;button
+    onClick={() =&gt; setFilter('all')}
+    style={{ fontWeight: filter === 'all' ? 'bold' : 'normal' }}
+  &gt;All ({stats.total})&lt;/button&gt;
+  &lt;button
+    onClick={() =&gt; setFilter('active')}
+    style={{ fontWeight: filter === 'active' ? 'bold' : 'normal' }}
+  &gt;Active ({stats.active})&lt;/button&gt;
+  &lt;button
+    onClick={() =&gt; setFilter('done')}
+    style={{ fontWeight: filter === 'done' ? 'bold' : 'normal' }}
+  &gt;Done ({stats.done})&lt;/button&gt;
+&lt;/div&gt;
+
+// Ganti todos.map jadi filtered.map
+*/</code></pre>
+                    </div>
+
+                    <p><strong class="text-ink">Step 3: LocalStorage — bikin data nggak hilang pas refresh</strong></p>
+
+                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                            <span class="text-xs text-muted font-medium">Step 3: Persist ke LocalStorage</span>
+                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+                        </div>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+function TodoApp() {
+  // Lazy init: baca dari localStorage saat pertama kali render
+  const [todos, setTodos] = useState(() =&gt; {
+    const saved = localStorage.getItem('todos');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Save ke localStorage setiap kali todos berubah
+  useEffect(() =&gt; {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  // ... sisa kode sama kayak sebelumnya
+}
+
+// Sekarang refresh halaman = data masih ada!
+// Ini contoh nyata konsep: state + useEffect + persistence</code></pre>
+                    </div>
+                </div>
+
+                <div class="tip-box rounded-xl p-4 mt-6">
+                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 YANG UDAH LO PELAJARI DARI TODO APP INI:</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm list-disc list-inside ml-2">
+                        <li><strong>useState</strong> — untuk todos, input, filter</li>
+                        <li><strong>Event handling</strong> — onClick, onChange, onKeyDown</li>
+                        <li><strong>List rendering</strong> — .map() dengan key</li>
+                        <li><strong>Conditional rendering</strong> — empty state, done styling</li>
+                        <li><strong>Derived state</strong> — filter tanpa useState baru</li>
+                        <li><strong>useEffect</strong> — persist ke localStorage</li>
+                        <li><strong>Immutable updates</strong> — spread operator, filter, map</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-[#333]">Ini fondasi yang dipake <strong>semua React app di dunia</strong>. Lo belajar ini, lo udah jadi React developer. Serius. 🎉</p>
+                </div>
+
+                <div class="warning-box rounded-xl p-4 mt-4">
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ TANTANGAN!</strong> Sekarang coba extend Todo App ini dengan fitur berikut. Kalau lo bisa, lo siap untuk Bab 2:</p>
+                    <ul class="mt-2 space-y-1 text-sm list-disc list-inside ml-2">
+                        <li>Edit todo (klik todo untuk edit text)</li>
+                        <li>Prioritas todo (high/medium/low) dengan badge warna</li>
+                        <li>Due date untuk tiap todo</li>
+                        <li>Dark mode toggle (useState + CSS)</li>
+                        <li>Search/filter berdasarkan text</li>
+                    </ul>
+                </div>
+            </section>
+
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
