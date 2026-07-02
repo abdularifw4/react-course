@@ -167,7 +167,7 @@
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x1F914; KENAPA SIH HARUS NGETEST?</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">🤔 KENAPA SIH HARUS NGETEST?</h3>
                 <p class="text-[#333] mb-3">Oke, jujur. Dulu aku juga ngerasa testing itu buang-buang waktu. "Kan udah aku cek manual, jalan kok." Eits, kata siapa?</p>
                 <p class="text-[#333] mb-3">Bayangin gini: kamu punya counter sederhana. Tinggal tombol + dan -. Gampang kan? Terus satu bulan kemudian, kamu refactor, nambah fitur, ubah state management... dan tiba-tiba counter-nya <strong class="text-red-400">nggak ke-reset pas user logout</strong>. User komplen. Kamu panik di jam 12 malam.</p>
                 <p class="text-[#333] mb-3"><strong class="text-ink">Nah, itulah kenapa testing itu penting.</strong> Bukan buang waktu &mdash; tapi INVESTASI. Sekali tulis test, dia jaga kode kamu 24/7. Kayak security guard yang nggak pernah tidur &#x1F3E0;</p>
@@ -228,7 +228,7 @@ module.exports = {
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x26A1; JEST + RTL: DYNAMIC DUO TESTIMU</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">⚡ JEST + RTL: DYNAMIC DUO TESTIMU</h3>
                 <p class="text-[#333] mb-3">Yuk langsung liat contoh nyata. Misal kita punya komponen Counter yang super simpel &mdash; ada angka, tombol "Tambah", tombol "Kurang". Kita mau ngetes: <strong class="text-ink">apakah dia beneran berfungsi?</strong></p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// Counter.test.tsx &mdash; test pertamamu! &#x1F389;
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -261,7 +261,7 @@ describe('Counter', () =&gt; {
                     <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2726;</span><span><strong class="text-ink">expect()</strong> &mdash; kayak kamu bilang, "Eh, harusnya gini ya..." kalau nggak sesuai, Jest bakal njerimin &#x1F4A5;</span></li>
                 </ul>
                 <div class="warning-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x26A0;&#xFE0F; HAL YANG SERING SALAH:</strong> Jangan ngetest <em>implementation detail</em>! Contoh: ngetes apakah useState dipanggil, atau apakah fungsi internal ke-trigger. Itu membleeeeet. Fokusnya: <strong class="text-ink">"Apa yang user liat dan lakuin?"</strong> Bukan bagaimana kode-nya kerja di dalam.</p></div>
-                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Mindset RTL:</strong> <em>"Test behavior, not implementation."</em> Kamu itu jadi user, bukan developer. User nggak peduli kamu pake useState atau useReducer. Yang penting: klik tombol &rarr; angka berubah. Titik. &#x2705;</p></div>
+                <div class="tip-box rounded-r-xl p-4 my-4"><p class="text-sm"><strong>&#x1F4A1; Mindset RTL:</strong> <em>"Test behavior, not implementation."</em> Kamu itu jadi user, bukan developer. User nggak peduli kamu pake useState atau useReducer. Yang penting: klik tombol &rarr; angka berubah. Titik. ✅</p></div>
                 <p class="text-[#333] mb-3">Sekarang kita naik level dikit &mdash; ngetes <strong class="text-ink">form dengan validasi</strong>. Ini skenario yang sering banget ketemu di app beneran: user isi form, klik submit, muncul error kalau kosong, atau sukses kalau valid.</p>
                 <div class="code-block rounded-xl overflow-hidden">
                     <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
@@ -330,7 +330,7 @@ test('submit sukses kalau email valid', async () =&gt; {
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x1F310; TEST KOMPONEN ASYNC (YANG FETCH DATA)</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">🌐 TEST KOMPONEN ASYNC (YANG FETCH DATA)</h3>
                 <p class="text-[#333] mb-3">Nah, ini yang sering bikin pusing &#x1F635;&#x200D;&#x1F4AB; Komponen kamu fetch data dari API. Pas dijalanin di test... <strong class="text-ink">GAGAL</strong>. Karena kan nggak ada API-nya di environment test!</p>
                 <p class="text-[#333] mb-3">Dulu orang pake mock manual, atau jest.mock. Tapi itu ribet dan fragile. Sekarang ada cara yang lebih keren: <strong class="text-ink">MSW (Mock Service Worker)</strong>.</p>
                 <pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-tsx">// UserList.test.tsx &mdash; ngetes yang fetch data
@@ -421,7 +421,7 @@ test('fallback ke initialValue kalau storage kosong', () =&gt; {
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x1F3AD; E2E TESTING DENGAN PLAYWRIGHT</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">🎭 E2E TESTING DENGAN PLAYWRIGHT</h3>
                 <p class="text-[#333] mb-3">Oke, unit test sama integration test udah. Tapi ada satu level lagi yang bikin kamu makin pede: <strong class="text-ink">End-to-End (E2E) Testing</strong>.</p>
                 <p class="text-[#333] mb-3">Analoginya gini: unit test itu kayak ngetes mesin mobil satu per satu &mdash; engine oke? rem oke? lampu oke? E2E test itu... <strong class="text-ink">kamu beneran nyetir mobilnya keliling kota</strong> &#x1F697;&#x1F4A8;</p>
                 <p class="text-[#333] mb-3">Playwright adalah tool E2E yang lagi hype banget (dan beneran bagus). Dia buka browser beneran, klik, ketik, scroll &mdash; persis kayak user. Support Chrome, Firefox, Safari. Dan yang paling asik: kalau test gagal, dia auto-screenshot biar kamu tau salahnya di mana &#x1F4F8;</p>
@@ -454,7 +454,7 @@ test('homepage visual', async ({ page }) =&gt; {
             </section>
 
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x1F9E0; TESTING PYRAMID: PETA JALAN TEST KAMU</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">🧠 TESTING PYRAMID: PETA JALAN TEST KAMU</h3>
                 <p class="text-[#333] mb-3">Sebelum lanjut, ada satu konsep penting yang bakal ngasih kamu clarity soal "test apa yang harus ditulis." Namanya <strong class="text-ink">Testing Pyramid</strong>.</p>
                 <p class="text-[#333] mb-3">Bayangin piramida... beneran piramida ya &#x1F447;</p>
                 <ul class="list-none text-[#333] mb-3 space-y-3">
@@ -499,20 +499,20 @@ module.exports = {
             </section>
 
             <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">
-                <h3 class="text-xl font-bold text-ink mb-4">&#x1F4DD; RECAP: YANG HARUS KAMU BAWA PALING</h3>
+                <h3 class="text-xl font-bold text-ink mb-4">📝 RECAP: YANG HARUS KAMU BAWA PALING</h3>
                 <ul class="list-none text-[#333] mb-6 space-y-2">
-                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2705;</span><span><strong class="text-ink">Testing itu investasi</strong>, bukan buang waktu. Satu jam nulis test bisa selamatin kamu dari bug 3 jam di production</span></li>
-                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2705;</span><span><strong class="text-ink">Jest + RTL</strong> adalah combo utama buat test komponen React. Test behavior, bukan implementation!</span></li>
-                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2705;</span><span><strong class="text-ink">MSW</strong> itu cara modern mock API &mdash; intercept di level network, jadi bisa dipake library HTTP apa aja</span></li>
-                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2705;</span><span><strong class="text-ink">Playwright</strong> buat E2E test &mdash; buka browser beneran, test critical user flows aja</span></li>
-                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">&#x2705;</span><span><strong class="text-ink">Testing Pyramid</strong> &mdash; banyak unit test di bawah, sedikit E2E di atas. Jangan kebalik!</span></li>
+                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">✅</span><span><strong class="text-ink">Testing itu investasi</strong>, bukan buang waktu. Satu jam nulis test bisa selamatin kamu dari bug 3 jam di production</span></li>
+                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">✅</span><span><strong class="text-ink">Jest + RTL</strong> adalah combo utama buat test komponen React. Test behavior, bukan implementation!</span></li>
+                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">✅</span><span><strong class="text-ink">MSW</strong> itu cara modern mock API &mdash; intercept di level network, jadi bisa dipake library HTTP apa aja</span></li>
+                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">✅</span><span><strong class="text-ink">Playwright</strong> buat E2E test &mdash; buka browser beneran, test critical user flows aja</span></li>
+                    <li class="flex items-start gap-2"><span class="text-ink shrink-0">✅</span><span><strong class="text-ink">Testing Pyramid</strong> &mdash; banyak unit test di bawah, sedikit E2E di atas. Jangan kebalik!</span></li>
                 </ul>
                 <p class="text-muted text-sm mb-4">Sekarang kamu udah punya senjata buat bikin kode yang nggak cuma jalan, tapi juga <strong class="text-ink">terbukti jalan</strong>. Selamat tidur nyenyak &#x1F4A4;&#x1F6CC;</p>
-                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai &#x2705;</button>
+                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
                 <div class="flex gap-4 mt-4"><a href="chapter-8.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">&larr; Chapter sebelumnya</a><a href="chapter-10.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya &rarr;</a></div>
             </section>
 
-            <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai &#x2705;</button>
+            <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">Tandai Selesai ✅</button>
         </div>
     </main>
 
@@ -522,7 +522,7 @@ module.exports = {
     </button>
 
     <script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='&#x2705; Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='&#x2705; Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();
     </script>
 </body>
 </html>
