@@ -88,6 +88,7 @@ function initPlaygrounds() {
   pgLoadDeps().then(() => {
     mounts.forEach(mount => {
       const codeEl = document.getElementById(mount.dataset.codeId);
+      if (!codeEl) console.warn('playground: missing code element', mount.dataset.codeId);
       const initial = codeEl ? codeEl.textContent.trim() : '';
       mount.innerHTML = `
         <div class="playground bg-white">
@@ -100,7 +101,7 @@ function initPlaygrounds() {
           </div>
           <div class="pg-editor"></div>
           <div class="border-t border-black/[0.06] bg-[#FAFAFA] px-4 py-1.5"><span class="text-[10px] uppercase tracking-wider font-semibold text-muted">Preview</span></div>
-          <iframe sandbox="allow-scripts"></iframe>
+          <iframe title="Preview hasil kode" sandbox="allow-scripts"></iframe>
         </div>`;
       const cm = CodeMirror(mount.querySelector('.pg-editor'), {
         value: initial, mode: 'jsx', lineNumbers: true, viewportMargin: Infinity, tabSize: 2,
@@ -110,6 +111,13 @@ function initPlaygrounds() {
       mount.querySelector('.pg-run').addEventListener('click', run);
       mount.querySelector('.pg-reset').addEventListener('click', () => { cm.setValue(initial); run(); });
       run(); // auto-run initial code
+    });
+  }).catch(() => {
+    // CDN/SRI gagal — degradasi: tampilkan kode read-only, jangan biarkan kosong
+    mounts.forEach(mount => {
+      const codeEl = document.getElementById(mount.dataset.codeId);
+      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Playground gagal dimuat — cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
+      if (codeEl) mount.querySelector('pre').textContent = codeEl.textContent.trim();
     });
   });
 }
