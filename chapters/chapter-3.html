@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bab 3: Hooks Dasar — React Course</title>
+    <title>Bab 3: React Hooks Dasar — React Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,61 +13,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script>tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
-                    },
-                    colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
-                        muted: { DEFAULT: '#666666', light: '#999999' },
-                        lavender: '#F3F0FA',
-                        cream: '#FAF8F1',
-                        surface: '#FAFAFA',
-                    },
-                }
-            }
-        }</script>
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['JetBrains Mono','ui-monospace','monospace']},colors:{ink:{DEFAULT:'#0B0B0B',soft:'#1A1A1A'},muted:{DEFAULT:'#666666',light:'#999999'},lavender:'#F3F0FA',cream:'#FAF8F1',surface:'#FAFAFA'}}}}</script>
     <style>
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        :root {
-            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
-            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
-            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3 { text-wrap: balance; }
-        p { text-wrap: pretty; }
-        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
-        .shadow-soft { box-shadow: var(--shadow-sm); }
-        .press { transition: transform 0.15s ease; }
-        .press:active { transform: scale(0.96); }
-        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
-        .lesson-card:hover { box-shadow: var(--shadow-md); }
-        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
-        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
-        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
-        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
-        .fade-in-d1 { animation-delay: 80ms; }
-        .fade-in-d2 { animation-delay: 160ms; }
-        .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
-        button:active { transform: scale(0.96); }
-        @media print { .no-print { display: none !important; } }
-        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+        *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body{font-family:'Inter',system-ui,sans-serif}
+        :root{--shadow-sm:0 0 0 1px rgba(0,0,0,0.05),0 1px 2px -1px rgba(0,0,0,0.04);--shadow-md:0 0 0 1px rgba(0,0,0,0.06),0 2px 4px -1px rgba(0,0,0,0.05),0 4px 12px -2px rgba(0,0,0,0.05);--shadow-md-hover:0 0 0 1px rgba(0,0,0,0.08),0 4px 8px -2px rgba(0,0,0,0.06),0 8px 20px -4px rgba(0,0,0,0.07)}
+        h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}
+        .shadow-card{box-shadow:var(--shadow-md);transition:box-shadow .2s ease,transform .2s ease}.shadow-card:hover{box-shadow:var(--shadow-md-hover);transform:translateY(-2px)}
+        .shadow-soft{box-shadow:var(--shadow-sm)}.press{transition:transform .15s ease}.press:active{transform:scale(.96)}
+        .lesson-card{box-shadow:var(--shadow-sm);transition:box-shadow .2s ease}.lesson-card:hover{box-shadow:var(--shadow-md)}
+        .nav-link{transition:background .15s ease,color .15s ease}.nav-link:hover,.nav-link.active{background:#F3F0FA;color:#0B0B0B}
+        .nav-link.active span:first-child{background:#0B0B0B!important;color:white!important}
+        pre code{border-radius:0;font-size:.825rem;line-height:1.6}
+        .code-block{box-shadow:var(--shadow-sm);border-radius:.75rem;overflow:hidden}
+        .tip-box{border-left:3px solid #0B0B0B;background:#F3F0FA}
+        .warning-box{border-left:3px solid #f59e0b;background:#FFF7ED}
+        .fade-in{opacity:0;transform:translateY(16px);animation:enter .4s cubic-bezier(.2,0,0,1) forwards}
+        .fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}
+        @keyframes enter{to{opacity:1;transform:translateY(0)}}
+        ::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}
+        ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:5px;border:2px solid #fff}
+        ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.2)}
+        .lesson-checkbox:checked+.lesson-label{text-decoration:line-through;color:#999}
+        button:active{transform:scale(.96)}
+        @media print{.no-print{display:none!important}}
+        @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+    </style>
 </head>
 <body class="bg-white text-ink min-h-screen">
 
@@ -81,69 +52,29 @@
                 <span class="text-[15px] font-semibold tracking-tight">react course</span>
             </a>
         </div>
-        <div class="p-3">
-            <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
-                <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            </div>
-        </div>
-        <div class="px-3 pb-3">
-            <div class="bg-surface rounded-lg p-3">
-                <div class="flex justify-between text-xs text-muted mb-2">
-                    <span>Progress</span>
-                    <span id="progressText" class="tabular-nums">0/10</span>
-                </div>
-                <div class="w-full bg-black/5 rounded-full h-1.5">
-                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
-        </div>
+        <div class="p-3"><div class="relative">
+            <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+            <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div></div>
+        <div class="px-3 pb-3"><div class="bg-surface rounded-lg p-3">
+            <div class="flex justify-between text-xs text-muted mb-2"><span>Progress</span><span id="progressText" class="tabular-nums">0/10</span></div>
+            <div class="w-full bg-black/5 rounded-full h-1.5"><div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width:0%"></div></div>
+        </div></div>
         <nav class="px-2 pb-6 space-y-0.5">
             <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
+            <a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>Intro</a>
+            <a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>React Dasar</a>
+            <a href="chapter-3.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink"><span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>Hooks Dasar</a>
+            <a href="chapter-4.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>Hooks Advanced</a>
+            <a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>Patterns</a>
+            <a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>TypeScript</a>
+            <a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>Next.js</a>
+            <a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>State Mgmt</a>
+            <a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>Testing</a>
+            <a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>Performance</a>
         </nav>
     </aside>
 
-    <!-- Main -->
     <main class="lg:ml-72 min-h-screen">
         <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
             <div class="flex items-center justify-between px-4 lg:px-8 h-16">
@@ -156,27 +87,35 @@
                         <h1 class="text-base lg:text-lg font-semibold tracking-tight">React Hooks Dasar</h1>
                     </div>
                 </div>
-                <a href="chapter-4.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
-                    Bab 4
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </a>
+                <a href="chapter-4.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">Bab 4<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
             </div>
         </header>
 
-        <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-ink mb-4">🤔 KENAPA SIH HOOKS ITU PENTING BANGET?</h3>
-                <p class="text-[#333] mb-3">Oke, bayangin kamu lagi bikin aplikasi e-commerce. User klik tombol “Tambah ke Keranjang” — tapi <strong class="text-ink">angkanya nggak berubah</strong>. Di halaman tetap nol. 😔</p>
-                <p class="text-[#333] mb-3">Nah itu masalahnya kalau komponen kamu nggak punya <em class="text-ink">state</em>. Komponen fungsional dulu itu kayak kertas — sekali ditulis, selesai. Nggak bisa ngubah apa-apa setelah itu.</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Hooks vs Class Component</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// ❌ Dulu - Class Component (ribet!)
+<!-- LESSON 1 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">KENAPA SIH HOOKS ITU PENTING BANGET? 🤔</h2>
+                <input type="checkbox" id="check-3-1" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Konsep inti &middot; 8 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Oke, bayangin kamu lagi bikin aplikasi e-commerce. User klik tombol "Tambah ke Keranjang" — tapi <strong class="text-ink">angkanya nggak berubah</strong>. Di layar tetap nol. User klik lagi, tetap nol. User frustasi, kamu juga frustasi. 😔</p>
+        <p>Nah itu masalahnya kalau komponen kamu nggak punya <em class="text-ink">state</em>. Komponen fungsional dulu itu kayak kertas — sekali ditulis, selesai. Nggak bisa ngubah apa-apa setelah itu. Setiap kali user berinteraksi, komponen di-render ulang dari nol, tanpa ingatan sedikitpun. Kayak film <em>50 First Dates</em> — bangun tidur, lupa semuanya. 😅</p>
+        <p>Sebelum React 16.8 (dirilis 2019), kalau mau punya state, kamu <strong class="text-ink">harus</strong> pakai class component. Nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">constructor()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">this.setState()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentDidMount()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">this.handleClick.bind(this)</code> — belajar hal-hal yang sebenernya nggak perlu buat yang baru mulai. 🤯</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Hooks vs Class Component — merasa bedanya?</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ Dulu — Class Component (banyak boilerplate!)
 class Counter extends React.Component {
   constructor(props) {
     super(props);
@@ -187,235 +126,338 @@ class Counter extends React.Component {
     this.setState({ count: this.state.count + 1 });
   }
   render() {
-    return &lt;button onClick={this.handleClick}&gt;Count: {this.state.count}&lt;/button&gt;;
+    return &lt;button onClick={this.handleClick}&gt;
+      Count: {this.state.count}
+    &lt;/button&gt;;
   }
 }
 
-// ✅ Sekarang - Hooks (bersih, simpel!)
+// ✅ Sekarang — Hooks (bersih, simpel!)
 function Counter() {
   const [count, setCount] = useState(0);
-  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Count: {count}&lt;/button&gt;;
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+    Count: {count}
+  &lt;/button&gt;;
 }</code></pre>
-                    </div>
-                <p class="text-[#333] mb-3">Masuklah <strong class="text-ink">React Hooks</strong> di React 16.8 (2019). Hooks itu cara React bilang ke komponen fungsional: <em>“Hei, kamu sekarang bisa punya memori sendiri, lho!”</em> 🧠</p>
-                <p class="text-[#333] mb-3">Sebelum hooks, kalau mau punya state, kamu <strong class="text-ink">harus</strong> pakai class component. Yang artinya nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">constructor()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">this.setState()</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount()</code> — belajar hal-hal yang sebenernya nggak perlu buat yang baru mulai.</p>
-                <p class="text-[#333]">Sekarang? Cukup fungsi biasa + hooks. Lebih simpel, lebih gampang dibaca, dan—yang paling penting—<strong class="text-ink">lebih fun</strong>. ✨</p>
-<div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Analoginya gini: Hooks itu kayak upgrade gratis buat motor kamu. Dari yang awalnya cuma bisa jalan lurus (komponen tanpa state), jadi bisa belok, ngerem, dan ngebut (punya state, lifecycle, dll). Tanpa perlu ganti motor (ke class component).</p>
-                </div>
-            </section>
+        </div>
+        <p>Masuklah <strong class="text-ink">React Hooks</strong>. Hooks itu cara React bilang ke komponen fungsional: <em>"Hei, kamu sekarang bisa punya memori sendiri, lho!"</em> 🧠 Dengan hooks, komponen fungsional yang tadinya cuma bisa render statis sekarang bisa punya state, lifecycle, dan semua kemampuan class component.</p>
+        <p>Analoginya gini: Hooks itu kayak <strong class="text-ink">upgrade gratis buat motor kamu</strong>. Dari yang awalnya cuma bisa jalan lurus (komponen tanpa state), jadi bisa belok, ngerem, ngebut, dan punya GPS (punya state, lifecycle, ref, dll). Tanpa perlu ganti motor — tetap pakai fungsi biasa yang ringan dan enak dibaca. ✨</p>
+        <p>Di bab ini, kita bakal bahas 6 hooks dasar: <strong class="text-ink">useState</strong> (memori), <strong class="text-ink">useEffect</strong> (side effect), <strong class="text-ink">useRef</strong> (laci rahasia), <strong class="text-ink">useMemo</strong> (cache), <strong class="text-ink">useCallback</strong> (cache fungsi), dan <strong class="text-ink">useContext</strong> (global state). Siap? Gaspol! 🚀</p>
+    </div>
+    <div class="tip-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-ink">💡 Kenapa namanya "Hooks"?</strong> Karena hooks secara literal "mengaitkan" (hook into) fitur React ke komponen fungsional. useState mengaitkan fitur state, useEffect mengaitkan fitur lifecycle. Kalau ada function yang diawali <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">use</code>, itu artinya dia lagi "mengaitkan" sesuatu ke komponen kamu. 😎</p>
+    </div>
+</section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d1">
-                <h3 class="text-xl font-bold text-ink mb-4">1️⃣ USESTATE — “INGET-IN YANG INI YA, REACT!”</h3>
-                <p class="text-[#333] mb-3">Pernah ngalamin ini? Kamu bikin tombol counter, tapi angkanya nggak pernah nambah. Kamu udah pasang <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">onClick</code>, udah nulis <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">count++</code>... tapi UI-nya tetap 0. 🤯</p>
-                <p class="text-[#333] mb-3">Itu karena komponen fungsional <strong class="text-ink">nggak punya memori</strong>. Setiap kali di-render, dia lupa sama sebelumnya. Kayak film <em>50 First Dates</em> — bangun, lupa semuanya. 😅</p>
+<!-- LESSON 2 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">USESTATE DEEP DIVE — "INGET-IN YANG INI YA!" 🧠</h2>
+                <input type="checkbox" id="check-3-2" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Fundamental &middot; 12 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p><strong class="text-ink">useState</strong> itu obat pertama buat komponen kamu yang amnesia. Dia kasih "ingatan" ke komponen fungsional. Jadi React bisa ngerekam: "Oke, count-nya sekarang 5. Kalau user klik lagi, jadi 6." Dan setiap kali state berubah, React <strong class="text-ink">otomatis re-render</strong> komponen dengan nilai terbaru. UI langsung update tanpa DOM manipulation manual. 😎</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">useState — Counter &amp; Multiple States</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">import { useState } from 'react';
 
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">useState — Counter + Object State</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// Basic counter
-const [count, setCount] = useState(0);
-const [name, setName] = useState('');
-
-// State object (hati-hati! jangan lupa spread)
-const [user, setUser] = useState({ name: '', age: 0 });
-
-// ❌ SALAH - menghapus key lain!
-setUser({ name: 'Budi' }); // age hilang!
-
-// ✅ BENAR - spread dulu, baru update
-setUser({ ...user, name: 'Budi' }); // age masih ada
-
-// Functional update (paling aman)
-setUser(prev =&gt; ({ ...prev, name: 'Budi' }));
-
-// Lazy initialization (buat kalkulasi mahal)
-const [data, setData] = useState(() =&gt; {
-  return expensiveCalculation(); // cuma jalan sekali!
-});</code></pre>
-                    </div>
-                <p class="text-[#333] mb-3"><strong class="text-ink">useState</strong> itu obatnya. Dia kasih “ingatan” ke komponen kamu. Jadi React bisa ngerekam: “Oke, count-nya sekarang 5. Kalau user klik lagi, jadi 6.”</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Sintaks dasar — destrukturisasi array
+// Sintaks dasar — destrukturisasi array
 const [namaState, setNamaState] = useState(nilaiAwal);
 //      ↑               ↑                ↑
 //   baca data     ubah data        nilai awal
 
-// Contoh paling klasik: Counter 🎯
-import { useState } from 'react';
-
 function Counter() {
   const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Tambah</button>
-      <button onClick={() => setCount(count - 1)}>Kurang</button>
-      <button onClick={() => setCount(0)}>Reset</button>
-    </div>
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Tambah&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(count - 1)}&gt;Kurang&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
   );
-}</code></pre>
-                <p class="text-[#333] mb-3">Gampang kan? <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">count</code> itu nilainya sekarang, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">setCount</code> itu cara ngubahnya. Setiap kali kamu panggil <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">setCount</code>, React bakal otomatis re-render komponen dengan nilai baru.</p>
-                <p class="text-[#333] mb-3">Tapi tunggu—kamu nggak cuma bisa punya SATU state. Satu komponen bisa punya <strong class="text-ink">banyak useState</strong>, kayak gini:</p><pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Multiple states — kayak punya banyak laci 🗄️
+}
+
+// Multiple states — kayak punya banyak laci 🗄️
 function Form() {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) =&gt; {
     e.preventDefault();
     setSubmitted(true);
   };
 
-  if (submitted) {
-    return <p>Terima kasih, {nama}! 🎉</p>;
-  }
+  if (submitted) return &lt;p&gt;Terima kasih, {nama}! 🎉&lt;/p&gt;;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={nama}
-        onChange={e => setNama(e.target.value)}
-        placeholder="Nama kamu..."
-      />
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email kamu..."
-      />
-      <button type="submit">Kirim!</button>
-    </form>
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input value={nama} onChange={e =&gt; setNama(e.target.value)}
+        placeholder="Nama kamu..." /&gt;
+      &lt;input value={email} onChange={e =&gt; setEmail(e.target.value)}
+        placeholder="Email kamu..." /&gt;
+      &lt;button type="submit"&gt;Kirim!&lt;/button&gt;
+    &lt;/form&gt;
   );
-}</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Mindset yang bener tentang useState: Bayangin useState itu kayak <strong class="text-ink">variabel yang bisa update tampilan</strong>. Bedanya sama variabel biasa, kalau kamu ubah useState, React <em>otomatis</em> gambar ulang (re-render) komponen. Kalau variabel biasa? Diubah di belakang layar, tapi di layar tetap yang lama. Oh ternyata gitu! 🤯</p>
-                </div><div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> Yang sering salah: Jangan langsung mutate state! <code class="text-ink">count++</code> atau <code class="text-ink">array.push()</code> nggak bakal kerja. React butuh immutable update — selalu pakai setter function yang udah disediakan useState.</p>
-                </div>            </section>
+}</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Teknik 1: Object State — WAJIB SPREAD!</strong> Kalau state kamu berbentuk objek, kamu <strong class="text-ink">WAJIB spread</strong> objek lamanya dulu sebelum update. Kalau nggak, field lain bakal hilang! 🚨</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Object State — Hati-hati jangan lupa spread!</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// State object
+const [user, setUser] = useState({ name: '', age: 0, email: '' });
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d2">
-                <h3 class="text-xl font-bold text-ink mb-4">2️⃣ USEEFFECT — “REACT, LAKUKAN INI SETELAH RENDER”</h3>
-                <p class="text-[#333] mb-3">Okay, kamu udah bisa simpan data pakai useState. Tapi sekarang gimana cara <strong class="text-ink">fetch data dari API</strong>? Atau set timer? Atau langganan event?</p>
-                <p class="text-[#333] mb-3">Di dunia class component dulu, kamu pake lifecycle methods kayak <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidMount</code>, <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentDidUpdate</code>, dan <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">componentWillUnmount</code>. Tiga method buat tiga fase berbeda. Ribet, kan?</p>
+// ❌ SALAH — menghapus key lain!
+setUser({ name: 'Budi' }); // age dan email hilang!
 
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">useEffect — Cleanup & Dependencies</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// Effect dengan cleanup (seperti ngOnInit + ngOnDestroy)
-useEffect(() =&gt; {
-  const timer = setInterval(() =&gt; {
-    console.log('tick');
-  }, 1000);
+// ✅ BENAR — spread dulu, baru update
+setUser({ ...user, name: 'Budi' }); // age dan email masih ada
 
-  // Cleanup function - jalan saat unmount atau sebelum effect berikutnya
-  return () =&gt; clearInterval(timer);
-}, []); // [] = cuma sekali saat mount
+// ✅ LEBIH BAIK — functional update (paling aman)
+setUser(prev =&gt; ({ ...prev, name: 'Budi' }));
 
-// Effect dengan dependency
-useEffect(() =&gt; {
-  fetch(`/api/users/${userId}`)
-    .then(res =&gt; res.json())
-    .then(data =&gt; setUser(data));
-}, [userId]); // jalan ulang kalau userId berubah
+// Praktik: Form dengan dynamic key
+const handleChange = (e) =&gt; {
+  const { name, value } = e.target;
+  setUser(prev =&gt; ({ ...prev, [name]: value }));
+};</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Teknik 2: Functional Update.</strong> Kalau state baru bergantung pada state lama, <strong class="text-ink">WAJIB</strong> pakai functional update: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(prev =&gt; prev + 1)</code>. Kenapa? Karena React bisa nge-batch update state, dan nilai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> mungkin udah "stale" pas eksekusi. Functional update menjamin kamu selalu pakai nilai terbaru. 🧠</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Functional Update — kapan harus pakai?</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ SALAH — state bisa stuck karena stale closure
+const addThreeWrong = () =&gt; {
+  setCount(count + 1); // pakai count yang sama 3x!
+  setCount(count + 1); // hasilnya cuma +1, bukan +3
+  setCount(count + 1);
+};
 
-// ❌ HATI-HATI: infinite loop!
-useEffect(() =&gt; {
-  setCount(count + 1); // trigger re-render -&gt; effect jalan lagi -&gt; infinity!
-}); // tidak ada dependency array</code></pre>
-                    </div>
-                <p class="text-[#333] mb-3"><strong class="text-ink">useEffect</strong> gabungin semua itu jadi SATU hook. Dia bilang ke React: <em>“Hei, setelah kamu selesai render, lakukanin ini ya.”</em> 🫥</p>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useEffect } from 'react';
+// ✅ BENAR — functional update selalu pakai nilai terbaru
+const addThreeRight = () =&gt; {
+  setCount(prev =&gt; prev + 1); // chain update
+  setCount(prev =&gt; prev + 1); // masing-masing pakai latest
+  setCount(prev =&gt; prev + 1); // hasilnya: +3 ✅
+};</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Teknik 3: Lazy Initialization.</strong> Kalau initial state-nya butuh kalkulasi mahal (misal parse data besar, hitung dari localStorage), kamu bisa pass function ke useState. Function ini cuma jalan <strong class="text-ink">sekali</strong> saat mount — bukan setiap render! 🎯</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Lazy Initialization — cuma jalan sekali!</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// ❌ BERAT — expensiveCalculation() jalan SETIAP render!
+const [data, setData] = useState(expensiveCalculation());
+
+// ✅ RINGAN — cuma jalan sekali saat mount!
+const [data, setData] = useState(() =&gt; {
+  return expensiveCalculation();
+});
+
+// Contoh nyata: baca dari localStorage
+const [theme, setTheme] = useState(() =&gt; {
+  return localStorage.getItem('theme') || 'light';
+});</code></pre>
+        </div>
+    </div>
+    <div class="tip-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-ink">💡 Mindset yang bener:</strong> Bayangin useState itu kayak <strong>variabel yang bisa update tampilan</strong>. Bedanya sama variabel biasa, kalau kamu ubah useState, React <em>otomatis</em> gambar ulang komponen. Kalau variabel biasa? Diubah di belakang layar, tapi di layar tetap yang lama. Jadi kalau mau perubahannya keliatan di UI, pakai useState! 🤯</p>
+    </div>
+    <div class="warning-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Yang sering salah:</strong> Jangan langsung mutate state! <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count++</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">array.push()</code> nggak bakal kerja. React butuh immutable update — selalu pakai setter function yang disediakan useState!</p>
+    </div>
+</section>
+
+<!-- LESSON 3 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">USEEFFECT MASTERCLASS — "REACT, LAKUKAN INI!" ⚡</h2>
+                <input type="checkbox" id="check-3-3" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Praktik &middot; 12 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Okay, kamu udah bisa simpan data pakai useState. Tapi gimana cara <strong class="text-ink">fetch data dari API</strong>? Atau set timer? Atau langganan event listener? Di dunia class component dulu, kamu pake lifecycle methods kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentDidMount</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentDidUpdate</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentWillUnmount</code>. Tiga method buat tiga fase berbeda. Ribet! 🤯</p>
+        <p><strong class="text-ink">useEffect</strong> gabungin semua itu jadi SATU hook. Dia bilang ke React: <em>"Hei, setelah kamu selesai render, lakukanin ini ya."</em> ⚡</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">useEffect — Fetch data dengan loading state</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">import { useState, useEffect } from 'react';
 
 // Skenario 1: Fetch data saat component pertama kali muncul
 function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Ini jalan SETELAH render pertama
+  useEffect(() =&gt; {
     setLoading(true);
     fetch(`/api/users/${userId}`)
-      .then(res => res.json())
-      .then(data => {
+      .then(res =&gt; res.json())
+      .then(data =&gt; {
         setUser(data);
         setLoading(false);
       });
-  }, [userId]); // ← INI PENTING! Bahas di bawah ya
+  }, [userId]); // ← dependency array penting!
 
-  if (loading) return <p>Loading... ⏳</p>;
-  return <p>Halo, {user.name}! 👋</p>;
-}</code></pre>                <p class="text-[#333] mb-3">Perhatikan yang di atas itu <code class="text-ink bg-[#F5F4F1] px-1.5 py-0.5 rounded">[userId]</code> di akhir useEffect. Itu namanya <strong class="text-ink">dependency array</strong> — dan ini adalah <strong class="text-ink">KUNCI</strong> buat paham useEffect. Beneran, kalau nggak paham ini, kamu bakal kena bug yang bikin pusing 🤯.</p>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Skenario 2: Cleanup — JANGAN LUPA INI!
+  if (loading) return &lt;p&gt;Loading... ⏳&lt;/p&gt;;
+  return &lt;p&gt;Halo, {user.name}! 👋&lt;/p&gt;;
+}</code></pre>
+        </div>
+        <p>Perhatikan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[userId]</code> di akhir useEffect. Itu namanya <strong class="text-ink">dependency array</strong> — dan ini KUNCI buat paham useEffect. Dependency array menentukan <em>kapan</em> effect kamu dijalankan ulang.</p>
+        <p><strong class="text-ink font-bold">Cleanup — JANGAN LUPA INI!</strong> Kalau effect kamu punya sesuatu yang perlu "dibersihkan" (timer, event listener, WebSocket), kamu WAJIB return cleanup function. Tanpa cleanup, timer bakal jalan terus walau komponen udah hilang. Itu namanya <strong class="text-ink">memory leak</strong> — bikin app lambat kayak siput 🐌.</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">useEffect — Cleanup &amp; Multiple Effects</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// Effect dengan cleanup (timer)
 function Timer() {
   const [seconds, setSeconds] = useState(0);
 
-  useEffect(() => {
-    // Mulai timer
-    const timer = setInterval(() => {
-      setSeconds(s => s + 1);
+  useEffect(() =&gt; {
+    const timer = setInterval(() =&gt; {
+      setSeconds(s =&gt; s + 1);
     }, 1000);
-
     // Cleanup: STOP timer saat component hilang
-    return () => clearInterval(timer);
-  }, []); // [] = jalan sekali, cleanup saat unmount
+    return () =&gt; clearInterval(timer);
+  }, []); // [] = jalan sekali saat mount
 
-  return <p>{seconds} detik berlalu ⏱️</p>;
-}</code></pre>                <p class="text-[#333] mb-3">Nah, cleanup itu penting banget. Tanpa cleanup, timer kamu bakal jalan terus walau komponennya udah nggak ada. Itu namanya <strong class="text-ink">memory leak</strong> — dan itu bikin app kamu lambat kayak siput 🐌.</p>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// Skenario 3: Banyak effect sekaligus
+  return &lt;p&gt;{seconds} detik berlalu ⏱️&lt;/p&gt;;
+}
+
+// Bisa punya banyak effect sekaligus!
 function Dashboard() {
   const [data, setData] = useState([]);
   const [theme, setTheme] = useState('dark');
 
   // Effect 1: Fetch data saat mount
-  useEffect(() => {
-    fetch('/api/data')
-      .then(r => r.json())
-      .then(setData);
+  useEffect(() =&gt; {
+    fetch('/api/data').then(r =&gt; r.json()).then(setData);
   }, []);
 
   // Effect 2: Ubah class body setiap kali theme berubah
-  useEffect(() => {
+  useEffect(() =&gt; {
     document.body.className = theme;
   }, [theme]);
+}</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">Cheat Sheet Dependency Array:</strong> Ini tiga pola dependency array yang wajib kamu hafal:</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Dependency Array — 3 pola wajib hafal</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// 🚫 TANPA ARRAY → jalan SETIAP render (hati-hati infinite loop!)
+useEffect(() =&gt; { console.log('jalan setiap render'); });
 
-  // Boleh punya effect sebanyak yang kamu mau!
-  // Masing-masing punya tugas sendiri-sendiri 👌
-}</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Cheat sheet dependency array:</strong></p>
-                    <ul class="mt-2 space-y-1 text-sm">
-                        <li>🚫 <strong class="text-ink">Tanpa array</strong> → Jalan SETIAP render. <span class="text-red-400">Hati-hati, bisa infinite loop!</span></li>
-                        <li>📦 <strong class="text-ink">[]</strong> (kosong) → Jalan sekali saja saat mount. Kayak <code class="text-ink">componentDidMount</code></li>
-                        <li>🎯 <strong class="text-ink">[dep1, dep2]</strong> → Jalan saat dep berubah. Kayak <code class="text-ink">componentDidUpdate</code> yang spesifik</li>
-                    </ul>
-                </div>
-<div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> JANGAN PERNAH lupa dependency array! Kalau kamu tulis <code class="text-ink">useEffect(() => { ... })</code> tanpa array di akhir, dia bakal jalan setiap render. Itu artinya fetch API setiap detik. Setiap detik. SERIUS. 🫢</p>
-                </div>            </section>
+// 📦 [] (kosong) → jalan sekali saat mount
+useEffect(() =&gt; {
+  fetchData();
+}, []); // kayak componentDidMount
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in fade-in-d3">
-                <h3 class="text-xl font-bold text-ink mb-4">3️⃣ USEREF — “RAHASIA YANG TERSEMBUNYI”</h3>
-                <p class="text-[#333] mb-3">Pernah mau auto-focus ke input field saat halaman kebuka? Atau butuh nge-track nilai sebelumnya? Atau simpan timer ID?</p>
-                <p class="text-[#333] mb-3">Nah kalau pakai useState buat hal-hal itu, kamu bakal kena re-render yang nggak perlu. Dan re-render yang nggak perlu itu... ibarat kamu disuruh tulis ulang seluruh dokumen cuma karena salah satu huruf. 😕</p>
+// 🎯 [dep1, dep2] → jalan saat dep berubah
+useEffect(() =&gt; {
+  fetch(`/api/users/${userId}`);
+}, [userId]); // kayak componentDidMount + componentDidUpdate
 
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">useRef — DOM Access & Mutable Value</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// 1. Akses DOM element langsung
-function InputFocus() {
+// ❌ HATI-HATI: infinite loop!
+useEffect(() =&gt; {
+  setCount(count + 1); // trigger re-render → effect jalan lagi → infinity!
+}); // tidak ada dependency array!</code></pre>
+        </div>
+    </div>
+    <div class="tip-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-ink">💡 Cheat sheet dependency array:</strong></p>
+        <ul class="mt-2 space-y-1 text-sm text-[#333]">
+            <li>🚫 <strong class="text-ink">Tanpa array</strong> → Jalan SETIAP render. <span class="text-red-500">Bisa infinite loop!</span></li>
+            <li>📦 <strong class="text-ink">[]</strong> (kosong) → Jalan sekali saat mount. Kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentDidMount</code></li>
+            <li>🎯 <strong class="text-ink">[dep1, dep2]</strong> → Jalan saat dep berubah. Kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">componentDidUpdate</code> spesifik</li>
+        </ul>
+    </div>
+    <div class="warning-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN PERNAH lupa dependency array!</strong> Kalau kamu tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect(() =&gt; { ... })</code> tanpa array di akhir, dia bakal jalan setiap render. Artinya fetch API setiap detik. Setiap. Detik. SERIUS. 🫢</p>
+    </div>
+</section>
+
+<!-- LESSON 4 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">USEREF — "LACI RAHASIA TERSEMBUNYI" 🔮</h2>
+                <input type="checkbox" id="check-3-4" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Fundamental &middot; 10 menit baca</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Pernah mau auto-focus ke input field saat halaman kebuka? Atau butuh nge-track nilai sebelumnya? Atau simpan timer ID? Nah kalau pakai useState buat hal-hal itu, kamu bakal kena re-render yang nggak perlu. Re-render yang nggak perlu itu ibarat kamu disuruh tulis ulang seluruh dokumen cuma karena salah satu huruf. 😕</p>
+        <p><strong class="text-ink">useRef</strong> itu kayak <strong>laci rahasia</strong>. Kamu simpan apa aja di sana, nggak ada yang tau, dan <strong class="text-ink">nggak memicu re-render</strong>. Cocok banget buat hal-hal yang "di belakang layar" — akses DOM, simpan mutable value, track previous value. 🗄️</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">useRef — Akses DOM &amp; Previous Value</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">import { useRef, useEffect, useState } from 'react';
+
+// Use case 1: Auto-focus input (paling populer)
+function TextInput() {
   const inputRef = useRef(null);
 
   useEffect(() =&gt; {
-    inputRef.current.focus(); // autofocus tanpa library!
+    inputRef.current.focus(); // Langsung akses DOM!
   }, []);
 
-  return &lt;input ref={inputRef} placeholder="Auto-focused" /&gt;;
+  return &lt;input ref={inputRef} placeholder="Langsung fokus, bro..." /&gt;;
 }
 
-// 2. Simpan value tanpa trigger re-render
+// Use case 2: Track previous value
+function usePrevious(value) {
+  const ref = useRef(value);
+  useEffect(() =&gt; {
+    ref.current = value; // Simpan setelah render
+  }, [value]);
+  return ref.current;
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Sekarang: {count} | Sebelumnya: {prevCount}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Use case 3: Simpan interval ID (mutable storage)
 function Stopwatch() {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef(null);
@@ -429,372 +471,538 @@ function Stopwatch() {
 
   const stop = () =&gt; clearInterval(intervalRef.current);
 
+  return &lt;div&gt;
+    &lt;p&gt;{seconds}s&lt;/p&gt;
+    &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+  &lt;/div&gt;;
+}</code></pre>
+        </div>
+        <p><strong class="text-ink font-bold">useState vs useRef — Kapan pakai apa?</strong> Ini pertanyaan yang sering muncul. Perbedaan utamanya gampang: kalau perubahannya harus <strong class="text-ink">keliatan di UI</strong> (trigger re-render), pakai useState. Kalau cuma buat internal tracking yang nggak perlu keliatan di layar, pakai useRef. Ref itu backend, state itu frontend. Jangan kebalik! 🔀</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">useState vs useRef — perbedaan kritis</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">// useState: perubahan → RE-RENDER
+const [count, setCount] = useState(0);
+setCount(5); // UI update, component re-render
+
+// useRef: perubahan → TANPA RE-RENDER
+const countRef = useRef(0);
+countRef.current = 5; // UI TIDAK update, silent change
+
+// Contoh: render count tanpa re-render?
+// Pakai useState! Karena kamu MAU angkanya keliatan.
+
+// Contoh: simpan scroll position sementara?
+// Pakai useRef! Nggak perlu keliatan di UI saat disimpan.</code></pre>
+        </div>
+    </div>
+    <div class="warning-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Aturan emas useRef:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref.current</code> bisa kamu ubah kapan aja, tapi kalau perubahannya harus <strong class="text-ink">keliatan di UI</strong> — pakai useState, BUKAN useRef. Ref itu backend, state itu frontend. Jangan kebalik! 🔀</p>
+    </div>
+    </section>
+
+    <!-- LESSON 5 -->
+    <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5">
+     <div class="flex items-start gap-4 mb-6">
+         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div>
+         <div class="flex-1">
+             <div class="flex items-center gap-3 mb-1">
+                 <h2 class="text-xl font-bold text-ink">USEMEMO & USECALLBACK — "JANGAN KERJA DUA KALI!" 📦</h2>
+                 <input type="checkbox" id="check-3-5" class="lesson-checkbox hidden" onchange="updateProgress()">
+                 <label for="check-3-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+             </div>
+             <p class="text-sm text-muted">Performance &middot; 10 menit baca</p>
+         </div>
+     </div>
+     <div class="space-y-4 text-[#333] leading-relaxed">
+         <p>Bayangin kamu punya list 10.000 produk dan tiap kali user ngetik di search bar, kamu filter ulang SEMUA produk. Nah kalau proses filtering itu berat, UI kamu bisa lag. User klik, tunggu... klik lagi, tunggu... 😴</p>
+         <p><strong class="text-ink">useMemo</strong> dan <strong class="text-ink">useCallback</strong> itu kayak cache di browser. Udah dihitung/dibuat sekali, kalau inputnya sama, tinggal pakai hasil yang lama. Done. ✅</p>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">useMemo — Cache hasil kalkulasi mahal</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">import { useState, useMemo } from 'react';
+
+    function ProductList({ products, search }) {
+    // useMemo: cuma re-filter kalau products atau search berubah
+    const filtered = useMemo(() =&gt; {
+     console.log('Filtering 10.000 produk...');
+     return products.filter(p =&gt;
+       p.name.toLowerCase().includes(search.toLowerCase())
+     );
+    }, [products, search]);
+
+    return (
+     &lt;ul&gt;
+       {filtered.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+     &lt;/ul&gt;
+    );
+    }</code></pre>
+         </div>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">useCallback + memo — Cache fungsi biar child nggak re-render</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">import { useState, useCallback, memo } from 'react';
+
+    // memo: cegah re-render kalau props nggak berubah
+    const HeavyChild = memo(function({ onClick, data }) {
+    console.log('Child di-render lagi nih...');
+    return &lt;div onClick={onClick}&gt;{data}&lt;/div&gt;;
+    });
+
+    function Parent() {
+    const [count, setCount] = useState(0);
+    const [text, setText] = useState('');
+
+    // useCallback: fungsi stabil selama deps nggak berubah
+    const handleClick = useCallback(() =&gt; {
+     console.log('clicked!');
+    }, []); // Fungsi stabil → HeavyChild nggak re-render
+
+    return (
+     &lt;div&gt;
+       &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;
+       &lt;HeavyChild onClick={handleClick} data="hello" /&gt;
+       &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;Count: {count}&lt;/button&gt;
+     &lt;/div&gt;
+    );
+    }</code></pre>
+         </div>
+         <p><strong class="text-ink">Kapan pakai apa?</strong> <strong class="text-ink">useMemo</strong> buat cache <em>nilai/kalkulasi</em>. <strong class="text-ink">useCallback</strong> buat cache <em>fungsi</em> supaya referensinya stabil antar render. Biasanya pakai bareng <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">memo()</code> pada child component biar re-render-nya benar-benar dicegah.</p>
+     </div>
+     <div class="tip-box rounded-xl p-4 mt-6">
+         <p class="text-sm text-[#333]"><strong class="text-ink">💡 Jangan kebablasan!</strong> useMemo dan useCallback bukan berarti harus dipake di SEMUA tempat. Keduanya juga punya "biaya" — React harus nyimpen hasilnya di memori. Pakai kalau memang ada <strong class="text-ink">masalah performa nyata</strong>, bukan sekadar "kayaknya lebih baik". Premature optimization itu jahat! 😈</p>
+     </div>
+    </section>
+
+    <!-- LESSON 6 -->
+    <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6">
+     <div class="flex items-start gap-4 mb-6">
+         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div>
+         <div class="flex-1">
+             <div class="flex items-center gap-3 mb-1">
+                 <h2 class="text-xl font-bold text-ink">USECONTEXT — "PENGUMUMAN UNTUK SEMUA" 📢</h2>
+                 <input type="checkbox" id="check-3-6" class="lesson-checkbox hidden" onchange="updateProgress()">
+                 <label for="check-3-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+             </div>
+             <p class="text-sm text-muted">Global State &middot; 10 menit baca</p>
+         </div>
+     </div>
+     <div class="space-y-4 text-[#333] leading-relaxed">
+         <p>Pernah ngalamin <strong class="text-ink">props drilling</strong>? Jadi gini: kamu punya data theme di App, terus di-lempar ke Header → Navbar → MenuButton. Tiga component cuma buat nganterin SATU data. Rasanya kayak jadi kurir paket, tapi cuma bawa satu amplop 📦</p>
+         <p><strong class="text-ink">useContext</strong> itu solusinya. Dia kayak <strong>pengeras suara di sekolah</strong>. Ketua kelas (Provider) bilang sekali, semua murid (component) denger. Nggak perlu disampaikan satu-satu. 📢</p>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">useContext — Theme toggle tanpa props drilling</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">import { createContext, useContext, useState } from 'react';
+
+    // Step 1: Buat context
+    const ThemeContext = createContext();
+
+    // Step 2: Bungkus app dengan Provider
+    function App() {
+    const [theme, setTheme] = useState('dark');
+
+    return (
+     &lt;ThemeContext.Provider value={{
+       theme,
+       toggleTheme: () =&gt; setTheme(t =&gt; t === 'dark' ? 'light' : 'dark')
+     }}&gt;
+       &lt;Header /&gt;
+       &lt;Main /&gt;
+     &lt;/ThemeContext.Provider&gt;
+    );
+    }
+
+    // Step 3: Pakai di MANA SAJA — tanpa props!
+    function Header() {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+    return (
+     &lt;header className={theme}&gt;
+       &lt;button onClick={toggleTheme}&gt;
+         {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+       &lt;/button&gt;
+     &lt;/header&gt;
+    );
+    }
+
+    // Bahkan di child yang paling dalam
+    function DeepChild() {
+    const { theme } = useContext(ThemeContext);
+    return &lt;span style={{ color: theme === 'dark' ? '#fff' : '#000' }}&gt;
+     Aku di sini tapi tetap bisa akses theme! 🎉
+    &lt;/span&gt;;
+    }</code></pre>
+         </div>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">useContext — Auth example</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">import { createContext, useContext, useState } from 'react';
+
+    const AuthContext = createContext();
+
+    function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+
+    const login = (email, password) =&gt; {
+     // Simulasi login
+     setUser({ email, name: 'Arif' });
+    };
+
+    const logout = () =&gt; setUser(null);
+
+    return (
+     &lt;AuthContext.Provider value={{ user, login, logout }}&gt;
+       {children}
+     &lt;/AuthContext.Provider&gt;
+    );
+    }
+
+    // Pakai di mana saja
+    function Navbar() {
+    const { user, logout } = useContext(AuthContext);
+    return user
+     ? &lt;div&gt;Halo, {user.name}! &lt;button onClick={logout}&gt;Logout&lt;/button&gt;&lt;/div&gt;
+     : &lt;div&gt;Silakan login&lt;/div&gt;;
+    }</code></pre>
+         </div>
+     </div>
+     <div class="tip-box rounded-xl p-4 mt-6">
+         <p class="text-sm text-[#333]"><strong class="text-ink">💡 Kapan pakai useContext?</strong> Cocok buat data yang "global" dan jarang berubah: theme 🎨, auth user 🔐, locale/language 🌍. Tapi JANGAN pakai buat data yang sering banget berubah tiap detik — nanti semua component yang konsumsi bakal re-render terus. Buat itu, pakai state management library kayak Zustand atau Redux.</p>
+     </div>
+     </section>
+
+     <!-- LESSON 7 -->
+     <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+     <div class="flex items-start gap-4 mb-6">
+         <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div>
+         <div class="flex-1">
+             <div class="flex items-center gap-3 mb-1">
+                 <h2 class="text-xl font-bold text-ink">COMMON MISTAKES & BEST PRACTICES 🤦</h2>
+                 <input type="checkbox" id="check-3-7" class="lesson-checkbox hidden" onchange="updateProgress()">
+                 <label for="check-3-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+             </div>
+             <p class="text-sm text-muted">Best Practices &middot; 10 menit baca</p>
+         </div>
+     </div>
+     <div class="space-y-4 text-[#333] leading-relaxed">
+         <p>Ini bagian yang paling berharga. Error yang bakal kamu temuin di dunia nyata, dan cara ngefix-nya. Belajar dari kesalahan orang lain itu lebih murah daripada ngalamin sendiri 💸</p>
+         <p><strong class="text-ink font-bold">Kesalahan 1: Hooks di dalam condition/loop.</strong> React butuh hooks selalu dipanggil dalam URUTAN YANG SAMA setiap render. Kalau kadang ada, kadang nggak — React bingung! Hooks harus selalu di <strong class="text-ink">top level</strong> component. 🚨</p>
+         <p><strong class="text-ink font-bold">Kesalahan 2: Stale Closure.</strong> Ini yang PALING bikin pusing. useEffect "nyimpan" nilai dari render pertama dan nggak update. Solusinya: selalu pakai <strong class="text-ink">functional update</strong> di dalam useEffect. 🧠</p>
+         <p><strong class="text-ink font-bold">Kesalahan 3: Object/Array sebagai dependency.</strong> Setiap render, object BARU dibuat di JavaScript. Referensi berbeda → React anggap berubah → infinite loop! Solusi: pakai primitive atau useMemo. 🔄</p>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">3 Kesalahan Fatal &amp; Cara Fix-nya</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">// ❌ KESALAHAN 1: Hooks di dalam condition
+     function Bad({ isLoggedIn }) {
+     if (isLoggedIn) {
+     const [user, setUser] = useState(null); // 💥 BOOM!
+     }
+     }
+
+     // ✅ FIX: Selalu di top level
+     function Good({ isLoggedIn }) {
+     const [user, setUser] = useState(null);
+     if (!isLoggedIn) return null;
+     return &lt;div&gt;{user.name}&lt;/div&gt;;
+     }
+
+     // ❌ KESALAHAN 2: Stale closure di useEffect
+     function Stale() {
+     const [count, setCount] = useState(0);
+     useEffect(() =&gt; {
+     const id = setInterval(() =&gt; {
+       setCount(count + 1); // count selalu 0! 😭
+     }, 1000);
+     return () =&gt; clearInterval(id);
+     }, []);
+     }
+
+     // ✅ FIX: Pakai functional update!
+     function Fixed() {
+     const [count, setCount] = useState(0);
+     useEffect(() =&gt; {
+     const id = setInterval(() =&gt; {
+       setCount(c =&gt; c + 1); // Selalu ambil nilai TERBARU 🎯
+     }, 1000);
+     return () =&gt; clearInterval(id);
+     }, []);
+     }
+
+     // ❌ KESALAHAN 3: Object sebagai dependency
+     useEffect(() =&gt; { fetchData(options); }, [options]);
+     // options = { page: 1, limit: 10 } → referensi BARU setiap render!
+
+     // ✅ FIX: Pakai primitive atau useMemo
+     const memoOptions = useMemo(() =&gt; ({ page, limit }), [page, limit]);
+     useEffect(() =&gt; { fetchData(memoOptions); }, [memoOptions]);</code></pre>
+         </div>
+         <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+             <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                 <span class="text-xs text-muted font-medium">3 Aturan Emas Hooks</span>
+                 <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+             </div>
+             <pre><code class="language-javascript">// ❌ 1. Lupa dependency array
+     useEffect(() =&gt; { fetchData(); });
+     // jalan setiap render! Performance disaster!
+
+     // ✅ Fix:
+     useEffect(() =&gt; { fetchData(); }, []); // cuma sekali
+
+     // ❌ 2. Update state berdasarkan state lama
+     const [count, setCount] = useState(0);
+     setCount(count + 1); // bisa stale kalau dipanggil cepat
+     setCount(count + 1); // count masih nilai lama!
+
+     // ✅ Fix: gunakan functional update
+     setCount(prev =&gt; prev + 1);
+     setCount(prev =&gt; prev + 1); // pasti +2
+
+     // ❌ 3. Panggil hook di dalam conditional
+     if (showCount) {
+     const [count, setCount] = useState(0); // BREAKS RULES!
+     }
+
+     // ✅ Fix: hook selalu di top level
+     const [count, setCount] = useState(0);
+     if (showCount) { /* pakai count di sini */ }</code></pre>
+         </div>
+     </div>
+     <div class="warning-box rounded-xl p-4 mt-6">
+         <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ 3 Aturan Emas Hooks:</strong></p>
+         <ol class="mt-2 space-y-1 text-sm text-[#333] list-decimal list-inside">
+             <li><strong class="text-ink">Top level only!</strong> Nggak boleh di dalam if, loop, atau nested function.</li>
+             <li><strong class="text-ink">Functional update</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">c =&gt; c + 1</code> kalau state baru bergantung di state lama.</li>
+             <li><strong class="text-ink">Primitive dependency!</strong> Object/array = referensi baru setiap render. Pakai useMemo atau pecah jadi primitive.</li>
+         </ol>
+     </div>
+     </section>
+
+<!-- LESSON 8: MINI PROJECT -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div>
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-xl font-bold text-ink">MINI PROJECT: STOPWATCH APP ⏱️</h2>
+                <input type="checkbox" id="check-3-8" class="lesson-checkbox hidden" onchange="updateProgress()">
+                <label for="check-3-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+            </div>
+            <p class="text-sm text-muted">Praktik &middot; 15 menit</p>
+        </div>
+    </div>
+    <div class="space-y-4 text-[#333] leading-relaxed">
+        <p>Oke, teori udah cukup! Sekarang kita gabungkan <strong class="text-ink">useState + useEffect + useRef</strong> dalam satu mini project nyata: Stopwatch App. Ini project sempurna karena dia pakai tiga hooks paling penting sekaligus. 🎉</p>
+        <p><strong class="text-ink">Plan:</strong> Stopwatch punya tombol Start/Pause/Reset, menampilkan waktu yang berjalan, dan menyimpan lap times. Kita pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> buat waktu dan status, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> buat interval timer, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code> buat simpan interval ID. 🧩</p>
+        <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
+            <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                <span class="text-xs text-muted font-medium">Stopwatch App — Full Code!</span>
+                <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+            </div>
+            <pre><code class="language-javascript">import { useState, useEffect, useRef } from 'react';
+
+function Stopwatch() {
+  // State buat waktu dan status
+  const [time, setTime] = useState(0); // dalam milidetik
+  const [isRunning, setIsRunning] = useState(false);
+  const [laps, setLaps] = useState([]);
+
+  // Ref buat simpan interval ID (nggak trigger re-render)
+  const intervalRef = useRef(null);
+  const startTimeRef = useRef(0);
+
+  // useEffect: jalankan/pause interval
+  useEffect(() =&gt; {
+    if (isRunning) {
+      startTimeRef.current = Date.now() - time;
+      intervalRef.current = setInterval(() =&gt; {
+        setTime(Date.now() - startTimeRef.current);
+      }, 10);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () =&gt; clearInterval(intervalRef.current);
+  }, [isRunning]);
+
+  // Helper: format milidetik jadi MM:SS.ms
+  const formatTime = (ms) =&gt; {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const millis = Math.floor((ms % 1000) / 10);
+    return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(millis).padStart(2,'0')}`;
+  };
+
+  const handleStartPause = () =&gt; setIsRunning(!isRunning);
+  const handleReset = () =&gt; { setIsRunning(false); setTime(0); setLaps([]); };
+  const handleLap = () =&gt; {
+    if (isRunning) setLaps(prev =&gt; [...prev, time]);
+  };
+
   return (
-    &lt;div&gt;
-      &lt;p&gt;{seconds}s&lt;/p&gt;
-      &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+    &lt;div className="p-6 max-w-sm mx-auto bg-gray-900 rounded-2xl text-white"&gt;
+      &lt;div className="text-center mb-6"&gt;
+        &lt;p className="text-5xl font-mono tracking-wider"&gt;{formatTime(time)}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div className="flex gap-3 justify-center mb-6"&gt;
+        &lt;button onClick={handleStartPause}
+          className="px-6 py-2 rounded-xl font-medium transition-colors"
+          style={{ background: isRunning ? '#ef4444' : '#22c55e' }}&gt;
+          {isRunning ? 'Pause' : 'Start'}
+        &lt;/button&gt;
+        &lt;button onClick={handleLap} disabled={!isRunning}
+          className="px-6 py-2 rounded-xl font-medium bg-gray-700 disabled:opacity-40"&gt;
+          Lap
+        &lt;/button&gt;
+        &lt;button onClick={handleReset}
+          className="px-6 py-2 rounded-xl font-medium bg-gray-700"&gt;
+          Reset
+        &lt;/button&gt;
+      &lt;/div&gt;
+      {laps.map((lap, i) =&gt; (
+        &lt;div key={i} className="flex justify-between text-sm px-3 py-1 bg-gray-800 rounded mb-1"&gt;
+          &lt;span&gt;Lap {i + 1}&lt;/span&gt;
+          &lt;span className="font-mono"&gt;{formatTime(lap)}&lt;/span&gt;
+        &lt;/div&gt;
+      ))}
     &lt;/div&gt;
   );
-}</code></pre>
-                    </div>
-                <p class="text-[#333] mb-3"><strong class="text-ink">useRef</strong> itu kayak laci rahasia. Kamu simpan apa aja di sana, nggak ada yang tau, dan <strong class="text-ink">nggak memicu re-render</strong>. Cocok banget buat hal-hal yang “di belakang layar”.</p>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useRef, useEffect, useState } from 'react';
+}
 
-// 1. Auto-focus input — ini use case paling populer
-function TextInput() {
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current.focus(); // Langsung akses DOM!
-  }, []);
-
-  return (
-    <div>
-      <input ref={inputRef} placeholder="Langsung fokus, bro..." />
+export default Stopwatch;</code></pre>
+        </div>
+        <p>Perhatikan bagaimana ketiga hooks bekerja sama: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> ngatur data yang perlu keliatan di UI (waktu, status, laps), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> ngatur side effect (timer interval), dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code> nyimpen nilai yang nggak perlu trigger re-render (interval ID, start time). 💪</p>
     </div>
-  );
-}
-
-// 2. Track nilai sebelumnya
-function usePrevious(value) {
-  const ref = useRef(value);
-  useEffect(() => {
-    ref.current = value; // Simpan setelah render
-  }, [value]);
-  return ref.current;
-}
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  const prevCount = usePrevious(count);
-
-  return (
-    <div>
-      <p>Sekarang: {count} | Sebelumnya: {prevCount}</p>
-      <button onClick={() => setCount(c => c + 1)}>+1</button>
+    <div class="tip-box rounded-xl p-4 mt-6">
+        <p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge:</strong> Coba extend stopwatch ini: (1) Tambahkan <strong>best/worst lap</strong> highlight, (2) Simpan laps ke <strong>localStorage</strong> biar survive refresh, (3) Tambahkan <strong>keyboard shortcuts</strong> (Space = start/pause, L = lap, R = reset). Ini latihan bagus buat nguji pemahaman hooks kamu!</p>
     </div>
-  );
-}</code></pre><div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ Warning:</strong> Aturan emas useRef: <code class="text-ink">ref.current</code> bisa kamu ubah kapan aja, tapi kalau kamu butuh perubahannya <strong class="text-ink">keliatan di UI</strong> — pakai useState, BUKAN useRef. Ref itu backend, state itu frontend. Jangan kebalik! 🔀</p>
-                </div>            </section>
+</section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-ink mb-4">4️⃣ USEMEMO & USECALLBACK — “JANGAN KERJA DUA KALI KALAU NGGAK PERLU”</h3>
-                <p class="text-[#333] mb-3">Bayangin kamu punya list 10.000 produk dan tiap kali user ngetik di search bar, kamu filter ulang SEMUA produk. Nah kalau proses filtering itu berat, UI kamu bisa lag. User klik, tunggu... klik lagi, tunggu... 😴</p>
-                <p class="text-[#333] mb-3">Nah <strong class="text-ink">useMemo</strong> dan <strong class="text-ink">useCallback</strong> itu kayak cache di browser. Udah dihitung/dibuat sekali, kalau inputnya sama, tinggal pakai hasil yang lama. Done. ✅</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">useMemo & useCallback — Performance</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// useMemo: cache hasil kalkulasi
-function ProductList({ products, filter }) {
-  const filtered = useMemo(() =&gt; {
-    return products.filter(p =&gt; p.category === filter);
-  }, [products, filter]); // cuma re-filter kalau products/filter berubah
-
-  return filtered.map(p =&gt; &lt;div key={p.id}&gt;{p.name}&lt;/div&gt;);
-}
-
-// useCallback: cache function reference
-function Parent() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState('');
-
-  // Tanpa useCallback: fungsi baru setiap render -&gt; Child re-render
-  // Dengan useCallback: fungsi sama selama count tidak berubah
-  const handleClick = useCallback(() =&gt; {
-    setCount(c =&gt; c + 1);
-  }, []); // dependency kosong = fungsi stabil
-
-  return &lt;Child onClick={handleClick} text={text} /&gt;;
-}</code></pre>
-                    </div>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { useState, useMemo, useCallback, memo } from 'react';
-
-// useMemo: Cache hasil kalkulasi yang mahal
-function ProductList({ products, search }) {
-  const filtered = useMemo(() => {
-    console.log('Filtering 10.000 produk...'); // Cek kapan ini jalan
-    return products.filter(p =>
-      p.name.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [products, search]);
-  // ↑ Hanya re-filter kalau products atau search berubah!
-
-  return (
-    <ul>
-      {filtered.map(p => <li key={p.id}>{p.name}</li>)}
+<!-- SUMMARY -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
+    <div class="flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+            <p class="text-sm text-muted mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
+        </div>
+    </div>
+    <ul class="space-y-3 text-[#333]">
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">React Hooks</strong> mengubah komponen fungsional jadi punya state, lifecycle, dan kemampuan penuh class component — tanpa boilerplate. Kayak upgrade gratis buat motor kamu! 🏍️</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">useState</strong> kasih "ingatan". Object state WAJIB spread, functional update kalau bergantung state lama, lazy init buat kalkulasi mahal.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">useEffect</strong> untuk side effect. Dependency array KUNCI: tanpa array = setiap render, [] = sekali mount, [deps] = saat deps berubah.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">useRef</strong> laci rahasia — mutable value tanpa re-render. DOM access, interval ID, previous value.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">useMemo &amp; useCallback</strong> buat performa. Cache kalkulasi dan fungsi. Pakai kalau ada masalah nyata! 📦</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">useContext</strong> solusi props drilling. Provider bilang sekali, semua component denger. Cocok buat theme, auth, locale. 📢</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">3 Aturan Emas:</strong> Hooks top level, functional update, primitive dependency. Langgar = bug! 🚨</span></li>
+        <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project Stopwatch</strong> — useState + useEffect + useRef dalam satu project nyata. ⏱️</span></li>
     </ul>
-  );
-}
-
-// useCallback: Cache fungsi biar child nggak re-render sia-sia
-const HeavyChild = memo(function({ onClick, data }) {
-  console.log('Child di-render lagi nih...');
-  return <div onClick={onClick}>{data}</div>;
-});
-
-function Parent() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState('');
-
-  const handleClick = useCallback(() => {
-    console.log('clicked!');
-  }, []); // Fungsi stabil → HeavyChild nggak re-render
-
-  return (
-    <div>
-      <input value={text} onChange={e => setText(e.target.value)} />
-      <HeavyChild onClick={handleClick} data="hello" />
-      <button onClick={() => setCount(c => c + 1)}>Count: {count}</button>
-    </div>
-  );
-}</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Tapi jangan kebablasan ya! useMemo dan useCallback bukan berarti harus dipake di SEMUA tempat. Keduanya juga punya “biaya” — React harus nyimpen hasilnya di memori. Pakai kalau memang ada <strong class="text-ink">masalah performa nyata</strong>, bukan sekadar “kayaknya lebih baik”. Premature optimization itu jahat! 😈</p>
-                </div>            </section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-ink mb-4">5️⃣ USECONTEXT — “PENGUMUMAN UNTUK SEMUA ORANG”</h3>
-                <p class="text-[#333] mb-3">Pernah ngalamin <strong class="text-ink">props drilling</strong>? Jadi gini: kamu punya data theme di App, terus di-lempar ke Header → Navbar → MenuButton. Tiga component cuma buat nganterin SATU data. Rasanya kayak jadi kurir paket, tapi cuma bawa satu amplop 📦</p>
-                <p class="text-[#333] mb-3"><strong class="text-ink">useContext</strong> itu solusinya. Dia kayak pengeras suara di sekolah. Ketua kelas (Provider) bilang sekali, semua murid (component) denger. Nggak perlu disampaikan satu-satu. 📢</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">useContext — Global State Tanpa Redux</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// 1. Bikin Context
-const ThemeContext = createContext();
-
-// 2. Provider di atas
-function App() {
-  const [theme, setTheme] = useState('light');
-  return (
-    &lt;ThemeContext.Provider value={{ theme, setTheme }}&gt;
-      &lt;Header /&gt;
-      &lt;Main /&gt;
-    &lt;/ThemeContext.Provider&gt;
-  );
-}
-
-// 3. Consum di anak cucu (tanpa props drilling!)
-function Header() {
-  const { theme, setTheme } = useContext(ThemeContext);
-  return (
-    &lt;header className={theme}&gt;
-      &lt;button onClick={() =&gt; setTheme(theme === 'light' ? 'dark' : 'light')}&gt;
-        Toggle Theme
-      &lt;/button&gt;
-    &lt;/header&gt;
-  );
-}</code></pre>
-                    </div>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">import { createContext, useContext, useState } from 'react';
-
-// Step 1: Buat context dulu
-const ThemeContext = createContext();
-
-// Step 2: Bungus app dengan Provider
-function App() {
-  const [theme, setTheme] = useState('dark');
-
-  return (
-    <ThemeContext.Provider value={{
-      theme,
-      toggleTheme: () => setTheme(t => t === 'dark' ? 'light' : 'dark')
-    }}>
-      <Header />
-      <Main />
-    </ThemeContext.Provider>
-  );
-}
-
-// Step 3: Pakai di MANA SAJA — tanpa props!
-function Header() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  return (
-    <header className={theme}>
-      <button onClick={toggleTheme}>
-        {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
-      </button>
-    </header>
-  );
-}
-
-// Bahkan di child yang paling dalam
-function DeepChild() {
-  const { theme } = useContext(ThemeContext);
-  return <span style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-    Aku di sini tapi tetap bisa akses theme! 🎉
-  </span>;
-}</code></pre><div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Kapan pakai useContext? Cocok buat data yang “global” dan jarang berubah: theme 🎨, auth user 🔐, locale/language 🌍. Tapi JANGAN pakai buat data yang sering banget berubah tiap detik — nanti semua component yang konsumsi bakal re-render terus. Buat itu, pakai state management library kayak Zustand atau Redux.</p>
-                </div>            </section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-black/10 mb-6 fade-in">
-                <h3 class="text-xl font-bold text-ink mb-4">6️⃣ KESALAHAN YANG BIKIN “AH, TERNYATA!” 🤦</h3>
-                <p class="text-[#333] mb-3">Ini dia bagian yang paling berharga. Error yang bakal kamu temuin di dunia nyata, dan cara ngefix-nya. Belajar dari kesalahan orang lain itu lebih murah daripada ngalamin sendiri 💸</p>
-<pre class="code-block rounded-xl my-4 overflow-x-auto"><code class="language-jsx">// ❌ KESALAHAN 1: Hooks di dalam condition/loop
-function Bad({ isLoggedIn }) {
-  if (isLoggedIn) {
-    const [user, setUser] = useState(null); // 💥 BOOM! Error!
-  }
-}
-// Kenapa? React butuh hooks selalu dipanggil
-// dalam URUTAN YANG SAMA setiap render.
-// Kalau kadang ada, kadang nggak... React bingung!
-
-// ✅ BENAR: Selalu di top level component
-function Good({ isLoggedIn }) {
-  const [user, setUser] = useState(null);
-  if (!isLoggedIn) return null; // Conditional di bawah hooks
-  return <div>{user.name}</div>;
-}
-
-// ❌ KESALAHAN 2: Stale closure — yang PALING bikin pusing
-function Stale() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCount(count + 1); // count selalu 0! 😭
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-  // Kenapa? Karena useEffect “nyimpan” count = 0 dari render pertama.
-  // Dia nggak update. Itu namanya stale closure.
-
-// ✅ BENAR: Pakai functional update!
-function Fixed() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCount(c => c + 1); // Selalu ambil nilai TERBARU 🎯
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-}
-
-// ❌ KESALAHAN 3: Object sebagai dependency
-useEffect(() => { fetchData(options); }, [options]);
-// options = { page: 1, limit: 10 }
-// Masalahnya: setiap render, object BARU dibuat!
-// Referensi berbeda → React anggap berubah → infinite loop! 🔄
-
-// ✅ BENAR: Pakai primitive atau useMemo
-const memoOptions = useMemo(() => ({ page, limit }), [page, limit]);
-useEffect(() => { fetchData(memoOptions); }, [memoOptions]);</code></pre><div class="warning-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>⚠️ 3 Aturan Emas Hooks:</strong></p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Kesalahan Umum Hooks</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// ❌ 1. Lupa dependency array
-useEffect(() =&gt; {
-  fetchData();
-}); // jalan setiap render! Performance disaster!
-
-// ✅ Fix:
-useEffect(() =&gt; {
-  fetchData();
-}, []); // cuma sekali
-
-// ❌ 2. Update state berdasarkan state lama
-const [count, setCount] = useState(0);
-setCount(count + 1); // bisa stale kalau dipanggil cepat
-setCount(count + 1); // count masih nilai lama!
-
-// ✅ Fix: gunakan functional update
-setCount(prev =&gt; prev + 1);
-setCount(prev =&gt; prev + 1); // pasti +2
-
-// ❌ 3. Panggil hook di dalam conditional
-if (showCount) {
-  const [count, setCount] = useState(0); // BREAKS RULES OF HOOKS!
-}
-
-// ✅ Fix: hook selalu di top level
-const [count, setCount] = useState(0);
-// baru gunakan conditional untuk logic-nya</code></pre>
-                    </div>
-                    <ol class="mt-2 space-y-1 text-sm list-decimal list-inside">
-                        <li><strong class="text-ink">Top level only!</strong> Nggak boleh di dalam if, loop, atau nested function.</li>
-                        <li><strong class="text-ink">Functional update</strong> <code class="text-ink">c => c + 1</code> kalau state baru bergantung di state lama di useEffect.</li>
-                        <li><strong class="text-ink">Primitive dependency!</strong> Object/array = referensi baru setiap render. Pakai useMemo atau pecah jadi primitive.</li>
-                    </ol>
-                </div>
-            </section>
-
-            <section class="lesson-card bg-lavender rounded-2xl p-6 lg:p-8 border border-ink/20 mb-8">
-                <h3 class="text-xl font-bold text-ink mb-4">📝 RECAP — YANG KAMU UDAH PELAJARI</h3>
-                <p class="text-[#333] mb-4">Oke, kita udah bahas 6 hooks dasar React. Ini rangkumannya biar kamu nggak lupa:</p>
-                <ul class="text-[#333] space-y-3 mb-6">
-                    <li><strong class="text-ink">🧠 useState</strong> — Kasih “ingatan” ke komponen. Data yang berubah = re-render.</li>
-                    <li><strong class="text-ink">⚡ useEffect</strong> — Lakukan side effect setelah render. Fetch data, timer, subscription.</li>
-                    <li><strong class="text-ink">🔮 useRef</strong> — Laci rahasia. Akses DOM, simpan mutable value, tanpa re-render.</li>
-                    <li><strong class="text-ink">📦 useMemo</strong> — Cache hasil kalkulasi mahal. Nggak perlu hitung ulang kalau inputnya sama.</li>
-                    <li><strong class="text-ink">🪚 useCallback</strong> — Cache fungsi biar referensinya stabil. Anak-anak (child component) senang.</li>
-                    <li><strong class="text-ink">📢 useContext</strong> — Pengumuman global. Akses data tanpa props drilling berantai.</li>
-                </ul>
-<div class="tip-box rounded-r-xl p-4 my-4">
-                    <p class="text-sm"><strong>💡 Tip:</strong> Nggak perlu hafal semua sekarang. Yang paling penting kamu mahir dulu itu <strong class="text-ink">useState</strong> dan <strong class="text-ink">useEffect</strong> — itu duo yang bakal kamu pakai 90% waktu. Sisanya pelajari pelan-pelan sambil ngoding proyek nyata. Trust the process! 💪</p>
-
-                    <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-                            <span class="text-xs text-muted font-medium">Quick Reference — All Basic Hooks</span>
-                            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-                        </div>
-                        <pre><code class="language-javascript">// useState - data yang trigger re-render
+    <div class="code-block rounded-xl overflow-hidden mt-6 mb-4">
+        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+            <span class="text-xs text-muted font-medium">Quick Reference — All Basic Hooks</span>
+            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
+        </div>
+        <pre><code class="language-javascript">// useState - data yang trigger re-render
 const [value, setValue] = useState(initialValue);
 
-// useEffect - side effects (fetch, timer, subscription)
+// useEffect - side effects
 useEffect(() =&gt; {
   // setup
   return () =&gt; { /* cleanup */ };
 }, [dependencies]);
 
-// useRef - mutable value tanpa re-render + DOM access
+// useRef - mutable value tanpa re-render
 const ref = useRef(initialValue);
-ref.current = newValue; // nggak trigger re-render
+ref.current = newValue;
 
-// useMemo - cache hasil kalkulasi mahal
+// useMemo - cache hasil kalkulasi
 const result = useMemo(() =&gt; expensiveCalc(a, b), [a, b]);
 
-// useCallback - cache function reference
+// useCallback - cache function
 const fn = useCallback(() =&gt; doSomething(id), [id]);
 
 // useContext - akses global state
 const value = useContext(MyContext);</code></pre>
-                    </div>
-                </div>                <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai & Lanjut!</button>
-                <div class="flex gap-4 mt-4">
-                    <a href="chapter-2.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
-                    <a href="chapter-4.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
-                </div>
-            </section>
+    </div>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <button onclick="markChapterComplete(3)" id="completeBtn3" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Tandai Bab Selesai ✅
+        </button>
+        <a href="chapter-4.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+            Gas ke Bab 4 →
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
 
-            <button id="completeBtn" onclick="markComplete()" class="bg-ink hover:bg-ink-light text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[48px]">✅ Tandai Selesai & Lanjut!</button>
         </div>
     </main>
 
-    <!-- Back to top -->
     <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
     <script>
-
-        function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}
-        window.addEventListener('scroll',()=>{const b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});
-        const progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');
-        function updateProgress(){const done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}
-        function markComplete(){progress.ch3=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}
-        updateProgress();if(progress.ch3){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) { btn.classList.remove('opacity-0','pointer-events-none'); btn.classList.add('opacity-100'); }
+            else { btn.classList.add('opacity-0','pointer-events-none'); btn.classList.remove('opacity-100'); }
+        });
         hljs.highlightAll();
-    
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+        function getProgress() { const s = localStorage.getItem('react-course-progress'); return s ? JSON.parse(s) : {}; }
+        function saveProgress(d) { localStorage.setItem('react-course-progress', JSON.stringify(d)); }
+        function updateProgress() {
+            const p = getProgress();
+            const total = document.querySelectorAll('.lesson-checkbox').length;
+            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+            p['chapter-3'] = { completed: checked, total };
+            saveProgress(p); renderGlobalProgress();
+        }
+        function renderGlobalProgress() {
+            const p = getProgress(); let tc = 0, tl = 0;
+            for (let i = 1; i <= 10; i++) { const ch = p[`chapter-${i}`]; if (ch) { tc += ch.completed; tl += ch.total; } }
+            const pct = tl > 0 ? Math.round((tc/tl)*100) : 0;
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = `${tc}/${tl}`;
+        }
+        function markChapterComplete(ch) {
+            const p = getProgress(); const checks = document.querySelectorAll('.lesson-checkbox');
+            checks.forEach(c => c.checked = true);
+            p[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
+            saveProgress(p); renderGlobalProgress();
+            const btn = document.getElementById(`completeBtn${ch}`);
+            if (btn) { btn.textContent = '✓ Bab Selesai!'; btn.classList.add('opacity-75'); btn.disabled = true; }
+        }
+        renderGlobalProgress();
     </script>
 </body>
 </html>
