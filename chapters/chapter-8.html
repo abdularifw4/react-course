@@ -165,463 +165,451 @@
 
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CONTEXT API — STATE GLOBAL TANPA LIBRARY 🌐</h2><input type="checkbox" id="check-8-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Fundamental &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Bab 4 kita udah kenal useContext. Sekarang bahas lebih dalam — Context API itu cara React menangani state yang perlu di-share ke banyak komponen tanpa prop drilling. Prop drilling itu kayak numpuk: A → B → C → D, cuma buat kirim data dari A ke D. Capek dan berantakan. 😤</p>
+<p>Context API itu kayak <strong class="text-ink">pengumuman sekolah</strong> — guru nggak perlu kasih tahu satu-satu ke tiap murid. Cuma taruh di papan pengumuman, semua murid bisa baca. Begitu juga Context: data-nya di "publish" satu kali, semua komponen di bawah Provider bisa akses. Oh ternyata gitu! 🤯</p>
+<p>Tapi Context punya weakness: <strong class="text-ink">re-render cascade</strong>. Kalau context value berubah, SEMUA komponen yang consume context itu re-render — bahkan yang cuma butuh sebagian data. Di app besar, ini bisa bikin performance turun drastis. Context bagus buat global state yang jarang berubah (theme, auth, locale). Buat state yang sering berubah (cart, form data, real-time data), library state management lebih cocok.</p>
+<p>Best practice: <strong class="text-ink">pisah context per concern</strong>. Jangan bikin satu "AppContext" yang nampung semua state global. Pisah: AuthContext, ThemeContext, CartContext. Setiap context cuma re-render komponen yang consume-nya. Ini mengurangi unnecessary re-render secara signifikan. 🎯</p>
+<p>Pattern yang solid: buat Context → buat Provider component → buat custom hook. Custom hook handle null check dan throw error kalau lupa wrap Provider. Ini bikin API-nya clean dan safe — developer yang lupa wrap Provider langsung dapet error message yang jelas.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Context API — Theme Toggle Pattern</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { createContext, useContext, useState, type ReactNode } from 'react';
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Context API Deep Dive</h2><input type="checkbox" id="check-8-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Fundamental &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Context API</strong> adalah solusi bawaan React untuk state management. Context terdiri dari createContext(), Provider, dan useContext(). Context cocok untuk state global sederhana seperti tema, bahasa, autentikasi, dan preferensi user.</p>
-        <p>Namun Context punya kelemahan: <strong class="text-ink">setiap perubahan value akan me-rerender semua konsumen</strong>, bahkan yang tidak menggunakan bagian data yang berubah. Ini bisa menjadi performance issue di aplikasi besar dengan state kompleks.</p>
-        <p>Untuk mengatasi ini, gunakan <strong class="text-ink">useReducer</strong> bersama Context agar update state lebih terprediksi, atau split Context menjadi beberapa Context kecil yang masing-masing menangani concern berbeda (misalnya AuthContext terpisah dari ThemeContext).</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Context API + useReducer</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">import { createContext, useContext, useReducer } from 'react';
-
-// Definisikan state dan actions
-const CartContext = createContext();
-
-const initialState = { items: [], total: 0 };
-
-function cartReducer(state, action) {
-  switch (action.type) {
-    case 'ADD_ITEM':
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-        total: state.total + action.payload.price,
-      };
-    case 'REMOVE_ITEM':
-      return {
-        ...state,
-        items: state.items.filter(i =&gt; i.id !== action.payload.id),
-        total: state.total - action.payload.price,
-      };
-    case 'CLEAR':
-      return initialState;
-    default:
-      return state;
-  }
+// 1. Define context type
+interface ThemeCtx {
+  theme: 'light' | 'dark';
+  toggle: () =&gt; void;
+  setTheme: (t: 'light' | 'dark') =&gt; void;
 }
 
-function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+// 2. Create context
+const ThemeContext = createContext&lt;ThemeCtx | undefined&gt;(undefined);
+
+// 3. Custom hook — ALWAYS do this
+function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be inside ThemeProvider');
+  return ctx;
+}
+
+// 4. Provider component
+function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState&lt;'light' | 'dark'&gt;('light');
+
+  const toggle = () =&gt; setTheme(t =&gt; t === 'light' ? 'dark' : 'light');
+
   return (
-    &lt;CartContext.Provider value={{ state, dispatch }}&gt;
+    &lt;ThemeContext.Provider value={{ theme, toggle, setTheme }}&gt;
       {children}
-    &lt;/CartContext.Provider&gt;
+    &lt;/ThemeContext.Provider&gt;
   );
 }
 
-function useCart() {
-  const ctx = useContext(CartContext);
-  if (!ctx) throw new Error('useCart harus di dalam CartProvider');
-  return ctx;
-}
-
-// Penggunaan di komponen manapun:
-function AddToCartButton({ product }) {
-  const { dispatch } = useCart();
+// 5. Pakai di komponen mana aja
+function Header() {
+  const { theme, toggle } = useTheme();
   return (
-    &lt;button onClick={() =&gt; dispatch({ type: 'ADD_ITEM', payload: product })}&gt;
-      Tambah ke Keranjang
-    &lt;/button&gt;
+    &lt;header className={theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white'}&gt;
+      &lt;h1&gt;Theme: {theme}&lt;/h1&gt;
+      &lt;button onClick={toggle}&gt;Toggle {theme === 'light' ? '🌙' : '☀️'}&lt;/button&gt;
+    &lt;/header&gt;
   );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Context API seperti papan pengumuman di kantor. Semua orang bisa lihat info di papan (state global), tapi kalau pengumuman sering berubah, semua orang harus membaca ulang (rerender). Untuk data yang sering berubah, perlu solusi yang lebih efisien.</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Supaya nggak rerender semuanya, trik pronya adalah <strong class="text-ink">memecah Context jadi dua</strong>: satu untuk <em>state</em>, satu untuk <em>dispatch</em>. Komponen yang cuma butuh dispatch (seperti tombol) nggak akan rerender saat value berubah!</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Split Context &mdash; Performance Pattern</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">import { createContext, useContext, useReducer } from 'react';
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Performance trick:</strong> Pisah context yang sering berubah dari yang jarang. Misal: AuthContext (jarang berubah) terpisah dari CartContext (sering berubah). Pas cart update, komponen yang cuma butuh auth nggak ikut re-render. Ini pattern yang dipake banyak production app.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">ZUSTAND — STATE MANAGEMENT MINIMALIS ⚡</h2><input type="checkbox" id="check-8-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Library &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Zustand (baca: "zoo-stand") adalah state management library yang minimalis. Nggak perlu Provider wrapper, nggak perlu reducer, nggak perlu actions — cuma sebuah store yang bisa di-import di mana aja. API-nya super simple tapi powerful. Ini favorit komunitas React saat ini. 🔥</p>
+<p>Analoginya: Zustand itu kayak <strong class="text-ink">lemari es</strong> — semua orang bisa buka, ambil, dan simpan makanan kapan aja tanpa permission. Context API itu kayak dapur bersama — makanan di-share tapi semua orang di area itu harus dengar kalau ada yang ambil. Zustand lebih simple dan less ceremony. Oh ternyata gitu! 🤯</p>
+<p>Kenapa Zustand populer? Pertama: <strong class="text-ink">boilerplate minimal</strong>. Bandingkan: Context butuh createContext + Provider + useContext + custom hook. Zustand cuma <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">create()</code> satu kali, langsung pakai. Kedua: <strong class="text-ink">selective re-render</strong>. Komponen cuma re-render kalau bagian state yang dia pilih berubah. Ini beda fundamental dari Context yang re-render semua consumer. Ketiga: <strong class="text-ink">devtools built-in</strong>. Redux DevTools langsung compatible tanpa config.</p>
+<p>Yang perlu diperhatikan: Zustand store itu global by default — bisa diakses dari mana aja. Ini powerful tapi juga berarti komponen bisa mutate state dari mana aja. Di tim besar, disiplin penting: tentukan convention mana komponen boleh update state, mana cuma read-only. Tanpa disiplin, state flow bisa jadi spaghetti. 🎯</p>
+<p>Middleware juga powerful: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">persist</code> buat save ke localStorage, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">immer</code> buat immutable update yang simple, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">devtools</code> buat debugging. Masing-masing bisa ditambah sebagai array di konfigurasi store.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Zustand — Counter Store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 
-// Pisahkan jadi 2 context: state & dispatch
-const CartStateContext = createContext(null);
-const CartDispatchContext = createContext(null);
-
-function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
-  return (
-    &lt;CartStateContext.Provider value={state}&gt;
-      &lt;CartDispatchContext.Provider value={dispatch}&gt;
-        {children}
-      &lt;/CartDispatchContext.Provider&gt;
-    &lt;/CartStateContext.Provider&gt;
-  );
+// ✅ Store setup — cuma satu function!
+interface CounterStore {
+  count: number;
+  increment: () =&gt; void;
+  decrement: () =&gt; void;
+  reset: () =&gt; void;
+  incrementBy: (n: number) =&gt; void;
 }
 
-// Hook terpisah — komponen ambil cuma yang dia butuh
-function useCartState() {
-  const ctx = useContext(CartStateContext);
-  if (!ctx) throw new Error('useCartState harus di dalam CartProvider');
-  return ctx;
-}
-function useCartDispatch() {
-  const ctx = useContext(CartDispatchContext);
-  if (!ctx) throw new Error('useCartDispatch harus di dalam CartProvider');
-  return ctx;
-}
-
-// ✅ Komponen ini HANYA rerender kalau dispatch berubah (hampir never)
-function CheckoutButton() {
-  const dispatch = useCartDispatch();  // nggak subscribe ke state!
-  return &lt;button onClick={() =&gt; dispatch({ type: 'CHECKOUT' })}&gt;Bayar&lt;/button&gt;;
-}</code></pre>
-    </div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Zustand</h2><input type="checkbox" id="check-8-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Library Populer &middot; 8 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Zustand</strong> adalah state management library yang sangat ringan (~1KB), simple, dan powerful. Tidak perlu Provider wrapper, tidak ada boilerplate, dan mendukung selector untuk optimasi rerender.</p>
-        <p>Zustand menggunakan <strong class="text-ink">store pattern</strong> di mana kamu mendefinisikan state dan actions dalam satu objek. Komponen bisa subscribe ke seluruh store atau hanya bagian tertentu menggunakan selector, menghindari rerender yang tidak perlu.</p>
-        <p>Keunggulan Zustand: API minimalis, mendukung devtools, middleware (persist, immer, devtools), bisa digunakan di luar komponen (di utility functions), dan support TypeScript dengan baik.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Zustand Store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">import { create } from 'zustand';
-
-// Buat store &mdash; tidak perlu Provider!
-const useBearStore = create((set, get) =&gt; ({
-  bears: 0,
-  increase: () =&gt; set((state) =&gt; ({ bears: state.bears + 1 })),
-  decrease: () =&gt; set((state) =&gt; ({ bears: state.bears - 1 })),
-  reset: () =&gt; set({ bears: 0 }),
-  setBears: (count) =&gt; set({ bears: count }),
-}));
-
-// Penggunaan di komponen
-function BearCounter() {
-  // Selector &mdash; hanya rerender jika bears berubah
-  const bears = useBearStore((state) =&gt; state.bears);
-  const increase = useBearStore((state) =&gt; state.increase);
-
-  return &lt;div&gt;
-    &lt;h1&gt;{bears} beruang&lt;/h1&gt;
-    &lt;button onClick={increase}&gt;Tambah Beruang&lt;/button&gt;
-  &lt;/div&gt;;
-}
-
-// Store dengan persist middleware (simpan ke localStorage)
-const useUserStore = create(
-  persist(
-    (set) =&gt; ({
-      name: '',
-      theme: 'dark',
-      setName: (name) =&gt; set({ name }),
-      setTheme: (theme) =&gt; set({ theme }),
-    }),
-    { name: 'user-settings' }
+const useCounterStore = create&lt;CounterStore&gt;()(
+  devtools(
+    persist(
+      (set) =&gt; ({
+        count: 0,
+        increment: () =&gt; set((s) =&gt; ({ count: s.count + 1 }), 'increment'),
+        decrement: () =&gt; set((s) =&gt; ({ count: s.count - 1 }), 'decrement'),
+        reset: () =&gt; set({ count: 0 }, 'reset'),
+        incrementBy: (n) =&gt; set((s) =&gt; ({ count: s.count + n }), 'incrementBy'),
+      }),
+      { name: 'counter-store' } // persist to localStorage
+    )
   )
-);</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Zustand seperti lemari es bersama di kos-kosan. Semua penghuni bisa ambil dan simpan makanan (state) kapan saja tanpa perlu izin (Provider). Masing-masing penghuni bisa langsung akses tanpa melalui perantara.</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Zustand juga asik banget buat <strong class="text-ink">async operations</strong> seperti fetch data. Nggak perlu middleware khusus &mdash; tinggal panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">set()</code> di dalam async function. Ini contoh real-world buat fetch data dari API:</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Zustand &mdash; Async Data Fetching</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">import { create } from 'zustand';
+);
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-}
-
-interface ProductStore {
-  products: Product[];
-  loading: boolean;
-  error: string | null;
-  fetchProducts: () =&gt; Promise&lt;void&gt;;
-}
-
-const useProductStore = create&lt;ProductStore&gt;((set) =&gt; ({
-  products: [],
-  loading: false,
-  error: null,
-  fetchProducts: async () =&gt; {
-    set({ loading: true, error: null });     // mulai loading
-    try {
-      const res = await fetch('/api/products');
-      const data = await res.json();
-      set({ products: data, loading: false });  // sukses
-    } catch (err) {
-      set({ error: 'Gagal fetch 😭', loading: false });
-    }
-  },
-}));
-
-// Pakai di komponen — selector biar efisien
-function ProductList() {
-  const { products, loading, fetchProducts } = useProductStore();
-  // atau pakai selector terpisah biar lebih granular:
-  // const products = useProductStore((s) =&gt; s.products);
-
-  return (
-    &lt;div&gt;
-      &lt;button onClick={fetchProducts}&gt;Muat Produk&lt;/button&gt;
-      {loading &amp;&amp; &lt;p&gt;Loading...&lt;/p&gt;}
-      {products.map((p) =&gt; (
-        &lt;div key={p.id}&gt;{p.name} — Rp{p.price}&lt;/div&gt;
-      ))}
-    &lt;/div&gt;
-  );
-}</code></pre>
-    </div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Redux Toolkit & Jotai</h2><input type="checkbox" id="check-8-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Library Lanjutan &middot; 9 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p><strong class="text-ink">Redux Toolkit (RTK)</strong> adalah cara modern menggunakan Redux. RTK menyederhanakan setup Redux dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createSlice</code> (otomatis buat actions dan reducers), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createAsyncThunk</code> (handle async), dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createStore</code> (simplified store setup).</p>
-        <p><strong class="text-ink">Jotai</strong> mengambil pendekatan berbeda &mdash; <em>atomic</em> state management. Alih-alih satu store besar, state dipecah menjadi atom-atom kecil yang independen. Komponen subscribe ke atom tertentu, sehingga rerender sangat optimal.</p>
-        <p>RTK cocok untuk aplikasi besar dengan tim banyak developer karena struktur yang ketat dan devtools yang lengkap. Jotai cocok untuk aplikasi yang mengutamakan fleksibilitas dan performa granular.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Redux Toolkit &amp; Jotai</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-javascript">// Redux Toolkit &mdash; createSlice
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: { value: 0 },
-  reducers: {
-    increment: (state) =&gt; { state.value += 1; },
-    decrement: (state) =&gt; { state.value -= 1; },
-    incrementBy: (state, action) =&gt; { state.value += action.payload; },
-  },
-});
-
-const store = configureStore({ reducer: { counter: counterSlice.reducer } });
-export const { increment, decrement, incrementBy } = counterSlice.actions;
-
-// Jotai &mdash; Atomic state management
-import { atom, useAtom } from 'jotai';
-
-// Definisikan atom (unit state terkecil)
-const countAtom = atom(0);
-const doubledCountAtom = atom((get) =&gt; get(countAtom) * 2);
-
-// Penggunaan
+// ✅ Pakai di komponen — selective subscribe!
 function Counter() {
-  const [count, setCount] = useAtom(countAtom);
-  const doubled = useAtomValue(doubledCountAtom);
+  const count = useCounterStore((s) =&gt; s.count);
+  const increment = useCounterStore((s) =&gt; s.increment);
+  const decrement = useCounterStore((s) =&gt; s.decrement);
+
   return (
     &lt;div&gt;
-      &lt;span&gt;Count: {count} (Doubled: {doubled})&lt;/span&gt;
-      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+1&lt;/button&gt;
+      &lt;span&gt;Count: {count}&lt;/span&gt;
+      &lt;button onClick={increment}&gt;+&lt;/button&gt;
+      &lt;button onClick={decrement}&gt;-&lt;/button&gt;
     &lt;/div&gt;
   );
-}</code></pre>
-    </div></div>
-    <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">&#128161; Analogi:</strong> Redux Toolkit seperti sistem filing kantor yang terorganisir rapi (struktur ketat, dokumentasi lengkap). Jotai seperti sticky notes yang bisa ditempel di mana saja &mdash; fleksibel, ringan, dan bisa diakses langsung tanpa melalui sistem filing.</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Salah satu fitur killer RTK adalah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createAsyncThunk</code> untuk handle async logic (seperti API calls). Dia otomatis dispatch action <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pending</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fulfilled</code>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rejected</code>. Kamu cuma tangkap di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">extraReducers</code>:</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">RTK &mdash; createAsyncThunk untuk API Calls</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">import { createSlice, createAsyncThunk, configureStore } from '@reduxjs/toolkit';
+}</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Zustand — Shopping Cart</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { create } from 'zustand';
 
-// 1. Bikin thunk — handle async API call
-export const fetchUsers = createAsyncThunk('users/fetchAll', async () =&gt; {
-  const res = await fetch('/api/users');
-  if (!res.ok) throw new Error('Gagal ambil data 😵');
-  return res.json();  // ini jadi action.payload
-});
-
-// 2. Bikin slice dengan extraReducers untuk handle thunk
-const usersSlice = createSlice({
-  name: 'users',
-  initialState: { data: [], status: 'idle', error: null },
-  reducers: {
-    clearUsers: (state) =&gt; { state.data = []; state.status = 'idle'; },
-  },
-  extraReducers: (builder) =&gt; {
-    builder
-      .addCase(fetchUsers.pending, (state) =&gt; {
-        state.status = 'loading';
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) =&gt; {
-        state.status = 'succeeded';
-        state.data = action.payload;
-      })
-      .addCase(fetchUsers.rejected, (state, action) =&gt; {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
-  },
-});
-
-export const { clearUsers } = usersSlice.actions;
-export default usersSlice.reducer;
-
-// 3. Pakai di komponen React dengan hook RTK
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from './usersSlice';
-
-function UserDashboard() {
-  const { data, status, error } = useSelector((s) =&gt; s.users);
-  const dispatch = useDispatch();
-
-  // trigger fetch saat mount
-  useEffect(() =&gt; { dispatch(fetchUsers()); }, [dispatch]);
-
-  if (status === 'loading') return &lt;p&gt;⏳ Loading...&lt;/p&gt;;
-  if (status === 'failed') return &lt;p&gt;❌ {error}&lt;/p&gt;;
-  return &lt;ul&gt;{data.map(u =&gt; &lt;li key={u.id}&gt;{u.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code></pre>
-    </div>
-</section>
-
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-3" id="lesson-4">
-    <div class="flex items-start gap-4 mb-6">
-        <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div>
-        <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Kapan Pakai Apa?</h2><input type="checkbox" id="check-8-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div>
-            <p class="text-sm text-muted">Decision Guide &middot; 6 menit baca</p>
-        </div>
-    </div>
-    <div class="space-y-4 text-[#333] leading-relaxed">
-        <p>Memilih state management yang tepat sangat penting. <strong class="text-ink">useState</strong> cukup untuk state lokal komponen. <strong class="text-ink">Context API</strong> cocok untuk state global sederhana (tema, auth, i18n) di aplikasi kecil-menengah.</p>
-        <p><strong class="text-ink">Zustand</strong> adalah pilihan terbaik untuk kebanyakan aplikasi modern: API minimalis, tanpa Provider, performa baik, dan learning curve rendah. Gunakan untuk state global yang kompleks atau sering berubah.</p>
-        <p><strong class="text-ink">Redux Toolkit</strong> untuk aplikasi enterprise dengan tim besar yang butuh struktur ketat dan tooling lengkap. <strong class="text-ink">Jotai</strong> untuk state yang sangat granular dan performa-critical. Keduanya bisa dicampur: Zustand untuk global, useState untuk lokal, Context untuk theme.</p>
-    </div>
-    <div class="mt-6"><div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10"><span class="text-xs text-muted font-medium">Decision Guide</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button></div>
-        <pre><code class="language-bash"># Decision tree state management React:
-
-# 1. State hanya dipakai 1 komponen?
-#    &#10003; =&gt; useState / useReducer
-#
-# 2. State dipakai beberapa komponen dekat (parent-child)?
-#    &#10003; =&gt; Lift state up + pass via props
-#
-# 3. State global tapi sederhana (theme, auth, lang)?
-#    &#10003; =&gt; Context API
-#
-# 4. State global kompleks, sering berubah, perlu selector?
-#    &#10003; =&gt; Zustand (rekomendasi default)
-#
-# 5. Aplikasi enterprise, tim besar, butuh time travel debugging?
-#    &#10003; =&gt; Redux Toolkit
-#
-# 6. State sangat granular, perlu optimasi rerender ekstrem?
-#    &#10003; =&gt; Jotai</code></pre>
-    </div></div>
-    <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">&#9888;&#65039; Perhatian:</strong> Jangan over-engineer! Mulai dengan useState, lalu naik ke Context atau Zustand hanya ketika benar-benar dibutuhkan. Menambah state management library memiliki cost: bundle size, complexity, dan learning curve.</p></div>
-    <p class="text-[#333] leading-relaxed pt-2">Contoh nyata: kamu bisa <strong class="text-ink">mencampur beberapa solusi</strong> dalam satu app. Theme pakai Context (jarang berubah), cart pakai Zustand (sering berubah, butuh selector), dan form lokal pakai useState. Ini pola yang umum dipake di production:</p>
-    <div class="code-block rounded-xl overflow-hidden">
-        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">Real-World: Mix &amp; Match State Strategy</span>
-            <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
-        </div>
-        <pre><code class="language-tsx">// store/useCartStore.ts — Zustand untuk cart (sering berubah)
-import { create } from 'zustand';
-import { immer } from 'zustand/middleware/immer';
-
-interface CartItem { id: string; name: string; qty: number; price: number; }
+interface CartItem { id: string; name: string; price: number; qty: number; }
 
 interface CartStore {
   items: CartItem[];
-  addItem: (item: CartItem) =&gt; void;
+  addItem: (item: Omit&lt;CartItem, 'qty'&gt;) =&gt; void;
   removeItem: (id: string) =&gt; void;
-  // Derived selector — otomatis dihitung ulang kalau items berubah
+  updateQty: (id: string, qty: number) =&gt; void;
   total: () =&gt; number;
+  clear: () =&gt; void;
 }
 
-export const useCartStore = create&lt;CartStore&gt;()(
-  immer((set, get) =&gt; ({
-    items: [],
-    addItem: (item) =&gt;
-      set((state) =&gt; {
-        const existing = state.items.find((i) =&gt; i.id === item.id);
-        if (existing) existing.qty += 1;          // immer: mutate langsung!
-        else state.items.push(item);
-      }),
-    removeItem: (id) =&gt;
-      set((state) =&gt; {
-        state.items = state.items.filter((i) =&gt; i.id !== id);
-      }),
-    total: () =&gt; get().items.reduce((sum, i) =&gt; sum + i.price * i.qty, 0),
-  }))
+const useCartStore = create&lt;CartStore&gt;()((set, get) =&gt; ({
+  items: [],
+  addItem: (item) =&gt; set((s) =&gt; {
+    const existing = s.items.find(i =&gt; i.id === item.id);
+    if (existing) {
+      return { items: s.items.map(i =&gt; i.id === item.id ? { ...i, qty: i.qty + 1 } : i) };
+    }
+    return { items: [...s.items, { ...item, qty: 1 }] };
+  }),
+  removeItem: (id) =&gt; set((s) =&gt; ({ items: s.items.filter(i =&gt; i.id !== id) })),
+  updateQty: (id, qty) =&gt; set((s) =&gt; ({
+    items: qty &lt;= 0 ? s.items.filter(i =&gt; i.id !== id)
+      : s.items.map(i =&gt; i.id === id ? { ...i, qty } : i)
+  })),
+  total: () =&gt; get().items.reduce((sum, i) =&gt; sum + i.price * i.qty, 0),
+  clear: () =&gt; set({ items: [] }),
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">selector</code> untuk selective re-render. Kalau kamu tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const store = useStore()</code> tanpa selector, komponen re-render setiap KALI state apapun berubah — sama jeleknya kayak Context!</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REDUX TOOLKIT — TANK BERAT YANG MODERN 🏋️</h2><input type="checkbox" id="check-8-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Library &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Redux itu legend — state management pertama yang populer di React. Tapi Redux lama itu banyak boilerplate: actions, reducers, middleware, thunks, selectors — ratusan baris buat hal sederhana. Redux Toolkit (RTK) lahir buat fix semua masalah itu. API-nya modern, concise, dan powerful. 🎯</p>
+<p>Analoginya: Redux Toolkit itu kayak <strong class="text-ink">tank modern</strong> — berat, powerful, tapi udah punya autopilot dan AC. Redux lama itu kayak tank WWII — powerful tapi perlu banyak crew (boilerplate) buat operasikan. RTK menangani complexity buat kamu. Oh ternyata gitu! 🤯</p>
+<p>Fitur utama RTK: <strong class="text-ink">createSlice</strong> (auto-generate action creators + action types), <strong class="text-ink">createAsyncThunk</strong> (handle loading/success/error state otomatis), <strong class="text-ink">createStore</strong> (one-liner store setup), dan <strong class="text-ink">RTK Query</strong> (data fetching & caching built-in). Dulu butuh library terpisah buat semua ini, sekarang satu package.</p>
+<p>Tapi Redux Toolkit bukan selalu jawaban. Buat project kecil-menengah, Zustand atau bahkan Context API cukup. RTK paling cocok buat: app enterprise dengan tim besar, state yang sangat kompleks (multi-step workflows, offline-first, complex business logic), atau project yang sudah existing pakai Redux dan mau modernize. Jangan over-engineer! 🔥</p>
+
+<p>Satu fitur RTK yang sering dilupakan: <strong class="text-ink">RTK Query</strong>. Ini data fetching library built-in di RTK — bisa replace TanStack Query/SWR kalau kamu udah pake Redux. Auto-generate hooks (useGetUsersQuery, useCreateUserMutation), caching otomatis dengan tag-based invalidation, optimistic update, dan polling. Plus, karena integrated sama Redux store, kamu bisa access fetched data dari mana aja tanpa prop passing. Powerful banget buat CRUD-heavy apps. ⚡</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Redux Toolkit — createSlice</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { createSlice, createAsyncThunk, createStore, configureStore } from '@reduxjs/toolkit';
+
+// ✅ Async thunk — auto handle loading/success/error
+const fetchUsers = createAsyncThunk('users/fetch', async () =&gt; {
+  const res = await fetch('/api/users');
+  return res.json() as User[];
+});
+
+// ✅ Slice — actions + reducers satu tempat
+const usersSlice = createSlice({
+  name: 'users',
+  initialState: { list: [] as User[], loading: false, error: null as string | null },
+  reducers: {
+    addUser: (state, action) =&gt; { state.list.push(action.payload); },
+    removeUser: (state, action) =&gt; { state.list = state.list.filter(u =&gt; u.id !== action.payload); },
+  },
+  extraReducers: (builder) =&gt; {
+    builder
+      .addCase(fetchUsers.pending, (s) =&gt; { s.loading = true; })
+      .addCase(fetchUsers.fulfilled, (s, a) =&gt; { s.loading = false; s.list = a.payload; })
+      .addCase(fetchUsers.rejected, (s) =&gt; { s.loading = false; s.error = 'Failed'; });
+  },
+});
+
+// ✅ Store — one-liner
+const store = configureStore({ reducer: { users: usersSlice.reducer } });
+
+// ✅ Auto-generated action creators
+store.dispatch(usersSlice.actions.addUser({ id: '1', name: 'Arif' }));
+store.dispatch(fetchUsers());</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 RTK Query:</strong> Kalau app kamu banyak data fetching (CRUD), pertimbangkan RTK Query — built-in di Redux Toolkit. Auto-generate hooks (useGetUsersQuery, useCreateUserMutation), caching otomatis, optimistic update, dan polling. Bisa replace TanStack Query/SWR buat project yang udah pakai Redux.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">JOTAI — ATOMIC STATE MANAGEMENT ⚛️</h2><input type="checkbox" id="check-8-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Library &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Jotai punya filosofi berbeda dari state management lain. Dia nggak punya satu "store" besar. Sebagai gantinya, state dipecah jadi <strong class="text-ink">atoms</strong> — unit state terkecil yang independent. Komponen subscribe ke atom yang dia butuh, dan cuma re-render kalau atom itu berubah. Minimal re-render, maksimal performance. ⚡</p>
+<p>Analoginya: Redux/Zustand itu kayak <strong class="text-ink">supermarket besar</strong> — semua barang di satu tempat, tapi kalau ada orang buka pintu, semua orang yang di dalam terkena dampaknya. Jotai itu kayak <strong class="text-ink">vending machine</strong> — tiap mesin jual satu jenis barang, cuma orang yang mau barang itu yang dekat mesin. Terisolasi, efficient. Oh ternyata gitu! 🤯</p>
+<p>Keunggulan Jotai: <strong class="text-ink">true selective re-render</strong>. Kalau kamu punya 100 atoms dan satu komponen cuma subscribe ke 1 atom, 99 atom lain berubah pun komponen itu nggak re-render. Ini nggak bisa dicapai Context API (re-render semua consumer) dan bahkan Zustand (selector membantu tapi tetap evaluate seluruh store).</p>
+<p>Yang menarik: Jotai punya <strong class="text-ink">derived atoms</strong> — atom yang nilainya di-compute dari atom lain. Mirip computed property di Vue atau selector di Redux. Plus <strong class="text-ink">async atoms</strong> buat data fetching. API-nya sangat React-idiomatic — semua feels natural, kayak pake useState tapi global. 🎯</p>
+<p>Tapi Jotai kurang cocok buat: state yang saling terkait kompleks (Redux lebih baik), atau tim yang butuh strict architecture pattern (Zustand/Redux punya convention lebih jelas). Jotai paling kuat buat UI state: form state, modal state, filter, pagination, tab — state kecil yang independent.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Jotai — Atoms & Derived State</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
+
+// ✅ Primitive atoms — unit state terkecil
+const countAtom = atom(0);
+const themeAtom = atom&lt;'light' | 'dark'&gt;('light');
+const searchAtom = atom('');
+
+// ✅ Derived atom — compute dari atom lain
+const doubleCountAtom = atom((get) =&gt; get(countAtom) * 2);
+
+// ✅ Read/Write derived atom
+const formattedSearchAtom = atom(
+  (get) =&gt; get(searchAtom).trim().toLowerCase(),      // read
+  (_get, set, update: string) =&gt; {                     // write
+    set(searchAtom, update);
+  }
 );
 
-// components/CartBadge.tsx — komponen ini cuma rerender kalau jumlah item berubah
-function CartBadge() {
-  const itemCount = useCartStore((s) =&gt;
-    s.items.reduce((n, i) =&gt; n + i.qty, 0)   // selector granular
+// ✅ Pakai di komponen
+function Counter() {
+  const [count, setCount] = useAtom(countAtom);
+  const double = useAtomValue(doubleCountAtom); // read-only
+
+  return (
+    &lt;div&gt;
+      &lt;span&gt;Count: {count} (Double: {double})&lt;/span&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+&lt;/button&gt;
+    &lt;/div&gt;
   );
-  return &lt;span className="badge"&gt;🛒 {itemCount}&lt;/span&gt;;
 }
 
-// components/CheckoutTotal.tsx — cuma peduli total harga
-function CheckoutTotal() {
-  const total = useCartStore((s) =&gt; s.total());
-  return &lt;p&gt;Total: Rp{total.toLocaleString('id-ID')}&lt;/p&gt;;
+// ✅ Performance: useAtomValue = cuma read, nggak re-render pas set
+function CountDisplay() {
+  const count = useAtomValue(countAtom);
+  return &lt;span&gt;{count}&lt;/span&gt;;
 }
-// Catatan: CartBadge dan CheckoutTotal independen —
-// update qty nggak bikin CheckoutTotal rerender kalau total-nya sama!</code></pre>
-    </div>
+
+// ✅ Performance: useSetAtom = cuma write, TIDAK subscribe
+function CountButtons() {
+  const setCount = useSetAtom(countAtom);
+  return &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+&lt;/button&gt;;
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Jotai vs Zustand:</strong> Pilih Jotai kalau state-mu banyak tapi independent (atoms). Pilih Zustand kalau state-mu saling terkait dan butuh satu source of truth (store). Keduanya bisa koexist — Jotai buat UI state, Zustand buat server state.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PERBANDINGAN — MANA YANG PANTAS BUAT PROJECTMU? 🤔</h2><input type="checkbox" id="check-8-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Decision &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Pilihan state management itu kayak pilih sepatu: nggak ada yang "paling baik" buat semua situasi. Sneakers cocok buat lari, boots buat hiking, formal buat kantor. Masing-masing punya trade-off. Yang penting: pilih yang sesuai dengan kebutuhan projectmu. 🎯</p>
+<p><strong class="text-ink">Context API</strong> — Start here. Tanpa install apapun, built-in React. Cocok buat: theme toggle, auth state, locale, config. Limitasi: re-render cascade kalau value sering berubah. Max 3-5 contexts sebelum jadi berantakan.</p>
+<p><strong class="text-ink">Zustand</strong> — Sweet spot. Minimal API, selective re-render, persist middleware. Cocok buat: 80% project React. Cart, filters, form state, UI state, app state. Install: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm i zustand</code>. Learning curve: 15 menit. Ini yang KAI recommend buat kebanyakan developer.</p>
+<p><strong class="text-ink">Redux Toolkit</strong> — Heavy duty. Cocok buat enterprise app, tim besar, state super kompleks. RTK Query bisa replace data fetching library. Trade-off: boilerplate lebih banyak, learning curve lebih tinggi. Tapi kalau udah paham, development speed-nya cepat karena convention-nya jelas.</p>
+<p><strong class="text-ink">Jotai</strong> — Atomic & minimalist. Cocok buat app dengan banyak independent UI state. Performance-nya top-tier karena true atomic re-render. Trade-off: pattern-nya beda dari convention lain, bisa bingung buat developer yang terbiasa Redux/Zustand.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Decision Matrix — Quick Reference</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ===== KAPAN PAKAI APA =====
+//
+// Context API:
+//   ✅ Theme toggle, auth, locale, config
+//   ✅ Project kecil, nggak mau install library
+//   ❌ State yang sering berubah (cart, real-time)
+//   ❌ Lebih dari 5 global states
+//
+// Zustand:
+//   ✅ Middle-ground — cocok buat 80% project
+//   ✅ Cart, filters, form, UI state, server cache
+//   ✅ Tim kecil-menengah, fast iteration
+//   ❌ Enterprise app dengan state super kompleks
+//
+// Redux Toolkit:
+//   ✅ Enterprise app, tim besar (10+ dev)
+//   ✅ State kompleks, multi-step workflows
+//   ✅ Udah pakai Redux di project existing
+//   ❌ Project kecil (overkill)
+//
+// Jotai:
+//   ✅ Banyak independent UI state (form, modal, tabs)
+//   ✅ Performance-critical app
+//   ✅ Dev yang suka functional/atomic pattern
+//   ❌ State yang saling terkait kompleks
+//
+// ===== RECOMMENDASI KAI =====
+// 1. Start dengan Context API
+// 2. Kalau mulai "banyak", pindah ke Zustand
+// 3. Kalau enterprise/large team, pertimbangkan RTK
+// 4. Kalau performance jadi masalah, pertimbangkan Jotai</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Anti-pattern:</strong> JANGAN pake semua library sekaligus di satu project. Pick ONE primary state management dan stick with it. Mixing Context + Zustand + Redux + Jotai = debugging nightmare. Pilih yang paling cocok, dan gunakan consistently.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TESTING STATE MANAGEMENT — JANGAN TRUST, VERIFY 🧪</h2><input type="checkbox" id="check-8-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Testing &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Nggak peduli library apa yang kamu pake, state management yang nggak di-test itu bom waktu. Bug state itu paling susah di-debug — karena tergantung sequence of actions, timing, dan cross-component dependency. Satu state salah bisa crash seluruh app. Jadi test itu bukan opsional. 🧪</p>
+<p>Good news: testing state management itu straightforward. Untuk Context/Zustand/Redux, kamu test di level <strong class="text-ink">unit</strong> — render komponen, trigger action, cek output. Untuk Jotai, test atom secara terpisah. Tools-nya sama: React Testing Library + Vitest/Jest.</p>
+<p>Pattern yang aman: <strong class="text-ink">arrange-act-assert</strong>. Arrange = setup store + render component. Act = trigger user action (click, type). Assert = cek DOM/ceks store state. Jangan test implementation detail (internals), test behavior (apa yang user lihat). Ini bikin test robust dan nggak fragile. Oh ternyata gitu! 🤯</p>
+<p>Untuk async state (data fetching), mock fetch API atau gunakan MSW (Mock Service Worker). MSW intercept HTTP request di network level — jadi nggak perlu mock implementation detail. Test lebih realistic dan nggak fragile terhadap refactoring.</p>
+
+<p>Untuk Redux Toolkit, testing bahkan lebih mudah — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">redux-mock-store</code> buat mock dispatch, atau langsung test reducer-nya sebagai pure function. Reducer test itu paling cepat karena nggak perlu render — cuma input state + action, assert output state. Unit test par excellence. 🎯</p>
+
+<p>Pattern yang KAI recommend: <strong class="text-ink">pyramid testing</strong>. Banyak unit test (store, reducer, atom), beberapa integration test (komponen + store), sedikit E2E test (user flow). Unit test cepat dan murah. E2E test lambat dan mahal. Balance yang tepat bikin CI/CD cepat tapi tetap confident.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Testing Zustand Store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { render, screen, fireEvent } from '@testing-library/react';
+import { useCounterStore } from './store';
+
+// ✅ Test store directly (unit test)
+test('increment increases count', () =&gt; {
+  const { increment } = useCounterStore.getState();
+  expect(useCounterStore.getState().count).toBe(0);
+  increment();
+  expect(useCounterStore.getState().count).toBe(1);
+});
+
+// ✅ Test via component (integration test)
+function CounterDisplay() {
+  const count = useCounterStore((s) =&gt; s.count);
+  const increment = useCounterStore((s) =&gt; s.increment);
+  return &lt;button onClick={increment}&gt;Count: {count}&lt;/button&gt;;
+}
+
+test('button click updates counter', () =&gt; {
+  // Reset state before each test
+  useCounterStore.setState({ count: 0 });
+
+  render(&lt;CounterDisplay /&gt;);
+  const btn = screen.getByRole('button');
+  expect(btn).toHaveTextContent('Count: 0');
+
+  fireEvent.click(btn);
+  expect(btn).toHaveTextContent('Count: 1');
+  expect(useCounterStore.getState().count).toBe(1);
+});</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Testing Context:</strong> Untuk test komponen yang pake Context, bungkus render dengan Provider di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render()</code> options: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render(&lt;MyComp /&gt;, { wrapper: ThemeProvider })</code>. Atau bikin custom <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">renderWithProviders()</code> helper buat reuse.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">ANTI-PATTERNS — JANGAN LAKUKAN INI! 🚫</h2><input type="checkbox" id="check-8-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Common Mistakes &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Sudah bahas tools-nya, sekarang bahas kesalahan yang sering bikin state management jadi nightmare. Ini anti-pattern yang KAI lihat berulang-ulang di codebase developer — dan cara menghindarinya. Belajar dari kesalahan orang lain lebih murah daripada belajar dari kesalahan sendiri. 😅</p>
+<p><strong class="text-ink">Anti-pattern #1: Satu global store raksasa.</strong> Semua state di satu tempat — cart, auth, UI, form, theme, semua mixed. Result? Setiap perubahan kecil trigger re-render di seluruh app. Solusi: pisah store per concern, atau pake library yang support selective subscription (Zustand/Jotai).</p>
+<p><strong class="text-ink">Anti-pattern #2: State di tempat yang salah.</strong> Data yang seharusnya lokal disimpen global. Form input state, modal open/close, dropdown selected — ini contoh state yang seharusnya lokal (useState), bukan global. Global state cuma buat data yang perlu di-share antar komponen yang nggak punya parent-child relationship. 🎯</p>
+<p><strong class="text-ink">Anti-pattern #3: Prop drilling yang kebablasan.</strong> Daripada prop drill A→B→C→D, lebih baik pake Context atau event bus. Tapi kalau cuma 1-2 level, prop drilling justru lebih simple dan explicit. Nggak semua prop drilling jelek — yang jelek itu yang berlebihan.</p>
+<p><strong class="text-ink">Anti-pattern #4: Derived state disimpen.</strong> Jangan simpan computed value di state. Kalau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fullName = firstName + lastName</code>, nggak perlu simpan fullName di state. Compute di render. Kalau compute-nya mahal, pake useMemo. Simpan derived state = source of truth duplikat = potensi inconsistency. 🔥</p>
+<p><strong class="text-ink">Anti-pattern #5: Mutation langsung.</strong> Di React, state HARUS immutable. Jangan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">state.items.push(newItem)</code> — ini mutate langsung. Pakai spread: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState([...state.items, newItem])</code>. Atau pake Immer (built-in di RTK dan Zustand middleware).</p>
+
+<p><strong class="text-ink">Anti-pattern #6: Nggak handle loading/error state.</strong> Setiap async state HARUS punya loading, success, dan error state. Nggak handle error = crash di UI. Nggak handle loading = blank screen. Sederhana: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ data, loading, error }</code>. Selalu. Tanpa exception.</p>
+
+<p><strong class="text-ink">Anti-pattern #7: Sync state dari URL.</strong> Filter, search query, pagination — seharusnya sync dengan URL parameter. Kenapa? Biar user bisa bookmark, share link, dan back-forward button works. Library kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">nuqs</code> (Next.js) atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useSearchParams</code> bisa bantu.</p>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Rule of thumb:</strong> Sebelum pindah dari useState ke global state, tanya: "Apakah state ini dibutuhkan oleh komponen yang nggak berhubungan parent-child?" Kalau jawabannya tidak, useState sudah cukup. Jangan over-engineer global state!</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — TASK MANAGER DENGAN ZUSTAND 📋</h2><input type="checkbox" id="check-8-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<p>Waktunya apply semua ilmu! Bikin <strong class="text-ink">Task Manager</strong> dengan Zustand — multi-board (Todo, In Progress, Done), filter, search, persist ke localStorage. Ini project yang real-world banget, nge-gabungin: Zustand store, filter/search pattern, drag-and-drop concept, dan persistence. 🔥</p>
+<p>Architecture-nya clean: satu Zustand store handle semua state, komponen presentasi murni receive props, dan UI state (search input, filter dropdown) tetap lokal. Ini pattern yang bisa kamu scale ke app yang lebih besar.</p>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Task Manager — Zustand Store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+type Board = 'todo' | 'in-progress' | 'done';
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  board: Board;
+  priority: 'low' | 'medium' | 'high';
+  createdAt: number;
+}
+
+interface TaskStore {
+  tasks: Task[];
+  searchQuery: string;
+  filterBoard: Board | 'all';
+  filterPriority: Task['priority'] | 'all';
+  addTask: (task: Omit&lt;Task, 'id' | 'createdAt'&gt;) =&gt; void;
+  moveTask: (id: string, board: Board) =&gt; void;
+  deleteTask: (id: string) =&gt; void;
+  setSearch: (q: string) =&gt; void;
+  setFilterBoard: (b: Board | 'all') =&gt; void;
+  setFilterPriority: (p: Task['priority'] | 'all') =&gt; void;
+  filtered: () =&gt; Task[];
+}
+
+export const useTaskStore = create&lt;TaskStore&gt;()(
+  persist(
+    (set, get) =&gt; ({
+      tasks: [],
+      searchQuery: '',
+      filterBoard: 'all',
+      filterPriority: 'all',
+
+      addTask: (task) =&gt; set((s) =&gt; ({
+        tasks: [...s.tasks, { ...task, id: crypto.randomUUID(), createdAt: Date.now() }]
+      })),
+
+      moveTask: (id, board) =&gt; set((s) =&gt; ({
+        tasks: s.tasks.map(t =&gt; t.id === id ? { ...t, board } : t)
+      })),
+
+      deleteTask: (id) =&gt; set((s) =&gt; ({
+        tasks: s.tasks.filter(t =&gt; t.id !== id)
+      })),
+
+      setSearch: (q) =&gt; set({ searchQuery: q }),
+      setFilterBoard: (b) =&gt; set({ filterBoard: b }),
+      setFilterPriority: (p) =&gt; set({ filterPriority: p }),
+
+      filtered: () =&gt; {
+        const { tasks, searchQuery, filterBoard, filterPriority } = get();
+        return tasks.filter(t =&gt; {
+          if (filterBoard !== 'all' &amp;&amp; t.board !== filterBoard) return false;
+          if (filterPriority !== 'all' &amp;&amp; t.priority !== filterPriority) return false;
+          if (searchQuery &amp;&amp; !t.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+          return true;
+        });
+      },
+    }),
+    { name: 'task-manager-store' }
+  )
+);</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Task Manager — Board Component</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useTaskStore } from './store';
+
+function TaskBoard({ board, title, emoji }: { board: Board; title: string; emoji: string }) {
+  const tasks = useTaskStore((s) =&gt; s.tasks.filter(t =&gt; t.board === board));
+  const moveTask = useTaskStore((s) =&gt; s.moveTask);
+  const deleteTask = useTaskStore((s) =&gt; s.deleteTask);
+
+  const nextBoard: Record&lt;Board, Board | null&gt; = {
+    'todo': 'in-progress',
+    'in-progress': 'done',
+    'done': null,
+  };
+
+  return (
+    &lt;div className="bg-gray-50 rounded-xl p-4"&gt;
+      &lt;h3 className="font-bold mb-4"&gt;{emoji} {title} ({tasks.length})&lt;/h3&gt;
+      &lt;div className="space-y-3"&gt;
+        {tasks.map(task =&gt; (
+          &lt;div key={task.id} className="bg-white p-3 rounded-lg shadow-sm"&gt;
+            &lt;h4 className="font-medium"&gt;{task.title}&lt;/h4&gt;
+            &lt;p className="text-sm text-gray-500"&gt;{task.description}&lt;/p&gt;
+            &lt;div className="flex gap-2 mt-2"&gt;
+              &lt;span className={`text-xs px-2 py-1 rounded ${
+                task.priority === 'high' ? 'bg-red-100 text-red-700' :
+                task.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                'bg-green-100 text-green-700'
+              }`}&gt;{task.priority}&lt;/span&gt;
+              {nextBoard[board] &amp;&amp; (
+                &lt;button onClick={() =&gt; moveTask(task.id, nextBoard[board]!)}
+                  className="text-xs text-blue-600 hover:underline"&gt;
+                  Move →
+                &lt;/button&gt;
+              )}
+              &lt;button onClick={() =&gt; deleteTask(task.id)}
+                className="text-xs text-red-500 hover:underline"&gt;Delete&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend Task Manager: (1) Tambahkan edit task inline, (2) Tambahkan due date dengan sorting, (3) Implement drag-and-drop pake @dnd-kit, (4) Tambahkan kanban column baru (Review, Blocked), (5) Export/import tasks sebagai JSON.</p></div></div></section>
+
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+<p class="text-sm text-muted mt-1">State management bukan one-size-fits-all — pilih yang sesuai kebutuhan</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Context API</strong> — Built-in React, cocok buat global state jarang berubah (theme, auth). Pisah context per concern.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Zustand</strong> — Sweet spot. Minimal API, selective re-render, persist middleware. Cocok buat 80% project.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Redux Toolkit</strong> — Heavy duty. createSlice, async thunk, RTK Query. Cocok buat enterprise/large team.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Jotai</strong> — Atomic state. True selective re-render, derived atoms, async atoms. Cocok buat banyak independent state.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Perbandingan</strong> — Context for simple, Zustand for most, RTK for enterprise, Jotai for performance-critical.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Testing</strong> — Arrange-act-assert pattern. Test store directly + via component integration.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Anti-patterns</strong> — Jangan: satu store raksasa, state global yang seharusnya lokal, derived state disimpen, mutation langsung.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Mini Project</strong> — Task Manager dengan Zustand: multi-board, filter, search, persist.</span></li>
+</ul>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(8)" id="completeBtn8" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="chapter-9.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 9 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-7.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-9.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
+</div>
 </section>
-
-            <section class="lesson-card bg-gradient-to-br from-accent/10 to-dark-800 rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-ink">Ringkasan Bab 8</h2>
-                        <p class="text-sm text-muted mt-1">Yang sudah kamu pelajari</p>
-                    </div>
-                </div>
-                <ul class="space-y-3 text-[#333]">
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Context API + useReducer untuk state global sederhana dengan struktur terprediksi</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Zustand sebagai solusi state management ringan tanpa Provider wrapper</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Redux Toolkit untuk aplikasi enterprise dengan createSlice dan createAsyncThunk</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Jotai untuk atomic state management dengan optimasi rerender granular</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">&#10003;</span><span>Decision guide: kapan menggunakan useState, Context, Zustand, Redux, atau Jotai</span></li>
-                </ul>
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(8)" id="completeBtn8" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai
-                    </button>
-                    <a href="chapter-9.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-                        Lanjut ke Bab 9
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </section>
-
-            
-        </div>
-    </main>
-
-    <!-- Back to top -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+</div>
+</main>
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
