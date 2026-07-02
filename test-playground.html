@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Playground — React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
+                        muted: { DEFAULT: '#666666', light: '#999999' },
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                        surface: '#FAFAFA',
+                    },
+                }
+            }
+        }</script>
+    <link rel="stylesheet" href="assets/course.css">
+</head>
+<body class="bg-white text-ink min-h-screen">
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <h1 class="text-2xl font-bold mb-2">Test: Live Playground</h1>
+        <p class="text-muted text-sm mb-8">Halaman uji untuk assets/playground.js — counter example dari plan.</p>
+
+        <script type="text/plain" id="pg-test-1">function App() {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Tambah</button>
+    </div>
+  );
+}</script>
+        <div class="playground-mount mt-4 mb-4" data-code-id="pg-test-1"></div>
+    </main>
+    <script src="assets/playground.js"></script>
+</body>
+</html>
