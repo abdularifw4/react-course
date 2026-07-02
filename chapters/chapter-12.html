@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 12: Arsitektur &amp; Design Patterns — React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script>tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
+                        muted: { DEFAULT: '#666666', light: '#999999' },
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                        surface: '#FAFAFA',
+                    },
+                }
+            }
+        }</script>
+    <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="bg-white text-ink min-h-screen" data-chapter="12">
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/[0.06]">
+            <a href="../index.html" class="flex items-center gap-2.5">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <span class="text-[15px] font-semibold tracking-tight">react course</span>
+            </a>
+        </div>
+        <div class="p-3">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+                <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+        <div class="px-3 pb-3">
+            <div class="bg-surface rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
+                    <span>Progress</span>
+                    <span id="progressText" class="tabular-nums">0/10</span>
+                </div>
+                <div class="w-full bg-black/5 rounded-full h-1.5">
+                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="lg:ml-72 min-h-screen">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 h-16">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden press p-2 rounded-lg hover:bg-black/5 transition-colors flex items-center justify-center" style="min-width:40px;min-height:40px">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-xs font-mono text-muted tabular-nums">Ch.12</span>
+                        <h1 class="text-base lg:text-lg font-semibold tracking-tight">Arsitektur &amp; Design Patterns</h1>
+                    </div>
+                </div>
+                <a href="chapter-13.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                    Bab 13
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="px-4 lg:px-10 py-8 max-w-4xl">
+
+<!-- HERO -->
+<div class="mb-8 fade-in">
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="w-12 h-12 bg-ink text-white rounded-2xl flex items-center justify-center text-lg font-extrabold tabular-nums">12</span>
+        <span class="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 text-xs font-semibold px-3 py-1.5 rounded-full">🟣 Mahir</span>
+        <span class="text-xs text-muted font-mono">9 lessons &middot; ~90 menit</span>
+    </div>
+    <h1 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-ink mb-3">Arsitektur &amp; Design Patterns</h1>
+    <p class="text-muted leading-relaxed max-w-2xl">Lo udah bisa bikin komponen, hooks, state management, testing, sampai optimasi performa. Sekarang pertanyaannya beda: <strong class="text-ink">gimana caranya nata semua itu jadi codebase yang bisa hidup 3 tahun tanpa jadi horor?</strong> Di bab ini gue ajak lo mikir kayak senior — dari struktur folder, desain komponen, sampai apa yang dicari reviewer saat lo buka PR.</p>
+</div>
+
+<!-- LESSON 1 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">ARSITEKTUR — PEMBEDA JUNIOR VS SENIOR 🏗️</h2><input type="checkbox" id="check-12-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mindset &middot; 8 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Gue mau cerita dulu. Dulu gue pernah masuk ke sebuah tim yang punya satu file legendaris: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Dashboard.jsx</code>, 2.400 baris. Di dalamnya ada fetch data, 14 useState, 6 useEffect, logic diskon, formatter tanggal, DAN komponen modal yang didefinisikan inline. Nggak ada satu pun orang di tim yang berani nyentuh file itu. Setiap sprint, kalau ada bug di dashboard, semua orang tiba-tiba sibuk ngerjain ticket lain. 😅 File itu nggak jelek karena penulisnya bodoh — penulisnya jago. File itu jelek karena <strong class="text-ink">nggak ada yang pernah mutusin di mana sesuatu seharusnya tinggal</strong>. Itulah arsitektur: keputusan tentang "barang ini taruh di mana, dan siapa boleh ngambil dari mana".</p>
+<p>Ini yang jarang disadari: <strong class="text-ink">junior dan senior sama-sama bisa bikin fitur jalan</strong>. Yang beda adalah kondisi codebase SETELAH fitur itu jadi. Junior nulis kode yang bekerja hari ini. Senior nulis kode yang masih enak diubah enam bulan lagi, oleh orang lain, yang belum pernah lihat kodenya. Interviewer senior-level nggak nanya "bisa bikin todo app nggak?" — mereka nanya "kalau app-nya tumbuh 10x, struktur lo bertahan nggak?".</p>
+<p>Analoginya kayak <strong class="text-ink">dapur restoran vs dapur kosan</strong> 🍳. Di dapur kosan, lo naruh panci di mana aja bebas — yang masak cuma lo, dan menunya mi instan. Di dapur restoran, tiap alat ada stasiunnya: garnish di sini, kompor wok di sana, bahan mentah nggak boleh nyampur sama makanan jadi. Kenapa ribet? Karena ada 12 koki kerja bareng, dan kalau satu orang naruh pisau sembarangan, orang lain bisa celaka. Codebase production itu dapur restoran — arsitektur adalah tata letak stasiunnya.</p>
+<p>Kabar baiknya: arsitektur React yang bagus itu <strong class="text-ink">bukan soal pattern yang canggih</strong>, tapi soal disiplin di beberapa keputusan sederhana yang diambil konsisten. Bab ini bakal bahas keputusan-keputusan itu satu per satu: struktur folder, kapan mecah komponen, gimana ngemas logic jadi hooks, gimana ngedesain API komponen, dan gimana ngejaga batas antar fitur. Biar kebayang kenapa ini penting, nih contoh nyata bagian atas file 2.400 baris tadi:</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ Dashboard.jsx — file yang semua orang takut sentuh</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// 2.400 baris. Semua import saling nggak nyambung = tanda tanggung jawabnya kebanyakan
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { formatRupiah, hitungDiskon, validasiNIK } from '../utils';        // utils = tempat sampah
+import { UserModal } from '../components/UserModal';
+import { ChartPenjualan } from '../components/ChartPenjualan';
+import { CART_ACTIONS } from '../pages/checkout/constants';               // dashboard import dari checkout?!
+import { useAuthStore } from '../store';
+
+export default function Dashboard() {
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  // ... masih ada 5 useState lagi, 6 useEffect, dan 1.900 baris JSX 💀
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Cara paling cepat ngukur kesehatan arsitektur: buka satu file, lihat daftar import-nya. Kalau import-nya nyampur dari mana-mana (utils, halaman lain, store global, komponen UI, konstanta fitur tetangga), file itu megang terlalu banyak tanggung jawab. Import list = rontgen arsitektur. 🩻</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Arsitektur bagus ≠ arsitektur rumit. Kalau lo bikin abstraksi 5 layer untuk app 3 halaman, itu sama buruknya dengan file 2.400 baris — cuma beda arah kegagalannya. Senior tahu kapan HARUS nata, dan kapan cukup satu file sederhana.</p></div>
+</section>
+
+<!-- LESSON 2 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">STRUKTUR FOLDER PRODUCTION — BY-TYPE VS BY-FEATURE 📁</h2><input type="checkbox" id="check-12-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Struktur &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ada dua mazhab besar nata folder React: <strong class="text-ink">by-type</strong> (kelompokkan berdasarkan JENIS file: semua komponen jadi satu, semua hooks jadi satu) dan <strong class="text-ink">by-feature</strong> (kelompokkan berdasarkan FITUR: semua yang berhubungan dengan cart jadi satu, semua yang berhubungan dengan auth jadi satu). Hampir semua orang mulai dari by-type karena itu yang muncul di tutorial. Dan hampir semua tim production akhirnya pindah ke by-feature. Kenapa?</p>
+<p>Analoginya <strong class="text-ink">lemari baju</strong> 👕. By-type itu kayak misahin lemari jadi laci "semua kancing", laci "semua lengan", laci "semua kerah". Rapi kelihatannya... sampai lo mau pakai satu kemeja dan harus buka tiga laci. By-feature itu misahin per outfit: "baju kerja", "baju olahraga", "baju kondangan" — satu kebutuhan, satu tempat. Saat lo ngerjain fitur checkout, lo pengen SEMUA file checkout ada di satu folder, bukan tersebar di 5 folder berbeda.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Struktur by-type — oke buat app kecil</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">src/
+├── components/        # 60 file numpuk di sini setelah 6 bulan 😬
+│   ├── Button.jsx
+│   ├── CartItem.jsx
+│   ├── CartSummary.jsx
+│   ├── LoginForm.jsx
+│   ├── ProductCard.jsx
+│   └── ...55 file lagi
+├── hooks/
+│   ├── useCart.js
+│   ├── useAuth.js
+│   └── useProducts.js
+├── utils/
+│   └── helpers.js     # 800 baris fungsi random
+├── pages/
+│   ├── Home.jsx
+│   └── Checkout.jsx
+└── App.jsx</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">✅ Struktur by-feature — app toko online skala menengah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">src/
+├── app/                      # setup global: router, providers, global css
+│   ├── App.jsx
+│   ├── router.jsx
+│   └── providers.jsx
+├── features/                 # 1 folder = 1 kemampuan produk
+│   ├── auth/
+│   │   ├── components/       # LoginForm, RegisterForm
+│   │   ├── hooks/            # useLogin, useSession
+│   │   ├── api.js            # semua call ke /auth/*
+│   │   └── index.js          # public API — pintu resmi fitur ini
+│   ├── cart/
+│   │   ├── components/       # CartItem, CartSummary, CartDrawer
+│   │   ├── hooks/            # useCart
+│   │   ├── store.js          # state cart (zustand/context)
+│   │   └── index.js
+│   └── product/
+│       ├── components/       # ProductCard, ProductGrid, ProductFilter
+│       ├── hooks/            # useProducts, useProductDetail
+│       ├── api.js
+│       └── index.js
+├── pages/                    # tipis! cuma nyusun fitur jadi halaman
+│   ├── HomePage.jsx
+│   ├── ProductDetailPage.jsx
+│   └── CheckoutPage.jsx
+└── shared/                   # dipakai SEMUA fitur, nggak tahu apa-apa soal bisnis
+    ├── ui/                   # Button, Input, Modal, Spinner
+    ├── hooks/                # useDebounce, useMediaQuery
+    └── lib/                  # formatRupiah, apiClient (axios instance)</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Perhatikan tiga hal di struktur by-feature: (1) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pages/</code> jadi TIPIS — halaman cuma nyusun fitur, bukan tempat nulis logic; (2) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">shared/</code> isinya barang yang bener-bener generik — Button nggak boleh tahu apa itu "cart"; (3) tiap fitur punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index.js</code> sebagai pintu resmi — kita bahas dalem di lesson 7.</p>
+<p>Kapan pakai yang mana? <strong class="text-ink">By-type cukup</strong> kalau app lo di bawah ~15 komponen, dikerjain sendirian, dan scope-nya jelas nggak akan tumbuh (landing page, prototype, tugas kuliah). <strong class="text-ink">By-feature wajib</strong> begitu ada 2+ developer, 3+ fitur nyata, atau lo mulai kesulitan jawab "file ini kalau diubah, apa aja yang kena?". Rule of thumb gue: kalau lo scroll folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">components/</code> lebih dari satu layar, udah telat — refactor sekarang sebelum makin sakit.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Tes paling gampang buat struktur folder: <strong class="text-ink">"kalau fitur cart dihapus dari produk, bisa nggak gue hapus SATU folder dan selesai?"</strong> Kalau jawabannya "harus grep ke 12 tempat dulu", struktur lo by-type banget. Fitur yang bagus itu bisa di-delete dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rm -rf features/cart</code>. 🗑️</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan bikin folder untuk fitur yang belum ada. Struktur folder itu ngikutin kebutuhan nyata, bukan ramalan. Mulai sederhana, pecah saat mulai sesak — refactor folder itu murah kok, apalagi editor modern bisa update semua import otomatis.</p></div>
+</section>
+
+<!-- LESSON 3 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">COMPONENT DESIGN — KAPAN MECAH KOMPONEN ✂️</h2><input type="checkbox" id="check-12-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Design &middot; 11 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Bab 5 lo udah kenal pattern klasik <strong class="text-ink">presentational vs container</strong>: komponen "pelayan" yang cuma nampilin, dan komponen "chef" yang megang logic. Versi modernnya di era hooks: <strong class="text-ink">container component digantikan custom hook</strong>. Pemisahannya tetap ada, tapi bentuknya berubah — logic pindah ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useNamaFitur()</code>, dan komponen tinggal manggil hook lalu fokus ke markup. Nggak ada lagi wrapper component tambahan yang cuma jadi perantara.</p>
+<p>Pertanyaan yang lebih sering bikin galau: <strong class="text-ink">kapan sih komponen harus dipecah?</strong> Jawaban senior BUKAN "kalau udah lebih dari X baris". Baris itu gejala, bukan penyakit. Pecah komponen kalau salah satu dari ini kejadian: (1) <strong class="text-ink">ada bagian yang berubah karena alasan berbeda</strong> — filter bar berubah karena kebutuhan pencarian, tabel berubah karena kebutuhan data → dua komponen; (2) <strong class="text-ink">ada state yang cuma dipakai sebagian kecil JSX</strong> — state dropdown yang bikin seluruh halaman re-render tiap dibuka → pecah dropdown-nya biar state-nya turun; (3) <strong class="text-ink">lo pengen pakai bagian itu di tempat lain</strong>. Kalau nggak ada satu pun dari tiga alasan ini, biarin aja — komponen 150 baris yang kohesif lebih enak dibaca daripada 6 komponen 25 baris yang saling lempar props.</p>
+<p>Bagian kedua dari component design yang jarang diajarin: <strong class="text-ink">props API design</strong>. Props itu kontrak publik komponen lo — kayak menu restoran. Menu yang bagus itu pendek, jelas, dan nggak nyuruh pelanggan ngatur cara masak. Beberapa aturan praktis: kasih nama boolean sebagai keadaan (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isLoading</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">disabled</code>) bukan perintah; terima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> untuk konten daripada props string kaku; dan kalau props lo udah lebih dari ~7, itu kode alam bahwa komponen lo nyoba jadi terlalu banyak hal.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Presentational vs container — versi hooks era</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// 1. Logic → custom hook (dulu: container component)
+function useOrderList() {
+  const [orders, setOrders] = useState([]);
+  const [status, setStatus] = useState('loading');
+
+  useEffect(() =&gt; {
+    let cancelled = false;
+    fetchOrders()
+      .then(data =&gt; { if (!cancelled) { setOrders(data); setStatus('success'); } })
+      .catch(() =&gt; { if (!cancelled) setStatus('error'); });
+    return () =&gt; { cancelled = true; };
+  }, []);
+
+  return { orders, status };
+}
+
+// 2. Markup → presentational component: gampang di-test, gampang dipindah
+function OrderTable({ orders }) {
+  return (
+    &lt;table&gt;
+      &lt;tbody&gt;
+        {orders.map(o =&gt; (
+          &lt;tr key={o.id}&gt;
+            &lt;td&gt;{o.nomor}&lt;/td&gt;
+            &lt;td&gt;{o.total}&lt;/td&gt;
+          &lt;/tr&gt;
+        ))}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  );
+}
+
+// 3. Halaman tinggal nyusun — tipis dan jelas
+function OrderPage() {
+  const { orders, status } = useOrderList();
+  if (status === 'loading') return &lt;Spinner /&gt;;
+  if (status === 'error') return &lt;ErrorState /&gt;;
+  return &lt;OrderTable orders={orders} /&gt;;
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Props API design — kontrak yang enak dipakai</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ API yang maksa pemakainya jadi tukang setting
+&lt;Card
+  title="Promo"
+  titleSize="lg"
+  titleColor="red"
+  showIcon={true}
+  iconName="fire"
+  iconPosition="left"
+  body="Diskon 50%"
+  bodyAlign="center"
+  hasFooter={true}
+  footerText="Berlaku sampai besok"
+/&gt;
+
+// ✅ API yang komposisional — Card nggak sok tahu isinya apa
+&lt;Card&gt;
+  &lt;Card.Title&gt;🔥 Promo&lt;/Card.Title&gt;
+  &lt;Card.Body&gt;Diskon 50%&lt;/Card.Body&gt;
+  &lt;Card.Footer&gt;Berlaku sampai besok&lt;/Card.Footer&gt;
+&lt;/Card&gt;
+
+// ✅ Boolean = keadaan, bukan perintah. Callback = kejadian, pakai on*
+&lt;Button variant="primary" isLoading disabled onClick={handleSave}&gt;
+  Simpan
+&lt;/Button&gt;</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Cara nge-review props API sendiri: tulis dulu cara PAKAI komponennya di kertas, sebelum nulis implementasinya. Kalau pemakaiannya udah enak dibaca, implementasi tinggal ngikut. Ini namanya <em>README-driven design</em> versi komponen — dan ini kebiasaan kecil yang bikin komponen lo kerasa "library quality".</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Hindari "boolean explosion": <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isSmall</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isLarge</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isDanger</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isGhost</code>... Empat boolean = 16 kombinasi, sebagian besar nggak valid. Ganti dengan satu prop enum: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">variant="danger"</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">size="sm"</code>.</p></div>
+</section>
+
+<!-- LESSON 4 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CUSTOM HOOKS SEBAGAI UNIT ARSITEKTUR 🧩</h2><input type="checkbox" id="check-12-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Logic &middot; 11 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di kepala kebanyakan orang, custom hook itu cuma "cara biar nggak copy-paste useState + useEffect". Itu benar, tapi kecil. Di kepala senior, custom hook itu <strong class="text-ink">unit arsitektur</strong> — batu bata logic yang punya nama, punya kontrak input-output, bisa di-test sendirian, dan bisa disusun jadi logic yang lebih besar. Komponen itu unit untuk UI; hook itu unit untuk PERILAKU.</p>
+<p>Kuncinya ada di kata <strong class="text-ink">composition</strong>. Hook bisa manggil hook lain — dan di situlah dia jadi powerful. Lo bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDebounce</code> (satu tugas: nunda nilai), lo bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetch</code> (satu tugas: ambil data + kelola status), terus lo gabungkan jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useProductSearch</code> — hook level fitur yang isinya cuma orkestrasi. Kayak <strong class="text-ink">bikin lagu dari sample</strong> 🎧: drum loop-nya udah ada, bassline-nya udah ada, kerjaan lo tinggal nge-mix. Tiap sample bisa dites sendiri, dan lagu barunya nggak perlu rekam ulang drum dari nol.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Dua hook kecil — masing-masing satu tanggung jawab</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// shared/hooks/useDebounce.js — nunda nilai sampai user berhenti ngetik
+function useDebounce(value, delay = 400) {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() =&gt; {
+    const t = setTimeout(() =&gt; setDebounced(value), delay);
+    return () =&gt; clearTimeout(t);   // ketik lagi sebelum delay? batalin timer lama
+  }, [value, delay]);
+
+  return debounced;
+}
+
+// shared/hooks/useFetch.js — ambil data + status + anti race-condition
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [status, setStatus] = useState('idle');
+
+  useEffect(() =&gt; {
+    if (!url) return;
+    const controller = new AbortController();
+    setStatus('loading');
+    fetch(url, { signal: controller.signal })
+      .then(res =&gt; res.json())
+      .then(json =&gt; { setData(json); setStatus('success'); })
+      .catch(err =&gt; { if (err.name !== 'AbortError') setStatus('error'); });
+    return () =&gt; controller.abort();  // url ganti? batalin request lama
+  }, [url]);
+
+  return { data, status };
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">✅ Hook composition — useDebounce + useFetch = useProductSearch</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// features/product/hooks/useProductSearch.js
+// Nggak ada useState/useEffect baru — murni nyusun batu bata yang udah ada!
+function useProductSearch() {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, 400);
+
+  const url = debouncedQuery
+    ? `/api/products?q=${encodeURIComponent(debouncedQuery)}`
+    : null;
+
+  const { data, status } = useFetch(url);
+
+  return {
+    query,
+    setQuery,                       // buat di-bind ke input
+    results: data ?? [],
+    isSearching: status === 'loading',
+    isError: status === 'error',
+  };
+}
+
+// Komponennya jadi sebersih ini:
+function ProductSearch() {
+  const { query, setQuery, results, isSearching } = useProductSearch();
+  return (
+    &lt;div&gt;
+      &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      {isSearching ? &lt;Spinner /&gt; : &lt;ProductGrid items={results} /&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Perhatikan pembagian levelnya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDebounce</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetch</code> tinggal di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">shared/hooks</code> karena mereka nggak tahu apa-apa soal produk. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useProductSearch</code> tinggal di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">features/product</code> karena dia ngerti domain. Ini pola yang bakal ketemu terus: <strong class="text-ink">hook generik di bawah, hook domain di atas, komponen paling atas tinggal makan</strong>.</p>
+<p>Kapan sebaiknya ekstrak logic ke hook? Sinyal paling jelas: (1) logic yang sama muncul di 2+ komponen; (2) komponen lo susah dibaca karena setup useEffect-nya panjang; (3) lo pengen nge-test logic-nya tanpa render UI. Dan aturan namanya satu: hook harus mulai dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">use</code> dan namanya nyeritain PERILAKU, bukan implementasi — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useProductSearch</code>, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetchWithDebounceAndState</code>.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Hook composition itu alasan kenapa library kayak TanStack Query bisa "ngerasa native" di React — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useQuery</code> cuma hook yang lo compose dengan hook lo sendiri. Arsitektur hooks yang bagus bikin kode lo dan kode library nyatu tanpa jahitan.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan bikin satu "mega hook" <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">usePage()</code> yang return 15 nilai — itu cuma mindahin komponen 2.400 baris jadi hook 2.400 baris. Hook yang sehat return sedikit nilai yang saling nyambung. Kalau return-nya udah kayak menu warteg, pecah.</p></div>
+</section>
+
+<!-- LESSON 5 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">COMPOUND COMPONENTS — API TANPA PROPS RAKSASA 🎛️</h2><input type="checkbox" id="check-12-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Pattern &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Lo udah ketemu compound components sekilas di Bab 5. Sekarang kita lihat dia dari kacamata arsitektur: compound components adalah jawaban untuk masalah <strong class="text-ink">props raksasa</strong>. Ceritanya selalu sama: lo bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Tabs&gt;</code> dengan prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">items</code> berupa array config. Minggu depan ada yang minta tab dengan icon. Minggu depannya ada yang minta badge angka. Terus ada yang minta satu tab-nya disabled. Config array lo mulai numbuhin field aneh-aneh: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ label, icon, badge, disabled, tooltip, renderExtra }</code> — lo lagi nulis ulang JSX di dalam object. 😵</p>
+<p>Compound components ngebalik pendekatannya: daripada NERIMA deskripsi UI lewat config, komponen NYEDIAIN bagian-bagian yang bisa disusun. State-nya (tab mana yang aktif) disimpan si parent dan dibagikan lewat Context — jadi anak-anaknya bisa ditaruh di mana aja di dalam parent tanpa prop drilling. Persis kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;select&gt;</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;option&gt;</code> di HTML: dua tag terpisah, satu otak.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ Props raksasa vs ✅ compound — bandingin rasanya</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ Config array: tiap kebutuhan baru = field baru = if baru di dalam Tabs
+&lt;Tabs
+  items={[
+    { id: 'p', label: 'Profil', icon: 'user', badge: null, disabled: false },
+    { id: 'o', label: 'Pesanan', icon: 'box', badge: 5, disabled: false },
+    { id: 'a', label: 'Alamat', icon: 'map', badge: null, disabled: true },
+  ]}
+  renderPanel={(id) =&gt; panels[id]}
+/&gt;
+
+// ✅ Compound: kebutuhan baru = tulis JSX aja, Tabs nggak perlu diubah
+&lt;Tabs defaultTab="p"&gt;
+  &lt;Tabs.List&gt;
+    &lt;Tabs.Tab id="p"&gt;👤 Profil&lt;/Tabs.Tab&gt;
+    &lt;Tabs.Tab id="o"&gt;📦 Pesanan &lt;Badge&gt;5&lt;/Badge&gt;&lt;/Tabs.Tab&gt;
+    &lt;Tabs.Tab id="a" disabled&gt;🏠 Alamat&lt;/Tabs.Tab&gt;
+  &lt;/Tabs.List&gt;
+  &lt;Tabs.Panel id="p"&gt;...&lt;/Tabs.Panel&gt;
+  &lt;Tabs.Panel id="o"&gt;...&lt;/Tabs.Panel&gt;
+  &lt;Tabs.Panel id="a"&gt;...&lt;/Tabs.Panel&gt;
+&lt;/Tabs&gt;</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Sekarang coba langsung. Playground di bawah adalah implementasi Tabs compound lengkap dengan Context. Perhatikan: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Tabs.Tab</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Tabs.Panel</code> sama sekali nggak dikasih props state — mereka "nguping" state dari Context. Coba tambahin satu tab baru (misalnya "Voucher") — lo cuma perlu nambah dua baris JSX, nol perubahan di komponen Tabs-nya. Itulah tanda API yang sehat: <strong class="text-ink">fitur baru nggak maksa ngedit komponen inti</strong>.</p>
+</div>
+<script type="text/plain" id="pg-12-1">// Compound Components: Tabs dengan Context
+const TabsContext = React.createContext(null);
+
+function Tabs({ defaultTab, children }) {
+  const [active, setActive] = React.useState(defaultTab);
+  return (
+    <TabsContext.Provider value={{ active, setActive }}>
+      <div>{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+Tabs.List = function List({ children }) {
+  return (
+    <div style={{ display: 'flex', gap: 8, borderBottom: '2px solid #eee' }}>
+      {children}
+    </div>
+  );
+};
+
+Tabs.Tab = function Tab({ id, children }) {
+  const { active, setActive } = React.useContext(TabsContext);
+  const isActive = active === id;
+  return (
+    <button
+      onClick={() => setActive(id)}
+      style={{
+        border: 'none',
+        background: 'none',
+        padding: '8px 12px',
+        cursor: 'pointer',
+        fontWeight: isActive ? 700 : 400,
+        borderBottom: isActive ? '2px solid #111' : '2px solid transparent',
+        marginBottom: -2,
+      }}
+    >
+      {children}
+    </button>
+  );
+};
+
+Tabs.Panel = function Panel({ id, children }) {
+  const { active } = React.useContext(TabsContext);
+  if (active !== id) return null;
+  return <div style={{ padding: '12px 4px' }}>{children}</div>;
+};
+
+function App() {
+  return (
+    <Tabs defaultTab="profil">
+      <Tabs.List>
+        <Tabs.Tab id="profil">👤 Profil</Tabs.Tab>
+        <Tabs.Tab id="pesanan">📦 Pesanan</Tabs.Tab>
+        <Tabs.Tab id="alamat">🏠 Alamat</Tabs.Tab>
+      </Tabs.List>
+
+      <Tabs.Panel id="profil">
+        Ini panel profil. Coba tambahin tab "Voucher" — cukup 2 baris JSX!
+      </Tabs.Panel>
+      <Tabs.Panel id="pesanan">Lo punya 5 pesanan aktif.</Tabs.Panel>
+      <Tabs.Panel id="alamat">Alamat utama: Jakarta Selatan.</Tabs.Panel>
+    </Tabs>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-12-1"></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Radix UI, Headless UI, dan React Aria — tiga library komponen paling dihormati saat ini — semuanya full compound components. Kalau lo ngerti pattern ini, baca dokumentasi mereka jadi kayak baca bahasa ibu. Dan pas interview ditanya "gimana lo desain komponen Tabs yang reusable?", jawaban compound + Context itu jawaban level senior.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Compound component punya dependency <em>implicit</em>: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Tabs.Tab</code> di luar <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Tabs</code> bakal dapet Context <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">null</code> dan error-nya misterius. Selalu kasih guard: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if (!ctx) throw new Error('Tabs.Tab harus di dalam &lt;Tabs&gt;')</code> — error jelas itu bagian dari desain API.</p></div>
+</section>
+
+<!-- LESSON 6 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">RENDER OPTIMIZATION LEWAT KOMPOSISI 🚀</h2><input type="checkbox" id="check-12-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Performance &middot; 11 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di Bab 10 lo belajar <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCallback</code>. Rahasia kotornya: <strong class="text-ink">di codebase yang arsitekturnya bener, sebagian besar memo itu nggak perlu ada</strong>. Banyak masalah re-render bukan masalah performa — itu masalah STRUKTUR: state ditaruh terlalu tinggi, jadi tiap keystroke ngebangunin seisi rumah. Solusi senior bukan nambahin memo di mana-mana, tapi <strong class="text-ink">mindahin state atau mindahin komponen</strong> lewat komposisi.</p>
+<p>Ada satu fakta React yang jadi kunci trick ini: <strong class="text-ink">kalau sebuah element JSX referensinya SAMA dengan render sebelumnya, React skip render ulang subtree itu</strong>. Nah, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> yang dioper dari luar itu dibuat oleh parent yang nggak re-render — jadi referensinya tetap sama, dan React lewatin dia. Analoginya kayak <strong class="text-ink">paket titipan di ojek</strong> 🛵: driver (komponen yang punya state) boleh muter-muter ganti rute berapa kali pun, isi paketnya (children) nggak pernah dibongkar ulang — karena yang ngebungkus paket itu si pengirim, bukan driver-nya.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Children as props — memo tanpa memo</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SEBELUM: state pencarian tinggal serumah sama komponen berat
+function ProductPage() {
+  const [query, setQuery] = useState('');
+  return (
+    &lt;div&gt;
+      &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      &lt;HeavyProductGrid /&gt;   {/* ikut re-render TIAP KEYSTROKE 💀 */}
+    &lt;/div&gt;
+  );
+}
+
+// ✅ SESUDAH: state diturunin ke komponen kecil, yang berat dioper sebagai children
+function SearchBar({ children }) {
+  const [query, setQuery] = useState('');
+  return (
+    &lt;div&gt;
+      &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      {children}   {/* referensi sama → React skip. Nggak butuh memo! */}
+    &lt;/div&gt;
+  );
+}
+
+function ProductPage() {
+  return (
+    &lt;SearchBar&gt;
+      &lt;HeavyProductGrid /&gt;   {/* dibuat di sini, di komponen yang nggak re-render */}
+    &lt;/SearchBar&gt;
+  );
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Nggak percaya? Playground di bawah ngebuktiin dengan render counter yang kelihatan langsung di layar. Ada dua kotak: kotak merah pakai cara lama (komponen berat serumah sama state), kotak hijau pakai children-as-props. <strong class="text-ink">Ketik di kedua input dan pelototin counter-nya</strong> — counter A naik tiap keystroke, counter B diem di angka 1 selamanya. Tanpa satu pun <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>.</p>
+</div>
+<script type="text/plain" id="pg-12-2">// Bukti: komposisi menghindari re-render, tanpa React.memo
+const renderCount = { A: 0, B: 0 };
+
+function HeavyBox({ id }) {
+  renderCount[id]++;
+  // bayangin ini chart / tabel 1000 baris
+  return (
+    <div style={{ padding: 8, marginTop: 8, background: '#fff', borderRadius: 6 }}>
+      🐘 Komponen berat {id} — render ke-<strong>{renderCount[id]}</strong>
+    </div>
+  );
+}
+
+// ❌ A: state + komponen berat serumah
+function BadSearch() {
+  const [q, setQ] = React.useState('');
+  return (
+    <div style={{ border: '2px solid #fca5a5', borderRadius: 8, padding: 12, marginBottom: 12 }}>
+      <div style={{ fontSize: 13, marginBottom: 6 }}>A. Tanpa komposisi (ketik di sini 👇)</div>
+      <input value={q} onChange={e => setQ(e.target.value)} placeholder="tiap huruf = HeavyBox A render ulang" style={{ width: '95%' }} />
+      <HeavyBox id="A" />
+    </div>
+  );
+}
+
+// ✅ B: state diturunin, yang berat dioper sebagai children
+function GoodSearch({ children }) {
+  const [q, setQ] = React.useState('');
+  return (
+    <div style={{ border: '2px solid #86efac', borderRadius: 8, padding: 12 }}>
+      <div style={{ fontSize: 13, marginBottom: 6 }}>B. Children as props (ketik di sini 👇)</div>
+      <input value={q} onChange={e => setQ(e.target.value)} placeholder="HeavyBox B nggak ikut render" style={{ width: '95%' }} />
+      {children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <BadSearch />
+      <GoodSearch>
+        <HeavyBox id="B" />
+      </GoodSearch>
+      <p style={{ fontSize: 12, color: '#666' }}>
+        Ketik di A → counter A naik terus. Ketik di B → counter B tetap 1. 🎯
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-12-2"></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Urutan senjata senior saat ketemu re-render berlebih: (1) turunin state ke komponen sekecil mungkin, (2) angkat yang berat keluar lewat children/komposisi, (3) BARU kalau dua-duanya nggak bisa, pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>. Memo itu plester; komposisi itu benerin posisi duduk biar nggak kepentok terus.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> "Memo-everything" itu anti-pattern: tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> nambah biaya perbandingan props, nutupin masalah struktur, dan gampang jebol diam-diam (satu inline object di props → memo-nya nggak ngefek, dan nggak ada yang sadar). Optimasi struktur dulu, memo belakangan.</p></div>
+</section>
+
+<!-- LESSON 7 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">FEATURE-SLICED DESIGN — LAYERS &amp; SLICES 🍰</h2><input type="checkbox" id="check-12-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Metodologi &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Struktur by-feature di lesson 2 itu udah bagus. Tapi begitu tim lo 10 orang dan fiturnya 30, muncul pertanyaan baru: "komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UserAvatar</code> ini masuk fitur auth, fitur profile, atau shared?" Kalau tiap orang jawab beda, struktur lo bubar pelan-pelan. <strong class="text-ink">Feature-Sliced Design (FSD)</strong> adalah metodologi yang ngasih jawaban baku untuk pertanyaan-pertanyaan kayak gitu — semacam SOP tata kota untuk frontend.</p>
+<p>FSD nyusun kode dalam <strong class="text-ink">layers</strong> (lapisan horizontal, dari paling abstrak ke paling konkret) dan <strong class="text-ink">slices</strong> (irisan vertikal per domain di dalam layer). Layer utamanya dari atas ke bawah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app</code> → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pages</code> → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">features</code> → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">entities</code> → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">shared</code>. Bedanya dari lesson 2: ada layer baru <strong class="text-ink">entities</strong> — "kata benda" bisnis lo (User, Product, Order) yang dipakai banyak fitur. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UserAvatar</code>? Itu entities/user. Kejawab.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Feature-Sliced Design — layers &amp; slices</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">src/
+├── app/          # LAYER 1 — inisialisasi: router, providers, styles global
+├── pages/        # LAYER 2 — halaman: nyusun features + entities jadi layar
+│   ├── home/
+│   └── checkout/
+├── features/     # LAYER 3 — "kata kerja": aksi yang user LAKUKAN
+│   ├── add-to-cart/          # 1 slice = 1 kemampuan
+│   │   ├── ui/               # AddToCartButton.jsx
+│   │   ├── model/            # state + logic slice ini
+│   │   └── index.js          # ← PUBLIC API: satu-satunya pintu masuk
+│   ├── search-product/
+│   └── login-by-email/
+├── entities/     # LAYER 4 — "kata benda": konsep bisnis yang dipakai bareng
+│   ├── product/
+│   │   ├── ui/               # ProductCard.jsx (tampilan murni product)
+│   │   ├── model/            # tipe Product, selector, normalisasi
+│   │   └── index.js
+│   ├── user/
+│   └── order/
+└── shared/       # LAYER 5 — fondasi: nggak tahu APA PUN soal bisnis
+    ├── ui/                   # Button, Input, Modal
+    ├── api/                  # apiClient, interceptors
+    └── lib/                  # formatRupiah, cn, useDebounce
+
+# ATURAN EMAS: import cuma boleh NURUN.
+# app → pages → features → entities → shared  ✅
+# entities import dari features?  ❌ DILARANG
+# features/cart import features/auth?  ❌ DILARANG (sesama layer)</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Bagian paling penting dari FSD bukan nama foldernya — tapi dua aturannya. <strong class="text-ink">Aturan 1: import hanya boleh mengalir ke bawah.</strong> Pages boleh pakai features, features boleh pakai entities, semua boleh pakai shared. Tapi nggak boleh sebaliknya, dan sesama slice di layer yang sama nggak boleh saling import. <strong class="text-ink">Aturan 2: tiap slice cuma boleh diakses lewat public API-nya</strong> — file <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index.js</code> di root slice. Yang nggak di-export dari index = urusan internal, bebas di-refactor kapan aja tanpa takut ada yang ngerusak.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Public API per slice — index.js sebagai pintu resmi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// features/add-to-cart/index.js — kontrak resmi slice ini ke dunia luar
+export { AddToCartButton } from './ui/AddToCartButton';
+export { useAddToCart } from './model/useAddToCart';
+// CartInternalHelper sengaja NGGAK di-export → bebas diubah kapan aja
+
+// ─────────────────────────────────────────────
+
+// ❌ Nyelonong lewat pintu belakang — nembus internal slice lain:
+import { CartInternalHelper } from '../add-to-cart/model/helpers';
+// Besok file helpers.js di-rename → 9 file di luar slice ikut merah 💥
+
+// ✅ Lewat pintu resmi:
+import { AddToCartButton, useAddToCart } from '@/features/add-to-cart';
+// Internal slice di-refactor total? Selama index.js tetap, nggak ada yang pecah 🛡️</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Lo nggak harus adopsi FSD full untuk dapet manfaatnya. Banyak tim ambil "FSD-lite": layer app/pages/features/shared + aturan public API, tanpa layer entities. Yang bikin codebase sehat itu ATURAN ARAHNYA, bukan jumlah foldernya. Adopsi aturannya dulu, tambah layer kalau sakitnya kerasa. Biar lengkap: FSD full juga punya layer <code class="bg-white/60 px-2 py-0.5 rounded text-ink text-xs">widgets</code> di antara pages dan features — buat blok UI besar yang nggabungin beberapa features (misal Header yang isinya search + cart + user menu) — dan dulu ada layer <code class="bg-white/60 px-2 py-0.5 rounded text-ink text-xs">processes</code> yang sekarang udah deprecated, jadi nggak usah dipakai.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> FSD untuk app 5 halaman itu kayak bikin SOP tata kota buat warung kopi. Overhead-nya nggak kebayar. Pakai FSD saat timnya &gt;3 orang atau fiturnya &gt;10. Sebelum itu, struktur by-feature sederhana dari lesson 2 udah lebih dari cukup.</p></div>
+</section>
+
+<!-- LESSON 8 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">DEPENDENCY BOUNDARIES — PANAH YANG NGGAK BOLEH DIBALIK 🧭</h2><input type="checkbox" id="check-12-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Boundaries &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Setiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">import</code> itu <strong class="text-ink">panah ketergantungan</strong>: file yang import BERGANTUNG pada file yang di-import. Kumpulan panah itu membentuk peta — dan peta itulah arsitektur lo yang SEBENARNYA, terlepas dari serapi apa pun foldernya. Codebase sehat punya panah yang semuanya ngalir satu arah (ke bawah, ke arah yang lebih generik). Codebase sakit punya panah yang muter: A butuh B, B butuh C, C butuh A. Sekali ada siklus, lo nggak bisa lagi ngerti (apalagi nge-test) satu bagian tanpa ngerti semuanya.</p>
+<p>Kenapa UI shared nggak boleh import dari fitur? Bayangin <strong class="text-ink">stopkontak di rumah lo minta tahu merek TV-nya dulu sebelum mau ngalirin listrik</strong> 🔌. Absurd kan? Stopkontak (shared/ui) harus bego total soal siapa pemakainya. Begitu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Button</code> di shared import <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCartStore</code> dari fitur cart, tiga hal rusak sekaligus: Button nggak bisa dipakai di project lain, test Button butuh setup cart, dan fitur cart nggak bisa dihapus tanpa ngerusak SEMUA tombol di app. Satu import, tiga penyakit.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ Pelanggaran boundary → ✅ perbaikannya</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ PELANGGARAN: shared/ui/Button.jsx nguping fitur cart
+import { useCartStore } from '../../features/cart/store';  // panah KE ATAS 🚨
+
+export function Button({ children, ...props }) {
+  const itemCount = useCartStore(s =&gt; s.items.length);      // hah? tombol kok tahu cart?
+  return (
+    &lt;button {...props}&gt;
+      {children} {itemCount &gt; 0 &amp;&amp; &lt;span&gt;({itemCount})&lt;/span&gt;}
+    &lt;/button&gt;
+  );
+}
+
+// ─────────────────────────────────────────────
+
+// ✅ PERBAIKAN: Button tetap bego (generik), data dioper dari yang tahu
+// shared/ui/Button.jsx — nol pengetahuan bisnis
+export function Button({ children, badge, ...props }) {
+  return (
+    &lt;button {...props}&gt;
+      {children} {badge != null &amp;&amp; &lt;span&gt;({badge})&lt;/span&gt;}
+    &lt;/button&gt;
+  );
+}
+
+// features/cart/ui/CartButton.jsx — fitur yang "menikahkan" data + UI
+import { Button } from '@/shared/ui';         // panah ke bawah ✅
+import { useCartStore } from '../store';      // internal slice sendiri ✅
+
+export function CartButton() {
+  const itemCount = useCartStore(s =&gt; s.items.length);
+  return &lt;Button badge={itemCount}&gt;🛒 Keranjang&lt;/Button&gt;;
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Pola perbaikannya selalu sama dan worth dihafal: <strong class="text-ink">yang generik nggak boleh manjat; yang spesifik yang turun ngambil</strong>. Kalau dua fitur butuh barang yang sama (misalnya cart dan checkout sama-sama butuh data produk), jangan saling import — <strong class="text-ink">turunin barang itu ke layer bawah</strong> (entities/product) dan biarkan keduanya ngambil dari sana. Konflik antar tetangga diselesaikan dengan naruh barang bersama di fasilitas umum, bukan dengan ngedobrak tembok rumah tetangga.</p>
+<p>Dan karena manusia (termasuk lo yang lagi dikejar deadline) pasti khilaf, tim serius <strong class="text-ink">nge-enforce boundary pakai tooling</strong>: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">eslint-plugin-boundaries</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">dependency-cruiser</code> bakal bikin CI merah kalau ada panah yang ngelawan arah. Aturan yang nggak di-enforce itu cuma harapan.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Enforce boundary via ESLint — biar aturan nggak cuma wacana</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// eslint.config.js (eslint-plugin-boundaries, disingkat)
+export default [{
+  settings: {
+    'boundaries/elements': [
+      { type: 'shared',   pattern: 'src/shared/*' },
+      { type: 'entities', pattern: 'src/entities/*' },
+      { type: 'features', pattern: 'src/features/*' },
+      { type: 'pages',    pattern: 'src/pages/*' },
+    ],
+  },
+  rules: {
+    'boundaries/element-types': ['error', {
+      default: 'disallow',
+      rules: [
+        { from: 'shared',   allow: ['shared'] },
+        { from: 'entities', allow: ['shared'] },  // cross-entity? cuma lewat @x public API (notasi khusus FSD)
+        { from: 'features', allow: ['shared', 'entities'] },   // ❗ bukan 'features'
+        { from: 'pages',    allow: ['shared', 'entities', 'features'] },
+      ],
+    }],
+  },
+}];
+// Sekarang "import cart dari auth" = error di CI, bukan komentar di code review</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Mau lihat peta panah project lo sekarang? Jalankan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx dependency-cruiser --output-type dot src | dot -T svg &gt; deps.svg</code> — hasilnya graph visual semua import. Pertama kali lihat punya project sendiri biasanya campur kaget dan malu. 😅 Itu langkah pertama semua refactor arsitektur.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Circular import di JS kadang "jalan" tanpa error, tapi salah satu modulnya dapet <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code> saat evaluasi — dan errornya muncul JAUH dari penyebabnya (biasanya "cannot read property of undefined" di file yang kelihatan nggak salah). Kalau ketemu bug ajaib kayak gitu, cek siklus import duluan.</p></div>
+</section>
+
+<!-- LESSON 9 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CODE REVIEW MINDSET — CHECKLIST SENIOR ✅</h2><input type="checkbox" id="check-12-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-12-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Review &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Semua materi bab ini nyatu di satu momen: <strong class="text-ink">code review</strong>. Saat senior buka PR React, dia nggak baca baris per baris dari atas — dia scanning dengan checklist mental yang udah kebentuk dari ratusan PR. Gue kasih checklist-nya, urut dari yang paling sering nemuin masalah:</p>
+<p><strong class="text-ink">1. State placement — "state ini ngapain di sini?"</strong> Pertanyaan pertama, selalu. State yang ketinggian bikin re-render nyebar (lesson 6); state yang duplikat dari props bikin dua sumber kebenaran. Red flag klasik: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState(props.something)</code> lalu di-sync pakai useEffect — 90% kasusnya harusnya <em>derived value</em> biasa atau state-nya diangkat.</p>
+<p><strong class="text-ink">2. Effect abuse — "useEffect ini beneran perlu?"</strong> useEffect buat sinkronisasi dengan dunia LUAR React (network, DOM manual, subscription). Kalau effect-nya cuma "kalau state A berubah, set state B" → itu derived value, hitung aja pas render. Kalau effect-nya jalanin logic setelah user klik → pindahin ke event handler. Chain effect (effect nge-set state yang nge-trigger effect lain) = re-render kaskade + bug timing.</p>
+<p><strong class="text-ink">3. Naming — "nama ini jujur nggak?"</strong> Fungsi bernama <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">handleData</code> yang ternyata mutasi cart + kirim analytics + navigate itu bohong. Nama yang jujur dan spesifik (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">submitOrderAndRedirect</code>) sering justru ngebongkar bahwa fungsinya ngelakuin kebanyakan hal — dan itu poin review-nya. Boolean pakai is/has/can, handler pakai handle/on, dan konsisten.</p>
+<p><strong class="text-ink">4. Boundary &amp; struktur — "file ini di rumah yang bener nggak?"</strong> Import nembus internal fitur lain? Komponen shared tahu istilah bisnis? Logic 60 baris di dalam komponen yang harusnya jadi hook? Ini materi lesson 2, 4, 7, 8 — di review, pelanggarannya kelihatan dalam 10 detik dari daftar import.</p>
+<p><strong class="text-ink">5. Sisanya yang cepet discan:</strong> key pakai index di list yang bisa berubah urutan; error/loading state ketinggalan (happy path doang); cleanup effect nggak ada (subscription bocor); props di-drill 4+ level padahal udah ada Context/store; dan abstraksi baru yang cuma dipakai satu kali (premature abstraction — sabar, tunggu pemakai keduanya).</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Contoh nyata: 3 komentar review senior di satu komponen</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function ProductList({ products }) {
+  // 🔍 REVIEW: state duplikat dari props + effect buat sync = 2 sumber kebenaran.
+  //    filtered itu DERIVED VALUE — hitung langsung pas render aja.
+  const [filtered, setFiltered] = useState(products);
+  const [minPrice, setMinPrice] = useState(0);
+
+  useEffect(() =&gt; {
+    setFiltered(products.filter(p =&gt; p.price &gt;= minPrice));
+  }, [products, minPrice]);
+
+  return (
+    &lt;ul&gt;
+      {/* 🔍 REVIEW: index sebagai key — list ini bisa ke-filter/re-order,
+          state anak bakal nyasar. Pakai p.id. */}
+      {filtered.map((p, i) =&gt; &lt;li key={i}&gt;{p.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+
+// ✅ Setelah revisi: lebih pendek DAN lebih benar
+function ProductList({ products }) {
+  const [minPrice, setMinPrice] = useState(0);
+  const filtered = products.filter(p =&gt; p.price &gt;= minPrice); // derived ✨
+
+  return (
+    &lt;ul&gt;
+      {filtered.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Cara tercepat naik level: <strong class="text-ink">review PR lo sendiri sebelum minta review orang</strong>. Buka tab diff di GitHub, pura-pura itu PR orang lain yang nyebelin, dan jalanin checklist di atas. Separuh komentar reviewer bakal lo tangkep duluan — dan reputasi "PR-nya si ini selalu bersih" itu mata uang karir yang beneran ada nilainya.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Pas giliran LO yang nge-review: komentar arsitektur itu soal panah dan tanggung jawab, bukan selera. "Gue lebih suka ternary" = selera, skip aja. "Komponen shared ini import store fitur, nanti nggak bisa di-reuse" = arsitektur, wajib disampaikan. Reviewer yang ributin selera doang bakal diabaikan pas ngomongin hal penting.</p></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="kesalahan-umum">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">⚠️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — JANGAN SAMPAI KEJADIAN DI CODEBASE LO 🚨</h2><p class="text-sm text-muted mt-1">Empat penyakit arsitektur yang paling sering gue temuin di PR dan codebase nyata.</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><strong class="text-ink">1. Folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">components/</code> raksasa.</strong> 60+ file rata dalam satu folder, nggak ada yang tahu mana yang masih dipakai. Gejalanya: lo nyari komponen pakai Ctrl+P doang karena folder-nya udah nggak informatif. Obat: migrasi bertahap ke by-feature — tiap kali lo NYENTUH sebuah komponen, pindahin dia ke rumah fiturnya. Nggak perlu big-bang refactor; tiga bulan konsisten, foldernya beres sendiri.</p>
+<p><strong class="text-ink">2. Prop drilling 5 level.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user</code> dioper dari App → Layout → Sidebar → Menu → UserBadge, dan tiga komponen di tengah nggak pernah makai nilainya — cuma jadi kurir. Obat: Context untuk data global yang jarang berubah (user, theme), komposisi/children buat struktur (sering kali UserBadge bisa dibuat di App dan dioper sebagai element jadi), store (Zustand) buat state yang sering berubah. Drill 2 level itu normal; 4+ itu alarm.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Prop drilling — kurir yang nggak dibayar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ 3 komponen jadi kurir user tanpa pernah memakainya
+&lt;App user={user}&gt;                 // punya user
+  &lt;Layout user={user}&gt;            // kurir 📦
+    &lt;Sidebar user={user}&gt;         // kurir 📦
+      &lt;Menu user={user}&gt;          // kurir 📦
+        &lt;UserBadge user={user} /&gt; // baru dipakai di sini
+
+// ✅ Opsi A — komposisi: bikin UserBadge di tempat yang punya data
+&lt;Layout sidebar={&lt;Sidebar footer={&lt;UserBadge user={user} /&gt;} /&gt;} /&gt;
+
+// ✅ Opsi B — Context untuk data global yang jarang berubah
+const { user } = useCurrentUser();   // UserBadge ngambil sendiri</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">utils.js</code> tempat sampah.</strong> Mulai dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">formatDate</code>, enam bulan kemudian isinya 900 baris: formatter, validator NIK, hitung ongkir, parser CSV, dan satu fungsi bernama <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">doStuff2</code> yang nggak ada yang berani hapus. Masalahnya bukan estetika: file gado-gado nggak bisa di-review, nggak bisa di-tree-shake, dan jadi magnet circular import. Obat: larang nama file "utils" — paksa nama berdasarkan DOMAIN: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">format-currency.js</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">shipping-cost.js</code>. Fungsi yang cuma dipakai satu fitur? Masukin ke folder fitur itu, bukan ke shared.</p>
+<p><strong class="text-ink">4. Premature abstraction.</strong> Baru ada SATU pemakai, tapi lo udah bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createGenericFormFactory(config)</code> "biar nanti reusable". Terus pemakai kedua datang dengan kebutuhan beda dikit, lo tambahin flag. Pemakai ketiga, flag lagi. Setahun kemudian abstraksinya punya 11 parameter dan semua orang takut nyentuh. Duplikasi itu jauh lebih murah daripada abstraksi yang salah — copy-paste dua kali itu HALAL. Baru pas pemakai KETIGA muncul dan polanya udah kelihatan stabil, ekstrak.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Rule of three — kapan boleh bikin abstraksi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Pemakai ke-1: tulis langsung. Selesai. Jangan mikir "nanti kalau..."
+function LoginForm() { /* validasi email inline di sini, gapapa banget */ }
+
+// Pemakai ke-2: COPY-PASTE. Serius. Sambil amati apanya yang sama & beda.
+function RegisterForm() { /* validasi mirip, beda field — biarin dulu */ }
+
+// Pemakai ke-3: polanya udah KELIHATAN → baru ekstrak dengan pede
+function useFormValidation(schema) {
+  // sekarang lo tahu persis apa yang perlu digenerik-in,
+  // karena udah lihat 3 kasus nyata — bukan nebak masa depan 🎯
+}</code></pre></div></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Keempat penyakit ini punya akar yang sama: keputusan struktur diambil "nanti aja" atau "sekalian aja". Dua-duanya salah. Waktu terbaik mutusin struktur itu saat sinyalnya muncul — nggak lebih cepat (premature), nggak lebih lambat (utang numpuk). Itulah judgment yang bikin lo dibayar sebagai senior.</p></div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="challenge">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-sm">🎯</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">CHALLENGE — REFACTOR KE COMPOUND COMPONENTS 💪</h2><p class="text-sm text-muted mt-1">Praktikkan lesson 5: pecah Accordion monolitik jadi compound components.</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di bawah ada komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Accordion</code> monolitik yang nerima config array — dan behavior-nya salah: <strong class="text-ink">semua panel kebuka terus</strong>, nggak bisa di-toggle. Tugas lo: refactor jadi compound components dengan API <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Accordion&gt;&lt;Accordion.Item title="..."&gt;isi&lt;/Accordion.Item&gt;&lt;/Accordion&gt;</code>. Syaratnya: semua panel <strong class="text-ink">tertutup di awal</strong>, klik header buat buka/tutup panelnya, dan tiap item <strong class="text-ink">independen</strong> (buka item 2 nggak nutup item 1). Pertahankan teks konten yang ada (KONTEN-SATU / KONTEN-DUA) biar test-nya bisa ngecek.</p>
+</div>
+<script type="text/plain" id="ch-12-1">// ❌ Accordion monolitik: config array + semua panel kebuka terus.
+// TUGAS: refactor jadi compound components:
+//   <Accordion>
+//     <Accordion.Item title="...">isi panel</Accordion.Item>
+//   </Accordion>
+// Syarat: panel awalnya ketutup, klik header = toggle, tiap item independen.
+
+function Accordion({ items }) {
+  return (
+    <div>
+      {items.map((item, i) => (
+        <div key={i} style={{ border: '1px solid #ddd', borderRadius: 8, marginBottom: 8 }}>
+          <button style={{ display: 'block', width: '100%', textAlign: 'left', padding: 12, background: '#f5f5f5', border: 'none', cursor: 'pointer' }}>
+            {item.title}
+          </button>
+          <div style={{ padding: 12 }}>{item.content}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  const items = [
+    { title: 'Kenapa compound components?', content: 'KONTEN-SATU: biar API-nya komposisional, nggak props raksasa.' },
+    { title: 'Kapan pakai Context?', content: 'KONTEN-DUA: saat anak-anak compound butuh share state parent.' },
+  ];
+  return <Accordion items={items} />;
+}</script>
+<script type="text/plain" id="ch-12-1-test">function rootText() { return document.getElementById('root').textContent; }
+var buttons = document.querySelectorAll('button');
+expect('Ada minimal 2 header berupa <button>', buttons.length >= 2);
+expect('Semua panel TERTUTUP di awal', rootText().indexOf('KONTEN-SATU') === -1 && rootText().indexOf('KONTEN-DUA') === -1);
+if (buttons.length >= 2) {
+  // flushSync: React 18 flush update dari discrete event di microtask,
+  // jadi tanpa ini assertion di bawah bakal baca DOM lama (pre-click)
+  ReactDOM.flushSync(function () { buttons[0].click(); });
+  expect('Klik header 1 → panel 1 kebuka', rootText().indexOf('KONTEN-SATU') !== -1);
+  ReactDOM.flushSync(function () { buttons[1].click(); });
+  expect('Klik header 2 → panel 2 kebuka, panel 1 TETAP kebuka (independen)', rootText().indexOf('KONTEN-DUA') !== -1 && rootText().indexOf('KONTEN-SATU') !== -1);
+  ReactDOM.flushSync(function () { buttons[0].click(); });
+  expect('Klik lagi header 1 → panel 1 ketutup, panel 2 tetap kebuka', rootText().indexOf('KONTEN-SATU') === -1 && rootText().indexOf('KONTEN-DUA') !== -1);
+}</script>
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-12-1"></div>
+<!-- Solusi ch-12-1 (lulus semua test):
+
+function Accordion({ children }) {
+  return <div>{children}</div>;
+}
+
+Accordion.Item = function Item({ title, children }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ border: '1px solid #ddd', borderRadius: 8, marginBottom: 8 }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{ display: 'block', width: '100%', textAlign: 'left', padding: 12, background: '#f5f5f5', border: 'none', cursor: 'pointer' }}
+      >
+        {title} {open ? '▲' : '▼'}
+      </button>
+      {open && <div style={{ padding: 12 }}>{children}</div>}
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <Accordion>
+      <Accordion.Item title="Kenapa compound components?">
+        KONTEN-SATU: biar API-nya komposisional, nggak props raksasa.
+      </Accordion.Item>
+      <Accordion.Item title="Kapan pakai Context?">
+        KONTEN-DUA: saat anak-anak compound butuh share state parent.
+      </Accordion.Item>
+    </Accordion>
+  );
+}
+-->
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Hint:</strong> Tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Accordion.Item</code> boleh megang state <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">open</code>-nya sendiri (itu yang bikin independen). Definisikan sub-komponen sebagai properti: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Accordion.Item = function Item({ title, children }) {...}</code>. Bonus level senior: kalau lo mau mode "cuma satu yang boleh kebuka", BARU lo butuh Context di parent — coba setelah test hijau!</p></div>
+</section>
+
+<!-- EXERCISES -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="exercises">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">✏️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">LATIHAN — KERJAIN DULU, BARU INTIP SOLUSI 📝</h2><p class="text-sm text-muted mt-1">Tiga latihan arsitektur. Kerjain di kertas/editor dulu — nilai latihannya ada di proses mikirnya.</p></div></div>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Susun struktur folder app kasir (POS)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-4">Lo diminta bikin app kasir untuk warung kopi: ada katalog menu, keranjang pesanan, pembayaran (cash/QRIS), dan riwayat transaksi. Tim: 3 developer. Susun struktur folder by-feature-nya — tentuin juga apa yang masuk <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">shared/</code>.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi — salah satu susunan yang sehat</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">src/
+├── app/                    # router, providers, theme
+├── features/
+│   ├── menu-catalog/       # grid menu, filter kategori, pencarian
+│   ├── order-cart/         # keranjang: tambah/hapus item, hitung total
+│   ├── payment/            # flow bayar: cash / QRIS, struk
+│   └── transaction-history/# daftar + detail transaksi
+├── entities/
+│   ├── product/            # MenuItemCard, tipe Product, formatMenu
+│   └── order/              # tipe Order, status order, OrderSummaryRow
+├── pages/
+│   ├── CashierPage.jsx     # katalog + cart berdampingan
+│   └── HistoryPage.jsx
+└── shared/
+    ├── ui/                 # Button, Modal, NumericKeypad
+    ├── lib/                # formatRupiah, useDebounce
+    └── api/                # apiClient
+
+# Poin penilaian:
+# - formatRupiah di shared (generik), hitung total di order-cart (domain)
+# - product & order jadi entities karena dipakai 3+ fitur
+# - payment TERPISAH dari cart: beda alasan berubah, beda fitur</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-4">Nggak ada satu jawaban benar — yang dinilai: (1) fitur dipecah berdasarkan kemampuan produk, bukan jenis file; (2) shared bersih dari istilah bisnis; (3) barang yang dipakai banyak fitur turun ke entities, bukan saling import antar fitur.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Ekstrak logic jadi useLocalStorage</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-4">Ada dua komponen: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeToggle</code> nyimpen theme ke localStorage, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">DraftNote</code> nyimpen draft catatan ke localStorage. Dua-duanya nulis logic <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getItem/setItem + JSON.parse</code> sendiri-sendiri. Ekstrak jadi satu hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLocalStorage(key, initialValue)</code> yang API-nya semirip mungkin sama useState.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi — hook dengan API kembaran useState</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() =&gt; {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored !== null ? JSON.parse(stored) : initialValue;
+    } catch {
+      return initialValue;   // JSON korup / storage diblokir? jangan crash
+    }
+  });
+
+  useEffect(() =&gt; {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch { /* storage penuh — pilihan sadar untuk diem */ }
+  }, [key, value]);
+
+  return [value, setValue];  // ← kontrak yang sama persis kayak useState
+}
+
+// Dua komponen tadi jadi satu baris masing-masing:
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [draft, setDraft] = useLocalStorage('draft-note', '');</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-4">Perhatikan tiga keputusan desainnya: lazy initializer biar localStorage cuma dibaca sekali, try/catch karena dunia luar itu liar, dan return berbentuk <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[value, setValue]</code> — niru kontrak useState biar pemakainya nggak perlu belajar API baru. Hook yang bagus itu terasa familiar.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Perbaiki pelanggaran dependency boundary</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-4">Di sebuah codebase FSD, lo nemuin: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">features/checkout</code> meng-import <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">CartItemRow</code> langsung dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">features/cart/ui/CartItemRow.jsx</code> untuk nampilin ringkasan belanja di halaman pembayaran. Sebutkan DUA pelanggaran yang terjadi, dan dua cara memperbaikinya.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi — diagnosis + dua obat</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// PELANGGARAN 1: cross-import sesama layer features (checkout → cart)
+// PELANGGARAN 2: nembus internal path, bukan lewat public API (index.js)
+
+// ✅ Obat A (paling bener): komponen itu ternyata milik ENTITY order/cart-item.
+// Turunin ke entities — dua fitur boleh ngambil dari bawah:
+//   entities/cart-item/ui/CartItemRow.jsx
+import { CartItemRow } from '@/entities/cart-item';   // dari checkout ✅
+import { CartItemRow } from '@/entities/cart-item';   // dari cart ✅
+
+// ✅ Obat B (kalau emang spesifik cart & dibutuhkan pihak luar):
+// export resmi lewat public API cart, dan checkout NGGAK boleh tahu path dalamnya
+// features/cart/index.js:
+export { CartItemRow } from './ui/CartItemRow';
+// features/checkout:
+import { CartItemRow } from '@/features/cart';        // masih cross-feature 😐
+
+// Catatan senior: Obat B ngelegalin panah antar-fitur — boleh sebagai
+// kompromi sementara, tapi arah jangka panjangnya tetap Obat A.</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-4">Insight utamanya: kalau dua fitur rebutan satu komponen, itu biasanya tanda komponennya bukan milik salah satu fitur — dia milik layer yang lebih bawah. "Turunin barang bersama, jangan bolongin tembok antar fitur."</p>
+  </div>
+</details>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ BAB 12 — BUKTIIN PEMAHAMAN LO 🎓</h2><p class="text-sm text-muted mt-1">8 soal. Skor kesimpen otomatis — santai, bisa diulang kapan aja.</p></div></div>
+<script type="application/json" id="quiz-12">
+[
+  {"q": "Kapan struktur folder by-feature mulai WAJIB dipakai dibanding by-type?", "options": ["Sejak hari pertama project apa pun, tanpa kecuali", "Saat ada 2+ developer atau fitur mulai banyak dan saling silang", "Cuma kalau pakai TypeScript", "Kalau app-nya pakai Next.js"], "answer": 1, "explain": "By-type masih oke buat app kecil yang dikerjain sendirian. Sinyal pindah ke by-feature: tim bertambah, fitur nyata bertambah, dan lo mulai susah jawab 'kalau file ini berubah, apa aja yang kena?'"},
+  {"q": "Di era hooks, peran 'container component' dari pattern lama paling sering digantikan oleh apa?", "options": ["Higher-Order Component", "Custom hook yang megang logic + state", "Redux middleware", "Komponen class dengan lifecycle method"], "answer": 1, "explain": "Pemisahan logic vs tampilan tetap hidup, tapi bentuknya berubah: logic pindah ke custom hook (misal <code>useOrderList</code>), dan komponen tinggal manggil hook lalu fokus ke markup — tanpa wrapper component perantara."},
+  {"q": "Sinyal paling tepat buat MECAH sebuah komponen adalah...", "options": ["Jumlah barisnya lewat 100", "Ada bagian yang berubah karena alasan berbeda, atau state yang cuma dipakai sebagian kecil JSX", "Ada lebih dari satu useEffect", "Komponen punya lebih dari 3 props"], "answer": 1, "explain": "Baris itu gejala, bukan penyakit. Alasan mecah yang bener: tanggung jawab yang beda alasan berubah, state yang bisa diturunin biar re-render mengecil, atau kebutuhan reuse nyata."},
+  {"q": "Di compound components (misal Tabs), gimana Tabs.Tab tahu tab mana yang lagi aktif?", "options": ["Lewat props yang dioper manual ke tiap Tab", "Lewat variabel global di module", "Lewat Context yang di-provide oleh parent Tabs", "Lewat localStorage"], "answer": 2, "explain": "Parent <code>Tabs</code> megang state dan mem-provide-nya lewat Context. Anak-anaknya (<code>Tabs.Tab</code>, <code>Tabs.Panel</code>) consume Context itu — makanya bisa ditaruh di mana aja di dalam parent tanpa prop drilling."},
+  {"q": "Kenapa pattern 'children as props' bisa mencegah komponen berat ikut re-render saat parent-nya update state?", "options": ["Karena children otomatis dibungkus React.memo", "Karena element children dibuat di komponen luar yang nggak re-render, jadi referensinya sama dan React skip", "Karena children dirender di thread terpisah", "Karena React selalu skip children dalam kondisi apa pun"], "answer": 1, "explain": "Kuncinya identitas element: kalau element JSX yang diterima sama persis (referensinya) dengan render sebelumnya, React nggak nge-render ulang subtree itu. Children dibuat oleh komponen luar yang nggak ikut re-render — makanya referensinya stabil."},
+  {"q": "Di Feature-Sliced Design, arah import yang DIBOLEHKAN adalah...", "options": ["entities boleh import dari features, asal lewat index.js", "features boleh import dari pages kalau kepepet", "features boleh import dari entities dan shared, tapi nggak boleh dari sesama features", "Semua layer bebas saling import asal nggak circular"], "answer": 2, "explain": "Aturan emas FSD: panah cuma boleh nurun — app → pages → features → entities → shared. Sesama slice di layer yang sama juga dilarang saling import. Barang yang direbutin dua fitur diturunin ke layer bawah."},
+  {"q": "Apa fungsi utama file index.js (public API) di root tiap feature/slice?", "options": ["Biar import path-nya lebih pendek doang", "Nandain entry point buat bundler", "Jadi kontrak resmi: yang nggak di-export dari situ = internal, bebas di-refactor tanpa ngerusak pihak luar", "Syarat wajib dari React biar folder dianggap module"], "answer": 2, "explain": "Public API misahin kontrak dari implementasi. Pihak luar cuma boleh lewat pintu resmi — jadi struktur internal slice bisa dirombak total selama export di index.js-nya tetap sama."},
+  {"q": "Saat review, lo nemu: <code>const [filtered, setFiltered] = useState(props.items)</code> lalu ada useEffect yang nge-set filtered tiap props.items berubah. Komentar review yang paling tepat?", "options": ["Tambahin useCallback biar lebih cepat", "Ini derived value — hapus state + effect, hitung langsung saat render dari props", "Pindahin ke Redux biar konsisten", "Bungkus komponennya dengan React.memo"], "answer": 1, "explain": "State yang menduplikasi props = dua sumber kebenaran + re-render ekstra + bug sinkronisasi. Nilai yang bisa dihitung dari props/state lain dihitung aja langsung saat render — kalau mahal, baru useMemo."}
+]
+</script>
+<div class="quiz-mount mt-4" data-quiz-id="quiz-12"></div>
+</section>
+
+<!-- SUMMARY/RECAP -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+<p class="text-sm text-muted mt-1">Ini peta mental yang dibawa senior tiap kali buka codebase React.</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Arsitektur = keputusan "barang ini tinggal di mana"</strong> — pembeda junior vs senior bukan bisa/nggaknya bikin fitur, tapi kondisi codebase setelah fiturnya jadi. Import list adalah rontgen-nya.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Struktur folder</strong> — by-type buat app kecil, by-feature begitu tim/fitur tumbuh. Tes emasnya: fitur yang sehat bisa dihapus dengan menghapus satu folder.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Component design</strong> — logic ke hook, markup ke presentational component. Pecah karena tanggung jawab/state/reuse, bukan karena jumlah baris. Props API = kontrak: desain cara pakainya dulu.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Custom hooks sebagai unit arsitektur</strong> — hook generik di bawah (useDebounce, useFetch), hook domain di atas (useProductSearch), komponen tinggal makan. Composition, bukan mega-hook.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Compound components</strong> — obat props raksasa: parent megang state via Context, anak-anaknya disusun bebas lewat JSX. Fitur baru tanpa ngedit komponen inti.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Optimasi lewat komposisi</strong> — turunin state, angkat yang berat sebagai children. Referensi element yang stabil bikin React skip render — tanpa React.memo. Memo itu opsi terakhir, bukan pertama.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Feature-Sliced Design</strong> — layers (app → pages → features → entities → shared) + slices + public API per slice. Yang penting aturan arahnya, bukan jumlah foldernya.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Dependency boundaries</strong> — panah import cuma boleh ngalir ke bawah. Yang generik nggak boleh manjat; barang rebutan diturunin ke layer bawah. Enforce pakai ESLint, bukan pakai harapan.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Code review mindset</strong> — checklist senior: state placement, effect abuse, naming jujur, boundary, key/error-state/cleanup. Review PR sendiri sebelum minta review orang.</span></li>
+</ul>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(12)" id="completeBtn12" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="chapter-13.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 13 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-11.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-13.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
+</div>
+</section>
+
+        </div>
+    </main>
+
+    <!-- Back to top -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
+</body>
+</html>
