@@ -93,7 +93,7 @@ function initPlaygrounds() {
       mount.innerHTML = `
         <div class="playground bg-white">
           <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
-            <span class="text-xs text-muted font-medium">⚡ Live Playground — edit kodenya, klik Jalankan</span>
+            <span class="text-xs text-muted font-medium">⚡ Live Playground. Edit kodenya, klik Jalankan</span>
             <div class="flex gap-2">
               <button class="pg-reset text-xs text-muted hover:text-ink px-2 py-1 rounded-lg hover:bg-black/5">Reset</button>
               <button class="pg-run text-xs font-semibold bg-ink text-white px-3 py-1 rounded-lg press">▶ Jalankan</button>
@@ -116,7 +116,7 @@ function initPlaygrounds() {
     // CDN/SRI gagal — degradasi: tampilkan kode read-only, jangan biarkan kosong
     mounts.forEach(mount => {
       const codeEl = document.getElementById(mount.dataset.codeId);
-      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Playground gagal dimuat — cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
+      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Playground gagal dimuat. Cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
       if (codeEl) mount.querySelector('pre').textContent = codeEl.textContent.trim();
     });
   });
