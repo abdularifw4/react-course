@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 14: Interview Prep &amp; Career — React Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
+    <script>tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
+                        muted: { DEFAULT: '#666666', light: '#999999' },
+                        lavender: '#F3F0FA',
+                        cream: '#FAF8F1',
+                        surface: '#FAFAFA',
+                    },
+                }
+            }
+        }</script>
+    <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="bg-white text-ink min-h-screen" data-chapter="14">
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
+        <div class="p-5 border-b border-black/[0.06]">
+            <a href="../index.html" class="flex items-center gap-2.5">
+                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <span class="text-[15px] font-semibold tracking-tight">react course</span>
+            </a>
+        </div>
+        <div class="p-3">
+            <div class="relative">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+                <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+        </div>
+        <div class="px-3 pb-3">
+            <div class="bg-surface rounded-lg p-3">
+                <div class="flex justify-between text-xs text-muted mb-2">
+                    <span>Progress</span>
+                    <span id="progressText" class="tabular-nums">0/10</span>
+                </div>
+                <div class="w-full bg-black/5 rounded-full h-1.5">
+                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="lg:ml-72 min-h-screen">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
+            <div class="flex items-center justify-between px-4 lg:px-8 h-16">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden press p-2 rounded-lg hover:bg-black/5 transition-colors flex items-center justify-center" style="min-width:40px;min-height:40px">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-xs font-mono text-muted tabular-nums">Ch.14</span>
+                        <h1 class="text-base lg:text-lg font-semibold tracking-tight">Interview Prep &amp; Career</h1>
+                    </div>
+                </div>
+                <a href="../index.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                    Beranda
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="px-4 lg:px-10 py-8 max-w-4xl">
+
+<!-- HERO -->
+<section class="mb-8 fade-in">
+    <div class="flex items-center gap-3 mb-3">
+        <span class="inline-flex items-center gap-1.5 bg-red-50 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">🔴 Senior</span>
+        <span class="text-xs text-muted">Bab terakhir — grand finale 🎓</span>
+    </div>
+    <div class="flex items-start gap-4">
+        <div class="w-14 h-14 bg-ink rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-extrabold text-xl">14</span>
+        </div>
+        <div>
+            <h1 class="text-2xl lg:text-3xl font-extrabold tracking-tight text-ink">Interview Prep &amp; Career</h1>
+            <p class="text-muted mt-1 text-[15px] leading-relaxed">Lo udah selesai Bab 0 sampai 13 — skill React lo udah lengkap. Sekarang bab yang beda dari semua bab lain: gimana caranya <strong class="text-ink">skill itu berubah jadi karir</strong>. Peta gaji, portfolio, CV, 25 pertanyaan interview + jawaban model, live coding, system design, take-home, sampai negosiasi offer. Ini bab yang paling cepat balikin "modal" belajar lo. 💰</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+        <div class="bg-surface rounded-xl p-4 shadow-soft"><p class="text-2xl font-extrabold text-ink tabular-nums">8</p><p class="text-xs text-muted">lessons karir</p></div>
+        <div class="bg-surface rounded-xl p-4 shadow-soft"><p class="text-2xl font-extrabold text-ink tabular-nums">25</p><p class="text-xs text-muted">Q&amp;A interview</p></div>
+        <div class="bg-surface rounded-xl p-4 shadow-soft"><p class="text-2xl font-extrabold text-ink tabular-nums">3</p><p class="text-xs text-muted">soal live coding</p></div>
+        <div class="bg-surface rounded-xl p-4 shadow-soft"><p class="text-2xl font-extrabold text-ink tabular-nums">1</p><p class="text-xs text-muted">challenge klasik</p></div>
+    </div>
+</section>
+
+<!-- LESSON 1: Peta Karir -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PETA KARIR REACT DI INDONESIA 🗺️</h2><input type="checkbox" id="check-14-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Career &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Sebelum lo apply ke mana-mana, lo harus tahu dulu <strong class="text-ink">peta medan perangnya</strong>. Karir developer itu kayak main game RPG 🎮 — ada level, ada XP, dan ada boss fight (baca: interview). Bedanya, di dunia nyata banyak orang main tanpa liat map-nya dulu, terus bingung kenapa stuck di level yang sama bertahun-tahun. Kita nggak gitu. Kita buka map-nya sekarang.</p>
+<p>Secara umum ada tiga level: <strong class="text-ink">Junior</strong> (0–2 tahun) — lo bisa ngerjain task yang udah didefinisikan jelas, bikin komponen dari desain, fix bug dengan bimbingan. <strong class="text-ink">Mid-level</strong> (2–4 tahun) — lo bisa megang fitur end-to-end sendirian, dari nge-breakdown requirement sampai deploy, dan lo udah punya opini soal arsitektur. <strong class="text-ink">Senior</strong> (4+ tahun, tapi ini soal <em>kedalaman</em>, bukan cuma umur) — lo bikin keputusan teknis yang berdampak ke tim, nge-mentor, review PR, dan mikirin trade-off jangka panjang. Yang penting dipahami: naik level itu bukan soal nunggu tahun berlalu, tapi soal <strong class="text-ink">scope tanggung jawab yang lo pegang</strong>.</p>
+<p>Soal gaji — ini gambaran umum yang <em>sangat bervariasi</em> per kota, industri, dan ukuran perusahaan. Jangan anggap ini janji, anggap ini kompas biar lo nggak dibayar jauh di bawah pasar:</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Gambaran umum range gaji React developer Indonesia (bervariasi!)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ⚠️ GAMBARAN UMUM — bukan janji. Angka riil tergantung kota,
+// industri, ukuran perusahaan, dan skill negosiasi lo.
+
+const petaGaji = {
+  junior: 'sekitar 5–9 juta/bulan',   // fresh grad / career switcher
+  mid:    'sekitar 10–18 juta/bulan', // udah bisa pegang fitur sendiri
+  senior: 'sekitar 20–40 juta+/bulan',// pegang arsitektur & mentoring
+
+  // Remote untuk perusahaan luar (US/EU/SG):
+  // bisa 2–5x angka lokal — tapi kompetisinya global,
+  // butuh English yang oke & portfolio yang bener-bener kuat.
+  remoteLuar: 'level global, dibayar level global',
+};
+
+// Faktor pengali:
+// Jakarta/BSD &gt; kota lain (tapi biaya hidup juga)
+// Fintech/unicorn &gt; agency kecil
+// English fasih = pintu remote kebuka</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Sekarang, medan tempurnya sendiri ada empat tipe, dan masing-masing ngasih XP yang beda:</p>
+<p><strong class="text-ink">1. Startup</strong> — lo bakal megang banyak hal sekaligus (kadang frontend + sedikit backend + deploy). Belajarnya ngebut banget, tapi chaos juga tinggi. Cocok buat naik level cepat di awal karir. <strong class="text-ink">2. Korporat</strong> (bank, telco, BUMN digital) — proses rapi, ada mentor, work-life balance biasanya lebih jelas, tapi teknologi kadang lebih konservatif dan gerakan lebih lambat. <strong class="text-ink">3. Agency / software house</strong> — lo ngerjain banyak proyek klien berbeda-beda. Portfolio numpuk cepat, exposure ke banyak domain, tapi deadline sering brutal dan kadang kualitas kode dikorbankan demi kejar tayang. <strong class="text-ink">4. Remote untuk perusahaan luar</strong> — bayaran paling tinggi, tapi lo bersaing sama developer sedunia, dan lo butuh disiplin komunikasi async yang kuat.</p>
+<p>Strategi yang masuk akal buat kebanyakan orang: <strong class="text-ink">mulai di mana pun yang mau nerima lo</strong> (pengalaman pertama itu yang paling susah didapat), belajar gila-gilaan 1–2 tahun, baru pilih arah dengan sadar. Loncat dari junior lokal langsung ke remote luar itu kayak baru bisa berenang di kolam terus langsung nyebur ke laut lepas — bisa, tapi jangan kaget kalau ombaknya beda.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Kenaikan gaji paling besar dalam karir developer biasanya terjadi saat <strong>pindah perusahaan</strong>, bukan saat naik gaji tahunan di tempat yang sama (yang rata-rata cuma beberapa persen). Makanya penting update portfolio dan CV lo secara berkala walau lagi nggak nyari kerja — biar pas kesempatan bagus lewat, lo siap. 🎯</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan bandingin diri lo sama influencer Twitter/LinkedIn yang ngaku "umur 22 gaji 2 digit". Sebagian bener, sebagian lebay, dan semuanya nggak relevan sama perjalanan lo. Fokus ke satu metrik aja: <em>apakah gue lebih jago dari gue 6 bulan lalu?</em> Kalau iya, gaji bakal ngikutin.</p></div>
+</section>
+
+<!-- LESSON 2: Portfolio -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PORTFOLIO YANG DILIRIK RECRUITER 💼</h2><input type="checkbox" id="check-14-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Career &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Portfolio itu <strong class="text-ink">etalase toko</strong> lo 🏪. Orang lewat cuma ngasih waktu 30 detik buat mutusin masuk atau nggak. Kalau etalase lo isinya 30 barang berantakan yang semuanya keliatan kayak barang orang lain (baca: clone tutorial), orang bakal lewat aja. Tapi kalau isinya 3 barang yang dipajang rapi, ada label jelas, dan keliatan dibikin dengan niat — orang berhenti.</p>
+<p>Ini aturan emasnya: <strong class="text-ink">3 proyek berkualitas ngalahin 30 clone tutorial</strong>. Kenapa? Karena reviewer (engineer yang disuruh ngecek GitHub lo) udah liat ratusan todo-app dan clone Netflix hasil nonton YouTube. Yang bikin dia berhenti scroll adalah proyek yang nunjukkin lo <em>mikir</em>: ada masalah nyata yang lo selesaikan, ada keputusan teknis yang lo jelasin, ada polish di detail. Tiga proyek dari Bab 13 (Habit Tracker, Toko Online, Dashboard Realtime) — kalau lo upgrade dengan sentuhan personal — itu udah fondasi yang kuat.</p>
+<p>Dan bagian yang paling sering diremehin: <strong class="text-ink">README adalah halaman sales proyek lo</strong>. Reviewer sering nggak sempet nge-clone dan run kode lo. Yang dia baca ya README. README kosong = proyek nggak ada. Ini struktur README yang menjual:</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Template README.md yang menjual</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># 🎯 HabitFlow — Habit Tracker dengan Streak System
+
+Aplikasi tracking kebiasaan harian dengan streak counter,
+persist ke localStorage, dan statistik mingguan.
+
+**🔗 Live demo:** https://habitflow-demo.vercel.app
+
+![Screenshot](./docs/screenshot.png)
+
+## ✨ Fitur
+- Tambah/hapus habit dengan target harian
+- Streak counter otomatis (reset kalau bolong sehari)
+- Grafik progress 7 hari terakhir
+- Data persist di localStorage — refresh aman
+
+## 🧠 Keputusan Teknis (bagian yang bikin reviewer berhenti!)
+- **useReducer, bukan useState** — state habit punya 6 jenis
+  transisi; reducer bikin logikanya terpusat dan gampang dites
+- **Custom hook useLocalStorage** — sinkronisasi state ke
+  storage tanpa nyampah useEffect di tiap komponen
+- **Optimistic update** — UI langsung update, nggak nunggu
+
+## 🚀 Cara Run
+npm install
+npm run dev        # buka http://localhost:5173
+npm test           # 12 unit tests untuk reducer &amp; streak logic
+
+## 🛠️ Stack
+React 18 &middot; Vite &middot; Tailwind &middot; Vitest</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Perhatiin bagian <strong class="text-ink">"Keputusan Teknis"</strong> — ini pembeda paling besar. Clone tutorial nggak punya bagian ini karena yang nulis nggak pernah mikirin <em>kenapa</em>. Kalau lo bisa jelasin kenapa lo pilih useReducer, kenapa lo extract custom hook, kenapa lo pakai optimistic update — lo langsung keliatan beda dari 90% kandidat junior.</p>
+<p>Checklist portfolio lengkapnya: <strong class="text-ink">(1) Deploy semua proyek ke Vercel</strong> — link demo yang bisa diklik itu wajib, karena "cara run di lokal" aja udah bikin males reviewer. Vercel gratis dan connect ke GitHub otomatis. <strong class="text-ink">(2) Rapiin GitHub profile</strong> — foto profesional (nggak harus formal, yang penting bukan anime avatar buram), bio satu kalimat yang jelas ("Frontend developer — React, TypeScript, Next.js"), pin 3–6 repo terbaik lo, dan hapus/private-kan repo latihan yang berantakan. <strong class="text-ink">(3) Commit message yang bener</strong> — reviewer bakal ngintip commit history. "fix", "update", "asdf" berkali-kali itu red flag; "feat: add streak calculation with timezone handling" itu green flag.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Cara paling gampang bikin proyek lo unik tanpa mikir ide dari nol: ambil proyek klasik, terus <strong>ganti domainnya jadi sesuatu yang lo pahami</strong>. Todo list → tracker hafalan buat mahasiswa kedokteran. Toko online → katalog jastip. Dashboard → monitoring keuangan warung keluarga. Domain yang personal bikin fiturnya otentik dan cerita lo di interview jadi hidup. 🔥</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan pajang proyek yang lo sendiri nggak bisa jelasin baris per baris. Interviewer <em>pasti</em> nanya detail dari proyek portfolio lo — "kenapa di sini pakai Context, bukan props?" Kalau lo cuma copy dari tutorial dan nggak paham, itu ketauan dalam 2 menit dan kredibilitas lo hancur di sisa interview.</p></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Audit portfolio lo sendiri</span>
+    <span class="text-xs text-muted">klik untuk lihat checklist</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2">
+    <p>Buka GitHub lo sekarang, terus nilai jujur pakai checklist ini:</p>
+    <p>✅ Ada minimal 3 repo yang di-pin dan punya README dengan link demo?<br>
+    ✅ Semua repo yang di-pin punya bagian "Keputusan Teknis" atau penjelasan <em>kenapa</em>?<br>
+    ✅ Semua demo link jalan (bukan 404 atau "Application error")?<br>
+    ✅ Bio profile jelas nyebutin role + stack?<br>
+    ✅ 10 commit terakhir lo pesannya deskriptif?</p>
+    <p>Kalau ada yang ❌, itu PR lo minggu ini — sebelum apply ke mana-mana. Satu jam ngerapiin README nilainya lebih tinggi daripada satu proyek clone baru.</p>
+  </div>
+</details>
+</section>
+
+<!-- LESSON 3: CV & LinkedIn -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CV &amp; LINKEDIN UNTUK FRONTEND 📄</h2><input type="checkbox" id="check-14-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Career &middot; 10 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Fakta pahit dulu: di banyak perusahaan, CV lo dibaca <strong class="text-ink">mesin sebelum dibaca manusia</strong>. Namanya ATS (Applicant Tracking System) — software yang nge-scan CV dan nge-ranking kandidat berdasarkan keyword. Kalau CV lo desainnya super artistik dua kolom penuh ikon tapi ATS nggak bisa parse teksnya, lo gugur sebelum ada manusia yang tahu lo exist. Nyesek kan?</p>
+<p>Makanya aturan #1: <strong class="text-ink">ATS-friendly dulu, estetik belakangan</strong>. Artinya: satu kolom, font standar, heading jelas (Experience, Projects, Skills, Education), tanpa tabel/text-box aneh, export ke PDF dari text editor (bukan hasil scan atau full gambar). Boring? Iya. Tapi boring yang lolos screening ngalahin cantik yang ke-reject mesin.</p>
+<p>Aturan #2, dan ini yang paling sering salah: <strong class="text-ink">tulis impact, bukan tugas</strong>. Bedanya kayak bedain "gue masak nasi goreng" sama "gue masak nasi goreng yang bikin 50 orang balik lagi tiap minggu". Yang pertama aktivitas, yang kedua hasil. Recruiter dan hiring manager cuma peduli hasil:</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Bullet CV: tugas (❌) vs impact (✅)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># ❌ TUGAS — semua orang di posisi itu juga ngelakuin ini
+- Membuat website menggunakan React
+- Melakukan slicing desain dari Figma
+- Memperbaiki bug pada aplikasi
+- Bekerja sama dengan tim backend
+
+# ✅ IMPACT — hasil terukur + konteks + teknologi
+- Naikin skor Lighthouse performance dari 45 ke 92 dengan
+  code splitting + lazy loading gambar (React.lazy, Intersection
+  Observer), nurunin bounce rate mobile ~18%
+- Bangun 30+ komponen design system reusable (React + TypeScript
+  + Storybook) yang motong waktu development fitur baru ~40%
+- Refactor state management dari prop drilling 6 level ke
+  Zustand — ngurangin re-render besar &amp; bug state sync jadi nol
+- Bikin custom hook useInfiniteScroll yang dipake di 5 halaman
+  feed, ngegantiin 3 implementasi duplikat
+
+# FORMULA: [kata kerja] + [apa yang dibangun] + [teknologi]
+#          + [angka hasil kalau ada]
+# Nggak punya angka? Pakai skala: "dipakai 5 tim",
+# "30+ komponen", "6 halaman utama"</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p>Aturan #3: <strong class="text-ink">keyword itu tiket masuk</strong>. ATS dan recruiter non-teknis nyari kata yang sama persis kayak di job posting. Kalau lowongannya nulis "Next.js, TypeScript, REST API, Tailwind" dan CV lo cuma nulis "modern JavaScript framework" — lo nggak match, walau skill lo sebenarnya pas. Baca job posting yang lo incer, terus pastiin keyword yang relevan (dan yang <em>beneran lo kuasai</em>) muncul eksplisit di CV: React, TypeScript, Next.js, Redux/Zustand, TanStack Query, Tailwind CSS, Jest/Vitest, React Testing Library, Git, CI/CD, REST, GraphQL — sesuai kenyataan lo ya, bukan wishlist.</p>
+<p>Buat LinkedIn, prinsipnya sama plus tiga hal: <strong class="text-ink">(1) Headline jangan cuma "Fresh Graduate"</strong> — tulis "Frontend Developer | React, TypeScript, Next.js" karena headline itu yang muncul di hasil search recruiter. <strong class="text-ink">(2) Bagian Featured</strong> diisi link portfolio dan proyek terbaik. <strong class="text-ink">(3) Set "Open to Work"</strong> (boleh mode recruiter-only kalau lo masih kerja). Recruiter di Indonesia <em>aktif banget</em> nyari lewat LinkedIn search — profile yang lengkap dengan keyword yang bener itu magnet interview tanpa lo apply.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Buat fresh graduate atau career switcher: bagian <strong>Projects boleh naruh di atas Experience</strong>. Nggak ada aturan CV harus kronologis-formal. Kalau proyek portfolio lo lebih menjual daripada pengalaman kerja lo (yang mungkin belum relevan), pajang yang paling kuat duluan. CV itu iklan, bukan akta kelahiran. 📢</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan nulis skill yang lo nggak siap ditanya-tanya. Nulis "Redux" padahal cuma pernah baca docs-nya sekali = bunuh diri, karena interviewer milih pertanyaan <em>dari CV lo</em>. Setiap kata di CV itu undangan buat pertanyaan interview. Tulis yang lo berani pertanggungjawabkan.</p></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Tulis ulang 3 bullet CV lo</span>
+    <span class="text-xs text-muted">klik untuk lihat contoh solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2">
+    <p>Ambil 3 bullet dari CV lo (atau bikin dari proyek Bab 13 kalau belum punya), terus rewrite pakai formula <em>kata kerja + apa + teknologi + angka</em>. Contoh dari proyek capstone:</p>
+    <p><strong>Sebelum:</strong> "Membuat aplikasi toko online dengan React"<br>
+    <strong>Sesudah:</strong> "Bangun SPA e-commerce (React Router, Context, Vite) dengan cart persist &amp; checkout form tervalidasi; skor Lighthouse 95+, deploy otomatis via Vercel"</p>
+    <p><strong>Sebelum:</strong> "Belajar testing di React"<br>
+    <strong>Sesudah:</strong> "Tulis 25+ unit &amp; integration test (Vitest + React Testing Library) untuk reducer cart dan flow checkout, coverage logic utama 90%"</p>
+    <p>Rasain bedanya: versi sesudah bikin orang <em>kebayang</em> apa yang lo kerjain dan seberapa dalam.</p>
+  </div>
+</details>
+</section>
+
+<!-- LESSON 4: 25 Pertanyaan Interview -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">25 PERTANYAAN INTERVIEW REACT TERSERING 🎤</h2><input type="checkbox" id="check-14-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interview &middot; 30 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ini dia jantungnya bab ini. 25 pertanyaan di bawah muncul <strong class="text-ink">berulang-ulang</strong> di interview React level junior sampai mid — dari startup kecil sampai unicorn lokal. Cara pakainya: <strong class="text-ink">jawab dulu sendiri dengan suara keras</strong> (serius, ngomong beneran — interview itu skill verbal), baru buka jawaban modelnya. Jawaban model di sini sengaja ringkas tapi bernas — pola yang bagus itu: definisi singkat → kenapa penting → contoh konkret.</p>
+<p>Semua materi jawaban ini udah lo pelajari di Bab 1–11. Kalau ada yang kerasa asing, itu sinyal buat balik ke bab terkait dulu. 📚</p>
+</div>
+
+<h3 class="text-sm font-bold text-ink uppercase tracking-wider mt-8 mb-3">🟢 Grup A — Fundamentals</h3>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">1. Apa itu React, dan kenapa banyak dipakai?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>React itu library JavaScript buat bikin UI berbasis komponen. Intinya dua: <strong>declarative</strong> — gue deklarasiin UI-nya harus kayak apa untuk state tertentu, React yang ngurus update DOM-nya; dan <strong>component-based</strong> — UI dipecah jadi potongan kecil yang reusable dan bisa dites terpisah. Banyak dipakai karena ekosistemnya raksasa, komunitasnya besar, dan mental model-nya (UI = fungsi dari state) bikin app kompleks tetap bisa di-reason. Jangan bilang "karena cepat" doang — kecepatan bukan selling point utamanya, developer experience dan maintainability iya.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">2. Apa bedanya state dan props?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><strong>Props</strong> itu data yang dikirim dari parent ke child — read-only dari sudut pandang child, kayak parameter fungsi. <strong>State</strong> itu data internal komponen yang bisa berubah seiring waktu dan perubahannya nge-trigger re-render. Analogi gue: props itu bahan yang dikirim ke dapur, state itu kondisi masakan yang lagi dimasak. Poin bonus yang bikin interviewer senyum: "props berubah kalau parent re-render dengan nilai baru; state berubah lewat setter-nya sendiri — dan keduanya sama-sama nggak boleh dimutasi langsung."</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">3. JSX itu sebenarnya apa?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>JSX itu <strong>sugar syntax</strong> — bukan HTML, bukan template engine, bukan bahasa baru. Setiap tag JSX di-compile (sama Babel/SWC) jadi panggilan <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">React.createElement()</code> (atau jsx runtime modern) yang hasilnya <strong>object JavaScript biasa</strong> — deskripsi elemen, bukan DOM node. Karena JSX = expression JS, makanya dia bisa disimpan di variabel, di-return dari fungsi, dan dipakai di ternary. Ini juga alasan atribut-nya <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">className</code> dan <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">onClick</code> camelCase — karena itu properti JS, bukan atribut HTML.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">4. Kenapa list butuh key? Dan kenapa index sebagai key itu jelek?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Key itu identitas yang dipakai React pas <strong>reconciliation</strong> buat nge-match elemen lama dengan yang baru — biar dia tahu item mana yang pindah, mana yang dihapus, mana yang baru. Tanpa key stabil, React nge-match berdasarkan posisi. Index jadi jelek pas list-nya <strong>berubah urutan/dihapus/di-insert</strong>: item di posisi 0 dianggap "item yang sama" padahal isinya udah beda — akibatnya state lokal (misal isi input) nyasar ke item yang salah. Kalau list-nya statis dan nggak pernah reorder, index masih acceptable — tapi id stabil selalu lebih aman.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">5. Apa bedanya controlled dan uncontrolled component?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><strong>Controlled</strong>: nilai input dipegang React state — <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">value={state}</code> + <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">onChange</code>. Sumber kebenaran = state, jadi gampang validasi real-time, format input, dan sinkronisasi antar field. <strong>Uncontrolled</strong>: nilai dipegang DOM sendiri, kita baca pas butuh via <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">ref</code> (atau FormData saat submit). Lebih ringan buat form simpel. Jawaban senior: default-nya controlled buat form yang butuh logika; uncontrolled oke buat form besar yang cuma dibaca sekali saat submit — atau pakai library kayak React Hook Form yang ngegabungin dua dunia.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">6. Sebutin cara-cara conditional rendering di React</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Empat yang utama: <strong>ternary</strong> (<code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">cond ? &lt;A/&gt; : &lt;B/&gt;</code>) buat dua cabang; <strong>&amp;&amp;</strong> (<code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">cond &amp;&amp; &lt;A/&gt;</code>) buat render-atau-nggak; <strong>early return</strong> di awal komponen buat guard clause (loading/error); dan <strong>variabel JSX</strong> / extract ke komponen buat logika kompleks. Gotcha yang wajib disebut: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">items.length &amp;&amp; ...</code> bakal ngerender angka <strong>0</strong> ke layar pas array kosong — solusinya <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">items.length &gt; 0 &amp;&amp; ...</code>. Nyebut gotcha ini = nilai plus instan.</p></div>
+</details>
+
+<h3 class="text-sm font-bold text-ink uppercase tracking-wider mt-8 mb-3">🔵 Grup B — Hooks</h3>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">7. Kenapa setelah manggil setState, nilai state-nya belum berubah di baris berikutnya?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Karena <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setState</code> itu <strong>schedule re-render</strong>, bukan assignment. Variabel state di dalam satu render itu snapshot yang nggak berubah — nilai baru cuma keliatan di render berikutnya. Makanya <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setCount(count+1); setCount(count+1);</code> cuma nambah 1, karena dua-duanya baca snapshot yang sama. Solusinya functional update: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setCount(c =&gt; c+1)</code> — React ngejamin dapet nilai terbaru. Konsep "state as snapshot" ini favorit interviewer buat misahin yang paham dari yang hafal.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">8. Jelasin lifecycle useEffect — kapan jalan, kapan cleanup dipanggil?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Effect jalan <strong>setelah render di-commit ke DOM</strong>. Kapannya tergantung dependency array: tanpa array = tiap render; <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">[]</code> = sekali setelah mount; <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">[a, b]</code> = tiap kali a atau b berubah. <strong>Cleanup</strong> (fungsi yang di-return) dipanggil <em>sebelum effect berikutnya jalan</em> dan saat unmount — jadi urutannya: render → effect → (deps berubah) → cleanup lama → effect baru. Cleanup itu tempat lepas subscription, clear interval, dan abort fetch. Bonus: di StrictMode dev, mount → effect → cleanup → effect lagi, sengaja buat mastiin cleanup lo bener.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">9. Apa itu stale closure di hooks, dan gimana ngatasinnya?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Stale closure = fungsi yang "ngunci" nilai state dari render lama. Contoh klasik: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setInterval</code> di useEffect dengan deps <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">[]</code> yang manggil <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setCount(count+1)</code> — callback-nya dibuat sekali pas mount, jadi <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">count</code> selamanya 0 dan counter stuck di 1. Solusi: (1) functional update <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setCount(c =&gt; c+1)</code>; (2) masukin dependency yang bener dan biarin effect re-run; (3) simpan nilai mutable di <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useRef</code>. Akar masalahnya: closure JavaScript nangkep variabel per-render — ini bukan bug React, ini cara kerja JS.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">10. Apa bedanya useMemo dan useCallback?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Dua-duanya memoization dengan dependency array, bedanya di <em>apa</em> yang di-cache: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useMemo(fn, deps)</code> nge-cache <strong>hasil pemanggilan fn</strong> (nilai), <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useCallback(fn, deps)</code> nge-cache <strong>fungsinya sendiri</strong> (referensi). Jadi <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useCallback(fn, deps)</code> ≈ <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useMemo(() =&gt; fn, deps)</code>. Kapan dipakai: useMemo buat kalkulasi mahal; useCallback buat handler yang dikirim ke child yang dibungkus <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">React.memo</code> atau masuk dependency effect. Jawaban senior: jangan bungkus semuanya — memoization ada biayanya, pakai kalau ada masalah nyata.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">11. useRef buat apa aja selain akses DOM?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>useRef itu <strong>kotak mutable yang survive antar render tapi perubahannya nggak nge-trigger re-render</strong>. Selain pegang DOM node, dipakai buat: (1) nyimpen id timer/interval biar bisa di-clear; (2) nyimpen nilai sebelumnya (previous props/state); (3) flag kayak <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">isMounted</code> atau "udah fetch belum"; (4) nyimpen instance object berat (websocket, observer) yang nggak boleh dibikin ulang tiap render. Rule of thumb yang enak disebut: <em>data yang dipakai buat tampilan → state; data yang cuma dipakai logika internal → ref.</em></p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">12. Kenapa hooks nggak boleh dipanggil di dalam if/loop?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Karena React nyimpen state hooks dalam <strong>linked list yang urutannya harus konsisten antar render</strong>. React nggak tahu "ini useState buat count" — dia cuma tahu "ini hook ke-1, ke-2, ke-3". Kalau hook dipanggil kondisional dan urutannya berubah di render berikutnya, state hook ke-2 bisa kebaca sebagai hook ke-3 — datanya ketuker semua. Makanya rules of hooks: cuma di top level komponen/custom hook, jangan di if, loop, atau nested function. Yang boleh kondisional itu <em>isi</em> logikanya (di dalam useEffect misalnya), bukan pemanggilan hook-nya.</p></div>
+</details>
+
+<h3 class="text-sm font-bold text-ink uppercase tracking-wider mt-8 mb-3">🟣 Grup C — State Management</h3>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">13. Kapan pakai Context, kapan pakai state management library kayak Zustand/Redux?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><strong>Context</strong> cocok buat data yang jarang berubah dan dibutuhkan banyak komponen: theme, user login, locale. Kelemahannya: semua consumer re-render tiap value berubah — jelek buat state yang update sering. <strong>Zustand/Redux</strong> cocok buat state global yang kompleks dan sering berubah (cart, filter, data realtime) karena punya selector — komponen cuma re-render kalau slice yang dia baca berubah. Poin pamungkas: <strong>server state itu kategori sendiri</strong> — data dari API mendingan dipegang TanStack Query, bukan dijejelin ke Redux. Banyak app "butuh Redux"-nya ilang setelah server state dipisah.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">14. Apa itu lifting state up? Kasih contoh kapan dibutuhkan</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Lifting state up = mindahin state ke <strong>common ancestor terdekat</strong> dari komponen-komponen yang butuh data yang sama. Contoh: SearchInput dan ProductList sama-sama butuh <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">query</code> — state-nya diangkat ke parent, SearchInput dapet <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">query + setQuery</code>, ProductList dapet <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">query</code> buat filter. Ini konsekuensi dari one-way data flow React: sibling nggak bisa saling ngobrol langsung, komunikasinya lewat parent. Prinsip pasangannya: <em>letakkan state serendah mungkin, tapi setinggi yang dibutuhkan</em> — jangan angkat semua ke App kalau nggak perlu.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">15. Kenapa state nggak boleh dimutasi langsung? Apa akibatnya?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>React ngedeteksi perubahan pakai <strong>perbandingan referensi</strong> (<code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">Object.is</code>). Kalau gue <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">todos.push(item)</code> terus <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setTodos(todos)</code>, referensi array-nya sama → React mikir "nggak ada yang berubah" → nggak re-render. UI diem padahal data berubah — bug yang paling bikin frustrasi pemula. Solusinya bikin referensi baru: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">setTodos([...todos, item])</code>, <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">.map()</code> buat update, <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">.filter()</code> buat delete, spread buat object. Immutability juga yang bikin React.memo dan time-travel debugging bisa jalan.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">16. Apa bedanya client state dan server state? Kenapa TanStack Query populer?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><strong>Client state</strong> = milik UI sepenuhnya (modal kebuka, isi form, tab aktif) — sumber kebenarannya di app. <strong>Server state</strong> = data yang aslinya hidup di server (list produk, profil user) — punya masalah unik: bisa basi, perlu refetch, perlu cache, bisa diubah orang lain. Ngurus itu manual pakai useEffect + useState = boilerplate loading/error/race-condition di mana-mana. TanStack Query ngasih caching, deduplikasi request, background refetch, retry, dan invalidation out-of-the-box. Satu kalimat yang ngena: "useEffect buat fetch itu ibarat masak air pakai korek — bisa, tapi ada kompor."</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">17. Apa itu prop drilling, dan apa aja cara ngatasinnya?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Prop drilling = ngoper props lewat banyak level komponen yang <em>nggak butuh</em> datanya, cuma jadi kurir. Dua-tiga level masih wajar; lima level = code smell. Solusi berurutan dari yang paling ringan: (1) <strong>component composition</strong> — pakai <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">children</code> biar komponen dalam dirakit di level atas, sering ini aja udah cukup; (2) <strong>Context</strong> buat data yang emang global-ish (user, theme); (3) <strong>store</strong> (Zustand) buat state yang kompleks. Jawaban yang keliatan senior: nyebut composition <em>sebelum</em> Context — karena kebanyakan orang langsung loncat ke Context padahal restrukturisasi komponen lebih murah.</p></div>
+</details>
+
+<h3 class="text-sm font-bold text-ink uppercase tracking-wider mt-8 mb-3">🟠 Grup D — Performance</h3>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">18. Gimana React.memo bekerja, dan kapan sebaiknya dipakai?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">React.memo</code> nge-wrap komponen dan <strong>skip re-render kalau props-nya shallow-equal</strong> sama render sebelumnya. Catch-nya: object/array/fungsi yang dibikin baru tiap render parent bakal selalu "beda" secara referensi — makanya memo sering harus dipasangin useMemo/useCallback di parent, kalau nggak percuma. Kapan dipakai: komponen yang render-nya mahal (list panjang, chart) dan sering di-render ulang dengan props yang sama. Kapan nggak: komponen kecil murah — biaya perbandingan props-nya bisa lebih mahal dari re-render-nya. Ukur dulu pakai Profiler, baru optimize.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">19. Apa itu code splitting dan lazy loading di React?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Code splitting = mecah bundle JS jadi potongan-potongan yang di-load <strong>saat dibutuhkan</strong>, bukan semuanya di awal. Di React: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">const Page = React.lazy(() =&gt; import('./Page'))</code> dibungkus <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">&lt;Suspense fallback={...}&gt;</code>. Titik split paling efektif: <strong>per route</strong> — user buka halaman login nggak perlu download kode dashboard admin. Dampaknya langsung ke initial load time dan skor Lighthouse. Bonus: sebut juga bundle analyzer buat nyari dependency gendut — sering "optimasi" terbaik itu ngehapus library yang cuma dipakai satu fungsi.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">20. Gimana cara lo nge-debug komponen yang re-render berlebihan?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Langkah gue: (1) buka <strong>React DevTools Profiler</strong>, record interaksi, liat komponen mana yang render dan berapa lama; (2) aktifin "Record why each component rendered" buat tahu penyebabnya — props berubah? state? parent? (3) dari situ obatnya beda-beda: props fungsi/object baru tiap render → useCallback/useMemo di parent; kena imbas parent doang → React.memo atau restrukturisasi pakai children; state global terlalu kasar → pecah context/pakai selector. Kuncinya urutan: <strong>ukur dulu, baru obatin</strong> — bukan taburin memo ke semua file kayak garam.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">21. List 10.000 item bikin lag. Apa itu virtualization dan gimana solusinya?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Masalahnya bukan React-nya lambat — <strong>10.000 DOM node itu emang berat</strong> buat browser mana pun. Virtualization (windowing) cuma ngerender item yang keliatan di viewport plus buffer dikit — misal 20 dari 10.000 — dan ngerecycle-nya pas scroll. Library-nya: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">react-window</code> atau <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">@tanstack/react-virtual</code>. Analoginya kayak bioskop: penonton (DOM node) cuma disediain kursi sebanyak yang keliatan layar, bukan sejuta kursi. Sebut juga alternatif yang lebih simpel dulu: pagination atau infinite scroll — kadang produknya nggak butuh render semua.</p></div>
+</details>
+
+<h3 class="text-sm font-bold text-ink uppercase tracking-wider mt-8 mb-3">🔴 Grup E — Internals</h3>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">22. Apa itu Virtual DOM, dan gimana reconciliation bekerja?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Virtual DOM = representasi UI dalam bentuk <strong>object JavaScript ringan</strong>. Tiap render, React bikin tree element baru, terus <strong>diff</strong> sama tree sebelumnya (reconciliation) dan cuma nge-apply perubahan minimal ke DOM asli. Aturan diffing-nya heuristik biar O(n): (1) tipe elemen beda → subtree lama dibuang, dibangun ulang; (2) tipe sama → update atributnya doang, rekursi ke children; (3) list dibandingin pakai <strong>key</strong>. Mitos yang perlu diluruskan (interviewer suka ngetes ini): VDOM itu <em>bukan</em> "lebih cepat dari DOM manipulation manual yang optimal" — dia trade-off: kecepatan yang cukup + developer experience declarative.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">23. Apa bedanya render phase dan commit phase?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p><strong>Render phase</strong>: React manggil fungsi komponen, bikin element tree baru, dan ngitung diff — semuanya di memori, <strong>belum nyentuh DOM</strong>. Fase ini harus pure (tanpa side effect) karena di concurrent rendering bisa di-pause, diulang, atau dibuang. <strong>Commit phase</strong>: React nge-apply perubahan ke DOM beneran, jalanin ref, terus useLayoutEffect (sinkron) dan useEffect (setelahnya). Implikasi praktisnya: makanya komponen nggak boleh mutasi/side-effect di body-nya — bisa kepanggil lebih dari sekali; side effect tempatnya di useEffect yang jalan setelah commit.</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">24. Apa itu Fiber, dan kenapa React ditulis ulang pakai arsitektur itu?</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Fiber (React 16) itu penulisan ulang core reconciler jadi <strong>unit-unit kerja kecil yang bisa di-pause dan dilanjut</strong> (interruptible rendering). Sebelumnya rendering itu rekursif sinkron — sekali mulai nggak bisa berhenti, jadi tree besar bisa nge-block main thread dan bikin UI freeze. Dengan Fiber, React bisa ngerjain render nyicil, ngasih prioritas (input user &gt; update background), buang pekerjaan yang udah nggak relevan, dan ini fondasi semua concurrent features: <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useTransition</code>, <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">useDeferredValue</code>, Suspense. Satu kalimat penutup yang bagus: "Fiber bikin React bisa <em>multitasking</em> kayak OS scheduler."</p></div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-3">
+  <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">25. Kenapa di development, komponen gue render dua kali? (StrictMode)</span><span class="text-xs text-muted">jawaban model</span></summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4 text-sm text-[#333] space-y-2"><p>Itu <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">&lt;StrictMode&gt;</code> yang <strong>sengaja</strong> double-invoke render (dan di React 18: mount → unmount → mount effect) — <em>cuma di development</em>, nggak terjadi di production build. Tujuannya nyari bug: kalau komponen lo pure, dirender dua kali hasilnya identik dan nggak ada masalah; kalau ada side effect nakal di body render atau effect tanpa cleanup yang bener (misal subscribe dua kali), langsung ketauan. Jawaban yang salah dan sering kejadian: "matiin aja StrictMode-nya" — itu ngilangin alarm kebakaran, bukan apinya. Yang bener: perbaiki effect-nya biar idempotent + cleanup lengkap.</p></div>
+</details>
+
+<div class="tip-box rounded-xl p-4 mt-8"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Interviewer jarang nyari jawaban yang "sempurna textbook". Yang dia nilai: apakah lo paham <strong>kenapa</strong>-nya, dan apakah lo jujur pas nggak tahu. "Wah, yang itu gue belum pernah pakai di production, tapi setahu gue konsepnya..." itu jawaban yang JAUH lebih baik daripada ngarang. Ngarang sekali ketauan, semua jawaban lo yang lain ikut diragukan.</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan ngafal jawaban di atas kata per kata kayak pidato 17 Agustus. Interviewer selalu punya pertanyaan lanjutan ("oke, terus kalau kasusnya gini gimana?") yang langsung bongkar hafalan. Pahami konsepnya, latih ngejelasinnya <em>dengan kata-kata lo sendiri</em>, pakai analogi lo sendiri.</p></div>
+</section>
+
+<!-- LESSON 5: Live Coding -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LIVE CODING INTERVIEW — TENANG, ADA STRATEGINYA 🧑‍💻</h2><input type="checkbox" id="check-14-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interview &middot; 18 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Live coding itu bagian interview yang paling ditakutin — dan paling salah dipahami. Kebanyakan kandidat mikir ini <strong class="text-ink">ujian ngoding</strong>. Salah. Ini <strong class="text-ink">simulasi kerja bareng</strong>. Interviewer lagi ngebayangin: "kalau orang ini satu tim sama gue, ngerjain task bareng gue, rasanya kayak gimana?" Makanya kandidat yang codingnya biasa aja tapi komunikasinya jernih sering menang lawan kandidat jago yang diem seribu bahasa.</p>
+<p>Tiga aturan mainnya:</p>
+<p><strong class="text-ink">1. Klarifikasi dulu, ngoding belakangan.</strong> Jangan langsung ngetik! Ulangi soalnya dengan kata-kata lo, terus nanya: "Todo-nya perlu persist atau in-memory aja?", "Perlu handle empty state?", "Boleh pakai library atau vanilla React?" Ini bukan basa-basi — di kerjaan nyata, developer yang langsung ngoding tanpa klarifikasi requirement itu yang bikin fitur salah arah seminggu.</p>
+<p><strong class="text-ink">2. Think-aloud — narasiin pikiran lo.</strong> "Oke, gue butuh dua state di sini: nilai counter sama history buat undo... history-nya array biar bisa multiple undo." Interviewer nggak bisa nilai apa yang nggak dia denger. Diam = kotak hitam = nilai jelek, walau kodenya jadi.</p>
+<p><strong class="text-ink">3. Sebutin edge case sebelum ditanya.</strong> "Kalau history kosong, tombol undo gue disable." "Fetch bisa gagal, jadi gue siapin state error." Kandidat yang nyebut edge case tanpa dipancing itu yang diinget interviewer sampai meeting hiring decision.</p>
+<p>Sekarang kita bedah tiga soal live coding paling klasik — lengkap dengan walkthrough cara mikirnya, bukan cuma jawabannya.</p>
+</div>
+
+<h3 class="text-base font-bold text-ink mt-8 mb-2">Soal 1: Counter dengan Undo ⏪</h3>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><em>"Bikin counter yang bisa di-undo — balik ke nilai sebelumnya, berkali-kali."</em> Cara mikirnya (dan ini yang lo ucapin keras-keras): undo butuh <strong class="text-ink">ingatan</strong> — berarti selain nilai sekarang, gue perlu nyimpen jejak nilai-nilai sebelumnya. Struktur paling natural: array sebagai stack. Tiap kali nilai berubah, push nilai lama; pas undo, pop yang paling akhir. Edge case: undo pas history kosong → disable tombolnya. Coba langsung mainkan di playground ini:</p>
+</div>
+<script type="text/plain" id="pg-14-1">function App() {
+  const [count, setCount] = React.useState(0);
+  const [history, setHistory] = React.useState([]);
+
+  function ubah(delta) {
+    // Simpan nilai SEKARANG ke history sebelum berubah
+    setHistory([...history, count]);
+    setCount(count + delta);
+  }
+
+  function undo() {
+    if (history.length === 0) return; // edge case: nggak ada jejak
+    const nilaiSebelumnya = history[history.length - 1];
+    setCount(nilaiSebelumnya);
+    setHistory(history.slice(0, -1)); // pop tanpa mutasi
+  }
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => ubah(1)}>+1</button>{' '}
+      <button onClick={() => ubah(-1)}>-1</button>{' '}
+      <button onClick={undo} disabled={history.length === 0}>
+        ⏪ Undo
+      </button>
+      <p style={{ color: '#666', fontSize: 13 }}>
+        History: [{history.join(', ')}]
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-14-1"></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Poin yang bikin interviewer manggut-manggut: lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">slice(0, -1)</code> bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pop()</code> — karena pop memutasi array (pelanggaran immutability, liat Q&amp;A #15). Follow-up yang sering muncul: "gimana kalau ditambah redo?" Jawabannya: satu stack lagi — pas undo, push nilai sekarang ke stack redo. Kalau lo bisa jawab itu, sesi ini udah lo menangin.</p>
+</div>
+
+<h3 class="text-base font-bold text-ink mt-8 mb-2">Soal 2: Todo List ✅</h3>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><em>"Bikin todo list: tambah, tandai selesai, hapus."</em> Soal paling standar sedunia — justru karena itu, yang dinilai adalah <strong class="text-ink">kerapian fundamental</strong> lo: struktur data, immutability, key, controlled input. Think-aloud-nya: "Todo gue modelkan sebagai object <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{id, text, done}</code> — id buat key yang stabil, jangan index karena ada operasi hapus."</p>
+</div>
+<script type="text/plain" id="pg-14-2">function App() {
+  const [todos, setTodos] = React.useState([]);
+  const [text, setText] = React.useState(''); // controlled input
+
+  function addTodo(e) {
+    e.preventDefault();       // form submit = bisa pakai Enter
+    if (!text.trim()) return; // edge case: input kosong
+    setTodos([
+      ...todos,
+      { id: crypto.randomUUID(), text: text.trim(), done: false },
+    ]);
+    setText('');              // reset input setelah tambah
+  }
+
+  function toggleTodo(id) {
+    // map + spread: referensi baru, immutable ✅
+    setTodos(todos.map(t =>
+      t.id === id ? { ...t, done: !t.done } : t
+    ));
+  }
+
+  function deleteTodo(id) {
+    setTodos(todos.filter(t => t.id !== id));
+  }
+
+  return (
+    <div>
+      <form onSubmit={addTodo}>
+        <input
+          value={text}
+          onChange={e => setText(e.target.value)}
+          placeholder="Mau ngapain hari ini?"
+        />
+        <button type="submit">Tambah</button>
+      </form>
+
+      {todos.length === 0 && <p>Belum ada todo. Gas tambah! 🚀</p>}
+
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}> {/* key pakai id, BUKAN index! */}
+            <label style={{
+              textDecoration: todo.done ? 'line-through' : 'none'
+            }}>
+              <input
+                type="checkbox"
+                checked={todo.done}
+                onChange={() => toggleTodo(todo.id)}
+              />
+              {todo.text}
+            </label>{' '}
+            <button onClick={() => deleteTodo(todo.id)}>🗑️</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-14-2"></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-4">
+<p>Detail-detail kecil yang lo sebutin sambil ngetik itu poinnya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">form onSubmit</code> biar Enter jalan (bukan cuma onClick), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">trim()</code> buat input spasi doang, empty state biar UI nggak bengong, dan key pakai id. Empat hal remeh yang misahin "bisa React" dari "biasa kerja pakai React".</p>
+</div>
+
+<h3 class="text-base font-bold text-ink mt-8 mb-2">Soal 3: Fetch + Loading + Error + Retry 🌐</h3>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><em>"Fetch data user dari API, tampilkan loading state, handle error, dan kasih tombol retry."</em> Ini soal favorit buat level junior-akhir/mid karena ngetes useEffect yang bener — cleanup, race condition, dan state machine kecil (loading → success / error). Think-aloud kuncinya: "Tiga state UI yang mutually exclusive: loading, error, data. Gue juga siapin AbortController di cleanup biar nggak ada race condition kalau komponen unmount atau refetch."</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Walkthrough: fetch dengan loading, error, retry — versi yang bener</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [attempt, setAttempt] = useState(0); // buat trigger retry
+
+  useEffect(() =&gt; {
+    const controller = new AbortController();
+
+    setLoading(true);
+    setError(null);
+
+    fetch(`/api/users/${userId}`, { signal: controller.signal })
+      .then(res =&gt; {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(json =&gt; setData(json))
+      .catch(err =&gt; {
+        // Abort itu bukan error beneran — jangan ditampilin
+        if (err.name !== 'AbortError') setError(err);
+      })
+      .finally(() =&gt; {
+        // Guard penting! finally request yang di-abort tetap jalan
+        // BELAKANGAN — jangan sampai dia matiin loading-nya
+        // request baru yang masih in flight.
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    // Cleanup: batalin request lama kalau userId ganti / unmount.
+    // Tanpa ini: race condition — response lama bisa nimpa yang baru!
+    return () =&gt; controller.abort();
+  }, [userId, attempt]);
+
+  if (loading) return &lt;p&gt;⏳ Loading...&lt;/p&gt;;
+  if (error) return (
+    &lt;div&gt;
+      &lt;p&gt;❌ Gagal load: {error.message}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setAttempt(a =&gt; a + 1)}&gt;
+        🔄 Coba Lagi
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+  if (!data) return null; // guard: jangan asumsi data ada
+  return &lt;h2&gt;Halo, {data.name}!&lt;/h2&gt;;
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-4">
+<p>Perhatiin guard <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if (!controller.signal.aborted)</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">finally</code> — ini poin plus besar di interview. Kenapa penting? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">abort()</code> nggak bikin promise chain-nya lenyap: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">finally</code> request lama tetap jalan sebagai microtask — <em>setelah</em> effect baru udah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setLoading(true)</code>. Tanpa guard, loading langsung ke-flip <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">false</code> padahal request baru masih jalan (user liat data basi), dan di StrictMode dev (mount → unmount → mount) bisa berakhir <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">loading=false</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data=null</code> → render nyoba baca <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data.name</code> → crash. Makanya render-nya juga nggak boleh asumsi data ada cuma karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">!loading &amp;&amp; !error</code> — guard <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if (!data) return null</code> itu sabuk pengamannya.</p>
+<p>Trik <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">attempt</code> di dependency array itu elegan: retry = naikin angka = effect jalan ulang, tanpa duplikasi logika fetch. Dan kalimat penutup yang naikin level lo di mata interviewer: <em>"Di production, gue nggak bakal handle ini manual — gue pakai TanStack Query yang udah nge-handle caching, retry, dan race condition. Tapi penting paham cara kerjanya di bawah."</em> Boom. 🎤⬇️</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Kalau lo stuck total pas live coding, <strong>bilang stuck-nya di mana</strong>: "Gue lupa sintaks persisnya AbortController, tapi konsepnya gue mau batalin fetch di cleanup — boleh gue tulis pseudocode dulu?" Interviewer hampir selalu bantu, dan kemampuan minta bantuan dengan presisi itu justru <em>skill kerja nyata</em> yang lagi dites. Stuck diam-diam 10 menit itu yang fatal.</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan sok-sokan langsung nulis solusi paling "canggih" (useReducer + custom hook + memo semua) buat soal simpel. Mulai dari solusi paling sederhana yang jalan, terus bilang: "ini bisa di-refactor ke useReducer kalau transisinya makin kompleks." Over-engineering di live coding kebaca sebagai nggak bisa nge-judge skala masalah — red flag buat level mana pun.</p></div>
+</section>
+
+<!-- LESSON 6: System Design -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">FRONTEND SYSTEM DESIGN DASAR 🏗️</h2><input type="checkbox" id="check-14-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interview &middot; 15 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>System design interview buat frontend itu bukan soal nge-gambar database sama load balancer — itu punya backend. Punya kita: <em>"Design halaman feed kayak Twitter"</em>, <em>"Design autocomplete search"</em>, <em>"Design komponen infinite scroll"</em>. Yang dites bukan jawaban benar (nggak ada satu jawaban benar), tapi <strong class="text-ink">cara lo menstrukturkan masalah yang besar dan ambigu</strong>. Ini yang misahin mid dari senior.</p>
+<p>Bahayanya: tanpa framework, kandidat ngalor-ngidul 30 menit nggak jelas arahnya. Jadi hafalin urutan enam langkah ini — ini rel kereta lo:</p>
+<p><strong class="text-ink">Requirements → Component tree → State placement → Data flow → Caching → Error/loading states.</strong></p>
+<p>Kita jalanin langsung ke soal nyata: <strong class="text-ink">"Design halaman feed Twitter-like."</strong></p>
+<p><strong class="text-ink">Langkah 1 — Requirements (5 menit pertama, jangan skip!).</strong> Nanya dulu: Fitur inti apa aja? (list tweet, like, tulis tweet baru, infinite scroll). Ada realtime update nggak? Target device? Perlu SEO nggak? — kalau feed publik, iya → Next.js SSR; kalau app internal, SPA cukup. Berapa kira-kira item per load? Interviewer <em>sengaja</em> ngasih soal kabur buat liat apakah lo nanya. Kandidat yang langsung gambar komponen tanpa nanya = udah minus di menit pertama.</p>
+<p><strong class="text-ink">Langkah 2 — Component tree.</strong> Gambar hirarki komponennya (di whiteboard/notepad, sambil ngomong):</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Component tree — halaman feed Twitter-like</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">FeedPage
+├── Header                    # nav, avatar user login
+├── TweetComposer             # form tulis tweet baru
+│   ├── AvatarImage
+│   └── SubmitButton          # disabled saat kosong/submitting
+├── FeedList                  # infinite scroll + virtualization
+│   └── TweetCard (xN)        # satu tweet — unit reusable utama
+│       ├── TweetHeader       # nama, handle, waktu relatif
+│       ├── TweetBody         # teks, gambar (lazy load)
+│       └── TweetActions      # like, reply, repost, share
+│           └── LikeButton    # optimistic update di sini!
+└── FeedListSkeleton          # loading state pertama
+
+# Prinsip yang lo ucapin:
+# - TweetCard = presentational murni (props in, event out)
+#   → gampang dites, gampang dipakai di halaman profile juga
+# - Logic fetch & pagination TIDAK di TweetCard,
+#   tapi di FeedList / custom hook</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">Langkah 3 — State placement.</strong> Klasifikasi dulu, baru taruh: <strong class="text-ink">Server state</strong> (list tweet, jumlah like) → TanStack Query, bukan useState — karena butuh cache, refetch, dan pagination. <strong class="text-ink">Client state lokal</strong> (isi composer, modal kebuka) → useState di komponen masing-masing, nggak usah diangkat. <strong class="text-ink">Client state global</strong> (user login, theme) → Context, karena jarang berubah. Kalimat kuncinya: <em>"Gue taruh state serendah mungkin — cuma yang bener-bener dibutuhkan lintas komponen yang naik."</em></p>
+<p><strong class="text-ink">Langkah 4 &amp; 5 — Data flow + caching.</strong> Ini bagian yang paling enak dijelasin pakai kode:</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Data flow feed: infinite query + optimistic like</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Fetch feed: cursor-based pagination (BUKAN offset — offset
+// kacau kalau ada tweet baru masuk di atas saat lo scroll)
+function useFeed() {
+  return useInfiniteQuery({
+    queryKey: ['feed'],
+    queryFn: ({ pageParam }) =&gt;
+      fetchFeed({ cursor: pageParam, limit: 20 }),
+    getNextPageParam: last =&gt; last.nextCursor,
+    staleTime: 30_000,        // cache 30 detik — feed nggak perlu
+                              // fresh tiap milidetik
+  });
+}
+
+// Like: optimistic update — UI update DULUAN, rollback kalau gagal
+function useLikeTweet() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: likeTweetApi,
+    onMutate: async (tweetId) =&gt; {
+      await qc.cancelQueries({ queryKey: ['feed'] });
+      const prev = qc.getQueryData(['feed']);
+      qc.setQueryData(['feed'], data =&gt;
+        updateTweet(data, tweetId, t =&gt; ({
+          ...t, liked: !t.liked,
+          likeCount: t.likeCount + (t.liked ? -1 : 1),
+        })));
+      return { prev };                    // bekal rollback
+    },
+    onError: (_e, _id, ctx) =&gt;
+      qc.setQueryData(['feed'], ctx.prev), // gagal? balikin
+    onSettled: () =&gt;
+      qc.invalidateQueries({ queryKey: ['feed'] }),
+  });
+}
+
+// Layer caching yang lo sebutin:
+// 1. Memory cache (TanStack Query) — data feed antar navigasi
+// 2. HTTP cache (CDN + Cache-Control) — asset & gambar
+// 3. Next/Image + lazy loading — gambar di bawah viewport</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">Langkah 6 — Error &amp; loading states.</strong> Sebutin per-jenis: initial load → skeleton (bukan spinner gede doang, skeleton ngasih perceived performance lebih baik); load halaman berikutnya → spinner kecil di bawah list; like gagal → rollback optimistic + toast; feed gagal total → error boundary dengan tombol retry. Terus tutup dengan performance: <strong class="text-ink">virtualization</strong> buat list panjang (Q&amp;A #21), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> di TweetCard biar like satu tweet nggak ngerender ulang 200 tweet lain, dan code splitting per route.</p>
+<p>Perhatiin: <strong class="text-ink">semua materi ini udah lo pelajari</strong> — TanStack Query di Bab 8, memo &amp; virtualization di Bab 10, arsitektur komponen di Bab 12. System design interview itu cuma ngetes apakah lo bisa <em>ngerangkai</em> semuanya jadi satu cerita yang koheren dalam 30–45 menit.</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Di system design, <strong>trade-off adalah mata uangnya</strong>. Tiap keputusan, sebutin alternatif yang lo tolak dan kenapa: "Gue pakai cursor pagination, bukan offset, karena feed-nya mutable. Trade-off-nya: nggak bisa lompat ke halaman 5 — tapi buat feed emang nggak perlu." Kandidat yang cuma bilang "pakai X karena bagus" itu mid; yang bilang "pakai X, sadar konsekuensinya Y" itu senior. 🎯</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan buru-buru nyebur ke detail kode di 5 menit pertama. Kalau lo langsung nulis useInfiniteQuery sebelum jelasin requirement dan struktur, interviewer bakal narik lo mundur — dan itu ngabisin waktu plus kesan "nggak bisa mikir big picture". Urutan framework-nya dijaga: besar dulu, detail belakangan.</p></div>
+</section>
+
+<!-- LESSON 7: Take-home -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TAKE-HOME PROJECT — BIKIN REVIEWER TERKESAN 📦</h2><input type="checkbox" id="check-14-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interview &middot; 12 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Take-home project ("kerjain app kecil ini, deadline 3–7 hari") itu format yang makin umum dipakai perusahaan di Indonesia. Dan di sinilah kandidat paling sering salah strategi: mereka mikir yang menang adalah yang <strong class="text-ink">fiturnya paling banyak</strong>. Salah besar. Yang menang adalah yang <strong class="text-ink">paling enak di-review</strong>.</p>
+<p>Inget: yang nge-review itu engineer sibuk yang nyempil-nyempilin waktu antara meeting. Dia buka repo lo 15–30 menit. Dalam waktu segitu dia mau jawab satu pertanyaan: <em>"kalau orang ini submit PR ke codebase gue, gue seneng atau pusing?"</em> Empat hal yang bikin dia seneng:</p>
+<p><strong class="text-ink">1. Scope kecil tapi tuntas.</strong> Requirement minta 5 fitur? Kerjain 5-nya sampai rapi — jangan 8 fitur yang semuanya setengah jadi. Kalau waktunya mepet, lebih baik 4 fitur polished + catatan jujur di README "fitur X belum sempet, rencana implementasinya begini" daripada 5 fitur bug-an. Kejujuran soal scope itu sinyal senior.</p>
+<p><strong class="text-ink">2. Test di bagian yang penting — nggak usah semua.</strong> Coverage 100% itu bukan target take-home (buang waktu). Tapi <em>nol test</em> juga bikin lo kalah dari kandidat yang punya. Sweet spot-nya: test logika bisnis inti (reducer, fungsi kalkulasi, custom hook) + satu-dua integration test buat flow utama. Itu 10–15 test yang ngomongnya kenceng banget:</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Test yang "ngomong kenceng" — fokus ke logika inti</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// cart.reducer.test.js — logika bisnis inti, WAJIB dites
+describe('cartReducer', () =&gt; {
+  it('nambah item baru ke cart', () =&gt; {
+    const state = cartReducer([], addItem(produk));
+    expect(state).toHaveLength(1);
+    expect(state[0].qty).toBe(1);
+  });
+
+  it('naikin qty kalau item yang sama ditambah lagi', () =&gt; {
+    const state = cartReducer(
+      [{ ...produk, qty: 1 }], addItem(produk)
+    );
+    expect(state).toHaveLength(1);   // bukan jadi 2 baris!
+    expect(state[0].qty).toBe(2);
+  });
+
+  it('total nggak pernah negatif saat qty dikurangi', () =&gt; {
+    const state = cartReducer(
+      [{ ...produk, qty: 1 }], decreaseQty(produk.id)
+    );
+    expect(state).toHaveLength(0);   // qty 0 = item dihapus
+  });
+});
+
+// checkout.test.jsx — SATU integration test flow utama
+it('user bisa nambah produk dan liat total di cart', async () =&gt; {
+  render(&lt;App /&gt;);
+  await userEvent.click(screen.getAllByText('+ Keranjang')[0]);
+  await userEvent.click(screen.getByLabelText('Buka keranjang'));
+  expect(screen.getByText(/total/i)).toHaveTextContent('Rp');
+});</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. README yang menjelaskan keputusan.</strong> Sama kayak Lesson 2, tapi buat take-home tambahin bagian khusus: <em>keputusan &amp; trade-off</em> ("gue pakai Context, bukan Zustand, karena state global-nya cuma cart — kalau app-nya tumbuh, migrasinya begini"), <em>yang bakal gue lakuin kalau punya waktu lebih</em> (nunjukkin lo tahu kekurangan kerjaan lo sendiri — skill review diri yang dicari dari mid ke atas), dan <em>cara run + test dalam 2 perintah</em>. Reviewer yang gagal nge-run projek lo = auto gugur, jadi tes instruksi lo di folder kosong sebelum submit.</p>
+<p><strong class="text-ink">4. Commit history yang bercerita.</strong> Reviewer sering buka <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">git log</code> buat liat cara lo kerja. Satu commit raksasa "finish project" = nggak ada informasi. Commit kecil bertahap yang deskriptif = keliatan proses mikir lo:</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Commit history yang bercerita vs yang bisu</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># ❌ Commit history yang bisu
+git log --oneline
+a1b2c3d final
+d4e5f6a fix
+b7c8d9e update
+c0d1e2f wip
+
+# ✅ Commit history yang bercerita
+git log --oneline
+f9e8d7c docs: README — keputusan teknis &amp; improvement list
+a6b5c4d test: cart reducer edge cases (qty 0, item duplikat)
+e3f2a1b feat: checkout form dengan validasi + error state
+d0c9b8a feat: cart context dengan optimistic qty update
+c7d6e5f feat: product list + detail page (React Router)
+b4a3f2e chore: setup Vite + Tailwind + struktur folder
+
+# Pola: chore/feat/fix/test/docs + apa yang berubah.
+# Reviewer bisa "nonton ulang" cara lo bangun project.</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Sebelum submit, lakuin <strong>"review 30 menit"</strong> ke diri sendiri: clone repo lo di folder baru, ikutin README lo sendiri kata per kata, run app, run test, baca kode lo kayak orang asing. Lo bakal nemu minimal 3 hal memalukan (console.log nyangkut, file .env kebawa, instruksi salah) — dan mendingan lo yang nemu daripada reviewer. 🕵️</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan submit take-home yang 80% hasil copy-paste AI tanpa lo pahami. Banyak perusahaan sekarang <em>sengaja</em> jadwalin sesi "walkthrough take-home" — lo disuruh jelasin dan modifikasi kode lo live. Kandidat yang nggak bisa jelasin kodenya sendiri langsung gugur dengan cara yang paling awkward. Pakai AI boleh (di kerjaan nyata juga pakai), tapi <em>pahami dan bisa pertanggungjawabkan</em> tiap barisnya.</p></div>
+</section>
+
+<!-- LESSON 8: Negosiasi & 90 hari + Kesalahan Umum -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">NEGOSIASI OFFER &amp; 90 HARI PERTAMA 🤝</h2><input type="checkbox" id="check-14-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-14-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Career &middot; 14 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Selamat, lo dapet offer! 🎉 Sekarang jangan buru-buru bilang iya. Negosiasi 10 menit di titik ini bisa bernilai jutaan rupiah <em>per bulan</em> — per jam-nya, ini "kerjaan" dengan bayaran tertinggi yang pernah lo lakuin. Dan kabar baiknya: HR itu <strong class="text-ink">terbiasa</strong> dinego. Nggak ada offer yang ditarik cuma karena lo nanya baik-baik apakah ada ruang di angkanya.</p>
+<p><strong class="text-ink">Aturan #1: riset range sebelum ngomong angka.</strong> Cek range di situs review gaji lokal, tanya komunitas developer, tanya teman yang udah kerja di industri serupa. Lo harus masuk ruang negosiasi dengan tahu posisi tawar lo: skill lo di mana, pasar bayar berapa.</p>
+<p><strong class="text-ink">Aturan #2: jangan sebut angka duluan kalau bisa dihindari.</strong> Yang nyebut angka duluan ngasih jangkar — kalau angka lo di bawah budget mereka, lo rugi diam-diam. Pas ditanya "ekspektasi gajinya berapa?" di screening awal, balikkan dengan sopan:</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Skrip menjawab "ekspektasi gaji berapa?"</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># Opsi 1 — balikin dulu (paling ideal):
+"Sebelum ke angka, boleh tahu range budget untuk posisi ini?
+ Biar sama-sama efisien waktunya."
+
+# Opsi 2 — kalau didesak, kasih RANGE (bukan titik), berbasis riset:
+"Dari riset saya untuk posisi frontend level ini di Jakarta,
+ range pasarnya sekitar X–Y. Saya terbuka diskusi tergantung
+ keseluruhan paketnya."
+
+# Opsi 3 — pas nego offer yang udah keluar:
+"Terima kasih offer-nya, saya excited banget sama rolenya.
+ Dengan skill testing + TypeScript yang saya bawa, apakah ada
+ ruang untuk naik ke angka Z?"
+# → Selalu sebut ALASAN (skill/scope), bukan cuma "mau lebih".
+
+# Yang JANGAN:
+# ✗ Bohong soal offer lain yang nggak ada (dunia tech sempit!)
+# ✗ Ultimatum kasar ("kalau nggak Z saya nggak mau")
+# ✗ Minta naik tanpa alasan apa pun</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">Aturan #3: evaluasi offer itu total paket, bukan gaji doang.</strong> Bandingin: THR dan bonus (ada yang setara 1–4 bulan gaji), BPJS + asuransi swasta tambahan, jatah remote/hybrid (full remote = hemat transport + 2 jam macet sehari — itu ada harganya), budget belajar, jumlah cuti, jenjang review gaji, dan — paling underrated buat awal karir — <strong class="text-ink">kualitas engineer di sekitar lo</strong>. Offer 8 juta di tim dengan senior yang rajin mentoring itu sering ngalahin 10 juta jadi developer tunggal yang nggak ada yang review kodenya. Dua tahun pertama, lo dibayar dua mata uang: uang dan ilmu. Yang kedua yang nentuin gaji lo di tahun kelima.</p>
+<p><strong class="text-ink">Setelah tanda tangan: 90 hari pertama.</strong> Probation itu bukan formalitas — ini periode di mana impresi lo kebentuk dan (jujur aja) keputusan lanjut/nggak-nya dibikin. Strateginya per fase: <strong class="text-ink">Hari 1–30: serap.</strong> Pahami codebase, produk, dan cara tim kerja. Banyak nanya (sekarang masa-masa nanya itu gratis!), catat semua, dan kirim PR kecil pertama secepat mungkin — sekecil apa pun, PR pertama yang cepat itu sinyal psikologis yang kuat. <strong class="text-ink">Hari 31–60: kontribusi.</strong> Ambil task makin besar, mulai kasih input di review, dan jadi handal di satu area spesifik ("kalau soal halaman checkout, tanya dia"). <strong class="text-ink">Hari 61–90: inisiatif.</strong> Nemuin masalah kecil yang ganggu tim (build lambat, komponen duplikat, dokumentasi bolong) dan beresin <em>tanpa disuruh</em>. Satu inisiatif kecil yang keliatan itu yang diomongin manager lo pas evaluasi probation.</p>
+<p>Dan resep naik cepat sesudahnya cuma dua kata: <strong class="text-ink">ownership + visibility</strong>. Ownership = megang sesuatu sampai tuntas, termasuk bagian nggak enaknya (bug production jam 5 sore Jumat). Visibility = hasil kerja lo <em>keliatan</em> — tulis update singkat di Slack, demo di sprint review, dokumentasiin solusi lo. Kerja bagus yang nggak keliatan itu, buat karir lo, sama kayak nggak terjadi. Bukan berarti jadi tukang pamer — cukup jangan jadi hantu. 👻</p>
+</div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Kalau angka gaji mentok nggak bisa naik, <strong>negosiasilah hal lain</strong>: tanggal review gaji dipercepat (6 bulan, bukan 12), title yang lebih akurat, jatah remote, atau budget kursus/sertifikasi. HR sering punya fleksibilitas di pos-pos ini walau pos gaji udah terkunci. Yang penting: semua yang disepakati minta <em>tertulis</em> di offer letter. 📝</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Di 90 hari pertama, jangan jadi orang baru yang hari kedua udah nyeletuk "kode di sini jelek, harusnya di-rewrite pakai stack anu". Codebase yang keliatan aneh biasanya punya sejarah (deadline, constraint, keputusan bisnis) yang lo belum tahu. Pahami dulu <em>kenapa</em>-nya, baru usulin perbaikan — dengan data, bukan selera.</p></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="kesalahan-umum">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-base">⚠️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM PENCARI KERJA REACT 🚫</h2><p class="text-sm text-muted mt-1">Empat jebakan yang paling sering bikin proses nyari kerja jadi panjang &amp; nyakitin</p></div></div>
+<div class="space-y-5 text-[#333] leading-relaxed">
+<div class="bg-white rounded-xl p-5 shadow-soft">
+<p class="font-bold text-ink mb-1">1. Apply spray-and-pray 📨</p>
+<p class="text-sm">Ngirim CV yang sama persis ke 100 lowongan lalu heran kenapa sepi. Kebalikannya yang jalan: pilih 10–15 perusahaan yang bener-bener match, sesuaikan CV dengan keyword tiap lowongan (15 menit per apply), dan kalau bisa cari koneksi orang dalam buat referral — di banyak perusahaan, referral itu jalur dengan conversion rate tertinggi. 10 apply yang niat ngalahin 100 apply yang asal lempar.</p>
+</div>
+<div class="bg-white rounded-xl p-5 shadow-soft">
+<p class="font-bold text-ink mb-1">2. Portfolio isinya clone semua 📋</p>
+<p class="text-sm">Clone Netflix + clone Spotify + clone Twitter dari tutorial YouTube yang sama kayak ribuan kandidat lain = reviewer langsung tahu, dan nggak ada satu pun keputusan teknis di dalamnya yang bisa lo ceritain sebagai milik lo. Reviewer nggak nyari UI yang mirip Netflix — dia nyari bukti lo bisa <em>mikir</em>. Balik ke Lesson 2: tiga proyek dengan domain personal + README yang jelasin keputusan.</p>
+</div>
+<div class="bg-white rounded-xl p-5 shadow-soft">
+<p class="font-bold text-ink mb-1">3. Nggak nanya balik di interview 🤐</p>
+<p class="text-sm">Pas ditanya "ada pertanyaan?" jawab "nggak ada, udah jelas kok" — itu kebaca sebagai nggak tertarik atau nggak kritis. Selalu siapin 2–3 pertanyaan: "Gimana proses code review di tim ini?", "Tech debt terbesar yang lagi dihadapi apa?", "Seperti apa 90 hari pertama yang sukses buat role ini?" Bonus: jawaban mereka juga data buat <em>lo</em> menilai <em>mereka</em> — interview itu dua arah.</p>
+</div>
+<div class="bg-white rounded-xl p-5 shadow-soft">
+<p class="font-bold text-ink mb-1">4. Langsung terima offer pertama tanpa mikir 💸</p>
+<p class="text-sm">Excited boleh, tapi "wah diterima, langsung gas!" tanpa nego dan tanpa evaluasi total paket itu ninggalin uang di atas meja — dan jangkar gaji rendah itu ngikutin lo bertahun-tahun (kenaikan &amp; offer berikutnya sering dihitung dari gaji terakhir). Minta waktu 2–3 hari buat mikir (itu normal dan profesional), evaluasi total paketnya, dan minimal <em>tanyakan</em> apakah ada ruang nego. Worst case mereka bilang nggak, dan lo nggak kehilangan apa-apa.</p>
+</div>
+</div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="challenge">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-base">🎯</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">CHALLENGE FINAL — SEARCHABLELIST 🔍</h2><p class="text-sm text-muted mt-1">Soal live coding klasik yang beneran sering keluar — kerjain kayak lagi interview beneran</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ini dia challenge terakhir di course ini — dan sengaja dipilih soal yang <strong class="text-ink">paling sering muncul di screening frontend</strong>: bikin list yang bisa di-search. Komponen di bawah udah punya input dan list, tapi filternya <strong class="text-ink">belum jalan</strong> — semua item selalu tampil, ngetik apa pun nggak ngaruh.</p>
+<p><strong class="text-ink">Task lo:</strong> implementasi filter <strong class="text-ink">case-insensitive</strong> — item ditampilkan hanya kalau namanya mengandung <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">query</code> (huruf besar/kecil nggak masalah: query <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"mang"</code> harus match <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"Mangga"</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"Manggis"</code>). Latihan think-aloud-nya juga: sebelum ngedit, ucapin rencana lo keras-keras kayak di depan interviewer. Test-nya ngerender komponen dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">initialQuery="mang"</code> lalu ngecek hasil filternya di DOM.</p>
+</div>
+<script type="text/plain" id="ch-14-1">function SearchableList({ items, initialQuery = '' }) {
+  const [query, setQuery] = React.useState(initialQuery);
+
+  // 🎯 TASK: filter items berdasarkan query, case-insensitive.
+  // Hint: .filter() + .toLowerCase() + .includes()
+  const visibleItems = items; // ← ini masih nampilin SEMUA item!
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Cari buah..."
+      />
+      <ul>
+        {visibleItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      {visibleItems.length === 0 && <p>Nggak ketemu 😢</p>}
+    </div>
+  );
+}
+
+function App() {
+  const buah = ['Mangga', 'Apel', 'Jeruk', 'Manggis', 'Pisang'];
+  return <SearchableList items={buah} initialQuery="mang" />;
+}</script>
+<script type="text/plain" id="ch-14-1-test">var input = document.querySelector('input');
+var lis = document.querySelectorAll('li');
+var texts = Array.prototype.map.call(lis, function (li) {
+  return li.textContent;
+});
+expect('Ada input search di halaman', input !== null);
+expect('Input berisi initial query "mang"', input && input.value === 'mang');
+expect('Query "mang" nampilin tepat 2 item (kelihatan: ' + lis.length + ')', lis.length === 2);
+expect('Hasil filter mengandung "Mangga" (case-insensitive)', texts.indexOf('Mangga') !== -1);
+expect('Hasil filter mengandung "Manggis"', texts.indexOf('Manggis') !== -1);
+expect('"Apel" ikut kefilter (nggak tampil)', texts.indexOf('Apel') === -1);</script>
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-14-1"></div>
+<!-- SOLUSI ch-14-1 (jangan diintip sebelum nyoba!):
+  const visibleItems = items.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase())
+  );
+  Penjelasan: dua-duanya di-lowercase dulu biar perbandingannya
+  case-insensitive, lalu .includes() ngecek substring. Query kosong
+  otomatis match semua item ('' selalu "terkandung" di string apa pun).
+-->
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">🔑 Solusi — buka kalau udah nyoba sendiri</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi ch-14-1 — filter case-insensitive</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Ganti baris `const visibleItems = items;` dengan:
+const visibleItems = items.filter((item) =&gt;
+  item.toLowerCase().includes(query.toLowerCase())
+);</code></pre></div>
+    <p class="text-sm text-[#333] mt-4">Penjelasannya: dua-duanya di-lowercase dulu biar perbandingannya case-insensitive, lalu <code class="bg-[#F5F4F1] px-1.5 py-0.5 rounded text-xs">.includes()</code> ngecek substring. Query kosong otomatis match semua item — string kosong selalu "terkandung" di string apa pun, jadi nggak perlu if khusus. Di interview, sebutin itu sebagai edge case yang udah lo pikirin.</p>
+  </div>
+</details>
+<div class="tip-box rounded-xl p-4 mt-2"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Follow-up ala interviewer:</strong> kalau lo udah lulus, coba jawab tiga pertanyaan lanjutan yang biasanya nyusul: (1) gimana kalau list-nya 10.000 item dan filter kerasa berat? (<em>useMemo, atau useDeferredValue</em>) (2) gimana kalau datanya dari API? (<em>debounce input + fetch, atau filter di server</em>) (3) gimana nge-highlight bagian teks yang match? (<em>split string di posisi match, bungkus &lt;mark&gt;</em>)</p></div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="quiz">
+<div class="flex items-start gap-4 mb-2"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-base">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ FINAL — SIMULASI SCREENING INTERVIEW</h2><p class="text-sm text-muted mt-1">8 soal yang diambil dari pertanyaan interview nyata. Anggap ini technical screening lo!</p></div></div>
+<script type="application/json" id="quiz-14">
+[
+  {
+    "q": "Interviewer: \"Kenapa index array sebaiknya nggak dipakai sebagai key kalau list-nya bisa berubah urutan?\"",
+    "options": [
+      "Karena React nge-match elemen pakai key saat diffing — index yang bergeser bikin state nyasar ke item yang salah",
+      "Karena index itu tipe number, key harus string",
+      "Karena ESLint bakal error kalau pakai index",
+      "Karena index bikin render lebih lambat dari id"
+    ],
+    "answer": 0,
+    "explain": "Key adalah identitas elemen saat reconciliation. Kalau item dihapus/reorder, index tiap item bergeser — React mengira item di posisi itu 'masih sama', jadi state lokal (misal isi input) nempel ke posisi, bukan ke datanya. Bukan soal performa atau tipe data."
+  },
+  {
+    "q": "Interviewer: \"Habis manggil setCount(count + 1), kenapa console.log(count) di baris berikutnya masih nilai lama?\"",
+    "options": [
+      "Karena ada bug batching di React",
+      "Karena state itu snapshot per render — nilai baru hanya tersedia di render berikutnya",
+      "Karena console.log punya delay",
+      "Karena JavaScript itu asynchronous semua"
+    ],
+    "answer": 1,
+    "explain": "setState menjadwalkan re-render, bukan mengubah variabel di tempat. Variabel count di render sekarang adalah snapshot yang nggak akan berubah. Butuh nilai terkini berbasis nilai sebelumnya? Pakai functional update: setCount(c => c + 1)."
+  },
+  {
+    "q": "Interviewer: \"Kapan fungsi cleanup di useEffect dipanggil?\"",
+    "options": [
+      "Cuma sekali, pas komponen unmount",
+      "Setiap kali komponen re-render, sebelum apa pun terjadi",
+      "Sebelum effect berikutnya jalan (saat deps berubah) dan saat unmount",
+      "Cuma kalau kita manggil cleanup() manual"
+    ],
+    "answer": 2,
+    "explain": "Urutannya: render → effect. Kalau deps berubah: cleanup effect lama dulu → baru effect baru jalan. Plus sekali lagi saat unmount. Makanya cleanup jadi tempat yang tepat buat clear interval, unsubscribe, dan abort fetch."
+  },
+  {
+    "q": "Interviewer: \"Bedain useMemo dan useCallback dalam satu kalimat.\"",
+    "options": [
+      "useMemo jalan sebelum render, useCallback sesudah render",
+      "Sama aja, cuma beda nama karena sejarah",
+      "useMemo buat komponen, useCallback buat fungsi biasa",
+      "useMemo nge-cache hasil pemanggilan fungsi (nilai), useCallback nge-cache fungsinya sendiri (referensi)"
+    ],
+    "answer": 3,
+    "explain": "useMemo(fn, deps) menjalankan fn dan menyimpan HASIL-nya; useCallback(fn, deps) menyimpan FUNGSI-nya tanpa menjalankan. Makanya useCallback(fn, deps) ekuivalen dengan useMemo(() => fn, deps)."
+  },
+  {
+    "q": "Interviewer: \"Lo bungkus komponen pakai React.memo tapi dia tetap re-render terus. Penyebab paling umum?\"",
+    "options": [
+      "Ada props object/fungsi yang dibikin baru tiap render parent, jadi shallow comparison selalu bilang 'beda'",
+      "React.memo nggak kompatibel dengan hooks",
+      "Komponennya harus class component dulu",
+      "React.memo cuma jalan di production build"
+    ],
+    "answer": 0,
+    "explain": "React.memo membandingkan props secara shallow (per referensi). onClick={() => ...} atau style={{...}} yang ditulis inline menghasilkan referensi baru setiap render — selalu dianggap berubah. Solusinya: useCallback/useMemo di parent, atau restrukturisasi komponen."
+  },
+  {
+    "q": "Interviewer: \"Pernyataan mana yang PALING akurat soal Virtual DOM?\"",
+    "options": [
+      "Virtual DOM selalu lebih cepat daripada manipulasi DOM langsung",
+      "Virtual DOM adalah representasi UI berupa object JS; React men-diff-nya untuk meminimalkan operasi DOM asli",
+      "Virtual DOM adalah salinan DOM yang disimpan browser di GPU",
+      "Virtual DOM menghilangkan kebutuhan re-render"
+    ],
+    "answer": 1,
+    "explain": "VDOM itu object JS ringan yang di-diff antar render (reconciliation) supaya update DOM asli minimal. Klaim 'selalu lebih cepat dari DOM manual' itu mitos — manipulasi manual yang optimal bisa lebih cepat; VDOM menang di developer experience + kecepatan yang cukup."
+  },
+  {
+    "q": "Interviewer: \"Counter lo pakai setInterval di useEffect dengan deps [], manggil setCount(count + 1), tapi stuck di angka 1. Kenapa?\"",
+    "options": [
+      "Karena belum pakai useLayoutEffect",
+      "setInterval nggak boleh dipakai di dalam useEffect",
+      "Stale closure — callback interval 'ngunci' nilai count dari render pertama (0) selamanya",
+      "React membatasi interval maksimal satu kali update"
+    ],
+    "answer": 2,
+    "explain": "Callback dibuat sekali saat mount dan menutup (close over) count = 0, jadi tiap tick menghitung 0 + 1. Fix paling bersih: functional update setCount(c => c + 1) yang selalu menerima nilai terkini tanpa perlu dependency."
+  },
+  {
+    "q": "Interviewer: \"Di development, useEffect lo jalan dua kali padahal deps-nya []. Respons yang paling bener?\"",
+    "options": [
+      "Pindahkan semua logic ke useLayoutEffect",
+      "Itu bug React 18, downgrade ke React 17",
+      "Hapus StrictMode dari main.jsx biar normal",
+      "Itu StrictMode yang sengaja me-remount di dev untuk menguji cleanup — pastikan effect idempotent dan cleanup-nya benar"
+    ],
+    "answer": 3,
+    "explain": "StrictMode sengaja mount → unmount → mount di development (production nggak) untuk mengekspos effect yang nggak punya cleanup benar. Menghapus StrictMode = mematikan alarm kebakaran. Yang benar: tulis cleanup yang bener, dan double-run jadi nggak berdampak."
+  }
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-14"></div>
+</section>
+
+<!-- SUMMARY/RECAP -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h2 class="text-xl font-bold text-ink">RECAP — DARI SKILL KE KARIR 📝</h2>
+<p class="text-sm text-muted mt-1">Bab terakhir. Course selesai. Perjalanan lo baru mulai. 🚀</p>
+</div>
+</div>
+<ul class="space-y-3 text-[#333]">
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Peta karir</strong> — junior → mid → senior itu soal scope tanggung jawab, bukan umur. Kenaikan gaji terbesar biasanya saat pindah; range gaji itu kompas, bukan janji.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Portfolio</strong> — 3 proyek berkualitas dengan README yang jelasin keputusan teknis + demo Vercel yang jalan. Etalase kecil yang rapi ngalahin gudang berantakan.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">CV &amp; LinkedIn</strong> — ATS-friendly, tulis impact dengan angka ("naikin Lighthouse 45→92"), keyword eksplisit sesuai job posting. Setiap kata di CV = undangan pertanyaan interview.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">25 Q&amp;A interview</strong> — fundamentals, hooks, state, performance, internals. Pahami kenapa-nya, jawab pakai kata-kata sendiri, jujur kalau nggak tahu.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Live coding</strong> — klarifikasi dulu, think-aloud, sebut edge case duluan. Counter+undo, todo, fetch+retry: tiga soal klasik yang sekarang lo kuasai walkthrough-nya.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">System design</strong> — requirements → component tree → state placement → data flow → caching → error/loading. Trade-off adalah mata uangnya.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Take-home</strong> — scope kecil tapi tuntas, test di logika inti, README yang jelasin keputusan, commit history yang bercerita.</span></li>
+<li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Negosiasi &amp; 90 hari</strong> — riset range, jangan sebut angka duluan, nilai total paket. Lalu: serap → kontribusi → inisiatif. Naik cepat = ownership + visibility.</span></li>
+</ul>
+<div class="mt-8 bg-white rounded-xl p-5 shadow-soft">
+<p class="text-[#333] leading-relaxed text-sm">Lima belas bab yang lalu, lo mungkin belum bisa bedain JSX sama HTML. Sekarang lo bisa jelasin Fiber architecture, design halaman feed, nulis test, dan negosiasi offer. Itu bukan jarak yang kecil — itu jarak yang <strong class="text-ink">kebanyakan orang nggak pernah tempuh karena berhenti di bab 3</strong>. Lo nggak berhenti. Sekarang tinggal satu langkah yang nggak bisa diajarin course mana pun: <strong class="text-ink">klik tombol apply yang pertama</strong>. Semoga ketemu di industri. 🫡</p>
+</div>
+<div class="mt-8 flex flex-col sm:flex-row gap-3">
+<button onclick="markChapterComplete(14)" id="completeBtn14" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+Tandai Bab Selesai ✅
+</button>
+<a href="../index.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+🎉 Lo udah selesai! Balik ke Beranda
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4">
+<a href="chapter-13.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="../index.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Selesai 🎉</a>
+</div>
+</section>
+
+        </div>
+    </main>
+
+    <!-- Back to top -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
+</body>
+</html>

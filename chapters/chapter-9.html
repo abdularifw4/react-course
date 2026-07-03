@@ -8,11 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
     <script>tailwind.config = {
             theme: {
                 extend: {
@@ -30,46 +30,9 @@
                 }
             }
         }</script>
-    <style>
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        :root {
-            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
-            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
-            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3 { text-wrap: balance; }
-        p { text-wrap: pretty; }
-        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
-        .shadow-soft { box-shadow: var(--shadow-sm); }
-        .press { transition: transform 0.15s ease; }
-        .press:active { transform: scale(0.96); }
-        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
-        .lesson-card:hover { box-shadow: var(--shadow-md); }
-        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
-        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
-        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
-        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
-        .fade-in-d1 { animation-delay: 80ms; }
-        .fade-in-d2 { animation-delay: 160ms; }
-        .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
-        button:active { transform: scale(0.96); }
-        @media print { .no-print { display: none !important; } }
-        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+    <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="9">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
@@ -98,49 +61,7 @@
                 </div>
             </div>
         </div>
-        <nav class="px-2 pb-6 space-y-0.5">
-            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
-        </nav>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
     </aside>
 
     <!-- Main -->
@@ -165,7 +86,7 @@
 
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KENAPA TESTING ITU WAJIB, BUKAN OPSIONAL 🎯</h2><input type="checkbox" id="check-9-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mindset \middot\ 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KENAPA TESTING ITU WAJIB, BUKAN OPSIONAL 🎯</h2><input type="checkbox" id="check-9-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mindset &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
 <p>Pernah deploy ke production, trus user report bug yang seharusnya ketahuan di development? Atau refactor kode, ngerasa udah aman, tapi ternyata break fitur lain? Itu karena kamu nggak punya safety net. Testing itu safety net-nya — nggak nge-prevent semua bug, tapi nge-catch yang seharusnya obvious. 😤</p>
 <p>Analoginya: testing itu kayak <strong class="text-ink">rem kendaraan</strong>. Kamu bisa nge-drive tanpa rem (dan mungkin aman di jalan lurus), tapi pas ada yang salah, kamu nggak bisa berhenti. Dengan rem, kamu bisa nge-drive dengan percaya diri — bahkan di jalan yang berbahaya. Begitu juga dengan kode: dengan test, kamu bisa refactor dan add fitur dengan percaya diri. Oh ternyata gitu! 🤯</p>
 <p>Tapi testing bukan cuma "nulis test". Ini tentang <strong class="text-ink">confidence</strong>. Confidence buat deploy hari Jumat tanpa takut. Confidence buat refactor tanpa regressi. Confidence buat onboarding developer baru — mereka bisa baca test untuk paham behavior kode. Ini investasi yang balik modalnya cepat.</p>
@@ -175,10 +96,6 @@
 <p><strong class="text-ink">Testing pyramid</strong> itu konsep dari Martin Fowler: base = unit test (banyak, cepat), middle = integration test (sedang), top = E2E test (sedikit, lambat). Rasio ideal: 70-20-10. Unit test nge-cover business logic dan komponen secara isolated. Integration test nge-cover interaksi antar komponen + API. E2E test nge-cover critical user flows end-to-end. Jangan inverted pyramid — banyak E2E, sedikit unit = slow CI dan flaky test. 🎯</p>
 
 <p>Setup testing di React udah gampang banget. Vitest sebagai test runner (drop-in Jest replacement, share Vite config), React Testing Library buat render komponen, dan MSW buat mock API. Tinggal install dan setup — kurang dari 5 menit. Kita mulai dari sini dan build up ke patterns yang lebih advanced.</p>
-
-<p><strong class="text-ink">Testing pyramid</strong> itu konsep dari Martin Fowler: base = unit test (banyak, cepat), middle = integration test (sedang), top = E2E test (sedikit, lambat). Rasio ideal: 70-20-10. Unit test nge-cover business logic dan komponen secara isolated. Integration test nge-cover interaksi antar komponen + API. E2E test nge-cover critical user flows end-to-end. Jangan inverted pyramid — banyak E2E, sedikit unit = slow CI dan flaky test. 🎯</p>
-
-<p>Setup testing di React udah gampang banget. Vitest sebagai test runner (drop-in Jest replacement, share Vite config), React Testing Library buat render komponen, dan MSW buat mock API. Tinggal install dan setup — kurang dari 5 menit. Kita mulai dari sini dan build up ke patterns yang lebih advanced.
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Setup Testing — Vitest + RTL</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># Install dependencies
 npm install -D vitest @testing-library/react @testing-library/jest-dom
 npm install -D @testing-library/user-event jsdom
@@ -194,7 +111,7 @@ export default defineConfig({
     setupFiles: ["./src/test/setup.ts"],
     globals: true,
   },
-});</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Vitest vs Jest:</strong> Vitest lebih cepat (native ESM, no transform), config simpler (share vite.config), dan compatible dengan Jest API. Di project baru, pilih Vitest. Di existing Jest project, nggak perlu migrasi — Jest masih solid.</p></div></div></section><section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REACT TESTING LIBRARY — TEST APA YANG USER LIHAT 👁️</h2><input type="checkbox" id="check-9-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Fundamental \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>React Testing Library (RTL) punya filosofi yang beda dari Enzyme. Enzyme test implementation — kamu cek state internal, lifecycle methods, component instance. RTL test <strong class="text-ink">behavior</strong> — kamu cek apa yang user lihat dan bisa lakukan. Kenapa? Karena user nggak peduli state-nya apa, yang penting UI-nya bekerja. 🎯</p><p>Analoginya: Enzyme itu kayak <strong class="text-ink">nge-test mesin mobil</strong> — cek oli, piston, rpm. RTL itu kayak <strong class="text-ink">nge-test pengalaman berkendara</strong> — apakah rem bekerja? apakah setir responsif? User cuma peduli pengalaman, bukan mesinnya. Oh ternyata gitu! 🤯</p><p>Query API RTL di-design supaya kamu cari element <strong class="text-ink">seperti user</strong>. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByRole("button")</code> bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">container.querySelector(".btn")</code>. Priority: getByRole > getByLabelText > getByPlaceholderText > getByText > getByTestId.</p><p>Pattern fundamental: <strong class="text-ink">arrange-act-assert</strong>. Arrange = render komponen + setup. Act = simulate user action (click, type). Assert = cek UI output. Tiga langkah konsisten di semua test.</p>
+});</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Vitest vs Jest:</strong> Vitest lebih cepat (native ESM, no transform), config simpler (share vite.config), dan compatible dengan Jest API. Di project baru, pilih Vitest. Di existing Jest project, nggak perlu migrasi — Jest masih solid.</p></div></div></section><section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REACT TESTING LIBRARY — TEST APA YANG USER LIHAT 👁️</h2><input type="checkbox" id="check-9-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Fundamental &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>React Testing Library (RTL) punya filosofi yang beda dari Enzyme. Enzyme test implementation — kamu cek state internal, lifecycle methods, component instance. RTL test <strong class="text-ink">behavior</strong> — kamu cek apa yang user lihat dan bisa lakukan. Kenapa? Karena user nggak peduli state-nya apa, yang penting UI-nya bekerja. 🎯</p><p>Analoginya: Enzyme itu kayak <strong class="text-ink">nge-test mesin mobil</strong> — cek oli, piston, rpm. RTL itu kayak <strong class="text-ink">nge-test pengalaman berkendara</strong> — apakah rem bekerja? apakah setir responsif? User cuma peduli pengalaman, bukan mesinnya. Oh ternyata gitu! 🤯</p><p>Query API RTL di-design supaya kamu cari element <strong class="text-ink">seperti user</strong>. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByRole("button")</code> bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">container.querySelector(".btn")</code>. Priority: getByRole > getByLabelText > getByPlaceholderText > getByText > getByTestId.</p><p>Pattern fundamental: <strong class="text-ink">arrange-act-assert</strong>. Arrange = render komponen + setup. Act = simulate user action (click, type). Assert = cek UI output. Tiga langkah konsisten di semua test.</p>
 
 <p>RTL juga mendorong <strong class="text-ink">accessible testing</strong>. Karena kamu query element pakai role dan label, komponen yang nggak accessible (misal: button tanpa aria-label, form field tanpa label) langsung susah di-test. Ini positif — testing mendorong accessibility secara natural. Komponen yang mudah di-test = komponen yang accessible. Win-win! 🔥</p>
 
@@ -223,11 +140,7 @@ describe("LoginForm", () =&gt; {
     expect(btn).toBeInTheDocument();
   });
 });</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Anti-pattern:</strong> Jangan test className atau inline style — itu implementation detail. Test behavior: button ada, loading muncul, error tampil. Nggak: button punya class btn-primary.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">USER EVENT — SIMULASI INTERAKSI USER 🖱️</h2><input type="checkbox" id="check-9-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interaction \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fireEvent</code> vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userEvent</code> — dua cara simulasi interaksi. Tapi BEDA JAUH. fireEvent cuma trigger event DOM. userEvent trigger SEMUA event yang terjadi: focus, keydown, keypress, input, keyup per karakter. Lebih realistis. Oh ternyata gitu! 🤯</p><p>Best practice: <strong class="text-ink">selalu pakai userEvent</strong>. Dia muncul error kalau element nggak interactable (disabled button, hidden input). Ini bikin test lebih strict dan menangkap bug UI yang luput.</p><p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userEvent.setup()</code> (v14+) adalah recommended API — lebih clean dan predictable. Support <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">delay</code> option buat simulasi real typing speed.</p><p>Untuk komponen async, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitFor(() => expect(...))</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findByRole()</code> (auto wait). Jangan pake setTimeout — flaky!</p>
-
-<p>userEvent juga support <strong class="text-ink">keyboard</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.keyboard("a{Shift>}B")</code>), <strong class="text-ink">tab navigation</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.tab()</code>), <strong class="text-ink">double click</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.dblClick()</code>), dan <strong class="text-ink">drag and drop</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.drop()</code>). Semua simulasi real user action. Ini yang bikin test kamu mewakili pengalaman user sebenarnya. 🎯</p>
-
-<p>Yang sering lupa: <strong class="text-ink">cleanup</strong>. RTL auto-cleanup setelah setiap test. Tapi kalau kamu customize, pastikan cleanup jalan. Tanpa cleanup, DOM bisa leak antar test — state dari test sebelumnya ngefek test selanjutnya. Subtle bug yang susah di-trace.</p>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">USER EVENT — SIMULASI INTERAKSI USER 🖱️</h2><input type="checkbox" id="check-9-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Interaction &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fireEvent</code> vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userEvent</code> — dua cara simulasi interaksi. Tapi BEDA JAUH. fireEvent cuma trigger event DOM. userEvent trigger SEMUA event yang terjadi: focus, keydown, keypress, input, keyup per karakter. Lebih realistis. Oh ternyata gitu! 🤯</p><p>Best practice: <strong class="text-ink">selalu pakai userEvent</strong>. Dia muncul error kalau element nggak interactable (disabled button, hidden input). Ini bikin test lebih strict dan menangkap bug UI yang luput.</p><p><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userEvent.setup()</code> (v14+) adalah recommended API — lebih clean dan predictable. Support <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">delay</code> option buat simulasi real typing speed.</p><p>Untuk komponen async, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitFor(() => expect(...))</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findByRole()</code> (auto wait). Jangan pake setTimeout — flaky!</p>
 
 <p>userEvent juga support <strong class="text-ink">keyboard</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.keyboard("a{Shift>}B")</code> untuk shift+B), <strong class="text-ink">tab navigation</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.tab()</code>), <strong class="text-ink">double click</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.dblClick()</code>), dan <strong class="text-ink">drag and drop</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.drop()</code>). Semua simulasi real user action — bukan cuma trigger DOM event. Ini yang bikin test kamu mewakili pengalaman user sebenarnya. 🎯</p>
 
@@ -251,11 +164,7 @@ describe("SearchWithDebounce", () =&gt; {
     vi.useRealTimers();
   });
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 findBy vs waitFor:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findByRole()</code> = built-in waitFor + query. Return promise. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitFor()</code> = custom assertion yang di-retry. Pilih sesuai kebutuhan.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TESTING ASYNC — MOCKING & WAITING ⏳</h2><input type="checkbox" id="check-9-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Async \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Async component paling tricky di-test. Loading state, error handling, retry logic — semua harus di-cover. Tanpa strategi bener, test bisa jadi flaky (kadang pass, kadang fail). 😤</p><p>Dua pendekatan: <strong class="text-ink">mock fetch</strong> (intercept HTTP) atau <strong class="text-ink">mock data layer</strong> (inject mock data). Mock fetch lebih realistis. Mock data layer lebih simple.</p><p><strong class="text-ink">MSW (Mock Service Worker)</strong> intercept HTTP di network level — bukan di kode. Artinya mock-nya berlaku di test, dev, DAN Storybook. Satu mock source, semua environment. Oh ternyata gitu! 🤯</p><p>Pattern: <strong class="text-ink">render → assert loading → await data → assert loaded</strong>. Selalu cek loading state dulu buat memastikan UX nggak flash blank screen.</p>
-
-<p>Untuk polling (data yang refresh otomatis), test perlu handle timing. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vi.useFakeTimers()</code> untuk kontrol waktu. Jangan test real polling interval — flaky di CI. Fake timers = deterministic, fast, reliable. Oh ternyata gitu! 🤯</p>
-
-<p>Untuk data fetching library kayak TanStack Query, ada opsi lebih simple: inject <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">QueryClient</code> di test. Set <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">retry: false</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">gcTime: 0</code> di test client. Test langsung assert hasil tanpa tunggu retry. Nggak perlu MSW untuk test TanStack Query.</p>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">TESTING ASYNC — MOCKING & WAITING ⏳</h2><input type="checkbox" id="check-9-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Async &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Async component paling tricky di-test. Loading state, error handling, retry logic — semua harus di-cover. Tanpa strategi bener, test bisa jadi flaky (kadang pass, kadang fail). 😤</p><p>Dua pendekatan: <strong class="text-ink">mock fetch</strong> (intercept HTTP) atau <strong class="text-ink">mock data layer</strong> (inject mock data). Mock fetch lebih realistis. Mock data layer lebih simple.</p><p><strong class="text-ink">MSW (Mock Service Worker)</strong> intercept HTTP di network level — bukan di kode. Artinya mock-nya berlaku di test, dev, DAN Storybook. Satu mock source, semua environment. Oh ternyata gitu! 🤯</p><p>Pattern: <strong class="text-ink">render → assert loading → await data → assert loaded</strong>. Selalu cek loading state dulu buat memastikan UX nggak flash blank screen.</p>
 
 <p>Untuk polling (data yang refresh otomatis), test perlu handle timing. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vi.useFakeTimers()</code> untuk kontrol waktu. Jangan test real polling interval — itu flaky di CI (container bisa slow, timing meleset). Fake timers = deterministic, fast, reliable. Oh ternyata gitu! 🤯</p>
 
@@ -294,11 +203,7 @@ it("renders user list after fetching", async () =&gt; {
     expect(screen.getByText(/error/i)).toBeInTheDocument();
   });
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 MSW 2.0:</strong> Pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">http.get()</code> / <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">http.post()</code> API baru. Support async resolver, delay simulation, conditional response berdasarkan request body.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MSW — MOCK API YANG REVOLUSIONER 🔧</h2><input type="checkbox" id="check-9-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mocking \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>MSW intercept di <strong class="text-ink">network level</strong> — kayak proxy server. Mock-nya berlaku buat semua kode yang nge-fetch. Nggak perlu mock per-function. Satu handler, semua environment (Vitest, Playwright, Storybook). 🔥</p><p>Analoginya: biasa mock itu kayak nggak kasih makanan ke tamu. MSW itu kayak <strong class="text-ink">restoran dummy</strong> — tamu masuk, pesan, dibalas, pengalaman lengkap. Tamu nggak tau restoran-nya palsu. Oh ternyata gitu! 🤯</p><p>Keunggulan MSW: mock once, run everywhere. Satu handler dipake di unit test, E2E test, Storybook, bahkan Cypress. Consistent, DRY, maintainable.</p><p>MSW 2.0+ pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">http.get()</code> API yang clean. Support response resolver async, error simulation, delay, dan cookie. Plus bisa run di browser — dev frontend tanpa backend!</p>
-
-<p><strong class="text-ink">Browser mode</strong> MSW juga powerful. Pas development, run MSW di browser via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx msw init public/</code> untuk generate Service Worker file. Conditional start: cuma aktif di dev mode. Frontend dev independent dari backend — nggak perlu mock server running. Speed up development cycle signifikan. 🎯</p>
-
-<p><strong class="text-ink">Response composition</strong>: chain multiple handlers dan override per-test. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">server.use(http.get(...))</code> di individual test override default handler tanpa ngefek test lain. Test isolation perfect.</p>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MSW — MOCK API YANG REVOLUSIONER 🔧</h2><input type="checkbox" id="check-9-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mocking &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>MSW intercept di <strong class="text-ink">network level</strong> — kayak proxy server. Mock-nya berlaku buat semua kode yang nge-fetch. Nggak perlu mock per-function. Satu handler, semua environment (Vitest, Playwright, Storybook). 🔥</p><p>Analoginya: biasa mock itu kayak nggak kasih makanan ke tamu. MSW itu kayak <strong class="text-ink">restoran dummy</strong> — tamu masuk, pesan, dibalas, pengalaman lengkap. Tamu nggak tau restoran-nya palsu. Oh ternyata gitu! 🤯</p><p>Keunggulan MSW: mock once, run everywhere. Satu handler dipake di unit test, E2E test, Storybook, bahkan Cypress. Consistent, DRY, maintainable.</p><p>MSW 2.0+ pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">http.get()</code> API yang clean. Support response resolver async, error simulation, delay, dan cookie. Plus bisa run di browser — dev frontend tanpa backend!</p>
 
 <p><strong class="text-ink">Browser mode</strong> MSW juga powerful. Pas development, kamu bisa run MSW di browser via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx msw init public/</code> untuk generate Service Worker file. Lalu conditional start: cuma aktif di dev mode. Frontend dev bisa independent dari backend — nggak perlu mock server, nggak perlu backend running. Speed up development cycle signifikan. 🎯</p>
 
@@ -333,11 +238,7 @@ const handlers = [
     return HttpResponse.json({ id: "new" }, { status: 201 });
   }),
 ];</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Setup:</strong> MSW Node.js pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setupServer()</code>. Browser pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setupWorker()</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx msw init public/</code>.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PLAYWRIGHT — E2E TEST YANG FAST & RELIABLE 🎭</h2><input type="checkbox" id="check-9-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">E2E \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>E2E test nge-test app dari perspektif user nyata. Buka browser, navigate, klik, isi form — semua otomatis. Ini safety net terakhir sebelum deploy. 🎯</p><p><strong class="text-ink">Playwright</strong> dari Microsoft: lebih cepat dari Cypress, lebih reliable dari Selenium, support multi browser (Chromium, Firefox, WebKit). Punya <strong class="text-ink">auto-wait</strong> — nunggu element muncul sebelum interact. Nggak perlu manual setTimeout. Oh ternyata gitu! 🤯</p><p>Yang spesial: <strong class="text-ink">trace viewer</strong>. Pas test fail, Playwright bikin recording — screenshot per step, DOM snapshot, network log, console log. Replay dan debug fail test jadi gampang.</p><p>Tapi E2E MAHAL — lambat, flaky, maintenance tinggi. Gunakan strategis: test <strong class="text-ink">critical user flows</strong> doang (login, checkout, signup). Hal sepele = unit test.</p><p>Playwright juga punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">codegen</code> — record interaksi di browser, generate test code otomatis. Plus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UI Mode</code> untuk interactive exploration.</p>
-
-<p><strong class="text-ink">Parallel execution</strong> — Playwright run test di multiple worker secara paralel. 50 test bisa selesai dalam hitungan detik. Plus <strong class="text-ink">sharding</strong> — split test suite jadi N shards untuk CI parallelism. E2E test yang biasa 10 menit jadi 2 menit. 🚀</p>
-
-<p>Setup: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx playwright init</code> generate config + example test + GitHub Actions workflow. Zero-config untuk kebanyakan project. Plus <strong class="text-ink">visual comparison</strong> — screenshot diff untuk design regression. Screenshot sekarang vs baseline, kalau beda jadi fail. 🔥</p>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PLAYWRIGHT — E2E TEST YANG FAST & RELIABLE 🎭</h2><input type="checkbox" id="check-9-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">E2E &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>E2E test nge-test app dari perspektif user nyata. Buka browser, navigate, klik, isi form — semua otomatis. Ini safety net terakhir sebelum deploy. 🎯</p><p><strong class="text-ink">Playwright</strong> dari Microsoft: lebih cepat dari Cypress, lebih reliable dari Selenium, support multi browser (Chromium, Firefox, WebKit). Punya <strong class="text-ink">auto-wait</strong> — nunggu element muncul sebelum interact. Nggak perlu manual setTimeout. Oh ternyata gitu! 🤯</p><p>Yang spesial: <strong class="text-ink">trace viewer</strong>. Pas test fail, Playwright bikin recording — screenshot per step, DOM snapshot, network log, console log. Replay dan debug fail test jadi gampang.</p><p>Tapi E2E MAHAL — lambat, flaky, maintenance tinggi. Gunakan strategis: test <strong class="text-ink">critical user flows</strong> doang (login, checkout, signup). Hal sepele = unit test.</p><p>Playwright juga punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">codegen</code> — record interaksi di browser, generate test code otomatis. Plus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UI Mode</code> untuk interactive exploration.</p>
 
 <p><strong class="text-ink">Parallel execution</strong> — Playwright run test di multiple worker secara paralel. Satu test suite 50 test bisa selesai dalam hitungan detik. Plus, dia support <strong class="text-ink">sharding</strong> — split test suite jadi N shards untuk CI parallelism. Ini bikin E2E test yang biasa 10 menit jadi 2 menit. 🚀</p>
 
@@ -363,11 +264,7 @@ test.describe("Login Flow", () =&gt; {
     await expect(page.getByText(/password salah/i)).toBeVisible();
   });
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Playwright + MSW:</strong> Gabungkan! MSW bisa handle mock API di E2E test juga. Setup MSW browser worker di public folder, lalu init di Playwright. Satu mock source, semua level test.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">BEST PRACTICES — TEST YANG BENER vs WASTE 🧪</h2><input type="checkbox" id="check-9-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Strategy \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Nggak semua test itu good test. Test yang salah jadi <strong class="text-ink">liability</strong> — lambat, flaky, nggak nangkap bug penting. Test yang bener jadi <strong class="text-ink">asset</strong>. 🎯</p><p><strong class="text-ink">Rule #1: Test behavior, bukan implementation.</strong> Jangan test internal state atau private methods. Test apa yang user lihat dan lakukan. Refactor internal logic → test tetap pass.</p><p><strong class="text-ink">Rule #2: Satu assertion per test concept.</strong> Test function cuma test SATU hal. Kalau fail, langsung tau apa yang salah.</p><p><strong class="text-ink">Rule #3: Arrange-Act-Assert jelas.</strong> Tiga section harus visible. Comment atau whitespace separator. Test yang mudah dibaca = test yang mudah di-maintain.</p><p><strong class="text-ink">Rule #4: Test edge cases.</strong> Empty input, long string, special characters, network error, concurrent requests. Bug di production sering dari edge case.</p><p><strong class="text-ink">Rule #5: CI/CD integration.</strong> Pasang Vitest di GitHub Actions. Reject PR yang fail test. Quality secara konsisten, nggak bergantung discipline developer. 🔥</p>
-
-<p><strong class="text-ink">Rule #6: Coverage adalah guide, bukan target.</strong> 100% coverage nggak berarti bug-free. Bisa 100% coverage tapi semua test cuma cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toBeTruthy()</code>. Fokus di meaningful coverage — test yang nge-catch real bugs. Kejar confidence, bukan angka.</p>
-
-<p><strong class="text-ink">Rule #7: Snapshot dengan hati-hati.</strong> Jest snapshot powerful tapi risky. Update snapshot jadi escape route — test fail, update snapshot, test pass, tapi mungkin break sesuatu. Selalu review snapshot diff manual. Pertimbangkan visual regression test (Playwright screenshot) sebagai alternatif yang lebih reliable.</p>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">BEST PRACTICES — TEST YANG BENER vs WASTE 🧪</h2><input type="checkbox" id="check-9-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Strategy &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Nggak semua test itu good test. Test yang salah jadi <strong class="text-ink">liability</strong> — lambat, flaky, nggak nangkap bug penting. Test yang bener jadi <strong class="text-ink">asset</strong>. 🎯</p><p><strong class="text-ink">Rule #1: Test behavior, bukan implementation.</strong> Jangan test internal state atau private methods. Test apa yang user lihat dan lakukan. Refactor internal logic → test tetap pass.</p><p><strong class="text-ink">Rule #2: Satu assertion per test concept.</strong> Test function cuma test SATU hal. Kalau fail, langsung tau apa yang salah.</p><p><strong class="text-ink">Rule #3: Arrange-Act-Assert jelas.</strong> Tiga section harus visible. Comment atau whitespace separator. Test yang mudah dibaca = test yang mudah di-maintain.</p><p><strong class="text-ink">Rule #4: Test edge cases.</strong> Empty input, long string, special characters, network error, concurrent requests. Bug di production sering dari edge case.</p><p><strong class="text-ink">Rule #5: CI/CD integration.</strong> Pasang Vitest di GitHub Actions. Reject PR yang fail test. Quality secara konsisten, nggak bergantung discipline developer. 🔥</p>
 
 <p><strong class="text-ink">Rule #6: Coverage adalah guide, bukan target.</strong> 100% coverage nggak berarti bug-free. Bisa 100% coverage tapi semua test cuma cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toBeTruthy()</code>. Fokus di <strong class="text-ink">meaningful coverage</strong> — test yang nge-catch real bugs. Tool kayak Istanbul/Vitest coverage bisa highlight untested code, tapi jangan kejar angka. Kejar confidence.</p>
 
@@ -385,7 +282,7 @@ jobs:
       - run: npm ci
       - run: npm run test -- --coverage
       - run: npm run test:e2e</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Flaky test warning:</strong> Kalau test kadang pass kadang fail tanpa code change, itu flaky. Flaky test LEBIH berbahaya dari no test — team jadi immune terhadap failure. Fix atau delete.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — TEST SUITE KALKULATOR 🧮</h2><input type="checkbox" id="check-9-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik \middot\ 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Waktunya apply semua konsep! Bikin <strong class="text-ink">test suite lengkap</strong> untuk Komponen Calculator — unit test, interaction test, edge case test. Calculator punya: UI interaction (click tombol), state management (display, operator), edge cases (divide by zero, decimal), dan user flow. Semua aspect testing ada di sini. 🔥</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Calculator Component</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useState } from "react";
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — TEST SUITE KALKULATOR 🧮</h2><input type="checkbox" id="check-9-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Waktunya apply semua konsep! Bikin <strong class="text-ink">test suite lengkap</strong> untuk Komponen Calculator — unit test, interaction test, edge case test. Calculator punya: UI interaction (click tombol), state management (display, operator), edge cases (divide by zero, decimal), dan user flow. Semua aspect testing ada di sini. 🔥</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Calculator Component</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useState } from "react";
 
 export function Calculator() {
   const [display, setDisplay] = useState("0");
@@ -492,6 +389,317 @@ describe("Calculator", () =&gt; {
     expect(screen.getByTestId("display")).toHaveTextContent("9");
   });
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend: (1) Keyboard support test (Enter = equals), (2) Decimal operations (0.1 + 0.2), (3) Large numbers, (4) Playwright E2E test full flow.</p></div></div></section>
+<!-- LESSON 9: LEVEL SENIOR — TESTING STRATEGY -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: TESTING STRATEGY — APA YANG TIDAK PERLU DITES 🎯</h2><input type="checkbox" id="check-9-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 14 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Junior nulis test buat SEMUA hal. Senior tau <strong class="text-ink">apa yang NGGAK perlu dites</strong>. Bedanya di sini: waktu lo terbatas, dan tiap test punya ongkos maintenance seumur hidupnya. Skill senior bukan "nulis banyak test" — tapi milih test yang ngasih <strong class="text-ink">confidence terbanyak per rupiah</strong>. Test yang salah pilih malah jadi beban: lambat, rapuh, dan bikin tim males. 🎯</p>
+<p>Lupakan dulu piramida testing yang lo denger di lesson 1. Ada model yang lebih akurat buat frontend modern: <strong class="text-ink">Testing Trophy</strong> (Kent C. Dodds). Empat lapisan dari bawah ke atas: <strong class="text-ink">(1) Static</strong> — TypeScript + ESLint, nangkep typo dan bug sebelum kode jalan (gratis, jalan tiap kali lo ngetik). <strong class="text-ink">(2) Unit</strong> — function murni, util, custom hook yang di-isolasi. <strong class="text-ink">(3) Integration</strong> — render beberapa komponen bareng, mock cuma di batas network. <strong class="text-ink">(4) E2E</strong> — Playwright, alur kritis di browser asli. Bedanya sama piramida: bagian yang <em>digemukin</em> itu <strong class="text-ink">integration</strong>, bukan unit. Kenapa? Karena integration test paling mirip cara user beneran pakai app. Oh ternyata gitu! 🤯</p>
+<p>Ini prinsip pegangan yang wajib lo hafal — quote resmi RTL dari Kent C. Dodds: <em>"The more your tests resemble the way your software is used, the more confidence they can give you."</em> (Makin mirip test lo dengan cara user beneran pakai app, makin gede rasa percaya yang dikasih.) Semua keputusan testing lo harusnya bermuara ke kalimat ini. Test yang meniru user = tahan refactor, nangkep bug nyata, dan nggak bohong. 🔥</p>
+<p>Konsekuensi langsung dari prinsip itu: <strong class="text-ink">test behavior, bukan implementation</strong>. User nggak peduli komponen lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>. Mereka peduli: pas diklik, angkanya berubah. Jadi jangan assert <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">state.count === 3</code> — assert "teks 3 item muncul di layar". Ujian bagusnya: kalau lo refactor internal (misal ganti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>) tanpa ngubah perilaku, test-nya HARUS tetap hijau. Kalau patah, berarti test lo kegantung implementasi — itu test rapuh.</p>
+<p>Sekarang bagian yang bikin lo naik level: <strong class="text-ink">daftar yang TIDAK perlu dites</strong>. <strong class="text-ink">(1)</strong> Internal framework &amp; library pihak ketiga — React, React Router, TanStack Query udah dites habis-habisan sama tim mereka; lo nggak perlu nge-test ulang bahwa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> nyimpen nilai. <strong class="text-ink">(2)</strong> Getter/setter trivial dan konstanta — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const PI = 3.14</code> nggak butuh test. <strong class="text-ink">(3)</strong> Styling, className, warna — itu tugas <em>visual regression test</em> (screenshot diff), bukan unit test; nge-assert class CSS cuma bikin test patah pas lo ganti nama class padahal app baik-baik aja. <strong class="text-ink">(4)</strong> Kode generated. <strong class="text-ink">(5)</strong> Implementation detail apa pun yang user nggak pernah lihat. Nge-test hal-hal ini = effort tinggi, confidence nol. 😤</p>
+<p>Yang paling menentukan di level senior: paham <strong class="text-ink">cost/confidence tradeoff</strong>, dan tau kapan E2E vs kapan integration. E2E itu paling meyakinkan (browser asli, alur lengkap) TAPI paling mahal — lambat, flaky, maintenance berat. Jadi E2E dipakai <em>hemat</em>: cuma buat alur kritis yang kalau rusak = uang hilang (login, checkout, pembayaran). Integration test jauh lebih murah dan confidence-nya tinggi, jadi dia mayoritas. Aturannya: kalau sesuatu bisa lo verifikasi dengan render komponen + mock network (MSW) → <strong class="text-ink">integration</strong>. Kalau butuh browser beneran, navigasi multi-halaman, cookie, redirect, atau interaksi cross-page → baru <strong class="text-ink">E2E</strong>.</p>
+<p>Rumus saku yang dipakai senior tiap review PR test: tanya dua hal. <strong class="text-ink">"Apakah test ini bakal GAGAL kalau app rusak dengan cara yang user notice?"</strong> dan <strong class="text-ink">"Apakah test ini bakal tetap LULUS setelah refactor yang nggak ngubah perilaku?"</strong> Kalau jawabannya "ya" untuk keduanya, itu test bagus. Kalau test gagal cuma karena lo rename variabel internal, buang aja — dia liability, bukan asset. 💡</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Apa yang TIDAK Perlu Dites vs yang Perlu</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ NGGAK PERLU — nge-test internal framework / library pihak ketiga
+test("useState nyimpen nilai", () =&gt; { /* React udah nge-test ini */ });
+test("React Router pindah halaman", () =&gt; { /* itu tugas tim RR */ });
+
+// ❌ NGGAK PERLU — nge-test styling / className (implementation detail)
+expect(button).toHaveClass("btn-primary"); // ganti nama class → test patah, app aman
+
+// ❌ RAPUH — nge-test state internal, bukan yang user lihat
+expect(wrapper.state("count")).toBe(3); // refactor ke useReducer → patah tanpa alasan
+
+// ✅ PERLU — nge-test perilaku yang user LIHAT &amp; LAKUKAN
+await user.click(screen.getByRole("button", { name: /tambah/i }));
+expect(screen.getByText("Keranjang: 1 item")).toBeInTheDocument();</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Sweet Spot Trophy — Integration Test</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// Integration test — render beberapa komponen bareng, mock CUMA di batas network.
+// Ini lapisan paling gemuk di Testing Trophy: confidence tinggi, biaya menengah.
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+it("user nambah produk ke keranjang, badge ikut update", async () =&gt; {
+  const user = userEvent.setup();
+  render(&lt;ProductPage /&gt;); // ProductList + Cart + Badge dirender BARENG (bukan di-mock)
+
+  await user.click(screen.getByRole("button", { name: /tambah ke keranjang/i }));
+  expect(await screen.findByText("Keranjang (1)")).toBeInTheDocument();
+});</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> "Confident coverage" &gt; "100% coverage". Lo bisa punya 100% coverage yang isinya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">expect(true).toBe(true)</code> — angkanya cantik, confidence-nya nol. Coverage itu <em>peta</em> area yang belum kesentuh, bukan skor yang dikejar. Senior baca peta itu buat nemu gap penting, bukan buat naikin angka.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Godaan terbesar: nge-E2E semuanya "biar aman". Salah besar. E2E suite yang kegedean bikin CI 20 menit, flaky, dan tim mulai nge-<em>skip</em> yang merah. Lebih baik 5 E2E alur kritis yang solid + banyak integration test, daripada 100 E2E yang sering ngambek. Hemat E2E buat yang beneran mahal kalau rusak.</p></div>
+<p class="text-[#333] mt-6">Cukup teori — rasain sendiri kenapa "test behavior, bukan implementation" itu masuk akal. Playground di bawah ini <strong class="text-ink">komponen yang bakal kita test</strong>: keranjang sederhana. Klik tombolnya, perhatiin yang <em>berubah di layar</em> ("Keranjang: N item"). Nah, itu persis yang di-assert sama test — bukan nilai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code>-nya, tapi teks yang user lihat. Kalau lo ganti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>, teksnya tetap sama → test tetap lulus. 👇</p>
+<script type="text/plain" id="pg-9-1">// ⚡ Komponen yang "testable". Yang di-test bukan state-nya, tapi yang USER LIHAT.
+// Test-nya kira-kira: klik "Tambah" → assert teks "Keranjang: 1 item" muncul.
+function App() {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div>
+      <h3 style={{ margin: '4px 0' }}>Keranjang: {count} item</h3>
+      <button aria-label="tambah" onClick={() => setCount(c => c + 1)}>Tambah</button>{' '}
+      <button aria-label="kurang" onClick={() => setCount(c => Math.max(0, c - 1))}>Kurang</button>{' '}
+      <button aria-label="kosongkan" onClick={() => setCount(0)}>Kosongkan</button>
+      <p style={{ color: '#666', fontSize: 13, marginTop: 8 }}>
+        Test-nya query tombol lewat role/aria-label ("tambah"), lalu assert TEKS
+        "Keranjang: N item" — itu yang user lihat. Ganti useState jadi useReducer pun,
+        test tetap hijau karena perilakunya sama. 😎
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-9-1"></div>
+<p class="text-[#333] mt-6">Yang kedua: komponen dengan perilaku <strong class="text-ink">async</strong> (disimulasiin pakai state + timer). Klik "Muat data user" — muncul "Loading..." dulu, baru "Halo, Arif!". Inilah kenapa lo butuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findBy</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitFor</code> di test async: test harus <em>nunggu</em> teks final muncul, bukan langsung cek. Perhatiin dua state UI yang berbeda — keduanya layak di-assert. 👇</p>
+<script type="text/plain" id="pg-9-2">// ⚡ Komponen async (simulasi fetch pakai setTimeout). Test-nya:
+// klik → assert "Loading..." muncul → await findByText("Halo, Arif!") setelah data "datang".
+function App() {
+  const [status, setStatus] = React.useState('idle');
+  const [user, setUser] = React.useState(null);
+
+  function load() {
+    setStatus('loading');
+    setUser(null);
+    setTimeout(() => { setUser({ name: 'Arif' }); setStatus('done'); }, 800);
+  }
+
+  return (
+    <div>
+      <button onClick={load}>Muat data user</button>
+      <div style={{ marginTop: 10 }}>
+        {status === 'idle' && <p style={{ color: '#999' }}>Belum ada data.</p>}
+        {status === 'loading' && <p>Loading...</p>}
+        {status === 'done' && user && <p>Halo, <b>{user.name}</b>! 👋</p>}
+      </div>
+      <p style={{ color: '#666', fontSize: 13, marginTop: 8 }}>
+        Dua state UI: "Loading..." lalu "Halo, Arif!". Test async wajib nunggu
+        (findBy/waitFor), bukan langsung getBy — kalau langsung, datanya belum datang. ⏳
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-9-2"></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA TESTING YANG PALING SERING 🚨</h2><input type="checkbox" id="check-9-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-9-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Enam kesalahan yang bikin test jadi liability — pola: kode salah → kenapa → kode benar (cara RTL)</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><strong class="text-ink">1. Nge-test implementation detail (state/instance), bukan behavior.</strong> Ini dosa nomor satu. Lo ngintip <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">state.count</code> atau instance internal komponen. Masalahnya: begitu lo refactor internal tanpa ngubah perilaku (misal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>), test-nya patah padahal app baik-baik aja. Test yang bener assert output yang user lihat di layar.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #1 — test state, bukan yang dilihat user</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — ngintip state internal (Enzyme-style / akses instance)
+expect(wrapper.state("count")).toBe(3);
+// refactor internal → test patah walau UI-nya identik
+
+// ✅ BENAR — assert yang user lihat di layar
+expect(screen.getByText("Total: 3")).toBeInTheDocument();</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">2. Query pakai test-id padahal role/teks bisa.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByTestId</code> itu <em>escape hatch</em>, bukan pilihan pertama. Kalau elemen punya role dan teks yang jelas, query lewat itu — karena begitulah user (dan screen reader) menemukannya. Bonus: kalau lo susah query lewat role/label, itu sinyal komponen lo kurang accessible. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">testId</code> baru dipakai kalau beneran nggak ada cara yang lebih manusiawi.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — testId padahal ada role</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — testId buat elemen yang jelas punya role + teks
+const btn = screen.getByTestId("submit-button");
+
+// ✅ BENAR — query seperti user: role + nama aksesibel
+const btn = screen.getByRole("button", { name: /kirim/i });
+// urutan prioritas: getByRole > getByLabelText > getByText > ... > getByTestId (terakhir)</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. Nggak pakai waitFor/findBy buat UI async.</strong> Klasik. Data di-fetch async, tapi lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByText</code> langsung setelah render. Hasilnya: test gagal (elemen belum ada) atau flaky (kadang keburu, kadang enggak). Elemen yang munculnya async WAJIB ditunggu — pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findBy*</code> (query + auto-retry) atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitFor</code>. Jangan pernah pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setTimeout</code> manual.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #3 — getBy buat elemen async</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — getBy langsung buat data yang munculnya async
+render(&lt;UserList /&gt;);
+expect(screen.getByText("Arif")).toBeInTheDocument(); // Arif belum ke-fetch → gagal/flaky
+
+// ✅ BENAR — tunggu elemen async muncul
+render(&lt;UserList /&gt;);
+expect(await screen.findByText("Arif")).toBeInTheDocument();
+// atau: await waitFor(() =&gt; expect(screen.getByText("Arif")).toBeInTheDocument());</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">4. Snapshot semuanya (snapshot-everything).</strong> Snapshot komponen raksasa (300 baris) kelihatan gampang, tapi tiap perubahan kecil bikin diff gede — dan orang cenderung nge-<em>approve</em> update snapshot tanpa baca. Akhirnya snapshot nge-lock markup, bukan behavior, dan nggak ada yang percaya. Assert bagian spesifik yang penting. Snapshot kecil buat output stabil masih oke; snapshot raksasa = liability.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #4 — snapshot raksasa</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — snapshot seluruh komponen besar, di-update asal pas gagal
+expect(container).toMatchSnapshot(); // 300 baris; diff gede → di-approve tanpa dibaca
+
+// ✅ BENAR — assert bagian spesifik yang bermakna
+expect(screen.getByRole("heading")).toHaveTextContent("Profil Arif");
+expect(screen.getByRole("button", { name: /simpan/i })).toBeEnabled();</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">5. Mocking kebanyakan (over-mocking).</strong> Kalau lo mock hampir semua yang di-render, test lo cuma nge-test mock — bukan kode asli. Puncak absurditasnya: nge-mock komponen yang justru lagi lo test. Aturan: mock CUMA di batas — network (MSW) atau modul eksternal yang beneran nggak bisa jalan di test. Sisanya render asli, biar test-nya beneran nge-test integrasi.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #5 — mock terlalu banyak</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — mock komponen yang justru lagi di-test
+vi.mock("./Cart"); // Cart di-mock → test "Cart nampil total" nggak nge-test apa-apa
+
+// ✅ BENAR — mock cuma di batas network, render komponen asli
+server.use(http.get("/api/cart", () =&gt; HttpResponse.json({ total: 42000 })));
+render(&lt;Cart /&gt;);
+expect(await screen.findByText("Rp 42.000")).toBeInTheDocument();</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">6. Nge-test internal library, bukan behavior yang keliatan user.</strong> Contoh klasik: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">expect(mockNavigate).toHaveBeenCalledWith("/dashboard")</code>. Itu nge-test React Router (yang udah dites tim-nya), bukan app lo. User nggak lihat "fungsi navigate dipanggil" — mereka lihat halaman dashboard muncul. Assert hasilnya, bukan pemanggilan internal library-nya.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #6 — assert internal library</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — nge-test detail library pihak ketiga
+expect(mockNavigate).toHaveBeenCalledWith("/dashboard"); // itu tugasnya React Router
+
+// ✅ BENAR — assert hasil yang user LIHAT setelah navigasi
+await user.click(screen.getByRole("button", { name: /masuk/i }));
+expect(await screen.findByRole("heading", { name: /dashboard/i })).toBeInTheDocument();</code></pre></div></div>
+
+<!-- LATIHAN -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — TULIS TEST-NYA SENDIRI</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Coba jawab di kepala (atau tulis di editor) sebelum buka solusi. Fokus: query seperti user, assert behavior, tunggu yang async.</p>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Tulis test RTL buat LikeButton</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Ada komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">LikeButton</code>: awal tombol bertuliskan "Suka" dan teks "Total suka: 0". Diklik sekali → tombol jadi "Disukai" dan total jadi 1. Tulis satu test yang meng-cover perilaku ini — <strong class="text-ink">query lewat role, assert teks yang keliatan</strong>.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { LikeButton } from "./LikeButton";
+
+it("toggle teks & naikin hitungan saat diklik", async () =&gt; {
+  const user = userEvent.setup();
+  render(&lt;LikeButton /&gt;);
+
+  const btn = screen.getByRole("button", { name: /suka/i });
+  expect(btn).toHaveTextContent("Suka");
+  expect(screen.getByText(/total suka:/i)).toHaveTextContent("0");
+
+  await user.click(btn);
+  expect(screen.getByRole("button")).toHaveTextContent("Disukai");
+  expect(screen.getByText(/total suka:/i)).toHaveTextContent("1");
+});</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Kunci:</strong> nggak ada satu pun assertion yang nyentuh state internal. Semua lewat apa yang user lihat (teks tombol + total). Refactor internal LikeButton? Test tetap hijau.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Perbaiki query yang rapuh</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Test di bawah pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByTestId</code> + nge-assert className, dan pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fireEvent</code>. Perbaiki jadi versi yang query seperti user dan assert behavior.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Sebelum (rapuh) → Sesudah (bener)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ Sebelum — testId + assert class + fireEvent
+const btn = screen.getByTestId("submit");
+expect(btn).toHaveClass("primary");   // implementation detail
+fireEvent.click(btn);
+
+// ✅ Sesudah — role + assert hasil yang user lihat
+const user = userEvent.setup();
+const btn = screen.getByRole("button", { name: /kirim/i });
+await user.click(btn);
+expect(screen.getByText(/berhasil dikirim/i)).toBeInTheDocument();</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Kenapa:</strong> class CSS itu implementation detail (ganti nama class → test patah, app aman). Yang penting: tombol ke-klik dan pesan sukses muncul. Plus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">userEvent</code> lebih realistis dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fireEvent</code>.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Perbaiki test async yang flaky</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Profile</code> fetch nama user, lalu nampilin. Test ini kadang lulus kadang gagal. Kenapa, dan gimana benerinnya?</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ Flaky — getBy langsung, data belum datang saat baris ini jalan
+render(&lt;Profile /&gt;);
+expect(screen.getByText("Arif")).toBeInTheDocument();
+
+// ✅ Benar — tunggu elemen async muncul pakai findBy
+render(&lt;Profile /&gt;);
+expect(await screen.findByText("Arif")).toBeInTheDocument();</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Kenapa flaky:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getByText</code> ngecek SEKALI, langsung. Kalau fetch belum resolve, "Arif" belum ada → gagal. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">findByText</code> nge-retry sampai muncul (atau timeout). Bonus poin: sekalian assert "Loading..." muncul dulu sebelum data datang.</p>
+  </div>
+</details>
+</div>
+
+<!-- CHALLENGE -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — LIKE BUTTON YANG LULUS "TEST BEHAVIOR"</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Ini testing-by-behavior <em>in action</em>. Runner di bawah itu efektif harness test DOM: dia nge-<strong class="text-ink">klik</strong> tombol lo lalu <strong class="text-ink">assert apa yang muncul di layar</strong> — persis seperti test RTL beneran. Tombol Like harusnya: awal bertuliskan "Suka" (hitungan 0), diklik → jadi "Disukai" (hitungan 1), diklik lagi → balik "Suka" (hitungan 0). Starter-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">handleClick</code>-nya masih kosong, jadi beberapa test bakal <strong class="text-ink">gagal</strong>. Lengkapin sampai semua hijau. Klik <strong class="text-ink">▶ Test</strong>.</p>
+<script type="text/plain" id="ch-9-1">// 🎯 Lengkapi handleClick supaya tombol Like berperilaku benar.
+// Perilaku target: klik → toggle teks "Suka" <-> "Disukai", dan hitungan naik/turun.
+// Starter: handleClick masih kosong → test toggle & hitungan bakal GAGAL.
+function App() {
+  const [liked, setLiked] = React.useState(false);
+  const [count, setCount] = React.useState(0);
+
+  function handleClick() {
+    // TODO: toggle "liked", dan update "count":
+    //   kalau BELUM liked  → jadi liked, count + 1
+    //   kalau SUDAH liked → batal liked, count - 1
+  }
+
+  return (
+    <div>
+      <button data-testid="like-btn" onClick={handleClick}>
+        {liked ? 'Disukai' : 'Suka'}
+      </button>
+      <p>Total suka: <b data-testid="count">{count}</b></p>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-9-1-test">var root = document.getElementById('root');
+function btn() { return root.querySelector('[data-testid="like-btn"]'); }
+function countVal() {
+  var el = root.querySelector('[data-testid="count"]');
+  return el ? el.textContent.trim() : null;
+}
+function clickBtn() {
+  var b = btn();
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Tombol awal bertuliskan "Suka"', btn() && btn().textContent.trim() === 'Suka');
+expect('Hitungan awal = 0', countVal() === '0');
+clickBtn();
+expect('Setelah 1 klik, tombol jadi "Disukai" (butuh toggle)', btn().textContent.trim() === 'Disukai');
+expect('Setelah 1 klik, hitungan = 1 (butuh count + 1)', countVal() === '1');
+clickBtn();
+expect('Klik lagi, tombol balik "Suka"', btn().textContent.trim() === 'Suka');
+expect('Klik lagi, hitungan balik 0', countVal() === '0');</script>
+<!-- SOLUSI ch-9-1 (untuk maintainer — semua test lulus dengan ini):
+       function handleClick() {
+         setLiked(prev => !prev);
+         setCount(prev => (liked ? prev - 1 : prev + 1));
+       }
+     Starter gagal karena handleClick kosong: teks tetap "Suka", count tetap 0
+     → 2 test (toggle & hitungan setelah klik pertama) gagal; sisanya kebetulan
+       lulus karena nggak ada yang berubah. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-9-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Isi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">handleClick</code> dengan dua updater. Perhatiin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">liked</code> di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount</code> itu nilai render saat ini (sebelum toggle) — jadi logikanya konsisten: belum liked → +1, sudah liked → −1.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap handleClick</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-jsx">function handleClick() {
+  setLiked(prev =&gt; !prev);
+  setCount(prev =&gt; (liked ? prev - 1 : prev + 1));
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3">Dan ini yang keren: test-nya nggak peduli lo pakai dua <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> atau satu objek state atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code> — selama teks di layar bener, test lulus. Itulah <strong class="text-ink">test behavior, bukan implementation</strong>. 🎯</p>
+  </div>
+</details>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 mt-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA MATANG STRATEGI TESTING LO? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview senior. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-9">
+[
+  {"q": "Prinsip utama React Testing Library (Kent C. Dodds) berbunyi kira-kira gimana?", "options": ["Test tiap function private biar coverage 100 persen", "Makin mirip test lo dengan cara user beneran pakai app, makin besar rasa percaya yang dikasih", "Selalu test state internal komponen dulu sebelum UI", "Snapshot semua komponen supaya aman"], "answer": 1, "explain": "Ini prinsip pegangan RTL. Fokusnya ke <strong>behavior</strong> yang user rasakan, bukan detail implementasi. Test yang meniru interaksi user asli lebih tahan refactor dan lebih meyakinkan."},
+  {"q": "Mana urutan prioritas query RTL yang paling benar?", "options": ["getByRole dulu, baru getByLabelText, getByText, dan getByTestId sebagai pilihan terakhir", "getByTestId dulu karena paling stabil", "querySelector dengan class CSS", "getById karena paling cepat"], "answer": 0, "explain": "Prioritas query RTL mengikuti cara user menemukan elemen: pertama lewat <em>role</em> (aksesibilitas), lalu label/teks yang keliatan. <code>getByTestId</code> pilihan terakhir — dipakai cuma kalau nggak ada cara query yang lebih manusiawi."},
+  {"q": "Komponen fetch data lalu menampilkan hasil setelah beberapa saat. Cara test yang benar?", "options": ["Pakai getByText langsung setelah render", "Pakai setTimeout manual di test lalu cek", "Pakai findByText atau waitFor supaya test nunggu elemen muncul", "Nggak usah di-test karena async susah"], "answer": 2, "explain": "UI async butuh test yang <em>nunggu</em>. <code>findBy*</code> = query + auto-retry, <code>waitFor</code> = retry assertion. Keduanya nunggu sampai kondisi terpenuhi tanpa <code>setTimeout</code> manual yang bikin flaky."},
+  {"q": "Mana yang PALING nggak perlu lo test di app React?", "options": ["Alur login user dari isi form sampai redirect", "Komponen form nampilin pesan error saat input kosong", "Tombol men-toggle teks saat diklik", "Bahwa useState bawaan React beneran nyimpen nilai (internal framework)"], "answer": 3, "explain": "Internal framework (React nyimpen state, useState jalan) udah di-test oleh tim React. Test lo fokus ke perilaku <strong>komponen lo sendiri</strong>, bukan re-test library."},
+  {"q": "Kenapa test yang ngecek state internal atau instance komponen dianggap rapuh?", "options": ["Karena lebih lambat dari test lain", "Karena begitu lo refactor internal (misal ganti useState jadi useReducer) tanpa ngubah perilaku, test-nya patah padahal app baik-baik aja", "Karena Vitest nggak mendukung akses state", "Karena state selalu berubah acak"], "answer": 1, "explain": "Test yang gantung ke implementasi internal patah tiap refactor walau perilaku user nggak berubah — false alarm yang bikin orang males test. Test <strong>behavior</strong>: refactor internal, test tetap hijau."},
+  {"q": "Beda utama userEvent dibanding fireEvent?", "options": ["userEvent nge-simulasi rangkaian event nyata (focus, keydown, input, keyup) seperti user asli, fireEvent cuma nembak satu event DOM", "fireEvent lebih realistis dari userEvent", "userEvent cuma bisa buat klik", "Nggak ada beda, cuma beda nama"], "answer": 0, "explain": "<code>userEvent</code> lebih realistis: dia trigger seluruh rangkaian event yang beneran kejadian saat user ngetik/klik. <code>fireEvent</code> cuma nembak satu event, kadang nge-miss bug yang muncul dari urutan event."},
+  {"q": "Dalam testing trophy, lapisan mana yang biasanya kasih rasio confidence-per-biaya terbaik untuk app React?", "options": ["E2E, karena paling menyerupai user", "Static (types dan lint) doang", "Integration test — render beberapa komponen bareng, mock di batas network", "Snapshot test"], "answer": 2, "explain": "Testing trophy (Kent C. Dodds): integration test biasanya kasih confidence terbanyak per biaya — render beberapa komponen bareng, mock cuma di batas network (MSW). E2E mahal &amp; lambat, jadi dipakai hemat buat alur kritis."},
+  {"q": "Sikap yang benar soal code coverage?", "options": ["100 persen coverage menjamin bebas bug", "Coverage nggak penting sama sekali", "Kejar 100 persen dengan test toBeTruthy biar angka bagus", "Coverage itu petunjuk area yang belum kesentuh, bukan target; test yang bermakna lebih penting dari angka"], "answer": 3, "explain": "Coverage nunjukin baris mana yang belum kesentuh test — berguna sebagai <em>peta</em>, bukan skor. 100 persen coverage bisa penuh test kosong. Kejar test yang nangkep bug nyata."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-9"></div>
+</section>
+
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
 <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -533,8 +741,8 @@ Gas ke Bab 10 →
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
-    <script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch9']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch9']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();
-    </script>
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>

@@ -8,11 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
     <script>tailwind.config = {
             theme: {
                 extend: {
@@ -30,46 +30,9 @@
                 }
             }
         }</script>
-    <style>
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        :root {
-            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
-            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
-            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3 { text-wrap: balance; }
-        p { text-wrap: pretty; }
-        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
-        .shadow-soft { box-shadow: var(--shadow-sm); }
-        .press { transition: transform 0.15s ease; }
-        .press:active { transform: scale(0.96); }
-        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
-        .lesson-card:hover { box-shadow: var(--shadow-md); }
-        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
-        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
-        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
-        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
-        .fade-in-d1 { animation-delay: 80ms; }
-        .fade-in-d2 { animation-delay: 160ms; }
-        .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
-        button:active { transform: scale(0.96); }
-        @media print { .no-print { display: none !important; } }
-        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+    <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="7">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
@@ -98,49 +61,7 @@
                 </div>
             </div>
         </div>
-        <nav class="px-2 pb-6 space-y-0.5">
-            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
-        </nav>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
     </aside>
 
     <!-- Main -->
@@ -169,7 +90,7 @@
 <p>React itu library — dia cuma handle UI. Buat routing? Kamu harus install React Router. Buat data fetching? Install TanStack Query. Buat SEO? Install react-helmet. Tiap project jadi puzzle yang harus kamu rakit sendiri. Capek kan? 😩</p>
 <p>Next.js itu kayak <strong class="text-ink">smartphone</strong> vs React yang kayak <strong class="text-ink">komponen elektronik</strong>. Next.js udah jadi produk jadi — tinggal pakai. React kamu harus solder sendiri. Next.js ngasih routing, data fetching, SEO, optimization, deployment — semua dalam satu package. Oh ternyata gitu! 🤯</p>
 <p>Yang bikin Next.js spesial: <strong class="text-ink">Server Components</strong>. Ini fitur revolusioner yang nge-bedain Next.js dari framework lain. Komponen bisa jalan di server (nggak ada JavaScript ke client), yang artinya page load super cepat, SEO auto bagus, dan bundle size kecil. User cuma download JavaScript yang benar-benar butuh interaktivitas.</p>
-<p>Versi Next.js sekarang udah 14+ dan sangat mature. Vercel (company di belakang Next.js) actively develop dan punya deployment platform yang seamless. Deploy Next.js ke Vercel cuma satu command: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vercel deploy</code>. Auto HTTPS, auto CDN, auto preview per PR. Developer experience-nya top tier.
+<p>Versi Next.js sekarang udah 14+ dan sangat mature. Vercel (company di belakang Next.js) actively develop dan punya deployment platform yang seamless. Deploy Next.js ke Vercel cuma satu command: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vercel deploy</code>. Auto HTTPS, auto CDN, auto preview per PR. Developer experience-nya top tier.</p>
 
 <p>Tapi Next.js bukan buat semua project. Kalau app kamu pure client-side ( kayak game, canvas editor, atau dashboard yang semua interaktif ), mungkin Vite + React lebih cocok. Next.js paling powerful buat content-heavy app: blog, e-commerce, landing page, SaaS. 🎯</p>
 <p>Next.js App Router (v14+) itu paradigma baru — nggak lagi pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">pages/</code> folder, tapi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">app/</code> folder dengan file-based routing yang lebih powerful. Layout, loading state, error boundary — semuanya otomatis berdasarkan folder structure. Developer experience-nya next level.</p>
@@ -204,9 +125,9 @@
 <p>Analoginya: Server Components itu kayak <strong class="text-ink">dapur restoran</strong> — masak di belakang, hasilnya udah jadi pas sampai ke meja. Client Components itu kayak <strong class="text-ink">barbekyu di meja</strong> — kamu masak sendiri di depan customer. Dua-duanya penting, tapi tempatnya beda. Oh ternyata gitu! 🤯</p>
 <p><strong class="text-ink">Server Components</strong> jalan di server saat request. Nggak ada JavaScript yang dikirim ke browser untuk komponen ini. Cocok buat: fetch data, akses database, read file system, render static HTML. Keuntungannya: page load cepat, SEO bagus, bundle kecil, aman (secret nggak exposed ke client).</p>
 <p><strong class="text-ink">Client Components</strong> jalan di browser. Butuh JavaScript. Cocok buat: interaktivitas (onClick, onChange), hooks (useState, useEffect), browser API (localStorage, geolocation), event listeners. Keuntungannya: user bisa interact langsung tanpa request ke server.</p>
-<p>Satu kesalahan umum: taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di layout atau page-level. Ini bikin SEMUA child component jadi Client Component — kehilangan benefit Server Component. Solution? Taruh "use client" di leaf component (komponen paling dalam yang butuh interaktivitas). Parent tetap Server Component. 🎯
+<p>Satu kesalahan umum: taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di layout atau page-level. Ini bikin SEMUA child component jadi Client Component — kehilangan benefit Server Component. Solution? Taruh "use client" di leaf component (komponen paling dalam yang butuh interaktivitas). Parent tetap Server Component. 🎯</p>
 
-<p><strong class="text-ink">Aturan emas: mulai dari Server Component, turun ke Client Component kalau butuh interaktivitas</strong>. Jangan taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di semua file — itu kebablasan. Server Component bisa render Client Component sebagai child, tapi Client Component nggak bisa import Server Component sebagai prop yang di-render secara dinamis.</p>
+<p><strong class="text-ink">Aturan emas: mulai dari Server Component, turun ke Client Component kalau butuh interaktivitas</strong>. Jangan taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di semua file — itu kebablasan. Server Component bisa render Client Component sebagai child. Client Component nggak bisa import Server Component langsung (kalau di-import, si Server Component ikut jadi client). Tapi Server Component bisa dilempar ke Client Component sebagai children/prop dari parent Server Component.</p>
 
 <p>Best practice: <strong class="text-ink">composition pattern</strong>. Server Component fetch data, terus pass ke Client Component sebagai prop (JSX). Client Component fokus handle interaktivitas. Data-nya udah ada — nggak perlu loading state di client. Pattern ini bikin client bundle kecil dan page load cepat. 🎯</p>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Component — Default</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Server Component (default — nggak perlu "use client")
@@ -325,7 +246,7 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
 
 <p>Di real project, Server Component biasanya nggak fetch dari external API — mereka langsung query database via ORM kayak <strong class="text-ink">Prisma</strong> atau <strong class="text-ink">Drizzle</strong>. Ini lebih efisien: nggak ada HTTP overhead, type-safe query, dan bisa langsung akses environment variable tanpa expose ke client. Pattern-nya: Prisma client di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">lib/db.ts</code>, import di Server Component, query langsung. Clean dan efisien. 🔥</p>
 <p>Tapi Server Component fetching bukan buat semua kasus. Kalau data-nya real-time (chat, stock price), butuh Client Component + SWR/React Query. Kalau data-nya user-specific (dashboard auth), gabung server fetch + client revalidation.</p>
-<p>Next.js juga punya <strong class="text-ink">caching strategy</strong> built-in: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default cache (ISR-like), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat always fresh, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate</code> buat periodic refresh. Pattern yang recommended: <strong class="text-ink">Server Component fetch</strong> buat initial data, <strong class="text-ink">Client Component + SWR</strong> buat real-time update. Dua pattern ini bisa kombinasikan — Server Component render initial data, Client Component mount dan mulai polling buat update. User langsung lihat data, tapi data tetap fresh. Best of both worlds! ⚡
+<p>Next.js juga punya <strong class="text-ink">caching strategy</strong> built-in: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default cache (ISR-like), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat always fresh, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate</code> buat periodic refresh. Pattern yang recommended: <strong class="text-ink">Server Component fetch</strong> buat initial data, <strong class="text-ink">Client Component + SWR</strong> buat real-time update. Dua pattern ini bisa kombinasikan — Server Component render initial data, Client Component mount dan mulai polling buat update. User langsung lihat data, tapi data tetap fresh. Best of both worlds! ⚡</p>
 
 <p>Nggak perlu library external buat caching — Next.js handle semuanya.</p>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Component — Direct Fetch</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Direct await di Server Component — super clean!
@@ -426,11 +347,11 @@ export async function generateMetadata({ params }: Props) {
 }</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateMetadata</code> cuma jalan di Server Component. Jangan taruh di file yang ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>. Metadata selalu di-resolve di server — ini yang bikin SEO-nya auto bagus.</p></div></div></section>
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MIDDLEWARE, CACHING & ERROR UI 🛡️</h2><input type="checkbox" id="check-7-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
 <p>Tiga fitur Next.js yang sering diabaikan padahal powerful banget. Middleware buat auth redirect dan geo-routing, caching buat performance, error boundary buat graceful failure. Mari bahas satu-satu. 🎯</p>
-<p><strong class="text-ink">Middleware</strong> jalan sebelum request sampai ke page. Cocok buat: auth check (redirect ke login kalau belum login), A/B testing, geo-based routing, rate limiting. Middleware cuma bisa jadi Server Component — nggak bisa pake hooks atau event handlers. Tapi dia bisa access cookies, headers, dan request URL — cukup buat sebagian besar use case auth dan routing.</p>
+<p><strong class="text-ink">Middleware</strong> jalan sebelum request sampai ke page. Cocok buat: auth check (redirect ke login kalau belum login), A/B testing, geo-based routing, rate limiting. Middleware itu bukan komponen — dia function yang jalan di server (Edge runtime) sebelum request nyampe ke page, jadi emang nggak ada hooks/event handler di situ. Tapi dia bisa access cookies, headers, dan request URL — cukup buat sebagian besar use case auth dan routing.</p>
 
 <p><strong class="text-ink">Edge Runtime</strong> — middleware jalan di edge (CDN), bukan di server Node.js. Artinya super cepat, latency rendah, dan bisa nge-handle jutaan request. Tapi ada limitation: nggak bisa akses Node.js API kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fs</code> atau native modules. Buat logic yang simple (auth, redirect), ini lebih dari cukup.</p>
 <p><strong class="text-ink">Caching</strong> di Next.js App Router udah built-in. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default-nya cache (dengan revalidate). Kamu bisa override per-request: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat fresh data, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate: 60</code> buat auto-refresh tiap 60 detik. Ini menggantikan getServerSideProps + getStaticProps dari Pages Router. Oh ternyata gitu! 🤯</p>
-<p><strong class="text-ink">Error UI</strong> lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> — komponen khusus yang nampilin pas ada error. Dengan pattern ini, error di satu bagian nggak nge-crash seluruh halaman. Error boundary paling dekat yang handle — jadi error di blog post tetap tampilin header dan sidebar. User bisa navigate ke halaman lain tanpa refresh.
+<p><strong class="text-ink">Error UI</strong> lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">error.tsx</code> — komponen khusus yang nampilin pas ada error. Dengan pattern ini, error di satu bagian nggak nge-crash seluruh halaman. Error boundary paling dekat yang handle — jadi error di blog post tetap tampilin header dan sidebar. User bisa navigate ke halaman lain tanpa refresh.</p>
 
 <p>Bisa nested (blog error, dashboard error) atau global. Yang keren: error.tsx bisa jadi Client Component jadi bisa punya "Try Again" button. Satu lagi: <strong class="text-ink">loading.tsx</strong>. Ini skeleton UI yang auto-tampil pas Next.js fetching data. Nggak perlu state management buat loading — cukup bikin loading.tsx di folder yang sama dengan page.tsx. React Suspense otomatis wrap dan tampilin skeleton. User experience-nya smooth banget — nggak ada blank page, cuma skeleton yang smooth fade in. 🎨
 
@@ -486,7 +407,7 @@ export default function Error({
 <p>Dulu bikin form di React: handleSubmit → fetch ke API endpoint → handle response. Backend-nya harus bikin route terpisah buat handle POST. Banyak boilerplate. Next.js Server Actions nge-simplify semua ini. Kamu bisa langsung panggil server function dari form — nggak perlu API endpoint. 🔥</p>
 <p>Analoginya: Server Actions itu kayak <strong class="text-ink">pesan langsung ke dapur</strong> vs lewat waiter (API). Lebih cepat, nggak perlu middleware. Form submit → langsung ke server function → return result. Clean, simple, dan type-safe. Oh ternyata gitu! 🤯</p>
 <p>Server Actions itu async function yang jalan di server. Bisa didefinisikan di Server Component atau file terpisah. Dipanggil via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">action</code> prop di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;form&gt;</code> atau via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">formAction</code> di hook. Result bisa di-access via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useActionState</code> (React 19).</p>
-<p>Yang powerful: Server Actions bisa return data (bukan cuma void), bisa throw error (auto-catch oleh error boundary), bisa revalidate cache (auto-update UI pas data berubah). Ini menggantikan pola lama: API route + fetch + state management. Server Actions juga support <strong class="text-ink">progressive enhancement</strong> — kalau JavaScript disabled di browser, form tetap bisa submit (dengan full page reload). Ini yang bikin Next.js form lebih resilient dari form React biasa. Accessibility + reliability = win-win.
+<p>Yang powerful: Server Actions bisa return data (bukan cuma void), bisa throw error (auto-catch oleh error boundary), bisa revalidate cache (auto-update UI pas data berubah). Ini menggantikan pola lama: API route + fetch + state management. Server Actions juga support <strong class="text-ink">progressive enhancement</strong> — kalau JavaScript disabled di browser, form tetap bisa submit (dengan full page reload). Ini yang bikin Next.js form lebih resilient dari form React biasa. Accessibility + reliability = win-win.</p>
 
 <p>Satu function, semua handled. ⚡</p>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server Action — Form Handling</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// File: app/actions.ts — Server Actions di file terpisah
@@ -623,6 +544,405 @@ export function LikeButton({ slug, initialLikes }: { slug: string; initialLikes:
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend blog ini: (1) Tambahkan Server Action buat create new post dengan form, (2) Tambahkan search dengan URL params, (3) Tambahkan pagination, (4) Tambahkan dark mode toggle (Client Component), (5) Deploy ke Vercel. Semua konsep udah kita bahas!</p></div></div></section>
 
+<!-- LEVEL SENIOR -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: RSC, RENDERING STRATEGY & CACHING — MODEL MENTAL YANG BENER 🧠</h2><input type="checkbox" id="check-7-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 16 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di lesson 2 lo udah kenalan sama Server vs Client Components. Sekarang kita naikin ke level yang misahin developer yang "bisa nempel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>" sama yang <strong class="text-ink">ngerti kenapa dan di mana</strong> batas itu ditaruh. Ini materi yang paling sering ditanya di interview senior Next.js, dan paling sering bikin bug halus di production. Karena rahasianya: <strong class="text-ink">RSC bukan cuma "React di server" — dia model eksekusi yang beda, dengan aturan yang beda.</strong></p>
+<p>Pertama, luruskan model mentalnya: di App Router, komponen lo jalan di <strong class="text-ink">dua lingkungan yang beda secara fisik</strong>. Server Component di-eksekusi di server (saat build atau saat request), hasilnya bukan HTML biasa tapi <em>RSC Payload</em> — deskripsi UI yang di-stream ke browser. Client Component di-<em>hydrate</em> di browser: kode JavaScript-nya beneran dikirim, di-download, di-jalanin ulang biar interaktif. Analoginya kayak <strong class="text-ink">katalog cetak vs mesin ATM</strong> 🏧: katalog (Server Component) udah jadi pas dicetak, isinya diam tapi ringan dan cepet dibagikan; ATM (Client Component) harus ada mesin beneran di lokasi karena user perlu mencet tombol dan dapet respons langsung.</p>
+<p>Kedua — dan ini yang bikin bingung — <strong class="text-ink">apa yang BISA dan NGGAK BISA</strong> di tiap lingkungan. Server Component boleh: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async/await</code> di body-nya, query database langsung, baca file, pakai secret dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">process.env</code>. Tapi NGGAK boleh: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code>, event handler (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>), atau browser API (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">localStorage</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">window</code>). Client Component kebalikannya: boleh hooks &amp; interaktivitas, tapi NGGAK boleh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async</code> component, dan jangan sekali-sekali akses secret di sana (bakal ke-bundle ke browser). Aturan mati yang gampang diinget: <strong class="text-ink">butuh interaktivitas atau browser API → Client; butuh data/secret/berat → Server.</strong></p>
+<p>Ketiga, <strong class="text-ink">batas <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> itu satu arah, dan menular ke bawah.</strong> Begitu satu file ditandain <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>, semua komponen yang di-<em>import</em> dari situ ikut masuk client bundle. Makanya taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> di <strong class="text-ink">leaf</strong> (daun paling dalam yang butuh interaktivitas), bukan di root. Trik senior: kalau Client Component butuh nampilin sesuatu yang berat/statis, jangan di-import — <strong class="text-ink">terima dia sebagai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> prop</strong>. Server Component render children-nya di server, Client Component cuma "membungkus" tanpa perlu tau isinya. Ini pola "Client wrapper, Server content" yang bikin bundle tetap kecil.</p>
+<p>Keempat, <strong class="text-ink">empat strategi rendering — kapan pakai yang mana.</strong> Ini keputusan arsitektur, bukan tebak-tebakan:</p>
+<ul class="space-y-2 ml-1">
+<li class="flex items-start gap-2"><span class="text-ink mt-0.5">•</span><span><strong class="text-ink">SSG / Static (default)</strong> — halaman di-render sekali saat <em>build</em>, disajikan sebagai HTML statis dari CDN. Paling cepet &amp; murah. Buat konten yang sama untuk semua orang dan jarang berubah: landing page, docs, halaman "Tentang Kami". Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">generateStaticParams</code> buat pre-render dynamic route.</span></li>
+<li class="flex items-start gap-2"><span class="text-ink mt-0.5">•</span><span><strong class="text-ink">ISR (Incremental Static Regeneration)</strong> — statis, tapi di-refresh di background tiap interval. Set lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch(url, { next: { revalidate: 60 } })</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">export const revalidate = 60</code>. Buat konten yang berubah tapi nggak perlu real-time: katalog produk, daftar artikel blog. Best of both: kecepatan statis + data yang cukup segar.</span></li>
+<li class="flex items-start gap-2"><span class="text-ink mt-0.5">•</span><span><strong class="text-ink">SSR / Dynamic</strong> — di-render ulang di server <em>tiap request</em>. Trigger otomatis kalau lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cookies()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">headers()</code>, atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch(..., { cache: 'no-store' })</code>. Buat data yang personal atau selalu segar: dashboard user, halaman yang gantung ke sesi login.</span></li>
+<li class="flex items-start gap-2"><span class="text-ink mt-0.5">•</span><span><strong class="text-ink">CSR (Client-side)</strong> — data diambil di browser (Client Component + SWR/React Query). Buat yang beneran real-time atau super-interaktif: chat, harga saham, editor, dashboard yang polling. Sering <em>dikombinasi</em>: Server render kerangka + data awal, Client ambil alih buat update.</span></li>
+</ul>
+<p>Kelima, <strong class="text-ink">caching di App Router itu berlapis</strong> — dan salah paham di sini bikin bug "kok datanya nggak update?". Ada empat lapis yang perlu lo tau: <strong class="text-ink">(1) Request Memoization</strong> — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> yang sama dalam satu render di-dedup otomatis, jadi aman manggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getUser()</code> di banyak komponen. <strong class="text-ink">(2) Data Cache</strong> — hasil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> di-simpan lintas request; dikontrol <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> dan bisa di-bust manual pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidatePath</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidateTag</code>. <strong class="text-ink">(3) Full Route Cache</strong> — HTML + RSC payload halaman statis di-cache di build/server. <strong class="text-ink">(4) Router Cache</strong> — cache di sisi client biar navigasi antar halaman instan. Catatan penting: di Next 14 <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default-nya <em>di-cache</em>, tapi di <strong class="text-ink">Next 15 default-nya berubah jadi <em>uncached</em></strong> (harus opt-in caching) — makanya selalu cek versi &amp; eksplisit soal caching. 🎯</p>
+<p>Keenam, <strong class="text-ink">streaming &amp; Suspense boundary</strong> — senjata buat UX yang mulus. Daripada nunggu SEMUA data siap baru kirim halaman, App Router bisa <em>stream</em> HTML bertahap. File <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">loading.tsx</code> itu sebenarnya cuma <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Suspense&gt;</code> boundary otomatis di level segmen route: bagian yang cepet langsung tampil, bagian yang lambat diganti fallback dulu, lalu "diisi" pas datanya nyampe. Lo juga bisa bikin Suspense boundary manual di dalam halaman — bungkus komponen yang lambat pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Suspense fallback={...}&gt;</code> biar sisanya nggak ke-block. Ini yang bikin app terasa cepet walau salah satu data-nya lelet. Playground di bawah nge-demo <em>rasa</em> loading→ready ini pakai React biasa. 👇</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Pilih strategi rendering — deklaratif per route/fetch</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// 1) SSG — statis, di-generate saat build (default kalau nggak ada API dinamis)
+export default async function AboutPage() {
+  return &lt;h1&gt;Tentang Kami&lt;/h1&gt;;
+}
+
+// 2) ISR — statis tapi auto-refresh tiap 60 detik
+async function getProducts() {
+  const res = await fetch('https://api.example.com/products', {
+    next: { revalidate: 60 },   // ← inti ISR
+  });
+  return res.json();
+}
+
+// 3) SSR — dinamis, di-render ulang tiap request (karena baca cookies)
+import { cookies } from 'next/headers';
+export default async function Dashboard() {
+  const session = (await cookies()).get('session'); // ← bikin route jadi dynamic
+  const data = await fetch('https://api.example.com/me', { cache: 'no-store' });
+  // ...
+}
+
+// Paksa perilaku di level route (opsional, eksplisit):
+export const dynamic = 'force-static';   // atau 'force-dynamic'
+export const revalidate = 3600;          // ISR sejam</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Streaming + Suspense boundary manual di dalam halaman</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// app/dashboard/page.tsx — Server Component
+import { Suspense } from 'react';
+
+export default function DashboardPage() {
+  return (
+    &lt;div&gt;
+      {/* Header &amp; stats ringan → tampil instan */}
+      &lt;Header /&gt;
+
+      {/* Bagian lambat dibungkus Suspense → nggak nge-block sisanya.
+          React stream fallback dulu, isi belakangan pas data siap. */}
+      &lt;Suspense fallback={&lt;FeedSkeleton /&gt;}&gt;
+        &lt;SlowFeed /&gt;        {/* async Server Component yang fetch-nya lelet */}
+      &lt;/Suspense&gt;
+
+      &lt;Suspense fallback={&lt;p&gt;Memuat rekomendasi...&lt;/p&gt;}&gt;
+        &lt;Recommendations /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  );
+}
+// loading.tsx = Suspense boundary OTOMATIS untuk seluruh segmen route ini.</code></pre></div></div>
+<p class="text-[#333] mt-4">Daripada cuma baca teori, rasain sendiri. Playground pertama nge-demo pola <strong class="text-ink">loading → ready</strong> — persis <em>rasa</em> yang dikasih <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">loading.tsx</code> / Suspense fallback, tapi pakai React state biasa (karena Next.js butuh server, nggak bisa jalan di iframe ini). Klik "Muat ulang" buat lihat skeleton muncul lagi. 👇</p>
+<script type="text/plain" id="pg-7-1">// ⚡ Simulasi loading→ready — meniru RASA loading.tsx / Suspense fallback.
+// Di Next.js: Server Component fetch data, loading.tsx jadi skeleton otomatis.
+// Di sini: React biasa + setTimeout, karena playground nggak punya server.
+function App() {
+  const [status, setStatus] = React.useState('loading'); // 'loading' | 'ready'
+  const [menu, setMenu] = React.useState([]);
+
+  function muat() {
+    setStatus('loading');
+    setMenu([]);
+    setTimeout(function () {
+      setMenu([
+        { id: 1, nama: 'Kopi Susu', harga: 18000 },
+        { id: 2, nama: 'Es Teh', harga: 8000 },
+        { id: 3, nama: 'Roti Bakar', harga: 15000 },
+      ]);
+      setStatus('ready');
+    }, 1100);
+  }
+
+  React.useEffect(function () { muat(); }, []);
+
+  return (
+    <div>
+      <h2>Menu Warung ☕</h2>
+      {status === 'loading' ? (
+        <div>
+          {[1, 2, 3].map(function (i) {
+            return <div key={i} style={{ height: 18, width: 180, background: '#eee', borderRadius: 6, margin: '6px 0' }} />;
+          })}
+          <p style={{ color: '#666', fontSize: 13 }}>⏳ Skeleton — di Next.js ini isi loading.tsx</p>
+        </div>
+      ) : (
+        <ul>
+          {menu.map(function (m) {
+            return <li key={m.id}>{m.nama} — Rp {m.harga.toLocaleString('id-ID')}</li>;
+          })}
+        </ul>
+      )}
+      <button onClick={muat}>Muat ulang</button>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-7-1"></div>
+<p class="text-[#333] mt-4">Playground kedua nge-demo <strong class="text-ink">pola komposisi Server/Client</strong>: sebuah "server-like" component (statis, cuma nampilin data) yang render sebuah "client" component interaktif (tombol like ber-state). Di Next.js, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ProductCard</code> bakal jadi Server Component dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">LikeButton</code> bakal ditandai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>. Data-nya ("di-fetch di server") di-pass sebagai prop — client-nya nggak perlu loading state. 👇</p>
+<script type="text/plain" id="pg-7-2">// ⚡ Pola komposisi: "server" nampilin data → "client" pegang interaktivitas.
+// Di Next.js: ProductCard = Server Component, LikeButton = 'use client'.
+// Data di-fetch di server, di-pass sebagai prop → client nggak butuh loading state.
+function LikeButton({ initialLikes }) {
+  const [likes, setLikes] = React.useState(initialLikes);
+  const [liked, setLiked] = React.useState(false);
+  return (
+    <button onClick={function () {
+      if (!liked) { setLikes(function (n) { return n + 1; }); setLiked(true); }
+    }}>
+      {liked ? '❤️' : '🤍'} {likes}
+    </button>
+  );
+}
+
+function ProductCard({ product }) {
+  // "Server Component": cuma render data, nggak ada state / event.
+  return (
+    <div style={{ border: '1px solid #ddd', borderRadius: 8, padding: 12, marginBottom: 8 }}>
+      <b>{product.nama}</b> — Rp {product.harga.toLocaleString('id-ID')}{' '}
+      <LikeButton initialLikes={product.likes} />
+    </div>
+  );
+}
+
+function App() {
+  // Di Next.js data ini di-fetch di server (async Server Component).
+  const produk = [
+    { id: 1, nama: 'Keyboard', harga: 350000, likes: 12 },
+    { id: 2, nama: 'Mouse', harga: 150000, likes: 8 },
+  ];
+  return (
+    <div>
+      <h2>Katalog 🛒</h2>
+      {produk.map(function (p) { return <ProductCard key={p.id} product={p} />; })}
+      <p style={{ color: '#666', fontSize: 13 }}>
+        Card = "Server" (statis, ringan). Tombol like = "Client" (stateful).
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-7-2"></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Kode Next.js asli (Server Component <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await fetch</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cookies()</code>) <strong class="text-ink">nggak bisa jalan di playground ini</strong> — dia butuh server Node.js &amp; App Router runtime. Playground di atas sengaja pakai React biasa buat nunjukin <em>bagian React-nya</em>: loading state &amp; pola komposisi. Konsep server-nya tetap di code block statis. Jalanin Next.js beneran lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm run dev</code> di komputer lo. 🖥️</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> "Server Component" bukan berarti "selalu SSR tiap request". Secara default Server Component itu di-render <em>saat build</em> (statis) — dia baru jadi dinamis kalau lo pakai API dinamis (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cookies()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">headers()</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">searchParams</code>, atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cache: 'no-store'</code>). Banyak orang ngira semua Server Component jalan tiap request dan panik soal performa — padahal defaultnya justru statis &amp; super cepet.</p></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA NEXT.JS APP ROUTER YANG PALING SERING 🚨</h2><input type="checkbox" id="check-7-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-7-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Enam kesalahan yang paling sering muncul di code review — pola: kode salah → kenapa → kode benar</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><strong class="text-ink">1. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> di mana-mana (bunuh benefit RSC).</strong> Ini dosa nomor satu. Karena "biar aman dari error", banyak yang nempel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> di root layout atau page-level. Efeknya: SEMUA komponen anak masuk client bundle, data fetching pindah ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code>, SEO turun, bundle membengkak — lo kehilangan alasan utama pakai Next.js. Taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code> di leaf yang beneran interaktif aja.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #1 — 'use client' di page-level</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — page ditandai client cuma karena ADA satu tombol
+'use client';
+import { useState } from 'react';
+export default function Page() {
+  const [open, setOpen] = useState(false);
+  // seluruh list produk ikut ke client bundle, harus fetch via useEffect 😩
+  return &lt;div&gt;...ratusan item + satu tombol...&lt;/div&gt;;
+}
+
+// ✅ BENAR — page tetap Server Component, isolasi interaktivitas ke leaf
+// app/page.tsx (Server Component, bisa await data)
+export default async function Page() {
+  const produk = await getProduk();          // fetch di server, no useEffect
+  return (
+    &lt;div&gt;
+      {produk.map(p =&gt; &lt;Card key={p.id} p={p} /&gt;)}
+      &lt;Toggle /&gt;   {/* ← cuma komponen INI yang 'use client' */}
+    &lt;/div&gt;
+  );
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">2. Fetch data pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> padahal bisa di Server Component.</strong> Refleks dari React lama: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> buat ambil data awal. Di App Router ini bikin waterfall: browser download JS → render kosong → baru fetch → re-render. Plus butuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>, plus SEO jelek. Data awal? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code> langsung di Server Component.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — useEffect buat data awal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — waterfall: render kosong dulu, baru fetch di client
+'use client';
+import { useEffect, useState } from 'react';
+export default function Posts() {
+  const [posts, setPosts] = useState([]);
+  useEffect(() =&gt; { fetch('/api/posts').then(r =&gt; r.json()).then(setPosts); }, []);
+  return &lt;ul&gt;{posts.map(p =&gt; &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+
+// ✅ BENAR — Server Component, HTML udah lengkap pas sampai browser
+export default async function Posts() {
+  const posts = await fetch('https://api.example.com/posts',
+    { next: { revalidate: 60 } }).then(r =&gt; r.json());
+  return &lt;ul&gt;{posts.map(p =&gt; &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+// Butuh useEffect fetch cuma buat data real-time/interaktif (chat, polling).</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. Salah pilih strategi data — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code> buat semuanya (atau cache buat data personal).</strong> Dua ekstrem yang sama bahayanya. Pukul rata <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cache: 'no-store'</code> bikin tiap request nge-hit origin → lambat &amp; mahal, padahal datanya jarang berubah. Sebaliknya, nge-cache data personal (profil user, isi keranjang) bikin user A lihat data user B. Cocokin strategi ke sifat datanya.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #3 — strategi cache asal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — katalog yang jarang berubah dipaksa no-store (lambat &amp; mahal)
+const produk = await fetch(API + '/produk', { cache: 'no-store' });
+// ❌ SALAH — data personal di-cache → bocor antar user
+const cart = await fetch(API + '/cart', { next: { revalidate: 3600 } });
+
+// ✅ BENAR — cocokin ke sifat data
+const produk = await fetch(API + '/produk', { next: { revalidate: 300 } }); // ISR
+const cart   = await fetch(API + '/cart',   { cache: 'no-store' });          // personal
+// Rule of thumb: sama-untuk-semua &amp; jarang berubah → cache/ISR;
+//                personal / real-time → no-store.</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">4. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;img&gt;</code> biasa, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">next/image</code>.</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;img&gt;</code> mentah nggak di-optimize: gambar 3MB dikirim apa adanya, nggak ada lazy-load, nggak ada WebP/AVIF, dan bikin <em>layout shift</em> (CLS jelek) karena browser nggak tau dimensinya. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">next/image</code> auto-resize, auto-format modern, lazy-load, dan reserve ruang lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">width/height</code>.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #4 — img mentah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — gambar gede dikirim apa adanya, layout shift, no lazy-load
+&lt;img src="/hero.png" alt="Hero" /&gt;
+
+// ✅ BENAR — next/image: auto WebP/AVIF, resize, lazy-load, no CLS
+import Image from 'next/image';
+&lt;Image src="/hero.png" alt="Hero" width={1200} height={600} priority /&gt;
+// width/height (atau fill) WAJIB → biar Next reserve ruang &amp; hindari layout shift.</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">5. Bocorin server secret ke Client Component.</strong> Variabel tanpa prefix <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">NEXT_PUBLIC_</code> cuma ada di server. Tapi begitu lo pakai/import-nya di file <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>, atau lo kasih prefix <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">NEXT_PUBLIC_</code> ke secret, nilainya ikut ke-bundle &amp; kelihatan di browser. API key, DB URL, token — <strong class="text-ink">jangan pernah</strong> disentuh di client.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #5 — secret bocor ke client</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — secret dipakai di Client Component → ke-bundle ke browser
+'use client';
+const key = process.env.STRIPE_SECRET_KEY;        // undefined di client / bocor kalau NEXT_PUBLIC_
+fetch('https://api.pihak3.com', { headers: { Authorization: key } });
+
+// ❌ SALAH — kasih prefix NEXT_PUBLIC_ ke secret = sengaja mbocorin
+// NEXT_PUBLIC_DB_PASSWORD=... ← JANGAN
+
+// ✅ BENAR — secret dipakai di server (Server Component / Server Action / route handler)
+'use server';
+export async function bayar() {
+  const key = process.env.STRIPE_SECRET_KEY;      // aman, cuma di server
+  // ...
+}
+// NEXT_PUBLIC_ cuma buat yang MEMANG boleh publik (mis. URL analytics).</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">6. Salah pakai dynamic route params (lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code> di Next 15).</strong> Di App Router versi baru, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">params</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">searchParams</code> itu <strong class="text-ink">Promise</strong> — harus di-<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code>. Baca <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">params.slug</code> langsung tanpa await bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code>. Salah lain: ngira <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">params</code> ada di komponen sembarang — dia cuma di-inject ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">layout.tsx</code> segmen itu.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #6 — params nggak di-await</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — params dibaca langsung (Next 15: params itu Promise) → slug undefined
+export default function Post({ params }: { params: { slug: string } }) {
+  const post = getPost(params.slug);   // 💥 params.slug undefined / warning
+  return &lt;h1&gt;{post.title}&lt;/h1&gt;;
+}
+
+// ✅ BENAR — params/searchParams itu Promise, WAJIB di-await
+type Props = { params: Promise&lt;{ slug: string }&gt; };
+export default async function Post({ params }: Props) {
+  const { slug } = await params;       // ← await dulu
+  const post = await getPost(slug);
+  return &lt;h1&gt;{post.title}&lt;/h1&gt;;
+}</code></pre></div></div>
+
+<!-- LATIHAN -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — UJI PEMAHAMAN LO</h3>
+<p class="text-sm text-muted mb-4">Jawab dulu di kepala sebelum buka solusinya. Ini gaya soal yang beneran keluar di code review &amp; interview Next.js.</p>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Server atau Client? Ambil keputusan</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-2">Buat tiap komponen, tentuin: Server Component (default) atau butuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'use client'</code>? <strong class="text-ink">A.</strong> Daftar artikel dari database. <strong class="text-ink">B.</strong> Tombol "like" dengan counter. <strong class="text-ink">C.</strong> Dropdown menu yang buka-tutup. <strong class="text-ink">D.</strong> Footer statis berisi link. <strong class="text-ink">E.</strong> Form pencarian yang nyimpen input ke state. <strong class="text-ink">F.</strong> Kartu profil yang nampilin nama &amp; foto dari API.</p>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Jawaban:</strong> <strong class="text-ink">A → Server</strong> (fetch/DB, nggak ada interaktivitas). <strong class="text-ink">B → Client</strong> (state + onClick). <strong class="text-ink">C → Client</strong> (state buka/tutup). <strong class="text-ink">D → Server</strong> (statis murni — jangan client-in cuma karena "ada link"). <strong class="text-ink">E → Client</strong> (nyimpen input ke state + event). <strong class="text-ink">F → Server</strong> (cuma nampilin data). <strong class="text-ink">Pola:</strong> ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>/browser API → Client. Cuma nampilin data → Server. Kalau ragu, mulai dari Server, turun ke Client cuma di leaf yang butuh.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Cari bug — kenapa datanya nggak pernah update?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — harga produk di admin udah diubah, tapi halaman publik tetap harga lama</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// app/produk/page.tsx
+export default async function Produk() {
+  const res = await fetch('https://api.toko.com/produk'); // default-nya gimana?
+  const produk = await res.json();
+  return &lt;List produk={produk} /&gt;;
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Bug-nya:</strong> di Next 14, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch</code> default-nya <em>di-cache permanen</em> (statis) — halaman di-generate sekali saat build dan nggak pernah refresh, jadi update harga di admin nggak keliatan. (Di Next 15 defaultnya kebalik: uncached, tapi bisa ke-cache lagi lewat Full Route Cache kalau route-nya statis.) Solusinya: kasih tau Next kapan harus revalidate.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// Opsi A — ISR: refresh otomatis tiap 60 detik (cocok buat katalog)
+const res = await fetch('https://api.toko.com/produk', {
+  next: { revalidate: 60 },
+});
+
+// Opsi B — selalu segar tiap request (kalau harga wajib real-time)
+const res = await fetch('https://api.toko.com/produk', { cache: 'no-store' });
+
+// Opsi C — on-demand: panggil ini dari admin setelah edit harga
+import { revalidatePath } from 'next/cache';
+revalidatePath('/produk'); // bust cache TEPAT saat data berubah</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Pilih strategi rendering</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-2">Tentuin strategi (SSG / ISR / SSR / CSR) yang paling pas: <strong class="text-ink">A.</strong> Halaman dokumentasi produk. <strong class="text-ink">B.</strong> Daftar artikel blog yang di-update beberapa kali sehari. <strong class="text-ink">C.</strong> Dashboard saldo &amp; transaksi user yang login. <strong class="text-ink">D.</strong> Widget harga crypto yang update tiap detik.</p>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Jawaban:</strong> <strong class="text-ink">A → SSG</strong> (sama untuk semua, jarang berubah — generate saat build, sajikan dari CDN). <strong class="text-ink">B → ISR</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">revalidate</code> mis. 3600 — statis tapi cukup segar). <strong class="text-ink">C → SSR</strong> (personal &amp; gantung sesi login → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">cookies()</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">no-store</code>, render tiap request). <strong class="text-ink">D → CSR</strong> (real-time, Client Component + polling/WebSocket; boleh Server render kerangka awal). <strong class="text-ink">Prinsip:</strong> makin personal/sering-berubah datanya, makin geser ke kanan (SSG → ISR → SSR → CSR).</p>
+  </div>
+</details>
+</div>
+
+<!-- CHALLENGE -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — MINI "ROUTER" PAKAI STATE</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Next.js routing butuh server, jadi di sini kita latih <strong class="text-ink">logika di baliknya</strong> pakai React biasa: sebuah "router" yang milih konten berdasarkan halaman aktif — mirip cara App Router mencocokkan URL ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code>. Starter baru nangani tab <strong class="text-ink">Home</strong>; tugas lo: lengkapi biar tab <strong class="text-ink">Blog</strong> dan <strong class="text-ink">About</strong> nampilin konten yang bener. Klik <strong class="text-ink">▶ Test</strong> buat ngecek — starter-nya pasti gagal di test Blog &amp; About.</p>
+<script type="text/plain" id="ch-7-1">// 🎯 Lengkapi "router"-nya! Klik "▶ Test" buat lihat test yang gagal.
+// Klik tab → `page` berubah → renderPage() harus balikin konten yang cocok.
+// Starter baru nangani 'home'. Tambahin cabang buat 'blog' & 'about'.
+function App() {
+  const [page, setPage] = React.useState('home');
+
+  function renderPage() {
+    if (page === 'home') return <p data-testid="content">Selamat datang di Home</p>;
+    // TODO: kalau page === 'blog'  → return <p data-testid="content">Daftar artikel Blog</p>;
+    // TODO: kalau page === 'about' → return <p data-testid="content">Tentang kami</p>;
+    return <p data-testid="content">404 — halaman nggak ketemu</p>;
+  }
+
+  return (
+    <div>
+      <nav>
+        <button data-nav="home" onClick={() => setPage('home')}>Home</button>{' '}
+        <button data-nav="blog" onClick={() => setPage('blog')}>Blog</button>{' '}
+        <button data-nav="about" onClick={() => setPage('about')}>About</button>
+      </nav>
+      {renderPage()}
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-7-1-test">var root = document.getElementById('root');
+function content() {
+  var el = root.querySelector('[data-testid="content"]');
+  return el ? el.textContent.trim() : null;
+}
+function nav(name) {
+  var b = root.querySelector('button[data-nav="' + name + '"]');
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Awal di Home', content() === 'Selamat datang di Home');
+nav('blog');
+expect('Klik Blog -> konten Blog (butuh cabang blog)', content() === 'Daftar artikel Blog');
+nav('about');
+expect('Klik About -> konten About (butuh cabang about)', content() === 'Tentang kami');
+nav('home');
+expect('Balik ke Home lagi', content() === 'Selamat datang di Home');</script>
+<!-- SOLUSI ch-7-1 (untuk maintainer — semua test lulus dengan ini):
+       if (page === 'blog')  return <p data-testid="content">Daftar artikel Blog</p>;
+       if (page === 'about') return <p data-testid="content">Tentang kami</p>;
+     Starter gagal karena 'blog' & 'about' jatuh ke fallback 404. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-7-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Cukup tambahin dua cabang di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">renderPage()</code> — persis kayak App Router yang mencocokkan tiap segmen URL ke satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">page.tsx</code>. Sisa yang nggak cocok jatuh ke 404 (mirip <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">not-found.tsx</code>).</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi renderPage()</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-jsx">function renderPage() {
+  if (page === 'home')  return &lt;p data-testid="content"&gt;Selamat datang di Home&lt;/p&gt;;
+  if (page === 'blog')  return &lt;p data-testid="content"&gt;Daftar artikel Blog&lt;/p&gt;;
+  if (page === 'about') return &lt;p data-testid="content"&gt;Tentang kami&lt;/p&gt;;
+  return &lt;p data-testid="content"&gt;404 — halaman nggak ketemu&lt;/p&gt;;
+}</code></pre></div>
+  </div>
+</details>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 mt-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA PAHAM LO SAMA NEXT.JS APP ROUTER? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-7">
+[
+  {"q": "Di App Router, secara default sebuah komponen itu jenis apa?", "options": ["Server Component", "Client Component", "Static-only Component", "Edge Component"], "answer": 0, "explain": "Di App Router semua komponen adalah <strong>Server Component</strong> secara default. Lo baru pindah ke Client Component kalau nambahin <code>'use client'</code> di baris pertama file — biasanya karena butuh hooks atau event handler."},
+  {"q": "Kapan kamu WAJIB nambahin 'use client' di atas file?", "options": ["Di setiap file di dalam folder app/", "Saat komponen cuma nampilin data statis", "Saat komponen pakai useState/useEffect atau event handler seperti onClick", "Saat komponen meng-import komponen lain"], "answer": 2, "explain": "'use client' dibutuhkan saat komponen pakai state, effect, atau event handler (interaktivitas / browser API). Komponen yang cuma nampilin data tetap Server Component — lebih ringan &amp; bagus buat SEO."},
+  {"q": "Apa dampak menaruh 'use client' di root layout paling atas?", "options": ["Nggak ngefek apa-apa", "Semua komponen anak ikut jadi Client Component dan kehilangan benefit Server Component", "Aplikasi otomatis lebih cepat karena semuanya di-cache", "Metadata otomatis ter-generate"], "answer": 1, "explain": "Batas 'use client' menular ke bawah: semua yang di-import dari file itu ikut masuk client bundle. Taruh 'use client' di <strong>leaf</strong> yang butuh interaktivitas, bukan di root — biar sisanya tetap Server Component."},
+  {"q": "Strategi rendering mana yang paling pas buat halaman 'Tentang Kami' yang isinya sama untuk semua orang dan jarang berubah?", "options": ["CSR (client-side rendering)", "SSR di tiap request", "Polling tiap 5 detik", "SSG / static rendering (di-generate saat build)"], "answer": 3, "explain": "Konten yang sama untuk semua orang &amp; jarang berubah paling pas <strong>SSG</strong>: di-generate sekali saat build, disajikan sebagai HTML statis dari CDN — paling cepet &amp; murah."},
+  {"q": "Cara paling tepat ambil data untuk render AWAL sebuah halaman produk di App Router?", "options": ["useEffect + useState di Client Component", "Simpan data di localStorage", "async/await langsung di Server Component", "Ambil data dari middleware"], "answer": 2, "explain": "Data awal paling baik di-<code>await</code> langsung di Server Component — HTML udah lengkap pas sampai browser, nggak ada waterfall, SEO bagus. useEffect fetch cuma buat data real-time / interaktif di client."},
+  {"q": "Apa yang dilakukan fetch dengan next: { revalidate: 60 } (ISR)?", "options": ["Halaman di-generate statis lalu otomatis di-refresh di background tiap 60 detik", "Halaman selalu di-render ulang di tiap request", "Data cuma diambil di browser", "Halaman nggak pernah di-cache sama sekali"], "answer": 0, "explain": "Itu <strong>ISR</strong>: halaman disajikan statis (cepat), tapi Next me-regenerasi ulang di background setelah 60 detik saat ada request berikutnya. Gabungan kecepatan statis + data yang cukup segar."},
+  {"q": "Kenapa file loading.tsx bisa nampilin skeleton otomatis tanpa kamu atur state loading?", "options": ["Karena Next.js nge-cache HTML kosong dulu", "Karena Next.js membungkus segmen route itu dengan Suspense boundary dan loading.tsx jadi fallback-nya", "Karena browser nampilin spinner default", "Karena metadata di-resolve lebih dulu"], "answer": 1, "explain": "loading.tsx itu sebenarnya <code>&lt;Suspense&gt;</code> boundary otomatis untuk segmen route. Saat Server Component di dalamnya masih nunggu data, React nge-stream fallback (loading.tsx) dulu, lalu mengisi kontennya begitu siap."},
+  {"q": "Server Component fetch data pakai variabel rahasia seperti DATABASE_URL. Apakah rahasia itu bocor ke browser?", "options": ["Bocor, karena semua kode dikirim ke client", "Bocor kalau pakai fetch()", "Bocor kalau nggak nulis 'use server'", "Nggak bocor — kode Server Component jalan di server dan nggak dikirim ke browser"], "answer": 3, "explain": "Kode Server Component dijalankan di server dan <strong>nggak</strong> ikut ke client bundle, jadi secret aman. Yang bikin bocor: memakai secret di file <code>'use client'</code>, atau ngasih prefix <code>NEXT_PUBLIC_</code> ke secret."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-7"></div>
+</section>
+
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
 <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -665,105 +985,8 @@ Gas ke Bab 8 →
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
-    <script>
-
-        // Sidebar Toggle
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
-        }
-
-        // Back to Top
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('backToTop');
-            if (window.scrollY > 300) {
-                btn.classList.remove('opacity-0', 'pointer-events-none');
-                btn.classList.add('opacity-100');
-            } else {
-                btn.classList.add('opacity-0', 'pointer-events-none');
-                btn.classList.remove('opacity-100');
-            }
-        });
-
-        // Highlight Code
-        hljs.highlightAll();
-
-        // Copy Code
-        function copyCode(btn) {
-            const code = btn.closest('.code-block').querySelector('code').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                const original = btn.textContent;
-                btn.textContent = 'Tersalin!';
-                setTimeout(() => btn.textContent = original, 2000);
-            });
-        }
-
-        // Progress Tracking
-        function getProgress() {
-            const saved = localStorage.getItem('react-course-progress');
-            return saved ? JSON.parse(saved) : {};
-        }
-
-        function saveProgress(data) {
-            localStorage.setItem('react-course-progress', JSON.stringify(data));
-        }
-
-        function updateProgress() {
-            const progress = getProgress();
-            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
-            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
-            progress['chapter-7'] = { completed: checked, total: totalChecks };
-            saveProgress(progress);
-            renderGlobalProgress();
-        }
-
-        function renderGlobalProgress() {
-            const progress = getProgress();
-            let totalCompleted = 0;
-            let totalLessons = 0;
-            for (let i = 1; i <= 10; i++) {
-                const ch = progress[`chapter-${i}`];
-                if (ch) {
-                    totalCompleted += ch.completed;
-                    totalLessons += ch.total;
-                }
-            }
-            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            const bar = document.getElementById('progressBar');
-            const text = document.getElementById('progressText');
-            if (bar) bar.style.width = pct + '%';
-            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
-        }
-
-        function markChapterComplete(ch) {
-            const progress = getProgress();
-            const checks = document.querySelectorAll(`.lesson-checkbox`);
-            checks.forEach(c => c.checked = true);
-            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
-            saveProgress(progress);
-            renderGlobalProgress();
-            const btn = document.getElementById(`completeBtn${ch}`);
-            if (btn) {
-                btn.textContent = '✓ Bab Selesai!';
-                btn.classList.add('opacity-75');
-                btn.disabled = true;
-            }
-        }
-
-        // Restore checkbox states
-        function restoreChecks() {
-            const progress = getProgress();
-            const checks = document.querySelectorAll('.lesson-checkbox');
-            checks.forEach(c => {
-                if (c.checked) c.checked = true;
-            });
-        }
-
-        // Init
-        renderGlobalProgress();
-    
-    </script>
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>

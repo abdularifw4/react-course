@@ -8,11 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
     <script>tailwind.config = {
             theme: {
                 extend: {
@@ -30,46 +30,9 @@
                 }
             }
         }</script>
-    <style>
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        :root {
-            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
-            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
-            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3 { text-wrap: balance; }
-        p { text-wrap: pretty; }
-        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
-        .shadow-soft { box-shadow: var(--shadow-sm); }
-        .press { transition: transform 0.15s ease; }
-        .press:active { transform: scale(0.96); }
-        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
-        .lesson-card:hover { box-shadow: var(--shadow-md); }
-        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
-        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
-        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
-        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
-        .fade-in-d1 { animation-delay: 80ms; }
-        .fade-in-d2 { animation-delay: 160ms; }
-        .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
-        button:active { transform: scale(0.96); }
-        @media print { .no-print { display: none !important; } }
-        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+    <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="8">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
@@ -98,49 +61,7 @@
                 </div>
             </div>
         </div>
-        <nav class="px-2 pb-6 space-y-0.5">
-            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
-        </nav>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
     </aside>
 
     <!-- Main -->
@@ -288,15 +209,15 @@ const useCartStore = create&lt;CartStore&gt;()((set, get) =&gt; ({
   })),
   total: () =&gt; get().items.reduce((sum, i) =&gt; sum + i.price * i.qty, 0),
   clear: () =&gt; set({ items: [] }),
-}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">selector</code> untuk selective re-render. Kalau kamu tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const store = useStore()</code> tanpa selector, komponen re-render setiap KALI state apapun berubah — sama jeleknya kayak Context!</p></div></div></section>
+}))</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Gunakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">selector</code> untuk selective re-render. Kalau kamu tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const store = useStore()</code> tanpa selector, komponen re-render setiap KALI state apapun berubah — sama jeleknya kayak Context!</p></div></div></section>
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REDUX TOOLKIT — TANK BERAT YANG MODERN 🏋️</h2><input type="checkbox" id="check-8-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Library &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
 <p>Redux itu legend — state management pertama yang populer di React. Tapi Redux lama itu banyak boilerplate: actions, reducers, middleware, thunks, selectors — ratusan baris buat hal sederhana. Redux Toolkit (RTK) lahir buat fix semua masalah itu. API-nya modern, concise, dan powerful. 🎯</p>
 <p>Analoginya: Redux Toolkit itu kayak <strong class="text-ink">tank modern</strong> — berat, powerful, tapi udah punya autopilot dan AC. Redux lama itu kayak tank WWII — powerful tapi perlu banyak crew (boilerplate) buat operasikan. RTK menangani complexity buat kamu. Oh ternyata gitu! 🤯</p>
-<p>Fitur utama RTK: <strong class="text-ink">createSlice</strong> (auto-generate action creators + action types), <strong class="text-ink">createAsyncThunk</strong> (handle loading/success/error state otomatis), <strong class="text-ink">createStore</strong> (one-liner store setup), dan <strong class="text-ink">RTK Query</strong> (data fetching & caching built-in). Dulu butuh library terpisah buat semua ini, sekarang satu package.</p>
+<p>Fitur utama RTK: <strong class="text-ink">createSlice</strong> (auto-generate action creators + action types), <strong class="text-ink">createAsyncThunk</strong> (handle loading/success/error state otomatis), <strong class="text-ink">configureStore</strong> (one-liner store setup), dan <strong class="text-ink">RTK Query</strong> (data fetching & caching built-in). Dulu butuh library terpisah buat semua ini, sekarang satu package.</p>
 <p>Tapi Redux Toolkit bukan selalu jawaban. Buat project kecil-menengah, Zustand atau bahkan Context API cukup. RTK paling cocok buat: app enterprise dengan tim besar, state yang sangat kompleks (multi-step workflows, offline-first, complex business logic), atau project yang sudah existing pakai Redux dan mau modernize. Jangan over-engineer! 🔥</p>
 
 <p>Satu fitur RTK yang sering dilupakan: <strong class="text-ink">RTK Query</strong>. Ini data fetching library built-in di RTK — bisa replace TanStack Query/SWR kalau kamu udah pake Redux. Auto-generate hooks (useGetUsersQuery, useCreateUserMutation), caching otomatis dengan tag-based invalidation, optimistic update, dan polling. Plus, karena integrated sama Redux store, kamu bisa access fetched data dari mana aja tanpa prop passing. Powerful banget buat CRUD-heavy apps. ⚡</p>
-<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Redux Toolkit — createSlice</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { createSlice, createAsyncThunk, createStore, configureStore } from '@reduxjs/toolkit';
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Redux Toolkit — createSlice</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { createSlice, createAsyncThunk, configureStore } from '@reduxjs/toolkit';
 
 // ✅ Async thunk — auto handle loading/success/error
 const fetchUsers = createAsyncThunk('users/fetch', async () =&gt; {
@@ -373,11 +294,11 @@ function CountDisplay() {
 function CountButtons() {
   const setCount = useSetAtom(countAtom);
   return &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+&lt;/button&gt;;
-}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Jotai vs Zustand:</strong> Pilih Jotai kalau state-mu banyak tapi independent (atoms). Pilih Zustand kalau state-mu saling terkait dan butuh satu source of truth (store). Keduanya bisa koexist — Jotai buat UI state, Zustand buat server state.</p></div></div></section>
+}</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Jotai vs Zustand:</strong> Pilih Jotai kalau state-mu banyak tapi independent (atoms). Pilih Zustand kalau state-mu saling terkait dan butuh satu source of truth (store). Keduanya bisa koexist — Jotai buat UI state, Zustand buat client state kompleks. Ingat: server state (data dari API) bukan tugas keduanya — itu ranah query library (TanStack Query/SWR).</p></div></div></section>
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">PERBANDINGAN — MANA YANG PANTAS BUAT PROJECTMU? 🤔</h2><input type="checkbox" id="check-8-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Decision &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
 <p>Pilihan state management itu kayak pilih sepatu: nggak ada yang "paling baik" buat semua situasi. Sneakers cocok buat lari, boots buat hiking, formal buat kantor. Masing-masing punya trade-off. Yang penting: pilih yang sesuai dengan kebutuhan projectmu. 🎯</p>
 <p><strong class="text-ink">Context API</strong> — Start here. Tanpa install apapun, built-in React. Cocok buat: theme toggle, auth state, locale, config. Limitasi: re-render cascade kalau value sering berubah. Max 3-5 contexts sebelum jadi berantakan.</p>
-<p><strong class="text-ink">Zustand</strong> — Sweet spot. Minimal API, selective re-render, persist middleware. Cocok buat: 80% project React. Cart, filters, form state, UI state, app state. Install: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm i zustand</code>. Learning curve: 15 menit. Ini yang KAI recommend buat kebanyakan developer.</p>
+<p><strong class="text-ink">Zustand</strong> — Sweet spot. Minimal API, selective re-render, persist middleware. Cocok buat: 80% project React. Cart, filters, form state, UI state, app state. Install: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm i zustand</code>. Learning curve: 15 menit. Ini yang gue recommend buat kebanyakan developer.</p>
 <p><strong class="text-ink">Redux Toolkit</strong> — Heavy duty. Cocok buat enterprise app, tim besar, state super kompleks. RTK Query bisa replace data fetching library. Trade-off: boilerplate lebih banyak, learning curve lebih tinggi. Tapi kalau udah paham, development speed-nya cepat karena convention-nya jelas.</p>
 <p><strong class="text-ink">Jotai</strong> — Atomic & minimalist. Cocok buat app dengan banyak independent UI state. Performance-nya top-tier karena true atomic re-render. Trade-off: pattern-nya beda dari convention lain, bisa bingung buat developer yang terbiasa Redux/Zustand.</p>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Decision Matrix — Quick Reference</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ===== KAPAN PAKAI APA =====
@@ -390,7 +311,7 @@ function CountButtons() {
 //
 // Zustand:
 //   ✅ Middle-ground — cocok buat 80% project
-//   ✅ Cart, filters, form, UI state, server cache
+//   ✅ Cart, filters, form, UI state
 //   ✅ Tim kecil-menengah, fast iteration
 //   ❌ Enterprise app dengan state super kompleks
 //
@@ -406,7 +327,7 @@ function CountButtons() {
 //   ✅ Dev yang suka functional/atomic pattern
 //   ❌ State yang saling terkait kompleks
 //
-// ===== RECOMMENDASI KAI =====
+// ===== RECOMMENDASI GUE =====
 // 1. Start dengan Context API
 // 2. Kalau mulai "banyak", pindah ke Zustand
 // 3. Kalau enterprise/large team, pertimbangkan RTK
@@ -419,7 +340,7 @@ function CountButtons() {
 
 <p>Untuk Redux Toolkit, testing bahkan lebih mudah — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">redux-mock-store</code> buat mock dispatch, atau langsung test reducer-nya sebagai pure function. Reducer test itu paling cepat karena nggak perlu render — cuma input state + action, assert output state. Unit test par excellence. 🎯</p>
 
-<p>Pattern yang KAI recommend: <strong class="text-ink">pyramid testing</strong>. Banyak unit test (store, reducer, atom), beberapa integration test (komponen + store), sedikit E2E test (user flow). Unit test cepat dan murah. E2E test lambat dan mahal. Balance yang tepat bikin CI/CD cepat tapi tetap confident.</p>
+<p>Pattern yang gue recommend: <strong class="text-ink">pyramid testing</strong>. Banyak unit test (store, reducer, atom), beberapa integration test (komponen + store), sedikit E2E test (user flow). Unit test cepat dan murah. E2E test lambat dan mahal. Balance yang tepat bikin CI/CD cepat tapi tetap confident.</p>
 <div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Testing Zustand Store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { render, screen, fireEvent } from '@testing-library/react';
 import { useCounterStore } from './store';
 
@@ -451,7 +372,7 @@ test('button click updates counter', () =&gt; {
   expect(useCounterStore.getState().count).toBe(1);
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Testing Context:</strong> Untuk test komponen yang pake Context, bungkus render dengan Provider di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render()</code> options: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">render(&lt;MyComp /&gt;, { wrapper: ThemeProvider })</code>. Atau bikin custom <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">renderWithProviders()</code> helper buat reuse.</p></div></div></section>
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">ANTI-PATTERNS — JANGAN LAKUKAN INI! 🚫</h2><input type="checkbox" id="check-8-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Common Mistakes &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed">
-<p>Sudah bahas tools-nya, sekarang bahas kesalahan yang sering bikin state management jadi nightmare. Ini anti-pattern yang KAI lihat berulang-ulang di codebase developer — dan cara menghindarinya. Belajar dari kesalahan orang lain lebih murah daripada belajar dari kesalahan sendiri. 😅</p>
+<p>Sudah bahas tools-nya, sekarang bahas kesalahan yang sering bikin state management jadi nightmare. Ini anti-pattern yang gue lihat berulang-ulang di codebase developer — dan cara menghindarinya. Belajar dari kesalahan orang lain lebih murah daripada belajar dari kesalahan sendiri. 😅</p>
 <p><strong class="text-ink">Anti-pattern #1: Satu global store raksasa.</strong> Semua state di satu tempat — cart, auth, UI, form, theme, semua mixed. Result? Setiap perubahan kecil trigger re-render di seluruh app. Solusi: pisah store per concern, atau pake library yang support selective subscription (Zustand/Jotai).</p>
 <p><strong class="text-ink">Anti-pattern #2: State di tempat yang salah.</strong> Data yang seharusnya lokal disimpen global. Form input state, modal open/close, dropdown selected — ini contoh state yang seharusnya lokal (useState), bukan global. Global state cuma buat data yang perlu di-share antar komponen yang nggak punya parent-child relationship. 🎯</p>
 <p><strong class="text-ink">Anti-pattern #3: Prop drilling yang kebablasan.</strong> Daripada prop drill A→B→C→D, lebih baik pake Context atau event bus. Tapi kalau cuma 1-2 level, prop drilling justru lebih simple dan explicit. Nggak semua prop drilling jelek — yang jelek itu yang berlebihan.</p>
@@ -572,6 +493,507 @@ function TaskBoard({ board, title, emoji }: { board: Board; title: string; emoji
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend Task Manager: (1) Tambahkan edit task inline, (2) Tambahkan due date dengan sorting, (3) Implement drag-and-drop pake @dnd-kit, (4) Tambahkan kanban column baru (Review, Blocked), (5) Export/import tasks sebagai JSON.</p></div></div></section>
 
+<!-- LESSON SENIOR -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: KAPAN CONTEXT, KAPAN ZUSTAND, KAPAN SERVER STATE 🧭</h2><input type="checkbox" id="check-8-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 15 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ini lesson yang misahin developer yang "hafal 4 library state management" dari yang "tau kapan HARUS pake yang mana". Karena rahasia paling gede di dunia state management itu bukan soal library — tapi soal <strong class="text-ink">satu pertanyaan yang jarang ditanyain junior</strong>: "state ini asalnya dari mana?" Jawabannya nentuin tool yang tepat, dan salah jawab = ribuan baris kode yang salah tempat. 🎯</p>
+<p>Pertama, luruskan model mentalnya. State di aplikasi React itu ada <strong class="text-ink">empat kategori</strong>, dan tiap kategori punya rumah yang beda:</p>
+<p><strong class="text-ink">1. Local UI state</strong> — nilai yang cuma dipake satu komponen: input yang lagi diketik, dropdown kebuka/ketutup, tab aktif, hover. Rumahnya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>. Titik. Jangan diangkat ke global. 90% state di app yang sehat itu tetap lokal.</p>
+<p><strong class="text-ink">2. Low-frequency global state</strong> — data global yang <em>jarang</em> berubah: theme, bahasa/locale, info user yang lagi login, feature flags. Rumahnya: <strong class="text-ink">Context API</strong>. "Jarang berubah" itu kunci — karena tiap kali value Context ganti, semua consumer-nya re-render. Buat data yang ganti sekali dalam sesi (login sekali, ganti theme sesekali), re-render itu murah dan nggak kerasa.</p>
+<p><strong class="text-ink">3. Complex client state</strong> — state global yang <em>sering</em> berubah dan saling terkait: isi keranjang belanja, state form wizard multi-step, filter + sorting tabel besar, state editor. Rumahnya: <strong class="text-ink">Zustand</strong> (atau Redux Toolkit / Jotai). Kenapa bukan Context? Karena Context re-render SEMUA consumer tiap update — buat state yang berubah tiap detik, itu re-render storm. Zustand pake <em>selector</em>: komponen cuma re-render kalau slice yang dia pilih berubah.</p>
+<p><strong class="text-ink">4. Server state</strong> — dan ini insight paling penting di seluruh bab: <strong class="text-ink">sebagian besar yang orang sebut "global state" itu sebenarnya bukan state, tapi cache dari data server.</strong> Daftar produk, profil user, list order, komentar — itu semua BUKAN milik client. Itu <em>salinan</em> data yang sumber kebenarannya ada di database, diambil lewat API. Rumahnya: <strong class="text-ink">TanStack Query</strong> (dulu React Query) atau <strong class="text-ink">SWR</strong>. Bukan Redux, bukan Zustand, bukan Context.</p>
+<p>Analoginya: server state itu kayak <strong class="text-ink">foto struk belanja di HP lo</strong> 🧾. Struk aslinya (source of truth) ada di kasir/toko. Foto di HP lo cuma salinan — bisa basi (harga udah naik), perlu di-refresh, perlu tau kapan terakhir difoto, perlu di-fetch ulang kalau kebuka lagi. Naruh server state di Redux/useState itu kayak nyoba ngurus "kapan foto ini basi" manual pake tangan — capek dan pasti ada bug. TanStack Query ngurus semua itu otomatis: caching, background refetch, stale time, retry, loading/error, dedup request. Oh ternyata gitu! 🤯</p>
+<p>Kesalahan klasik yang bikin app jadi berat: fetch data pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>, terus simpen hasilnya di Redux "biar bisa diakses dari mana aja". Padahal itu ngerjain ulang semua yang udah dikasih gratis sama TanStack Query — dan biasanya versi lo lebih buggy (nggak ada dedup, nggak ada cache invalidation, race condition di mana-mana). Aturan senior: <strong class="text-ink">kalau data-nya asalnya dari server, jangan simpen di client store. Pake server-cache library.</strong> 🔥</p>
+<p>Sekarang, soal <strong class="text-ink">Context re-render pitfall</strong> — ini pertanyaan interview favorit. Masalahnya: value Context yang berupa object dibikin inline tiap render (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">value={{ user, setUser }}</code>) itu referensi BARU tiap parent render, jadi semua consumer re-render walaupun isinya sama. Ada tiga cara nge-fix-nya, dari yang paling gampang:</p>
+<p><strong class="text-ink">Fix #1 — memoize value-nya.</strong> Bungkus value provider pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code> supaya referensinya stabil selama isinya nggak berubah. <strong class="text-ink">Fix #2 — pisah context per concern.</strong> Jangan satu AppContext raksasa; pecah jadi ThemeContext, AuthContext, CartContext. Update cart nggak nyentuh consumer theme. <strong class="text-ink">Fix #3 — pisah state dan dispatch jadi dua Context.</strong> Komponen yang cuma butuh <em>nge-dispatch</em> action (tombol) nggak perlu subscribe ke state-nya, jadi nggak re-render pas state berubah. Pola ini (StateContext + DispatchContext) dipake di banyak codebase production.</p>
+<p>Dan kalau Context tetep kerasa berat walau udah dipecah? Itu sinyal state-nya udah masuk kategori 3 (complex client state) — pindahin ke Zustand. Zustand pake external store + subscription selektif, jadi masalah "re-render semua consumer" itu hilang by design. Di playground kedua di bawah, lo bakal lihat gimana pola external store itu kerja dari nol — cuma ~15 baris, dan itu literally inti cara Zustand jalan di balik layar.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Decision framework — state ini asalnya dari mana?</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ===== TANYA INI DULU: "STATE INI ASALNYA DARI MANA?" =====
+//
+// Cuma dipakai 1 komponen (input, toggle, tab)?
+//   -&gt; useState / useReducer. JANGAN diangkat ke global.
+//
+// Global tapi JARANG berubah (theme, locale, user login, flags)?
+//   -&gt; Context API. Re-render semua consumer itu murah kalau jarang.
+//
+// Global, SERING berubah, saling terkait (cart, wizard, filter besar)?
+//   -&gt; Zustand (selector = selective re-render). RTK/Jotai juga oke.
+//
+// Datanya ASALNYA DARI SERVER (list produk, profil, order, komentar)?
+//   -&gt; TanStack Query / SWR. Ini CACHE, bukan state kamu.
+//      Jangan simpan di Redux/useEffect+useState.
+//
+// ===== INSIGHT SENIOR =====
+// Kebanyakan "global state" di app nyata = server cache yang salah kamar.
+// Pindahin ke query library, dan tiba-tiba "kebutuhan Redux" kamu hilang.</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Context re-render pitfall + 3 cara fix</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ MASALAH — value object inline = referensi baru tiap render.
+// Semua consumer re-render walau isinya nggak berubah.
+function AppProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState('light');
+  const [cart, setCart] = useState([]); // cart sering banget berubah!
+  return (
+    &lt;AppContext.Provider value={{ user, setUser, theme, setTheme, cart, setCart }}&gt;
+      {children} {/* update cart -&gt; consumer theme ikut re-render 😱 */}
+    &lt;/AppContext.Provider&gt;
+  );
+}
+
+// ✅ FIX #1 — memoize value biar referensinya stabil
+const value = useMemo(() =&gt; ({ user, setUser }), [user]);
+
+// ✅ FIX #2 — pisah context per concern (yang sering berubah dipisah)
+&lt;ThemeContext.Provider value={themeValue}&gt;
+  &lt;AuthContext.Provider value={authValue}&gt;
+    {children}
+  &lt;/AuthContext.Provider&gt;
+&lt;/ThemeContext.Provider&gt;
+// cart yang sering berubah? angkat ke Zustand, bukan Context.
+
+// ✅ FIX #3 — pisah STATE dan DISPATCH jadi dua context.
+// Komponen yang cuma nge-dispatch nggak subscribe state -&gt; nggak re-render.
+const StateCtx = createContext(null);
+const DispatchCtx = createContext(null);
+function Provider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initial);
+  return (
+    &lt;StateCtx.Provider value={state}&gt;
+      &lt;DispatchCtx.Provider value={dispatch}&gt;{children}&lt;/DispatchCtx.Provider&gt;
+    &lt;/StateCtx.Provider&gt;
+  );
+}
+// dispatch dari useReducer itu stabil selamanya -&gt; DispatchCtx nggak pernah
+// bikin consumer-nya re-render. Tombol-tombol aman.</code></pre></div></div>
+<p class="text-[#333] mt-4">Playground pertama: pola <strong class="text-ink">production global store</strong> yang paling umum — Context + useReducer buat cart. Semua logic update terpusat di reducer, Context nyebarin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">state</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">dispatch</code>. Tantangan: tambahin action <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ type: 'clear' }</code> yang ngosongin keranjang, lalu bikin tombolnya. 👇</p>
+<script type="text/plain" id="pg-8-1">// ⚡ Global store pola PRODUCTION: Context + useReducer.
+// Reducer pusatin semua logic, Context nyebarin state + dispatch ke semua anak.
+// COBA: tambahin case 'clear' -> kosongin cart, lalu bikin tombolnya!
+const CartContext = React.createContext(null);
+
+function cartReducer(state, action) {
+  switch (action.type) {
+    case 'add': {
+      const found = state.items.find(i => i.id === action.payload.id);
+      if (found) {
+        return { items: state.items.map(i =>
+          i.id === action.payload.id ? { ...i, qty: i.qty + 1 } : i) };
+      }
+      return { items: [...state.items, { ...action.payload, qty: 1 }] };
+    }
+    case 'remove':
+      return { items: state.items.filter(i => i.id !== action.payload) };
+    // TODO: case 'clear': return { items: [] };
+    default:
+      return state;
+  }
+}
+
+function CartProvider({ children }) {
+  const [state, dispatch] = React.useReducer(cartReducer, { items: [] });
+  return (
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+function useCart() {
+  const ctx = React.useContext(CartContext);
+  if (!ctx) throw new Error('useCart harus di dalam CartProvider');
+  return ctx;
+}
+
+const PRODUK = [
+  { id: 'a', name: 'Kopi', price: 18000 },
+  { id: 'b', name: 'Teh', price: 12000 },
+  { id: 'c', name: 'Roti', price: 15000 },
+];
+
+function ProductList() {
+  const { dispatch } = useCart();
+  return (
+    <div>
+      {PRODUK.map(p => (
+        <button key={p.id} style={{ marginRight: 6 }}
+          onClick={() => dispatch({ type: 'add', payload: p })}>
+          + {p.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function CartView() {
+  const { state, dispatch } = useCart();
+  const total = state.items.reduce((s, i) => s + i.price * i.qty, 0);
+  if (state.items.length === 0)
+    return <p style={{ color: '#666' }}>Keranjang kosong 🛒</p>;
+  return (
+    <div style={{ marginTop: 10 }}>
+      <ul>
+        {state.items.map(i => (
+          <li key={i.id}>
+            {i.name} × {i.qty} = Rp{(i.price * i.qty).toLocaleString('id-ID')}{' '}
+            <button onClick={() => dispatch({ type: 'remove', payload: i.id })}>hapus</button>
+          </li>
+        ))}
+      </ul>
+      <b>Total: Rp{total.toLocaleString('id-ID')}</b>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <CartProvider>
+      <h3 style={{ margin: '4px 0' }}>🛒 Toko Mini (Context + useReducer)</h3>
+      <ProductList />
+      <CartView />
+    </CartProvider>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-8-1"></div>
+<p class="text-[#333] mt-6">Playground kedua: bikin <strong class="text-ink">mini "Zustand" dari nol</strong> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useSyncExternalStore</code>. Store hidup di LUAR React, tiap komponen subscribe ke <em>slice</em> yang dia butuh lewat selector. Perhatiin render counter-nya: klik "count + 1" cuma bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">CountView</code> re-render — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">NameView</code> DIEM. Ini selective subscription yang nggak bisa dicapai Context. 👇</p>
+<script type="text/plain" id="pg-8-2">// ⚡ Mini "Zustand" dari NOL — pola external store + useSyncExternalStore.
+// Ini inti cara Zustand kerja: store hidup di luar React, komponen subscribe
+// ke SLICE yang dia butuh -> cuma re-render kalau slice itu berubah.
+function createStore(initial) {
+  let state = initial;
+  const listeners = new Set();
+  return {
+    getState: () => state,
+    setState: (patch) => {
+      const next = typeof patch === 'function' ? patch(state) : patch;
+      state = { ...state, ...next };
+      listeners.forEach(l => l());
+    },
+    subscribe: (l) => { listeners.add(l); return () => listeners.delete(l); },
+  };
+}
+
+const store = createStore({ count: 0, name: 'Arif' });
+
+// hook selektif: cuma re-render kalau hasil selector berubah (Object.is)
+function useStore(selector) {
+  return React.useSyncExternalStore(
+    store.subscribe,
+    () => selector(store.getState())
+  );
+}
+
+function CountView() {
+  const count = useStore(s => s.count);
+  const renders = React.useRef(0); renders.current++;
+  return (
+    <p>count = <b>{count}</b>{' '}
+      <small style={{ color: '#999' }}>(render #{renders.current})</small></p>
+  );
+}
+
+function NameView() {
+  const name = useStore(s => s.name);
+  const renders = React.useRef(0); renders.current++;
+  return (
+    <p>name = <b>{name}</b>{' '}
+      <small style={{ color: '#999' }}>(render #{renders.current})</small></p>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <CountView />
+      <NameView />
+      <button onClick={() => store.setState(s => ({ count: s.count + 1 }))}>count + 1</button>{' '}
+      <button onClick={() => store.setState({ name: 'Budi' })}>ganti name</button>
+      <p style={{ color: '#666', fontSize: 13, marginTop: 8 }}>
+        Klik "count + 1": cuma CountView yang render-nya naik. NameView diem.
+        Itu selective subscribe — inti kenapa Zustand lebih hemat re-render dari Context. ⚡
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-8-2"></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Urutan default seorang senior pas ketemu kebutuhan state baru: <strong class="text-ink">useState → lift state up → Context → Zustand → (server? TanStack Query)</strong>. Naik satu level cuma kalau level sekarang beneran nyusahin. Kebanyakan bug arsitektur state datang dari <em>lompat kejauhan</em> — langsung Redux buat app to-do list, atau naruh input form di global store. Start small, escalate on evidence.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Kalau lo lagi nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect(() =&gt; { fetch(...).then(setData) }, [])</code> lalu naruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data</code> ke Redux/Zustand "biar global" — STOP. Itu server state. Lo lagi bikin ulang caching, dedup, dan revalidation yang udah beres di TanStack Query/SWR — versi lo hampir pasti punya race condition &amp; cache basi. Server state punya kamarnya sendiri.</p></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA STATE MANAGEMENT YANG PALING SERING 🚨</h2><input type="checkbox" id="check-8-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-8-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Enam kesalahan yang paling sering muncul di code review — pola: kode salah → kenapa → kode benar</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><strong class="text-ink">1. Naruh SEMUA state di global.</strong> Baru belajar Zustand/Redux terus semua state diangkat ke global "biar rapi" — termasuk input yang lagi diketik, modal kebuka/ketutup, dropdown selected. Padahal state yang cuma dipake satu komponen itu rumahnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>. Global state bikin komponen susah dipindah/dites, dan tiap ketikan nge-update store yang di-subscribe banyak komponen = re-render sia-sia.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #1 — input form di global store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — input lokal diangkat ke global store
+const useStore = create((set) =&gt; ({
+  searchInput: '',
+  setSearchInput: (v) =&gt; set({ searchInput: v }), // tiap keystroke update global 😱
+}));
+
+// ✅ BENAR — state yang cuma dipakai 1 komponen tetap lokal
+function SearchBar() {
+  const [q, setQ] = useState(''); // lokal. cepat, terisolasi, gampang dites
+  return &lt;input value={q} onChange={e =&gt; setQ(e.target.value)} /&gt;;
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">2. Pake Context buat update yang high-frequency (re-render storm).</strong> Context re-render SEMUA consumer tiap value berubah. Naruh sesuatu yang berubah tiap milidetik — posisi mouse, progress video, nilai form yang diketik — di Context = tiap perubahan nge-trigger re-render seluruh subtree. Buat data high-frequency: pakai state lokal, atau external store dengan selector (Zustand), atau ref kalau nggak perlu dirender.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — high-frequency value di Context</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — mouse position (update puluhan kali/detik) di Context
+&lt;MouseContext.Provider value={{ x, y }}&gt;
+  &lt;WholeApp /&gt; {/* SEMUA consumer re-render tiap mouse gerak 💀 */}
+&lt;/MouseContext.Provider&gt;
+
+// ✅ BENAR — high-frequency state di external store + selector,
+//    atau lokal di komponen yang beneran butuh. Zustand cuma re-render
+//    komponen yang subscribe ke slice { x, y } lewat selector.
+const usePointer = create((set) =&gt; ({ x: 0, y: 0, move: (x, y) =&gt; set({ x, y }) }));
+const x = usePointer((s) =&gt; s.x); // cuma komponen ini yang ikut update</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. Satu Context raksasa (God Context).</strong> Semua state global — theme, user, cart, modal, notif — ditumpuk di satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AppContext</code>. Akibatnya: update cart bikin komponen yang cuma butuh theme ikut re-render, karena mereka subscribe ke Context yang sama. Solusi: pecah jadi context per concern. Bonus: value tiap provider di-memoize.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #3 — God Context</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — semua digabung, semua consumer sensitif ke semua perubahan
+const AppContext = createContext(null);
+&lt;AppContext.Provider value={{ theme, user, cart, modal, notifs }}&gt; ...
+// update notifs -&gt; komponen yang cuma pakai theme ikut re-render
+
+// ✅ BENAR — pisah per concern; yang jarang berubah dipisah dari yang sering
+&lt;ThemeContext.Provider value={themeValue}&gt;
+  &lt;AuthContext.Provider value={authValue}&gt;
+    &lt;App /&gt;
+  &lt;/AuthContext.Provider&gt;
+&lt;/ThemeContext.Provider&gt;
+// cart & notifs yang sering berubah -&gt; Zustand, bukan Context.</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">4. Over-globalizing buat ngindarin prop drilling 1-2 level.</strong> Prop drilling emang jelek kalau 4-5 level. Tapi ngangkat state ke global cuma buat ngirim prop turun 1-2 level itu obat yang lebih parah dari penyakitnya — lo nambah indirection global buat masalah yang cukup diselesaikan dengan <em>component composition</em> (kirim JSX lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code>) atau ya... oper prop-nya aja. Global state itu ongkosnya nyata: state jadi bisa diubah dari mana aja, susah dilacak.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #4 — global demi hindari 1 level prop</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ BERLEBIHAN — bikin global store cuma buat kirim `user` ke child langsung
+const useUserStore = create(() =&gt; ({ user: currentUser }));
+function Profile() { const user = useUserStore(s =&gt; s.user); ... }
+
+// ✅ CUKUP — oper prop aja (1-2 level itu sehat &amp; eksplisit)
+function Dashboard({ user }) { return &lt;Profile user={user} /&gt;; }
+
+// ✅ ATAU — composition: kirim JSX lewat children, nggak perlu drill
+function Layout({ children }) { return &lt;main&gt;{children}&lt;/main&gt;; }
+&lt;Layout&gt;&lt;Profile user={user} /&gt;&lt;/Layout&gt;</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">5. Nyimpen server data di client state (bukan server-cache).</strong> Ini yang paling mahal. Fetch data API pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>, simpen di Redux/Zustand "biar global". Lo bakal nulis ulang caching, dedup request, loading/error, dan revalidation — dan versi lo pasti punya race condition. Server state = cache. Pakai TanStack Query/SWR.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #5 — server state di client store</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — fetch manual + simpan di store global. Reinventing the wheel.
+useEffect(() =&gt; {
+  fetch('/api/produk').then(r =&gt; r.json()).then(setProduk); // race condition,
+}, []);                                                     // no cache, no dedup
+// ...lalu setProduk ke Zustand/Redux "biar global"
+
+// ✅ BENAR — server state ditangani query library
+function useProduk() {
+  return useQuery({ queryKey: ['produk'], queryFn: () =&gt; fetch('/api/produk').then(r =&gt; r.json()) });
+  // dapet gratis: cache, dedup, background refetch, loading, error, retry
+}
+const { data, isLoading, error } = useProduk();</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">6. Nyimpen derived state (duplikat source of truth).</strong> Nyimpen nilai yang bisa DIHITUNG dari state lain — total keranjang, list ter-filter, jumlah item — sebagai field terpisah di store. Sekarang lo punya dua sumber kebenaran yang wajib disinkron manual; lupa update salah satu = data nggak konsisten (total nunjukin angka lama). Derived value itu dihitung saat render (atau di selector), bukan disimpan.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #6 — total disimpan, bukan dihitung</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — total disimpan terpisah, wajib disinkron manual tiap mutasi
+const useCart = create((set) =&gt; ({
+  items: [], total: 0,
+  add: (item) =&gt; set((s) =&gt; ({
+    items: [...s.items, item],
+    total: s.total + item.price, // lupa update di remove/updateQty? total basi 💀
+  })),
+}));
+
+// ✅ BENAR — total DIHITUNG dari items (satu source of truth)
+const useCart = create((set, get) =&gt; ({
+  items: [],
+  add: (item) =&gt; set((s) =&gt; ({ items: [...s.items, item] })),
+}));
+// di komponen / selector:
+const total = useCart((s) =&gt; s.items.reduce((sum, i) =&gt; sum + i.price, 0));</code></pre></div></div>
+
+<!-- LATIHAN -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — UJI PEMAHAMAN LO</h3>
+<p class="text-sm text-muted mb-4">Jawab dulu di kepala sebelum buka solusinya. Ini gaya soal yang beneran keluar di code review &amp; interview.</p>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Taruh di mana? (klasifikasi state)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-2">Buat tiap state, tentuin rumahnya: <strong class="text-ink">useState</strong> / <strong class="text-ink">Context</strong> / <strong class="text-ink">Zustand</strong> / <strong class="text-ink">TanStack Query</strong>.</p>
+    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">A.</strong> Theme dark/light. <strong class="text-ink">B.</strong> Daftar produk dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">GET /api/products</code>. <strong class="text-ink">C.</strong> Modal "yakin hapus?" kebuka/ketutup. <strong class="text-ink">D.</strong> Isi keranjang belanja (add/remove/qty, dipake di navbar &amp; halaman cart). <strong class="text-ink">E.</strong> Profil user yang lagi login.</p>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Jawaban:</strong> <strong class="text-ink">A → Context</strong> (global, jarang berubah). <strong class="text-ink">B → TanStack Query</strong> (server state / cache, BUKAN client store!). <strong class="text-ink">C → useState</strong> (lokal di komponen yang punya modal). <strong class="text-ink">D → Zustand</strong> (client state kompleks, sering berubah, dipake lintas komponen tak berelasi). <strong class="text-ink">E → Context</strong> (global, jarang berubah — atau TanStack Query kalau di-fetch dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/api/me</code>). Kunci: tanya "asalnya dari server?" duluan — kalau iya, itu cache.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Cari bug — kenapa consumer theme ikut re-render tiap ketik?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — ketik di search, seluruh app kedip</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">function AppProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+  const [search, setSearch] = useState(''); // diketik tiap huruf
+  return (
+    &lt;AppContext.Provider value={{ theme, setTheme, search, setSearch }}&gt;
+      {children}
+    &lt;/AppContext.Provider&gt;
+  );
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Bug-nya:</strong> dua masalah numpuk. (1) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">search</code> yang high-frequency dicampur di Context yang sama dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">theme</code> — tiap huruf diketik, value Context berubah, SEMUA consumer (termasuk yang cuma pakai theme) re-render. (2) value-nya object inline, referensi baru tiap render. Fix: keluarin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">search</code> dari Context (jadikan lokal di komponen search), pisah context per concern, dan memoize value.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// search itu LOKAL — nggak ada urusannya sama Context global
+function SearchBar() {
+  const [search, setSearch] = useState('');
+  return &lt;input value={search} onChange={e =&gt; setSearch(e.target.value)} /&gt;;
+}
+
+// theme di context sendiri, value di-memoize
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+  const value = useMemo(() =&gt; ({ theme, setTheme }), [theme]);
+  return &lt;ThemeContext.Provider value={value}&gt;{children}&lt;/ThemeContext.Provider&gt;;
+}</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Hilangkan derived state</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Store di bawah nyimpen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">completedCount</code> terpisah dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">todos</code>. Kenapa ini rawan bug, dan gimana benerinnya?</p>
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const useTodos = create((set) =&gt; ({
+  todos: [],
+  completedCount: 0, // ❌ duplikat — harus disinkron manual
+  toggle: (id) =&gt; set((s) =&gt; ({
+    todos: s.todos.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t),
+    // lupa update completedCount di sini -&gt; angka basi
+  })),
+}));</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Kenapa rawan:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">completedCount</code> bisa dihitung penuh dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">todos</code>. Simpan terpisah = dua source of truth yang gampang out-of-sync (toggle lupa update count). <strong class="text-ink">Fix:</strong> buang field-nya, hitung di selector saat dibutuhkan.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const useTodos = create((set) =&gt; ({
+  todos: [],
+  toggle: (id) =&gt; set((s) =&gt; ({
+    todos: s.todos.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t),
+  })),
+}));
+// dihitung di selector — selalu konsisten, mustahil basi:
+const completedCount = useTodos((s) =&gt; s.todos.filter(t =&gt; t.done).length);</code></pre></div>
+  </div>
+</details>
+</div>
+
+<!-- CHALLENGE -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — LENGKAPI THEME CONTEXT</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Di bawah ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeProvider</code> yang nyediain <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">theme</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> lewat Context. Consumer udah baca dari context dengan bener — tapi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code>-nya <strong class="text-ink">masih kosong</strong>, jadi klik tombol nggak ngefek. Tugas lo: bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> beneran ganti antara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'light'</code> ⇄ <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'dark'</code> supaya <strong class="text-ink">semua test lulus</strong>. Klik <strong class="text-ink">▶ Test</strong> — starter-nya pasti gagal.</p>
+<script type="text/plain" id="ch-8-1">// 🎯 Lengkapi ThemeContext! Klik "▶ Test" buat lihat test yang gagal.
+// Consumer udah baca theme + toggle dari context lewat custom hook useTheme().
+// Masalahnya: `toggle` masih kosong. Bikin dia ganti 'light' <-> 'dark'.
+const ThemeContext = React.createContext(null);
+
+function useTheme() {
+  const ctx = React.useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme harus di dalam ThemeProvider');
+  return ctx;
+}
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = React.useState('light');
+
+  // TODO: bikin toggle beneran ganti 'light' <-> 'dark'
+  const toggle = () => {};
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function ThemeLabel() {
+  const { theme } = useTheme();
+  return <p>Tema sekarang: <b data-testid="theme">{theme}</b></p>;
+}
+
+function ToggleButton() {
+  const { toggle } = useTheme();
+  return <button data-act="toggle" onClick={toggle}>Ganti Tema</button>;
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <ThemeLabel />
+      <ToggleButton />
+    </ThemeProvider>
+  );
+}</script>
+<script type="text/plain" id="ch-8-1-test">var root = document.getElementById('root');
+function themeVal() {
+  var el = root.querySelector('[data-testid="theme"]');
+  return el ? el.textContent.trim() : null;
+}
+function clickToggle() {
+  var b = root.querySelector('button[data-act="toggle"]');
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Consumer baca theme dari context', themeVal() !== null);
+expect('Tema awal = light', themeVal() === 'light');
+clickToggle();
+expect('Setelah 1x klik, tema = dark (butuh toggle beneran)', themeVal() === 'dark');
+clickToggle();
+expect('Setelah 2x klik, balik ke light', themeVal() === 'light');</script>
+<!-- SOLUSI ch-8-1 (untuk maintainer — semua test lulus dengan ini):
+       const toggle = () => setTheme(t => t === 'light' ? 'dark' : 'light');
+     Starter gagal karena toggle kosong: klik tombol nggak ngubah state,
+     theme nyangkut di 'light' -> test #3 gagal (#4 kebetulan lulus karena
+     theme nyangkut di 'light'). -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-8-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Cukup isi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> dengan updater function biar nggak gantung ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">theme</code> dari closure. Nggak perlu nyentuh consumer sama sekali — itu bukti Context yang dirancang bener: state ganti di provider, semua consumer otomatis ikut update.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-jsx">function ThemeProvider({ children }) {
+  const [theme, setTheme] = React.useState('light');
+  const toggle = () =&gt; setTheme(t =&gt; t === 'light' ? 'dark' : 'light');
+  return (
+    &lt;ThemeContext.Provider value={{ theme, toggle }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+}</code></pre></div>
+  </div>
+</details>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 mt-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA PAHAM LO SAMA STATE MANAGEMENT? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-8">
+[
+  {"q": "Sebelum ngangkat sebuah state ke global store, langkah pertama yang paling tepat adalah?", "options": ["Langsung taruh di Redux biar rapi dari awal", "Bungkus semua state di satu AppContext", "Pakai useState lokal dulu; angkat ke global cuma kalau beneran dibutuhkan banyak komponen yang tak berelasi", "Simpan di localStorage supaya persist"], "answer": 2, "explain": "Urutan sehat: <code>useState</code> &rarr; lift state up &rarr; Context &rarr; Zustand. Naik level cuma kalau level sekarang beneran nyusahin. ~90% state di app yang sehat tetap lokal. Mulai kecil, eskalasi berdasar bukti."},
+  {"q": "Kebanyakan yang orang sebut 'global state' di aplikasi nyata sebenarnya adalah apa?", "options": ["Server state / cache data dari API — lebih cocok ditangani TanStack Query atau SWR", "Selalu murni UI state", "State yang wajib masuk Redux", "Props yang di-drill terlalu dalam"], "answer": 0, "explain": "Insight kunci bab ini: daftar produk, profil, order, komentar itu <strong>bukan</strong> milik client — itu salinan (cache) data server. Rumahnya query library, bukan Redux/Zustand. Pindahin ke sana dan seringnya 'kebutuhan Redux' kamu hilang."},
+  {"q": "Kenapa naruh nilai yang sering banget berubah (misal posisi mouse atau ketikan tiap keystroke) di Context itu masalah?", "options": ["Context nggak boleh menyimpan angka", "Setiap perubahan value Context bikin SEMUA consumer-nya re-render — gampang jadi re-render storm", "Context otomatis melambat setelah 100 update", "Context nggak reaktif jadi nilainya nggak update"], "answer": 1, "explain": "Context nge-broadcast: tiap value berubah, semua consumer re-render, walau cuma butuh sebagian. Buat high-frequency value, pakai state lokal, external store + selector (Zustand), atau ref kalau nggak perlu dirender."},
+  {"q": "Kamu punya satu AppContext berisi theme, user, cart, dan modal. Efek sampingnya apa?", "options": ["Lebih cepat karena cuma satu provider", "Nggak ada efek apa-apa", "React langsung melempar error", "Komponen yang cuma butuh theme ikut re-render tiap cart atau modal berubah — makanya pisah jadi context per concern"], "answer": 3, "explain": "God Context bikin semua consumer sensitif ke semua perubahan. Update cart nge-trigger re-render consumer theme. Solusi: pecah per concern (Theme/Auth/Cart), dan yang sering berubah mendingan ke Zustand."},
+  {"q": "Cara paling tepat nge-fix Context yang value-nya object baru tiap render (bikin semua consumer re-render)?", "options": ["Hapus Context, pindah semua ke props", "Bungkus value provider pakai useMemo, dan/atau pisah state & dispatch ke dua Context terpisah", "Simpan value di useRef biar nggak berubah", "Tambahin prop key di Provider"], "answer": 1, "explain": "Value object inline = referensi baru tiap render. Fix: <code>useMemo</code> supaya referensinya stabil; pisah context per concern; dan pola StateContext + DispatchContext (dispatch dari useReducer stabil selamanya, jadi consumer dispatch nggak ikut re-render)."},
+  {"q": "Kamu butuh fullName dari firstName + lastName. Cara yang benar?", "options": ["Jangan simpan di state — derive (hitung) saat render; kalau mahal baru useMemo", "Simpan fullName di store terpisah dan update manual tiap firstName berubah", "Simpan fullName di Context global", "Simpan fullName di localStorage"], "answer": 0, "explain": "Derived state yang disimpan = dua source of truth yang gampang out-of-sync (lupa update salah satu &rarr; data basi). Hitung dari sumbernya saat render atau di selector. Kalau kalkulasinya berat, baru bungkus <code>useMemo</code>."},
+  {"q": "Zustand paling pas dipakai buat kasus yang mana?", "options": ["Nge-cache response API dengan revalidation otomatis", "Nyimpen theme dark/light doang", "Client state yang kompleks & sering berubah (cart, filter, wizard) dengan selective subscription lewat selector", "Nangani routing antar halaman"], "answer": 2, "explain": "Zustand = complex client state. Selector-nya bikin komponen cuma re-render kalau slice yang dia pilih berubah. Buat server cache pakai TanStack Query; buat global yang jarang berubah cukup Context; routing pakai router."},
+  {"q": "Pakai useSyncExternalStore + selector (pola Zustand). Apa keuntungan utamanya dibanding Context?", "options": ["Nggak butuh JavaScript sama sekali", "Komponen cuma re-render kalau SLICE yang dia pilih lewat selector berubah, bukan tiap store berubah", "Otomatis nyambung ke server tanpa fetch", "Bikin state jadi nggak bisa di-test"], "answer": 1, "explain": "External store + subscription selektif = selective re-render by design. Store hidup di luar React; komponen subscribe ke slice lewat selector dan cuma re-render kalau slice itu berubah (dicek Object.is). Ini yang nggak bisa dicapai Context yang nge-broadcast ke semua consumer."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-8"></div>
+</section>
+
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
 <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -613,105 +1035,8 @@ Gas ke Bab 9 →
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
-    <script>
-
-        // Sidebar Toggle
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
-        }
-
-        // Back to Top
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('backToTop');
-            if (window.scrollY > 300) {
-                btn.classList.remove('opacity-0', 'pointer-events-none');
-                btn.classList.add('opacity-100');
-            } else {
-                btn.classList.add('opacity-0', 'pointer-events-none');
-                btn.classList.remove('opacity-100');
-            }
-        });
-
-        // Highlight Code
-        hljs.highlightAll();
-
-        // Copy Code
-        function copyCode(btn) {
-            const code = btn.closest('.code-block').querySelector('code').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                const original = btn.textContent;
-                btn.textContent = 'Tersalin!';
-                setTimeout(() => btn.textContent = original, 2000);
-            });
-        }
-
-        // Progress Tracking
-        function getProgress() {
-            const saved = localStorage.getItem('react-course-progress');
-            return saved ? JSON.parse(saved) : {};
-        }
-
-        function saveProgress(data) {
-            localStorage.setItem('react-course-progress', JSON.stringify(data));
-        }
-
-        function updateProgress() {
-            const progress = getProgress();
-            const totalChecks = document.querySelectorAll('.lesson-checkbox').length;
-            const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
-            progress['chapter-8'] = { completed: checked, total: totalChecks };
-            saveProgress(progress);
-            renderGlobalProgress();
-        }
-
-        function renderGlobalProgress() {
-            const progress = getProgress();
-            let totalCompleted = 0;
-            let totalLessons = 0;
-            for (let i = 1; i <= 10; i++) {
-                const ch = progress[`chapter-${i}`];
-                if (ch) {
-                    totalCompleted += ch.completed;
-                    totalLessons += ch.total;
-                }
-            }
-            const pct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            const bar = document.getElementById('progressBar');
-            const text = document.getElementById('progressText');
-            if (bar) bar.style.width = pct + '%';
-            if (text) text.textContent = `${totalCompleted}/${totalLessons}`;
-        }
-
-        function markChapterComplete(ch) {
-            const progress = getProgress();
-            const checks = document.querySelectorAll(`.lesson-checkbox`);
-            checks.forEach(c => c.checked = true);
-            progress[`chapter-${ch}`] = { completed: checks.length, total: checks.length };
-            saveProgress(progress);
-            renderGlobalProgress();
-            const btn = document.getElementById(`completeBtn${ch}`);
-            if (btn) {
-                btn.textContent = '✓ Bab Selesai!';
-                btn.classList.add('opacity-75');
-                btn.disabled = true;
-            }
-        }
-
-        // Restore checkbox states
-        function restoreChecks() {
-            const progress = getProgress();
-            const checks = document.querySelectorAll('.lesson-checkbox');
-            checks.forEach(c => {
-                if (c.checked) c.checked = true;
-            });
-        }
-
-        // Init
-        renderGlobalProgress();
-    
-    </script>
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>

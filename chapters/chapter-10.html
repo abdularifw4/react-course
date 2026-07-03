@@ -8,11 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
     <script>tailwind.config = {
             theme: {
                 extend: {
@@ -30,46 +30,9 @@
                 }
             }
         }</script>
-    <style>
-        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        :root {
-            --shadow-sm: 0 0 0 1px rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.04);
-            --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.05);
-            --shadow-md-hover: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 8px -2px rgba(0,0,0,0.06), 0 8px 20px -4px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3 { text-wrap: balance; }
-        p { text-wrap: pretty; }
-        .shadow-card { box-shadow: var(--shadow-md); transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .shadow-card:hover { box-shadow: var(--shadow-md-hover); transform: translateY(-2px); }
-        .shadow-soft { box-shadow: var(--shadow-sm); }
-        .press { transition: transform 0.15s ease; }
-        .press:active { transform: scale(0.96); }
-        .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow 0.2s ease; }
-        .lesson-card:hover { box-shadow: var(--shadow-md); }
-        .nav-link { transition: background 0.15s ease, color 0.15s ease; }
-        .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-        .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
-        pre code { border-radius: 0; font-size: 0.825rem; line-height: 1.6; }
-        .code-block { box-shadow: var(--shadow-sm); border-radius: 0.75rem; overflow: hidden; }
-        .tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
-        .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
-        .fade-in { opacity: 0; transform: translateY(16px); animation: enter 0.4s cubic-bezier(0.2,0,0,1) forwards; }
-        .fade-in-d1 { animation-delay: 80ms; }
-        .fade-in-d2 { animation-delay: 160ms; }
-        .fade-in-d3 { animation-delay: 240ms; }
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 5px; border: 2px solid #fff; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        .lesson-checkbox:checked + .lesson-label { text-decoration: line-through; color: #999; }
-        button:active { transform: scale(0.96); }
-        @media print { .no-print { display: none !important; } }
-        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+    <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="10">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
@@ -98,49 +61,7 @@
                 </div>
             </div>
         </div>
-        <nav class="px-2 pb-6 space-y-0.5">
-            <p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-            <a href="chapter-1.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>
-                Intro
-            </a>
-            <a href="chapter-2.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>
-                React Dasar
-            </a>
-            <a href="chapter-3.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>
-                Hooks Dasar
-            </a>
-            <a href="chapter-4.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>
-                Hooks Advanced
-            </a>
-            <a href="chapter-5.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>
-                Patterns
-            </a>
-            <a href="chapter-6.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>
-                TypeScript
-            </a>
-            <a href="chapter-7.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>
-                Next.js
-            </a>
-            <a href="chapter-8.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>
-                State Mgmt
-            </a>
-            <a href="chapter-9.html" class="nav-link  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted">
-                <span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>
-                Testing
-            </a>
-            <a href="chapter-10.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink">
-                <span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>
-                Performance
-            </a>
-        </nav>
+        <nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav>
     </aside>
 
     <!-- Main -->
@@ -156,8 +77,8 @@
                         <h1 class="text-base lg:text-lg font-semibold tracking-tight">Performance & Best Practices</h1>
                     </div>
                 </div>
-                <a href="../index.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
-                    Selesai
+                <a href="chapter-11.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                    Bab 11
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
             </div>
@@ -165,7 +86,7 @@
 
         <!-- Content -->
         <div class="px-4 lg:px-10 py-8 max-w-4xl">
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REACT.MEMO & USEMEMO — BERHENTI RE-RENDER YANG NGGAK PERLU 🧠</h2><input type="checkbox" id="check-10-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Memoization \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Performance masalah nomor satu di React: <strong class="text-ink">unnecessary re-render</strong>. Setiap kali state berubah, React re-render SEMUA komponen di tree — bahkan yang nggak relate ke state yang berubah. Di app kecil, nggak terasa. Di app besar, ini bisa bikin UI jadi choppy dan lambat. 😤</p><p>Analoginya: React tanpa memoization itu kayak <strong class="text-ink">kantor tanpa pintu</strong> — tiap ada pengumuman, semua karyawan berhenti kerja dan denger, termasuk yang nggak terkait. React.memo itu kayak memasang pintu — cuma departemen yang relevan yang dengar. Oh ternyata gitu! 🤯</p><p><strong class="text-ink">React.memo()</strong> nge-wrap komponen supaya cuma re-render kalau props-nya berubah. React bandingin props sebelum dan sesudah pakai shallow comparison. Kalau sama, skip re-render. Cocok buat komponen yang sering receive props yang sama — list items, card components, display-only components.</p><p><strong class="text-ink">useMemo</strong> memoize computed value. Misal: filtered list dari array 10,000 item — tanpa useMemo, filter jalan setiap render. Dengan useMemo, cuma jalan kalau dependency berubah. Tapi hati-hati: useMemo sendiri punya cost (memory untuk store result). Jangan memoize SEMUA — hanya yang expensive. Gunakan React Profiler untuk identify bottleneck dulu.</p><p><strong class="text-ink">useCallback</strong> memoize function reference. Berguna kalau kamu pass callback ke child komponen yang di-memo. Tanpa useCallback, function baru tercipta setiap render → child re-render meski React.memo aktif. Tapi sebenarnya useCallback jarang needed — React Compiler (baru!) bisa auto-memoize tanpa manual wrapper. 🔥</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">React.memo — Skip Unnecessary Re-render</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Tanpa memo — re-render SETIAP kali parent render
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REACT.MEMO & USEMEMO — BERHENTI RE-RENDER YANG NGGAK PERLU 🧠</h2><input type="checkbox" id="check-10-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Memoization &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Performance masalah nomor satu di React: <strong class="text-ink">unnecessary re-render</strong>. Setiap kali state berubah, React re-render SEMUA komponen di tree — bahkan yang nggak relate ke state yang berubah. Di app kecil, nggak terasa. Di app besar, ini bisa bikin UI jadi choppy dan lambat. 😤</p><p>Analoginya: React tanpa memoization itu kayak <strong class="text-ink">kantor tanpa pintu</strong> — tiap ada pengumuman, semua karyawan berhenti kerja dan denger, termasuk yang nggak terkait. React.memo itu kayak memasang pintu — cuma departemen yang relevan yang dengar. Oh ternyata gitu! 🤯</p><p><strong class="text-ink">React.memo()</strong> nge-wrap komponen supaya cuma re-render kalau props-nya berubah. React bandingin props sebelum dan sesudah pakai shallow comparison. Kalau sama, skip re-render. Cocok buat komponen yang sering receive props yang sama — list items, card components, display-only components.</p><p><strong class="text-ink">useMemo</strong> memoize computed value. Misal: filtered list dari array 10,000 item — tanpa useMemo, filter jalan setiap render. Dengan useMemo, cuma jalan kalau dependency berubah. Tapi hati-hati: useMemo sendiri punya cost (memory untuk store result). Jangan memoize SEMUA — hanya yang expensive. Gunakan React Profiler untuk identify bottleneck dulu.</p><p><strong class="text-ink">useCallback</strong> memoize function reference. Berguna kalau kamu pass callback ke child komponen yang di-memo. Tanpa useCallback, function baru tercipta setiap render → child re-render meski React.memo aktif. Tapi sebenarnya useCallback jarang needed — React Compiler (baru!) bisa auto-memoize tanpa manual wrapper. 🔥</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">React.memo — Skip Unnecessary Re-render</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Tanpa memo — re-render SETIAP kali parent render
 function UserCard({ name, role }: { name: string; role: string }) {
   console.log("UserCard rendered:", name);
   return (
@@ -224,7 +145,7 @@ function ProductList({ products }: { products: Product[] }) {
     &lt;/div&gt;
   );
 }</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Premature optimization:</strong> JANGAN wrap semua komponen dengan React.memo atau useMemo. Memoization punya cost (memory + comparison overhead). Ukur dulu dengan Profiler, baru optimize. Tiga langkah: measure → identify bottleneck → optimize. Jangan optimize secara buta.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">USECALLBACK & REACT COMPILER — MEMOIZE OTOMATIS 🤖</h2><input type="checkbox" id="check-10-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p><strong class="text-ink">useCallback</strong> itu memoize function — artinya function reference-nya sama antar render selama dependency nggak berubah. Ini penting kalau kamu pass function sebagai props ke child yang di-memo. Tanpa useCallback, function baru tercipta setiap render → child berpikir props berubah → re-render. 😤</p><p>Analoginya: useCallback itu kayak <strong class="text-ink">member card</strong> — nomor member-mu tetap sama, jadi sistem nggak perlu verifikasi ulang tiap transaksi. Tanpa member card, tiap datang kamu dianggap customer baru. Begitu juga function reference: sama = skip re-render, beda = re-render. Oh ternyata gitu! 🤯</p><p>Tapi ada yang lebih besar: <strong class="text-ink">React Compiler</strong>. Ini experimental feature React 19 yang auto-memoize komponen dan hooks. Kamu nggak perlu manual React.memo, useMemo, atau useCallback — compiler analyze kode dan inject memoization secara otomatis. Ini game changer karena menghilangkan cognitive overhead memoization. 🔥</p><p>React Compiler bekerja dengan analyzing component render: mana value yang "stable" (nggak berubah antar render) dan mana yang "reactive" (berubah berdasarkan state/props). Stable value di-memoize otomatis. Reactive value di-track sebagai dependency. Semua ini terjadi di build time — zero runtime cost.</p><p>Status saat ini: React Compiler udah available di React 19 sebagai experimental feature. Beberapa team di Meta udah pake di production. Tapi masih ada edge case — async patterns, closure-heavy code, dan third-party hooks kadang belum compatible. Monitor roadmap dan coba di side project dulu. 🎯</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">useCallback — Callback Stability</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useState, useCallback, React.memo } from "react";
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">USECALLBACK & REACT COMPILER — MEMOIZE OTOMATIS 🤖</h2><input type="checkbox" id="check-10-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Advanced &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p><strong class="text-ink">useCallback</strong> itu memoize function — artinya function reference-nya sama antar render selama dependency nggak berubah. Ini penting kalau kamu pass function sebagai props ke child yang di-memo. Tanpa useCallback, function baru tercipta setiap render → child berpikir props berubah → re-render. 😤</p><p>Analoginya: useCallback itu kayak <strong class="text-ink">member card</strong> — nomor member-mu tetap sama, jadi sistem nggak perlu verifikasi ulang tiap transaksi. Tanpa member card, tiap datang kamu dianggap customer baru. Begitu juga function reference: sama = skip re-render, beda = re-render. Oh ternyata gitu! 🤯</p><p>Tapi ada yang lebih besar: <strong class="text-ink">React Compiler</strong>. Ini experimental feature React 19 yang auto-memoize komponen dan hooks. Kamu nggak perlu manual React.memo, useMemo, atau useCallback — compiler analyze kode dan inject memoization secara otomatis. Ini game changer karena menghilangkan cognitive overhead memoization. 🔥</p><p>React Compiler bekerja dengan analyzing component render: mana value yang "stable" (nggak berubah antar render) dan mana yang "reactive" (berubah berdasarkan state/props). Stable value di-memoize otomatis. Reactive value di-track sebagai dependency. Semua ini terjadi di build time — zero runtime cost.</p><p>Status saat ini: React Compiler udah available di React 19 sebagai experimental feature. Beberapa team di Meta udah pake di production. Tapi masih ada edge case — async patterns, closure-heavy code, dan third-party hooks kadang belum compatible. Monitor roadmap dan coba di side project dulu. 🎯</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">useCallback — Callback Stability</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import React, { useState, useCallback } from "react";
 
 // ✅ Parent dengan useCallback
 function TodoApp() {
@@ -260,7 +181,7 @@ const TodoInput = React.memo(function TodoInput({ onAdd }) {
     &lt;/form&gt;
   );
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 React Compiler setup:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm install -D babel-plugin-react-compiler</code> + tambah plugin di Vite config. Compiler analyze dan auto-memoize. Kamu bisa hapus manual memo di komponen yang compatible. Tapi selalu test performance sebelum dan sesudah.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CODE SPLITTING — JANGAN BAWA SEMUANYA SEKALIGUS 📦</h2><input type="checkbox" id="check-10-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Performance \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Bundling default: semua JavaScript di satu file. Di app kecil, ok. Di app besar? Bundle bisa 500KB+ JavaScript yang harus di-download dan parse SEBELUM app bisa interaksi. Ini menyebabkan <strong class="text-ink">slow Time to Interactive (TTI)</strong>. User lihat loading spinner yang lama. 😤</p><p>Analoginya: code splitting itu kayak <strong class="text-ink">koper travel</strong>. Tanpa splitting: kamu bawa SEMUA baju di satu koper besar. Berat, susah diangkat. Dengan splitting: kamu bawa cuma yang perlu buat hari ini, sisanya di rumah. Begitu juga dengan kode: load cuma yang perlu buat halaman saat ini, sisanya load on-demand. Oh ternyata gitu! 🤯</p><p><strong class="text-ink">React.lazy() + Suspense</strong> adalah cara native React buat code splitting. React.lazy nge-wrap dynamic import — komponen di-load secara async. Suspense nge-wrap lazy component dan nampilkan fallback (spinner) selama loading. Ketika komponen udah loaded, React render-nya. Seamless.</p><p>Pola lanjutan: <strong class="text-ink">route-based splitting</strong> — tiap halaman di lazy load. Ini paling impactful karena user cuma butuh code halaman yang mereka visit. Dashboard nggak perlu di-load pas user buka login page. Plus <strong class="text-ink">component-based splitting</strong> — lazy load modal, chart library, rich text editor yang berat. Load cuma pas user butuh. 🎯</p><p>Di Next.js, code splitting otomatis — tiap page jadi chunk terpisah. Tapi di CRA/Vite, kamu perlu manual setup React.lazy. Plus, Vite support <strong class="text-ink">manual chunks</strong> di config untuk group common dependencies (React, React DOM) terpisah dari app code. Ini bikin cache lebih efficient — vendor chunk nggak berubah walau app code berubah.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">React.lazy + Suspense — Route Splitting</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { lazy, Suspense } from "react";
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">CODE SPLITTING — JANGAN BAWA SEMUANYA SEKALIGUS 📦</h2><input type="checkbox" id="check-10-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Performance &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Bundling default: semua JavaScript di satu file. Di app kecil, ok. Di app besar? Bundle bisa 500KB+ JavaScript yang harus di-download dan parse SEBELUM app bisa interaksi. Ini menyebabkan <strong class="text-ink">slow Time to Interactive (TTI)</strong>. User lihat loading spinner yang lama. 😤</p><p>Analoginya: code splitting itu kayak <strong class="text-ink">koper travel</strong>. Tanpa splitting: kamu bawa SEMUA baju di satu koper besar. Berat, susah diangkat. Dengan splitting: kamu bawa cuma yang perlu buat hari ini, sisanya di rumah. Begitu juga dengan kode: load cuma yang perlu buat halaman saat ini, sisanya load on-demand. Oh ternyata gitu! 🤯</p><p><strong class="text-ink">React.lazy() + Suspense</strong> adalah cara native React buat code splitting. React.lazy nge-wrap dynamic import — komponen di-load secara async. Suspense nge-wrap lazy component dan nampilkan fallback (spinner) selama loading. Ketika komponen udah loaded, React render-nya. Seamless.</p><p>Pola lanjutan: <strong class="text-ink">route-based splitting</strong> — tiap halaman di lazy load. Ini paling impactful karena user cuma butuh code halaman yang mereka visit. Dashboard nggak perlu di-load pas user buka login page. Plus <strong class="text-ink">component-based splitting</strong> — lazy load modal, chart library, rich text editor yang berat. Load cuma pas user butuh. 🎯</p><p>Di Next.js, code splitting otomatis — tiap page jadi chunk terpisah. Tapi di CRA/Vite, kamu perlu manual setup React.lazy. Plus, Vite support <strong class="text-ink">manual chunks</strong> di config untuk group common dependencies (React, React DOM) terpisah dari app code. Ini bikin cache lebih efficient — vendor chunk nggak berubah walau app code berubah.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">React.lazy + Suspense — Route Splitting</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // ✅ Lazy load halaman — masing-masing jadi chunk terpisah
@@ -313,7 +234,7 @@ export default defineConfig({
     },
   },
 });</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Preloading:</strong> Untuk route yang kemungkinan besar user visit selanjutnya, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const prefetchPage = lazy(() => import("./Page"))</code> lalu panggil prefetch saat user hover link. React Router v6 punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">link preload</code> bawaan.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">VIRTUALIZATION — RENDER 10,000 ITEM TANPA NANGIS 🪟</h2><input type="checkbox" id="check-10-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Rendering \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Bayangkan render 10,000 item di DOM sekaligus. Browser harus create 10,000 node, calculate layout, paint, dan composite. Hasilnya? UI freeze, scroll laggy, memory usage tinggi. Ini masalah klasik di tabel data, chat history, dan infinite scroll. 😤</p><p><strong class="text-ink">Virtualization</strong> (atau windowing) solusinya: cuma render item yang VISIBLE di viewport + sedikit buffer. Item yang nggak visible di-replace dengan placeholder (empty space). Pas user scroll, item baru di-render dan item lama di-destroy. Result: performa konsisten berapapun total item-nya. 🎯</p><p>Analoginya: virtualization itu kayak <strong class="text-ink">teleskop</strong>. Kamu nggak lihat semua bintang sekaligus — cuma yang ada di bidang pandang. Begitu kamu geser teleskop, bintang baru muncul, yang lama hilang. Tapi kamu tetap tau semua bintang ada di sana. Oh ternyata gitu! 🤯</p><p>Library populer: <strong class="text-ink">@tanstack/react-virtual</strong> (dari TanStack, kompatibel dengan React, Solid, Vue). Ringan, flexible, dan support dynamic size item. Plus <strong class="text-ink">react-window</strong> (dari Brian Vaughan, mantan React core team) — simple API, performant, tapi support-nya limited. KAI recommend TanStack Virtual untuk project baru.</p><p>Pasang virtualization itu trade-off: kompleksitas naik sedikit, tapi performance bisa beda 100x. 10,000 item tanpa virtualization = 2+ detik render. Dengan virtualization = instan, karena cuma render ~20-30 item di viewport. Worth it buat data-heavy app.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">TanStack Virtual — Virtualized List</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useVirtualizer } from "@tanstack/react-virtual";
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">VIRTUALIZATION — RENDER 10,000 ITEM TANPA NANGIS 🪟</h2><input type="checkbox" id="check-10-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Rendering &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Bayangkan render 10,000 item di DOM sekaligus. Browser harus create 10,000 node, calculate layout, paint, dan composite. Hasilnya? UI freeze, scroll laggy, memory usage tinggi. Ini masalah klasik di tabel data, chat history, dan infinite scroll. 😤</p><p><strong class="text-ink">Virtualization</strong> (atau windowing) solusinya: cuma render item yang VISIBLE di viewport + sedikit buffer. Item yang nggak visible di-replace dengan placeholder (empty space). Pas user scroll, item baru di-render dan item lama di-destroy. Result: performa konsisten berapapun total item-nya. 🎯</p><p>Analoginya: virtualization itu kayak <strong class="text-ink">teleskop</strong>. Kamu nggak lihat semua bintang sekaligus — cuma yang ada di bidang pandang. Begitu kamu geser teleskop, bintang baru muncul, yang lama hilang. Tapi kamu tetap tau semua bintang ada di sana. Oh ternyata gitu! 🤯</p><p>Library populer: <strong class="text-ink">@tanstack/react-virtual</strong> (dari TanStack, kompatibel dengan React, Solid, Vue). Ringan, flexible, dan support dynamic size item. Plus <strong class="text-ink">react-window</strong> (dari Brian Vaughan, mantan React core team) — simple API, performant, tapi support-nya limited. Gue recommend TanStack Virtual untuk project baru.</p><p>Pasang virtualization itu trade-off: kompleksitas naik sedikit, tapi performance bisa beda 100x. 10,000 item tanpa virtualization = 2+ detik render. Dengan virtualization = instan, karena cuma render ~20-30 item di viewport. Worth it buat data-heavy app.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">TanStack Virtual — Virtualized List</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef } from "react";
 
 function VirtualList({ items }: { items: Item[] }) {
@@ -353,7 +274,7 @@ function VirtualList({ items }: { items: Item[] }) {
     &lt;/div&gt;
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Dynamic size:</strong> Untuk item dengan height yang berbeda-beda, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">measureElement</code> callback. Virtualizer measure actual height setelah render, lalu adjust positioning. Lebih akurat tapi sedikit lebih complex. Untuk fixed height, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">estimateSize</code> sudah cukup.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">IMAGE OPTIMIZATION — FILE TERBESAR DI WEB 🖼️</h2><input type="checkbox" id="check-10-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Assets \middot\ 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Image sering jadi penyebab utama web lambat. Satu foto 4MB bisa lebih besar dari SEMUA JavaScript bundle digabung. Image yang nggak dioptimasi = waste bandwidth + slow load + buruk UX. Di mobile, masalahnya makin parah — bandwidth terbatas, data mahal. 😤</p><p>Strategi optimasi image: <strong class="text-ink">format modern</strong> (WebP/AVIF vs JPEG/PNG), <strong class="text-ink">responsive sizing</strong> (ukuran beda buat mobile vs desktop), <strong class="text-ink">lazy loading</strong> (load pas mendekati viewport), dan <strong class="text-ink">CDN</strong> (deliver dari edge server terdekat). Keempatnya kombinasi yang powerful. 🎯</p><p>WebP rata-rata 25-35% lebih kecil dari JPEG di quality setara. AVIF (next-gen) bisa 50% lebih kecil tapi encoding-nya lambat. Best practice: serve AVIF ke browser yang support, fallback WebP, fallback JPEG. Tools kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">sharp</code> (Node.js) bisa generate multiple format sekaligus.</p><p>Di Next.js, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">next/image</code> handle SEMUA ini otomatis — format conversion, responsive sizing, lazy loading, blur placeholder. Ini salah satu alasan utama pake Next.js untuk production. Di SPA, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-optimized-image</code> atau manual implement.</p><p><strong class="text-ink">Blur placeholder</strong> itu trick yang keren: tampilkan blurred low-res image dulu sementara full image loading. Result: user langsung lihat ada konten (bukan blank), lalu transition ke gambar tajam. Meningkatkan perceived performance secara signifikan. Oh ternyata gitu! 🤯</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Image Optimization — next/image</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Next.js Image — otomatis: format, sizing, lazy load
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-5"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">IMAGE OPTIMIZATION — FILE TERBESAR DI WEB 🖼️</h2><input type="checkbox" id="check-10-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Assets &middot; 10 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Image sering jadi penyebab utama web lambat. Satu foto 4MB bisa lebih besar dari SEMUA JavaScript bundle digabung. Image yang nggak dioptimasi = waste bandwidth + slow load + buruk UX. Di mobile, masalahnya makin parah — bandwidth terbatas, data mahal. 😤</p><p>Strategi optimasi image: <strong class="text-ink">format modern</strong> (WebP/AVIF vs JPEG/PNG), <strong class="text-ink">responsive sizing</strong> (ukuran beda buat mobile vs desktop), <strong class="text-ink">lazy loading</strong> (load pas mendekati viewport), dan <strong class="text-ink">CDN</strong> (deliver dari edge server terdekat). Keempatnya kombinasi yang powerful. 🎯</p><p>WebP rata-rata 25-35% lebih kecil dari JPEG di quality setara. AVIF (next-gen) bisa 50% lebih kecil tapi encoding-nya lambat. Best practice: serve AVIF ke browser yang support, fallback WebP, fallback JPEG. Tools kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">sharp</code> (Node.js) bisa generate multiple format sekaligus.</p><p>Di Next.js, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">next/image</code> handle SEMUA ini otomatis — format conversion, responsive sizing, lazy loading, blur placeholder. Ini salah satu alasan utama pake Next.js untuk production. Di SPA, pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-optimized-image</code> atau manual implement.</p><p><strong class="text-ink">Blur placeholder</strong> itu trick yang keren: tampilkan blurred low-res image dulu sementara full image loading. Result: user langsung lihat ada konten (bukan blank), lalu transition ke gambar tajam. Meningkatkan perceived performance secara signifikan. Oh ternyata gitu! 🤯</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Image Optimization — next/image</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Next.js Image — otomatis: format, sizing, lazy load
 import Image from "next/image";
 
 function ProductCard({ product }) {
@@ -386,7 +307,7 @@ function LazyImage({ src, alt }: { src: string; alt: string }) {
     /&gt;
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Sharp CLI:</strong> Convert gambar massal: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npx sharp -i input.jpg -o output.webp --quality 80</code>. Atau setup script yang auto-convert saat build. Bundler plugin kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">vite-plugin-imagemin</code> bisa otomatis optimasi saat build.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">BUNDLE ANALYSIS & PROFILER — UKUR SEBELUM OPTIMIZE 📊</h2><input type="checkbox" id="check-10-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Measurement \middot\ 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Performance optimization tanpa measurement itu kayak diet tanpa timbangan — kamu nggak tau apakah usahamu berhasil atau cuma diem-diem aja. Ukur dulu, identifikasi bottleneck, baru optimize. Ini prinsip fundamental yang sering dilupakan developer. 😤</p><p><strong class="text-ink">React Profiler</strong> (built-in DevTools) nge-capture setiap render: berapa lama, apa yang trigger, mana komponen yang paling sering re-render. Ini starting point untuk optimization. Filter by component, cek "Why did this render?" — langsung tau apa yang trigger re-render. Powerful banget. 🎯</p><p><strong class="text-ink">Bundle analyzer</strong> nge-visualize isi JavaScript bundle — library mana yang paling besar, tree-shaking udah efektif atau belum, ada duplicate dependency atau nggak. Tools: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rollup-plugin-visualizer</code> (Vite) atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">webpack-bundle-analyzer</code> (Webpack). Result: interactive treemap yang nunjukin proporsi setiap dependency.</p><p>Metrik penting yang harus kamu track: <strong class="text-ink">LCP</strong> (Largest Contentful Paint — waktu konten utama muncul, target < 2.5s), <strong class="text-ink">FID/INP</strong> (First Input Delay / Interaction to Next Paint — responsivitas, target < 200ms), <strong class="text-ink">CLS</strong> (Cumulative Layout Shift — visual stability, target < 0.1). Ini Core Web Vitals dari Google — langsung ngefek SEO ranking. Oh ternyata gitu! 🤯</p><p>Tools pengukuran: <strong class="text-ink">Lighthouse</strong> (built-in Chrome DevTools), <strong class="text-ink">web-vitals</strong> library (field data dari user real), <strong class="text-ink">Chrome User Experience Report</strong> (agregat data dari semua Chrome user). Jangan cuma rely di dev measurement — production performance bisa beda jauh karena network, device, dan cache.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Vite — Bundle Analyzer</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">// vite.config.ts
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-6"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">BUNDLE ANALYSIS & PROFILER — UKUR SEBELUM OPTIMIZE 📊</h2><input type="checkbox" id="check-10-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Measurement &middot; 11 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Performance optimization tanpa measurement itu kayak diet tanpa timbangan — kamu nggak tau apakah usahamu berhasil atau cuma diem-diem aja. Ukur dulu, identifikasi bottleneck, baru optimize. Ini prinsip fundamental yang sering dilupakan developer. 😤</p><p><strong class="text-ink">React Profiler</strong> (built-in DevTools) nge-capture setiap render: berapa lama, apa yang trigger, mana komponen yang paling sering re-render. Ini starting point untuk optimization. Filter by component, cek "Why did this render?" — langsung tau apa yang trigger re-render. Powerful banget. 🎯</p><p><strong class="text-ink">Bundle analyzer</strong> nge-visualize isi JavaScript bundle — library mana yang paling besar, tree-shaking udah efektif atau belum, ada duplicate dependency atau nggak. Tools: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rollup-plugin-visualizer</code> (Vite) atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">webpack-bundle-analyzer</code> (Webpack). Result: interactive treemap yang nunjukin proporsi setiap dependency.</p><p>Metrik penting yang harus kamu track: <strong class="text-ink">LCP</strong> (Largest Contentful Paint — waktu konten utama muncul, target < 2.5s), <strong class="text-ink">INP</strong> (Interaction to Next Paint — responsivitas, target < 200ms; menggantikan FID yang sudah deprecated), <strong class="text-ink">CLS</strong> (Cumulative Layout Shift — visual stability, target < 0.1). Ini Core Web Vitals dari Google — langsung ngefek SEO ranking. Oh ternyata gitu! 🤯</p><p>Tools pengukuran: <strong class="text-ink">Lighthouse</strong> (built-in Chrome DevTools), <strong class="text-ink">web-vitals</strong> library (field data dari user real), <strong class="text-ink">Chrome User Experience Report</strong> (agregat data dari semua Chrome user). Jangan cuma rely di dev measurement — production performance bisa beda jauh karena network, device, dan cache.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Vite — Bundle Analyzer</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-typescript">// vite.config.ts
 import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
@@ -398,13 +319,14 @@ export default defineConfig({
       gzipSize: true, // tunjukkan gzip size juga
     }),
   ],
-});</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">web-vitals — Track Core Web Vitals</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">import { onLCP, onFID, onCLS, onINP } from "web-vitals";
+});</code></pre></div></div><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">web-vitals — Track Core Web Vitals</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// Catatan: FID (First Input Delay) sudah deprecated dan diganti INP.
+// web-vitals v4 menghapus onFID — pakai onINP sebagai metrik responsivitas.
+import { onLCP, onCLS, onINP } from "web-vitals";
 
 function reportVitals() {
-  onLCP(metric =&gt; console.log("LCP:", metric.value));
-  onFID(metric =&gt; console.log("FID:", metric.value));
-  onCLS(metric =&gt; console.log("CLS:", metric.value));
-  onINP(metric =&gt; console.log("INP:", metric.value));
+  onLCP(metric =&gt; console.log("LCP:", metric.value)); // target &lt; 2.5s
+  onINP(metric =&gt; console.log("INP:", metric.value)); // target &lt; 200ms
+  onCLS(metric =&gt; console.log("CLS:", metric.value)); // target &lt; 0.1
 
   // Send to analytics endpoint
   onLCP(metric =&gt; {
@@ -418,7 +340,7 @@ function reportVitals() {
 
 // Call in app entry
 reportVitals();</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 React Profiler DevTools:</strong> Buka Chrome DevTools → Profiler tab → klik Record → interact dengan app → Stop. Lihat Flamegraph dan Ranked chart. Cari komponen yang render paling lama atau paling sering. Fokus optimize di top offenders — impact terbesar dengan effort terkecil.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">SERVER COMPONENTS & NEXT.JS — FUTURE OF REACT 🖥️</h2><input type="checkbox" id="check-10-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Architecture \middot\ 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>React Server Components (RSC) mengubah fundamental cara React bekerja. Sebelumnya: semua komponen render di browser (client). Dengan RSC: komponen bisa render di SERVER — zero JavaScript ke browser. Ini bukan SSR biasa (render HTML di server lalu hydrate). RSC lebih dari itu: komponen server TIDAK perlu hydrate, TIDAK punya state, TIDAK punya event handler. Pure rendering. 🔥</p><p>Analoginya: Server Components itu kayak <strong class="text-ink">kitchen di restoran</strong> — masakan disiapkan di dapur (server), cuma makanan final yang dikirim ke meja (browser). Client Components itu kayak <strong class="text-ink">BBQ grill di meja</strong> — kamu masak sendiri di meja (browser). Dapur lebih efisien untuk masakan yang kompleks. Grill lebih baik untuk interaksi personalisasi. Gabung keduanya = restoran yang efisien. Oh ternyata gitu! 🤯</p><p>Di Next.js App Router: <strong class="text-ink">default = Server Component</strong>. Artinya semua komponen secara default render di server — zero JS ke browser. Kalau kamu butuh state, effect, atau event handler, tambah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di top of file. Ini inverted dari Pages Router yang semuanya client. Paradigm shift yang signifikan.</p><p>Keuntungan Server Components: <strong class="text-ink">bundle size turun drastis</strong> (library besar kayak date-fns, markdown parser cuma jalan di server), <strong class="text-ink">direct database access</strong> (nggak perlu API endpoint, query DB langsung dari komponen), <strong class="text-ink">SEO optimal</strong> (content langsung di HTML, tanpa JS untuk render). Tapi: nggak bisa pake useState, useEffect, event listener, atau browser API. Trade-off yang worth it untuk halaman content-heavy. 🎯</p><p><strong class="text-ink">Streaming SSR</strong> juga penting: Next.js bisa stream HTML ke browser progressively. User mulai lihat content while sisanya masih di-render. Combined with Suspense, ini bikin perceived performance jauh lebih baik — user interact lebih cepat daripada tunggu SEMUA content selesai render.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server vs Client Components — Next.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Server Component (default) — render di server, zero JS
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">SERVER COMPONENTS & NEXT.JS — FUTURE OF REACT 🖥️</h2><input type="checkbox" id="check-10-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Architecture &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>React Server Components (RSC) mengubah fundamental cara React bekerja. Sebelumnya: semua komponen render di browser (client). Dengan RSC: komponen bisa render di SERVER — zero JavaScript ke browser. Ini bukan SSR biasa (render HTML di server lalu hydrate). RSC lebih dari itu: komponen server TIDAK perlu hydrate, TIDAK punya state, TIDAK punya event handler. Pure rendering. 🔥</p><p>Analoginya: Server Components itu kayak <strong class="text-ink">kitchen di restoran</strong> — masakan disiapkan di dapur (server), cuma makanan final yang dikirim ke meja (browser). Client Components itu kayak <strong class="text-ink">BBQ grill di meja</strong> — kamu masak sendiri di meja (browser). Dapur lebih efisien untuk masakan yang kompleks. Grill lebih baik untuk interaksi personalisasi. Gabung keduanya = restoran yang efisien. Oh ternyata gitu! 🤯</p><p>Di Next.js App Router: <strong class="text-ink">default = Server Component</strong>. Artinya semua komponen secara default render di server — zero JS ke browser. Kalau kamu butuh state, effect, atau event handler, tambah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">"use client"</code> di top of file. Ini inverted dari Pages Router yang semuanya client. Paradigm shift yang signifikan.</p><p>Keuntungan Server Components: <strong class="text-ink">bundle size turun drastis</strong> (library besar kayak date-fns, markdown parser cuma jalan di server), <strong class="text-ink">direct database access</strong> (nggak perlu API endpoint, query DB langsung dari komponen), <strong class="text-ink">SEO optimal</strong> (content langsung di HTML, tanpa JS untuk render). Tapi: nggak bisa pake useState, useEffect, event listener, atau browser API. Trade-off yang worth it untuk halaman content-heavy. 🎯</p><p><strong class="text-ink">Streaming SSR</strong> juga penting: Next.js bisa stream HTML ke browser progressively. User mulai lihat content while sisanya masih di-render. Combined with Suspense, ini bikin perceived performance jauh lebih baik — user interact lebih cepat daripada tunggu SEMUA content selesai render.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Server vs Client Components — Next.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Server Component (default) — render di server, zero JS
 // File: app/products/page.tsx (NO "use client")
 import { db } from "@/lib/db";
 
@@ -461,9 +383,9 @@ export function ProductGrid({ products }) {
       &lt;/ul&gt;
     &lt;/div&gt;
   );
-}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Server Components NGGAK bisa import Client Components sebagai props. Data flow: Server → Client (via props), bukan Client → Server. Untuk interactivity yang butuh server data, pake Server Actions (Next.js) atau API routes. Jangan serialize function props antara boundary.</p></div></div></section>
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — PERFORMANCE-OPTIMIZED DASHBOARD 📈</h2><input type="checkbox" id="check-10-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik \middot\ 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Waktunya apply semua ilmu performance! Bikin <strong class="text-ink">Analytics Dashboard</strong> yang menggabungkan: React.memo buat card components, useMemo buat data computation, virtualized list buat data rows, code splitting buat chart library, dan image optimization buat avatar. Ini real-world pattern yang bisa kamu scale ke app production. 🔥</p><p>Architecture-nya: Server Component buat fetch data + layout, Client Component buat interactive chart + filter, virtualized list buat table rows. Chart library (recharts) di lazy load karena berat. Avatar images pake next/image dengan blur placeholder. Ini gabungan semua teknik dari bab ini.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Performance Dashboard — Optimized Components</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">"use client";
-import { lazy, Suspense, useMemo, useState, useCallback, React.memo } from "react";
+}</code></pre></div></div><div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Gotcha:</strong> Kebalikannya yang benar: <strong class="text-ink">Client Components nggak bisa import Server Components</strong> (mereka nerima-nya sebagai children/props). Server Component justru BISA import & render Client Component — persis kayak contoh di atas. Aturannya: props yang nyebrang boundary harus serializable — jangan pass function. Untuk interactivity yang butuh server data, pake Server Actions (Next.js) atau API routes.</p></div></div></section>
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-8"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">MINI PROJECT — PERFORMANCE-OPTIMIZED DASHBOARD 📈</h2><input type="checkbox" id="check-10-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Praktik &middot; 20 menit</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Waktunya apply semua ilmu performance! Bikin <strong class="text-ink">Analytics Dashboard</strong> yang menggabungkan: React.memo buat card components, useMemo buat data computation, virtualized list buat data rows, code splitting buat chart library, dan image optimization buat avatar. Ini real-world pattern yang bisa kamu scale ke app production. 🔥</p><p>Architecture-nya: Server Component buat fetch data + layout, Client Component buat interactive chart + filter, virtualized list buat table rows. Chart library (recharts) di lazy load karena berat. Avatar images pake next/image dengan blur placeholder. Ini gabungan semua teknik dari bab ini.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Performance Dashboard — Optimized Components</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">"use client";
+import React, { lazy, Suspense, useMemo, useState, useCallback } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef } from "react";
 
@@ -561,6 +483,268 @@ export function Dashboard({ data }: { data: RowData[] }) {
   );
 }</code></pre></div></div><div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend dashboard: (1) Tambahkan web-vitals monitoring yang report ke console, (2) Implement infinite scroll dengan virtualized list, (3) Tambahkan dark mode toggle dengan Context, (4) Implement prefetching buat next page data.</p></div></div></section>
 
+<!-- LESSON 9 — KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA PERFORMANCE YANG PALING SERING 🚨</h2><input type="checkbox" id="check-10-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Enam kesalahan yang paling sering muncul di code review — pola: kode salah → kenapa → kode benar</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Ironi terbesar di dunia performance React: <strong class="text-ink">lebih banyak app yang jadi lambat GARA-GARA usaha optimasi</strong> daripada karena kurang optimasi. Enam kesalahan di bawah ini muncul terus-menerus di code review — dan hampir semuanya lahir dari niat baik yang salah arah. Baca pelan-pelan, karena tiap poin di sini bakal nyelametin lo dari bug yang susah dilacak. 😤</p>
+<p><strong class="text-ink">1. Memoize semuanya (premature optimization).</strong> <em>Salah:</em> bungkus SETIAP komponen pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> dan SETIAP nilai pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code> "biar aman". <em>Kenapa salah:</em> memo itu bukan gratis — React harus menyimpan hasil lama + array deps di memory, lalu membandingkan props/deps tiap render. Buat komponen murah (cuma render teks) atau kalkulasi murah (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">a + b</code>), ongkos perbandingannya lebih besar dari yang dihemat. <em>Benar:</em> tulis kode paling sederhana dulu; tambahkan memo cuma setelah Profiler nunjukin komponen itu beneran mahal.</p>
+<p><strong class="text-ink">2. Object / function inline yang bikin memo percuma.</strong> <em>Salah:</em> lo bungkus child pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>, tapi ngasih prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style={{ margin: 8 }}</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; ...}</code> yang dibikin inline. <em>Kenapa salah:</em> object dan function literal itu <strong class="text-ink">referensi baru tiap render</strong>. Shallow comparison React.memo lihat "prop berubah" → child tetap re-render. Memo-nya jadi hiasan doang. <em>Benar:</em> angkat object ke konstanta di luar komponen, atau stabilkan pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCallback</code>.</p>
+<p><strong class="text-ink">3. Dependency array useMemo yang salah.</strong> <em>Salah:</em> lupa masukin salah satu variabel yang dipakai di dalam useMemo (atau sengaja dikosongin biar "nggak jalan lagi"). <em>Kenapa salah:</em> hasilnya jadi <strong class="text-ink">stale (basi)</strong> — variabel berubah tapi memo nahan nilai lama, jadi UI nunjukin data usang. Kebalikannya juga bahaya: masukin object inline ke deps bikin deps selalu berubah → memo nggak pernah nge-cache apa pun. <em>Benar:</em> deps harus berisi SEMUA nilai reaktif yang dibaca di dalam callback — nggak lebih, nggak kurang. Pasang plugin ESLint <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-hooks/exhaustive-deps</code> biar ketauan otomatis.</p>
+<p><strong class="text-ink">4. Optimasi tanpa mengukur.</strong> <em>Salah:</em> nebak "pasti komponen X yang lambat" lalu langsung nambahin memo di mana-mana. <em>Kenapa salah:</em> intuisi soal performance <strong class="text-ink">hampir selalu meleset</strong>. Sering bottleneck-nya bukan di render React sama sekali — tapi di image 4MB, request API yang lambat, atau layout thrashing. Optimasi buta bikin kode berantakan tanpa perbaikan nyata. <em>Benar:</em> ukur dulu pakai React DevTools Profiler + Lighthouse, temukan angka yang jelek, baru sentuh kode itu.</p>
+<p><strong class="text-ink">5. List raksasa tanpa virtualization.</strong> <em>Salah:</em> render 5.000 baris tabel sekaligus, lalu nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> di tiap baris "biar cepat". <em>Kenapa salah:</em> masalahnya bukan re-render — tapi 5.000 DOM node yang harus dibuat, di-layout, dan di-paint browser. Memo nggak menyelesaikan itu. <em>Benar:</em> pakai virtualization (TanStack Virtual / react-window) supaya cuma ~20-30 baris yang terlihat yang benar-benar ada di DOM.</p>
+<p><strong class="text-ink">6. Kerja berat langsung di body render + key churn.</strong> <em>Salah:</em> jalanin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.sort()</code> / parsing / kalkulasi berat langsung di body komponen, DAN pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={index}</code> di list yang bisa berubah urutan. <em>Kenapa salah:</em> body komponen jalan TIAP render, jadi kerja berat itu diulang terus. Dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={index}</code> bikin React salah mencocokkan elemen saat list disisip/diurut ulang — state & DOM bisa "nyangkut" di item yang salah (ini disebut <em>key churn</em>). <em>Benar:</em> pindahkan kalkulasi berat ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code>, dan pakai key ID yang stabil & unik (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={item.id}</code>).</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — inline prop bikin React.memo percuma</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const Row = React.memo(function Row({ user, style, onSelect }) {
+  return &lt;div style={style} onClick={onSelect}&gt;{user.name}&lt;/div&gt;;
+});
+
+// ❌ SALAH — style & onSelect referensi BARU tiap render → memo sia-sia
+function List({ users }) {
+  return users.map(u =&gt; (
+    &lt;Row key={u.id} user={u}
+      style={{ padding: 8 }}                 // object baru tiap render
+      onSelect={() =&gt; console.log(u.id)} /&gt;  // function baru tiap render
+  ));
+}
+
+// ✅ BENAR — referensi stabil, memo baru beneran bekerja
+const rowStyle = { padding: 8 };            // konstanta di luar komponen
+function List({ users }) {
+  const handleSelect = React.useCallback((id) =&gt; console.log(id), []);
+  return users.map(u =&gt; (
+    &lt;Row key={u.id} user={u} style={rowStyle}
+      onSelect={() =&gt; handleSelect(u.id)} /&gt;
+  ));
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #6 — key=index bikin state nyangkut di item salah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ❌ SALAH — key pakai index; hapus item ke-0, checkbox "nyangkut" di baris salah
+{todos.map((todo, index) =&gt; (
+  &lt;TodoItem key={index} todo={todo} /&gt;
+))}
+
+// ✅ BENAR — key ID stabil; React cocokin elemen ke data yang benar
+{todos.map((todo) =&gt; (
+  &lt;TodoItem key={todo.id} todo={todo} /&gt;
+))}</code></pre></div></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Kalau lo cuma boleh ingat satu kalimat dari bab ini, ingat ini: <strong class="text-ink">memoization itu obat, bukan vitamin.</strong> Obat diminum saat sakit (setelah Profiler nunjukin masalah), bukan tiap hari "biar sehat". Menaburkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">memo</code> di mana-mana bikin kode susah dibaca DAN sering nggak ngefek karena prop-nya inline.</p></div>
+</section>
+
+<!-- LESSON 10 — LEVEL SENIOR: MEASURE BEFORE YOU OPTIMIZE -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: MEASURE BEFORE YOU OPTIMIZE — KAPAN MEMO MALAH BIKIN LAMBAT 🔬</h2><input type="checkbox" id="check-10-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 15 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Junior nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> karena "kayaknya bakal lambat". Senior nambahin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> karena <strong class="text-ink">Profiler nunjukin komponen itu render 8ms dan dipanggil 200 kali</strong>. Bedanya satu kata: <em>data</em>. Lesson ini soal mindset senior — mengukur dulu, dan tahu kapan optimasi malah jadi beban. 🎯</p>
+<p><strong class="text-ink">React DevTools Profiler.</strong> Ini alat utamamu. Buka tab Profiler → klik Record → interaksi dengan app → Stop. Lo dapat <em>flamegraph</em>: tiap batang = satu komponen, lebarnya = lama render-nya. Klik komponen → panel "Why did this render?" ngasih tau persis apa yang memicu render (props berubah? hook? parent?). Aktifkan setting "Highlight updates when components render" biar lo LIHAT komponen mana yang berkedip tiap interaksi — kalau ada yang berkedip padahal datanya nggak berubah, itu kandidat optimasi. Oh ternyata gitu! 🤯</p>
+<p><strong class="text-ink">Mengukur ongkos render.</strong> Angka yang penting bukan "berapa kali render", tapi "berapa lama TOTAL render itu makan waktu". Komponen yang render 1ms tapi 500 kali (500ms) jauh lebih penting dioptimasi daripada komponen yang render 3ms tapi cuma sekali. Prioritaskan berdasarkan <em>total time</em>, bukan frekuensi. Fokus di top offenders di "Ranked chart" — impact terbesar dengan effort terkecil.</p>
+<p><strong class="text-ink">Kapan React.memo / useMemo malah bikin LAMBAT.</strong> Ini bagian yang jarang diajarin. Memo punya dua ongkos tetap: (1) menyimpan hasil lama + array deps di memory, dan (2) membandingkan props/deps tiap render. Memo cuma menguntungkan kalau <em>ongkos render yang dihindari &gt; ongkos perbandingan</em>. Dua situasi di mana memo justru rugi:</p>
+<p>&bull; <strong class="text-ink">Komponen murah.</strong> Kalau komponen cuma render sepotong teks, render-nya mungkin 0.05ms. Membandingkan props bisa makan waktu setara atau lebih. Lo membayar ongkos perbandingan untuk menghindari kerja yang nyaris gratis — net loss.</p>
+<p>&bull; <strong class="text-ink">Props yang hampir selalu berubah.</strong> Kalau komponen menerima prop yang berubah tiap render (misal nilai yang di-derive dari state yang sering update), React.memo <strong class="text-ink">selalu</strong> gagal perbandingan lalu tetap re-render — jadi lo cuma nambah ongkos perbandingan di atas render yang tetap terjadi. Murni pemborosan.</p>
+<p><strong class="text-ink">Mental model: perbaiki penyebab, bukan gejala.</strong> Kalau komponen re-render terlalu sering, jangan langsung tambal pakai memo. Tanya dulu: <em>kenapa</em> dia re-render? Sering jawabannya adalah masalah struktur yang lebih dalam — state ditaruh terlalu tinggi di tree (angkat ke bawah / colocate), context yang terlalu gemuk (pecah jadi beberapa context), atau parent yang bikin object inline. Memperbaiki penyebab (misal memindahkan state lebih dekat ke tempat pakainya) sering menghapus kebutuhan memo sama sekali. Memo itu solusi terakhir, bukan pertama.</p>
+<p><strong class="text-ink">Kemenangan yang realistis.</strong> Di dunia nyata, perbaikan performa terbesar hampir nggak pernah datang dari React.memo. Urutan impact dari yang paling besar: (1) <strong class="text-ink">virtualize</strong> list panjang — bisa 100x; (2) <strong class="text-ink">code-split</strong> route & library berat — potong bundle awal separuh; (3) <strong class="text-ink">optimasi image</strong> — sering ini penyebab #1 LCP jelek; (4) <strong class="text-ink">defer</strong> kerja non-urgent pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDeferredValue</code>/<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useTransition</code>. React.memo/useMemo ada di urutan buncit — berguna, tapi cuma setelah semua di atas beres dan Profiler nunjukin komponen spesifik yang mahal. 🔥</p>
+</div>
+
+<div class="mt-6">
+<p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">🎮 Playground 1 — LIHAT SENDIRI React.memo.</strong> Klik "Re-render parent" beberapa kali. Perhatikan angka render: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">PlainChild</code> naik terus tiap klik (padahal prop-nya nggak berubah!), sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">MemoChild</code> diam di 1. Coba hapus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo(...)</code> dari MemoChild, klik Jalankan — sekarang dua-duanya naik.</p>
+<script type="text/plain" id="pg-10-1">// React.memo — LIHAT bedanya lewat penghitung render di layar.
+// plainRenders & memoRenders di module-level, jadi angkanya BERTAHAN antar render.
+let plainRenders = 0;
+let memoRenders = 0;
+
+function PlainChild({ label }) {
+  plainRenders += 1; // naik tiap kali fungsi ini dipanggil React
+  return (
+    <div style={{ padding: 10, background: '#FEF2F2', borderRadius: 8, marginBottom: 8 }}>
+      PlainChild (TANPA memo) — sudah render <b>{plainRenders}x</b> · prop label = "{label}"
+    </div>
+  );
+}
+
+const MemoChild = React.memo(function MemoChild({ label }) {
+  memoRenders += 1;
+  return (
+    <div style={{ padding: 10, background: '#F0FDF4', borderRadius: 8 }}>
+      MemoChild (React.memo) — sudah render <b>{memoRenders}x</b> · prop label = "{label}"
+    </div>
+  );
+});
+
+function App() {
+  const [tick, setTick] = React.useState(0);
+  // Prop `label` yang dikirim ke anak SELALU sama ("halo") — jadi anak
+  // sebenarnya nggak perlu render ulang. Tapi cuma MemoChild yang tahu itu.
+  return (
+    <div>
+      <p>Parent sudah re-render <b>{tick}x</b>. Klik tombol → parent render lagi.</p>
+      <button onClick={() => setTick(t => t + 1)}>Re-render parent</button>
+      <div style={{ marginTop: 12 }}>
+        <PlainChild label="halo" />
+        <MemoChild label="halo" />
+      </div>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-10-1"></div>
+</div>
+
+<div class="mt-6">
+<p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">🎮 Playground 2 — useMemo & dependency.</strong> Angka "kalkulasi berat sudah jalan" cuma naik saat lo klik <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">num + 1</code> — karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">num</code> ada di dependency array. Klik "Toggle theme" sepuluh kali: angkanya <strong class="text-ink">nggak naik</strong>, karena useMemo pakai hasil cache. Coba ganti baris useMemo jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">slowSquare(num)</code> biasa → sekarang toggle theme pun ikut menjalankan kalkulasi.</p>
+<script type="text/plain" id="pg-10-2">// useMemo — kalkulasi mahal cuma jalan saat dependency-nya berubah.
+let calcRuns = 0;
+
+function slowSquare(n) {
+  calcRuns += 1;              // catat: kalkulasi ini beneran dieksekusi
+  let waste = 0;
+  for (let i = 0; i < 500000; i++) waste += 1; // pura-pura berat
+  return n * n;
+}
+
+function App() {
+  const [num, setNum] = React.useState(2);
+  const [theme, setTheme] = React.useState('light');
+
+  // useMemo: slowSquare cuma jalan lagi kalau `num` berubah.
+  // COBA ganti ke:  const squared = slowSquare(num);
+  // → sekarang toggle theme pun memicu kalkulasi (calcRuns ikut naik).
+  const squared = React.useMemo(() => slowSquare(num), [num]);
+
+  return (
+    <div>
+      <p style={{ fontSize: 18 }}>{num}² = <b>{squared}</b></p>
+      <p>Kalkulasi berat sudah dijalankan: <b>{calcRuns}x</b></p>
+      <p style={{ color: '#666', fontSize: 13 }}>Theme sekarang: {theme}</p>
+      <button onClick={() => setNum(n => n + 1)}>num + 1 (harus re-calc)</button>{' '}
+      <button onClick={() => setTheme(t => (t === 'light' ? 'dark' : 'light'))}>
+        Toggle theme (TIDAK memicu re-calc)
+      </button>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-10-2"></div>
+</div>
+
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Trik dua counter di atas (module-level <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">let</code> yang naik tiap fungsi render dipanggil) adalah cara paling cepat "mengukur" render tanpa buka DevTools. Di kode produksi lo nggak nulis ini — lo pakai Profiler. Tapi buat MEMAHAMI kapan sebuah komponen render, menaruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.count('NamaKomponen')</code> di body-nya adalah eksperimen 10 detik yang mengajarkan lebih banyak daripada satu jam baca teori.</p></div>
+</section>
+
+<!-- CHALLENGE ch-10-1 -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="challenge-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm">🎯</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">CHALLENGE — CEGAH RE-RENDER YANG SIA-SIA 🛠️</h2><p class="text-sm text-muted mt-1">Optimalkan komponen sampai semua test lulus. Starter-nya sengaja gagal.</p></div></div>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> nampilin prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code> yang <strong class="text-ink">nggak pernah berubah</strong>. Tapi tiap kali tombol "Lain" diklik (yang cuma nambah state nggak berhubungan), Badge ikut re-render — kelihatan dari atribut <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-renders</code> yang terus naik. Tugas lo: bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> supaya dia skip re-render yang sia-sia. Klik <strong class="text-ink">▶ Test</strong> — starter pasti gagal di test terakhir.</p>
+<script type="text/plain" id="ch-10-1">// 🎯 Badge nampilin text yang NGGAK berubah, tapi ikut re-render tiap
+// tombol "Lain" diklik. Bungkus Badge dengan React.memo biar dia diam.
+// Atribut data-renders di Badge harus tetap "1" setelah klik "Lain".
+let badgeRenders = 0;
+
+// TODO: bungkus komponen ini dengan React.memo(...)
+function Badge({ text }) {
+  badgeRenders += 1;
+  return (
+    <span data-testid="badge" data-renders={badgeRenders}
+      style={{ padding: '4px 8px', background: '#EEF', borderRadius: 6 }}>
+      {text}
+    </span>
+  );
+}
+
+function App() {
+  const [other, setOther] = React.useState(0);
+  return (
+    <div>
+      <p><Badge text="STATUS: OK" /></p>
+      <p>State lain (nggak berhubungan): {other}</p>
+      <button data-act="lain" onClick={() => setOther(o => o + 1)}>Lain +1</button>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-10-1-test">var root = document.getElementById('root');
+function badge() { return root.querySelector('[data-testid="badge"]'); }
+function clickLain() {
+  var b = root.querySelector('button[data-act="lain"]');
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Badge ada di layar', badge() !== null);
+expect('Badge nampilin teks yang benar', !!badge() && badge().textContent.indexOf('STATUS: OK') !== -1);
+expect('Render awal Badge = 1', !!badge() && badge().getAttribute('data-renders') === '1');
+clickLain(); clickLain(); clickLain();
+expect('Badge TIDAK ikut re-render pas state lain berubah (butuh React.memo)', !!badge() && badge().getAttribute('data-renders') === '1');</script>
+<!-- SOLUSI ch-10-1 (untuk maintainer — semua test lulus dengan ini):
+       const Badge = React.memo(function Badge({ text }) { ...isi sama... });
+     Starter gagal di test terakhir karena Badge tanpa memo ikut render tiap
+     App re-render → data-renders jadi "4" (bukan "1") setelah 3x klik. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-10-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Cukup bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Badge</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>. Karena prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code> ("STATUS: OK") nggak pernah berubah, shallow comparison React.memo selalu lulus → Badge skip re-render → <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-renders</code> tetap "1".</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">const Badge = React.memo(function Badge({ text }) {
+  badgeRenders += 1;
+  return (
+    &lt;span data-testid="badge" data-renders={badgeRenders}
+      style={{ padding: '4px 8px', background: '#EEF', borderRadius: 6 }}&gt;
+      {text}
+    &lt;/span&gt;
+  );
+});</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3">Catatan senior: ini bekerja karena prop-nya stabil. Kalau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">text</code>-nya justru berubah tiap render, React.memo malah cuma nambah ongkos perbandingan — persis kasus "memo bikin lambat" di Lesson 10.</p>
+  </div>
+</details>
+</section>
+
+<!-- LATIHAN -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="latihan-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">✏️</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">LATIHAN — ASAH INSTING PERFORMANCE 🧪</h2><p class="text-sm text-muted mt-1">Kerjain di kepala dulu, baru buka solusinya</p></div></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Kenapa memo ini nggak ngefek?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Seorang teman bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Chart data={{ points: rows }} /&gt;</code> dan Chart-nya udah pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code>. Tapi Chart tetap re-render tiap parent render. Kenapa, dan gimana benerinnya?</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> Prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data</code> diisi object literal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{{ points: rows }}</code> yang dibuat inline — referensi baru tiap render, jadi shallow compare React.memo selalu gagal. Perbaiki dengan menstabilkan object-nya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const data = useMemo(() =&gt; ({ points: rows }), [rows]);</code> lalu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Chart data={data} /&gt;</code>. Atau lebih baik: kirim <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rows</code> langsung sebagai prop biasa tanpa membungkusnya dalam object.</p>
+  </div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: memo atau bukan?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Untuk masing-masing komponen, putuskan React.memo layak atau malah rugi: (a) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Avatar url={user.avatar} /&gt;</code> yang cuma render satu img; (b) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;DataGrid rows={rows} /&gt;</code> yang render ribuan sel dan sering di-re-render parent dengan rows yang sama; (c) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Clock now={Date.now()} /&gt;</code> yang prop-nya berubah tiap render.</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> (a) <em>Rugi/netral</em> — render-nya murah, ongkos perbandingan setara dengan yang dihemat. Lewati. (b) <em>Layak banget</em> — render mahal (ribuan sel) tapi rows sering sama; memo mencegah re-render besar. Ini kandidat memo ideal. (c) <em>Rugi</em> — prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">now</code> berubah tiap render, jadi memo SELALU gagal perbandingan lalu tetap render — cuma nambah ongkos. Aturan main: memo layak saat <strong class="text-ink">render mahal</strong> DAN <strong class="text-ink">props sering stabil</strong>.</p>
+  </div>
+</details>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Diagnosa scroll yang nge-lag</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Halaman menampilkan 8.000 komentar dalam satu list. Scroll-nya patah-patah. Seorang junior mengusulkan membungkus tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Comment /&gt;</code> dengan React.memo. Apakah itu akan menyelesaikan masalah? Apa solusi yang benar, dan bagaimana urutan langkah senior-nya?</p>
+    <p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Solusi:</strong> React.memo <strong class="text-ink">tidak</strong> menyelesaikan ini. Masalahnya bukan re-render — melainkan 8.000 DOM node yang harus dibuat, di-layout, dan di-paint browser sekaligus. Memo cuma mencegah render ulang komponen React, bukan mengurangi jumlah node di DOM. Langkah senior: (1) buka Profiler + Performance tab untuk konfirmasi bottleneck ada di layout/paint, bukan di JS; (2) terapkan <strong class="text-ink">virtualization</strong> (TanStack Virtual / react-window) supaya cuma ~20-30 komentar yang terlihat yang benar-benar dirender; (3) baru ukur ulang. Hasilnya bisa beda 100x — tanpa satu pun React.memo.</p>
+  </div>
+</details>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA TAJAM INSTING PERFORMANCE LO? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-10">
+[
+  {"q": "React.memo membandingkan props lama dan baru pakai cara apa?", "options": ["Deep comparison rekursif ke seluruh isi object", "Shallow comparison — bandingkan tiap prop dengan === (Object.is)", "JSON.stringify lalu dibandingkan string-nya", "Tidak membandingkan apa pun, selalu skip render"], "answer": 1, "explain": "React.memo pakai <em>shallow comparison</em>: tiap prop dibandingkan dengan <code>Object.is</code> (mirip <code>===</code>). Itu sebabnya object/array literal inline (referensi baru tiap render) selalu dianggap 'berubah' walau isinya sama."},
+  {"q": "Kamu membungkus child dengan React.memo tapi tetap ngasih prop style yang ditulis inline sebagai object literal. Apa akibatnya?", "options": ["Child jadi lebih cepat karena style di-cache", "React otomatis membekukan object-nya", "Memo jadi percuma — object literal itu referensi baru tiap render, jadi shallow compare selalu menganggapnya berubah dan child tetap re-render", "Terjadi error karena memo tidak menerima object"], "answer": 2, "explain": "Object literal <code>{ }</code> menghasilkan referensi baru di setiap render. Shallow compare React.memo melihat prop 'berubah' → child tetap render. Perbaiki dengan mengangkat object ke konstanta di luar komponen atau menstabilkannya dengan useMemo."},
+  {"q": "Sebelum menambahkan memoization ke komponen yang terasa lambat, langkah PERTAMA yang benar adalah?", "options": ["Ukur dulu dengan React DevTools Profiler untuk memastikan komponen mana yang benar-benar mahal", "Langsung bungkus semua komponen dengan React.memo biar aman", "Ganti semua useState jadi useRef supaya tidak re-render", "Pindahkan semua komponen ke Server Component"], "answer": 0, "explain": "Optimasi tanpa mengukur itu menembak dalam gelap. Intuisi soal performance hampir selalu meleset — sering bottleneck-nya bukan di render React sama sekali. Profiler dulu, temukan angka jelek, baru optimasi bagian itu."},
+  {"q": "Dalam situasi mana React.memo justru bisa membuat komponen lebih LAMBAT?", "options": ["Tidak pernah, React.memo selalu menguntungkan", "Hanya saat komponennya sangat besar", "Saat props-nya tidak pernah berubah sama sekali", "Saat komponennya murah untuk dirender dan/atau props-nya hampir selalu berubah, sehingga ongkos perbandingan lebih besar dari yang dihemat"], "answer": 3, "explain": "Memo punya ongkos tetap: menyimpan hasil lama + membandingkan props tiap render. Untuk komponen murah, ongkos perbandingan setara/lebih besar dari render-nya. Untuk props yang selalu berubah, perbandingan selalu gagal lalu render tetap terjadi — murni pemborosan."},
+  {"q": "Kamu menulis useMemo tapi lupa memasukkan salah satu variabel yang dibaca ke dalam dependency array. Apa risikonya?", "options": ["Selalu re-compute di setiap render", "Nilai basi (stale) — memo menahan hasil lama dan tidak re-compute saat variabel yang hilang itu berubah", "Error saat build", "Pasti terjadi memory leak"], "answer": 1, "explain": "Dependency array harus berisi SEMUA nilai reaktif yang dibaca di dalam callback. Kalau ada yang hilang, useMemo tidak tahu harus re-compute saat variabel itu berubah → UI menampilkan nilai usang. Plugin eslint exhaustive-deps menangkap bug ini otomatis."},
+  {"q": "Sebuah list berisi 10.000 baris membuat scroll patah-patah. Solusi paling tepat adalah?", "options": ["Bungkus setiap baris dengan React.memo", "Pindahkan list ke useRef supaya tidak re-render", "Virtualization — cuma render baris yang terlihat di viewport (plus sedikit buffer)", "Tambahkan useCallback di setiap handler baris"], "answer": 2, "explain": "Masalahnya bukan re-render React, melainkan 10.000 DOM node yang harus dibuat, di-layout, dan di-paint browser. React.memo tidak mengurangi jumlah node. Virtualization (TanStack Virtual / react-window) cuma merender ~20-30 baris yang terlihat — bisa 100x lebih cepat."},
+  {"q": "useCallback paling berguna terutama dalam situasi apa?", "options": ["Saat function-nya dikirim sebagai prop ke child yang dibungkus React.memo dan kamu butuh referensi function yang stabil", "Di setiap function yang ada di dalam komponen, tanpa kecuali", "Saat function-nya cuma dipanggil di dalam komponen itu sendiri", "Saat kamu ingin isi function-nya dieksekusi lebih cepat"], "answer": 0, "explain": "useCallback menjaga referensi function tetap stabil antar render. Ini penting saat function dikirim ke child ber-React.memo — tanpa itu, function baru tiap render bikin memo child gagal. Kalau function cuma dipakai lokal, useCallback biasanya cuma menambah kerumitan tanpa manfaat."},
+  {"q": "Kamu memakai index array sebagai key pada list yang bisa disisipi atau diurutkan ulang. Apa konsekuensinya?", "options": ["Performa meningkat karena index lebih ringan", "Tidak ada efek apa pun, key hanya untuk React internal", "Key otomatis menjadi unik dan aman", "Bug: React salah mencocokkan elemen sehingga state atau DOM bisa nyangkut di item yang salah (key churn)"], "answer": 3, "explain": "Key dipakai React untuk mencocokkan elemen antar render. Kalau pakai index lalu urutan berubah, elemen di posisi yang sama dianggap 'sama' padahal datanya beda → state input, fokus, atau animasi nyangkut di item salah. Pakai ID stabil dan unik: key={item.id}."}
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-10"></div>
+</section>
+
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
 <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
@@ -586,12 +770,14 @@ export function Dashboard({ data }: { data: RowData[] }) {
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
 Tandai Bab Selesai ✅
 </button>
-<a href="index.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
-🏠 Kembali ke Home
+<a href="chapter-11.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+Gas ke Bab 11 →
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
 </a>
 </div>
 <div class="flex gap-4 mt-4">
 <a href="chapter-9.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">← Chapter sebelumnya</a>
+<a href="chapter-11.html" class="text-sm text-muted hover:text-ink transition-colors duration-200">Chapter selanjutnya →</a>
 </div>
 </section>
 </div>
@@ -600,8 +786,8 @@ Tandai Bab Selesai ✅
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 
-    <script>
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('-translate-x-full');document.getElementById('sidebarOverlay').classList.toggle('hidden')}window.addEventListener('scroll',function(){var b=document.getElementById('backToTop');if(window.scrollY>300)b.classList.remove('opacity-0','pointer-events-none');else b.classList.add('opacity-0','pointer-events-none')});var progress=JSON.parse(localStorage.getItem('react-course-progress')||'{}');function updateProgress(){var done=Object.values(progress).filter(Boolean).length;document.getElementById('progressText').textContent=done+'/10';document.getElementById('progressBar').style.width=(done/10*100)+'%'}function markComplete(){progress['ch10']=true;localStorage.setItem('react-course-progress',JSON.stringify(progress));updateProgress();document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}updateProgress();if(progress['ch10']){document.getElementById('completeBtn').textContent='✅ Tercetak Selesai';document.getElementById('completeBtn').disabled=true}hljs.highlightAll();
-    </script>
+    <script src="../assets/course.js"></script>
+    <script src="../assets/playground.js"></script>
+    <script src="../assets/quiz.js"></script>
 </body>
 </html>

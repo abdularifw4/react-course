@@ -8,34 +8,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js" integrity="sha384-44q2s9jxk8W5N9gAB0yn7UYLi9E2oVw8eHyaTZLkDS3WuZM/AttkAiVj6JoZuGS4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js" integrity="sha384-ORwtVEfrCZ0gzGacgmfv1wOtxcPIaVfHKwq8dKQjObRwx3qpKjsSg1ldTu1PEgXd" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js" integrity="sha384-OqfnIfpOmAlErKRs2a525ZcwLuZ8Z1x8hPdIwBcMtHkJBbHnpJ6wX5/LVzASHkD5" crossorigin="anonymous"></script>
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['JetBrains Mono','ui-monospace','monospace']},colors:{ink:{DEFAULT:'#0B0B0B',soft:'#1A1A1A'},muted:{DEFAULT:'#666666',light:'#999999'},lavender:'#F3F0FA',cream:'#FAF8F1',surface:'#FAFAFA'}}}}</script>
-<style>
-*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body{font-family:'Inter',system-ui,sans-serif}:root{--shadow-sm:0 0 0 1px rgba(0,0,0,0.05),0 1px 2px -1px rgba(0,0,0,0.04);--shadow-md:0 0 0 1px rgba(0,0,0,0.06),0 2px 4px -1px rgba(0,0,0,0.05),0 4px 12px -2px rgba(0,0,0,0.05);--shadow-md-hover:0 0 0 1px rgba(0,0,0,0.08),0 4px 8px -2px rgba(0,0,0,0.06),0 8px 20px -4px rgba(0,0,0,0.07)}h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}.shadow-card{box-shadow:var(--shadow-md);transition:box-shadow 0.2s ease,transform 0.2s ease}.shadow-card:hover{box-shadow:var(--shadow-md-hover);transform:translateY(-2px)}.shadow-soft{box-shadow:var(--shadow-sm)}.press{transition:transform 0.15s ease}.press:active{transform:scale(0.96)}.lesson-card{box-shadow:var(--shadow-sm);transition:box-shadow 0.2s ease}.lesson-card:hover{box-shadow:var(--shadow-md)}.nav-link{transition:background 0.15s ease,color 0.15s ease}.nav-link:hover,.nav-link.active{background:#F3F0FA;color:#0B0B0B}.nav-link.active span:first-child{background:#0B0B0B!important;color:white!important}pre code{border-radius:0;font-size:0.825rem;line-height:1.6}.code-block{box-shadow:var(--shadow-sm);border-radius:0.75rem;overflow:hidden}.tip-box{border-left:3px solid #0B0B0B;background:#F3F0FA}.warning-box{border-left:3px solid #f59e0b;background:#FFF7ED}.fade-in{opacity:0;transform:translateY(16px);animation:enter 0.4s cubic-bezier(0.2,0,0,1) forwards}.fade-in-d1{animation-delay:80ms}.fade-in-d2{animation-delay:160ms}.fade-in-d3{animation-delay:240ms}@keyframes enter{to{opacity:1;transform:translateY(0)}}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:5px;border:2px solid #fff}::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.2)}.lesson-checkbox:checked+.lesson-label{text-decoration:line-through;color:#999}button:active{transform:scale(0.96)}@media print{.no-print{display:none!important}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+<link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen">
+<body class="bg-white text-ink min-h-screen" data-chapter="4">
 <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
 <div class="p-5 border-b border-black/[0.06]"><a href="../index.html" class="flex items-center gap-2.5"><div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><span class="text-[15px] font-semibold tracking-tight">react course</span></a></div>
 <div class="p-3"><div class="relative"><input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors"><svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div></div>
 <div class="px-3 pb-3"><div class="bg-surface rounded-lg p-3"><div class="flex justify-between text-xs text-muted mb-2"><span>Progress</span><span id="progressText" class="tabular-nums">0/10</span></div><div class="w-full bg-black/5 rounded-full h-1.5"><div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width:0%"></div></div></div></div></div>
-<nav class="px-2 pb-6 space-y-0.5"><p class="px-3 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider">Daftar Bab</p>
-<a href="chapter-1.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">1</span>Intro</a>
-<a href="chapter-2.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">2</span>React Dasar</a>
-<a href="chapter-3.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">3</span>Hooks Dasar</a>
-<a href="chapter-4.html" class="nav-link active flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink"><span class="w-6 h-6 bg-ink text-white rounded flex items-center justify-center text-xs font-bold tabular-nums">4</span>Hooks Advanced</a>
-<a href="chapter-5.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">5</span>Patterns</a>
-<a href="chapter-6.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">6</span>TypeScript</a>
-<a href="chapter-7.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">7</span>Next.js</a>
-<a href="chapter-8.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">8</span>State Mgmt</a>
-<a href="chapter-9.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">9</span>Testing</a>
-<a href="chapter-10.html" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted"><span class="w-6 h-6 bg-black/5 text-muted rounded flex items-center justify-center text-xs font-bold tabular-nums">10</span>Performance</a>
-</nav></aside>
+<nav id="sidebarNav" class="px-2 pb-6 space-y-0.5"></nav></aside>
 <main class="lg:ml-72 min-h-screen">
 <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
 <div class="flex items-center justify-between px-4 lg:px-8 h-16"><div class="flex items-center gap-4">
@@ -233,6 +220,39 @@ function SearchBar() {
 <div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jangan lupa:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.current</code> mutabel — bisa langsung assign. Tapi jangan baca/tulis pas proses rendering (di body function). Pakai di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> atau event handler aja.</p></div>
 <p class="text-[#333]">Satu gotcha yang sering bikin pusing: pas kamu render list dengan useRef, <strong class="text-ink">ref-nya bisa overlap</strong> kalau list-nya bisa berubah. Misal kamu punya list 5 item, terus filter jadi 3 — ref index 3 dan 4 masih nge-hold element yang udah nggak ada. Solusinya? Pakai callback ref pattern atau simpan refs di Map/Object. Ini teknik advanced, tapi penting buat ditahu supaya nggak kena bug misterius. 🐛</p>
 <p class="text-[#333]">Pro tip: useRef juga bisa dipake buat bikin <strong class="text-ink">custom "instance variable"</strong> buat component kamu. Misalnya kamu mau nyimpen scroll position, WebSocket connection, atau ID animation frame — semua ini nggak perlu trigger re-render. useRef jadi wadahnya. Ini pola yang dipake banyak library populer kayak React Query dan SWR. 🔥</p>
+<p class="text-[#333] mt-4">Daripada cuma baca teori, mending rasain sendiri. Playground di bawah nge-gabungin tiga kegunaan useRef sekaligus dalam satu komponen: <strong class="text-ink">(1)</strong> tombol "Fokus input" yang manggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">inputRef.current.focus()</code>, <strong class="text-ink">(2)</strong> render counter yang naik tiap render <em>tanpa</em> bikin render tambahan, dan <strong class="text-ink">(3)</strong> custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">usePrevious</code> buat nyimpen nilai sebelumnya. Ketik di input, perhatiin "Sekarang" vs "Sebelumnya" — dan lihat render counter yang jalan diam-diam. 👇</p>
+<script type="text/plain" id="pg-4-2">// ⚡ useRef — 3 kegunaan sekaligus, TANPA bikin re-render tambahan.
+// 1. inputRef   → tombol "Fokus" nge-fokusin input (akses DOM)
+// 2. renderCount → hitung berapa kali render (mutable value, bukan state!)
+// 3. usePrevious → custom hook nyimpen nilai render sebelumnya
+function usePrevious(value) {
+  const ref = React.useRef();
+  React.useEffect(() => { ref.current = value; }, [value]);
+  return ref.current;
+}
+
+function App() {
+  const [text, setText] = React.useState('');
+  const inputRef = React.useRef(null);
+  const renderCount = React.useRef(0);
+  renderCount.current += 1; // aman: render counter dev-only, nggak dipakai buat logic
+  const prevText = usePrevious(text);
+
+  return (
+    <div>
+      <input ref={inputRef} value={text}
+        onChange={e => setText(e.target.value)} placeholder="ketik sesuatu..." />{' '}
+      <button onClick={() => inputRef.current.focus()}>Fokus input</button>
+      <p>Sekarang: <b>{text || '(kosong)'}</b></p>
+      <p>Sebelumnya: <b>{prevText || '(kosong)'}</b></p>
+      <p style={{ color: '#666', fontSize: 13 }}>
+        Komponen udah render {renderCount.current}x — angka ini naik lewat ref,
+        jadi dia NGGAK memicu render lagi. Itu bedanya ref sama state. 😎
+      </p>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-4-2"></div>
 </section>
 
 <!-- LESSON 4: useContext -->
@@ -396,6 +416,42 @@ function ComplexForm() {
 <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Kapan pilih useReducer vs useState?</strong> Kalau state kamu saling terkait dan update-nya kompleks — pake useReducer. Kalau cuma simple kayak toggle atau counter — useState udah cukup. Intinya: <strong class="text-ink">pake yang paling mudah dipahami untuk kasusmu</strong>.</p></div>
 <p class="text-[#333]">Satu pattern advanced yang wajib kamu tahu: <strong class="text-ink">useReducer bisa dispatch dari context</strong>. Ini pattern yang dipake Redux sendiri! Kamu bisa bikin Provider yang ngasih state + dispatch ke semua child, tanpa harus props drilling. Ini cocok buat app-level state management tanpa library external. Power duo: useReducer + useContext = lightweight Redux! 💪</p>
 <p class="text-[#333]">Contoh nyata: form dengan 10 field, loading state, validation errors, dan conditional rendering. Dengan useState kamu butuh 10+ setter functions yang saling terkait. Dengan useReducer? Satu reducer function, semua logic terpusat, dan state transition-nya predictable. Code-nya lebih clean, lebih mudah di-debug, dan lebih gampang ditest. 🧪</p>
+<p class="text-[#333] mt-4">Ayo coba langsung. Playground di bawah ini counter versi useReducer dengan <strong class="text-ink">step yang bisa diganti</strong> — perhatiin gimana semua logic update (increment, decrement, ganti step, reset) hidup di satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">reducer</code> function, dan component-nya cuma nge-dispatch action. Tantangan buat kamu: tambahin sendiri action <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ type: 'double' }</code> yang ngaliin count jadi 2x, terus bikin tombolnya. Cuma nambah satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">case</code> — tanpa nyentuh yang lain. Itu kekuatan reducer. 👇</p>
+<script type="text/plain" id="pg-4-1">// ⚡ useReducer — semua logika update terpusat di satu reducer function.
+// Component cuma nge-dispatch action, reducer yang nentuin state baru.
+// COBA: tambahin case 'double' → count jadi 2x, lalu bikin tombolnya!
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment': return { ...state, count: state.count + state.step };
+    case 'decrement': return { ...state, count: state.count - state.step };
+    case 'setStep':   return { ...state, step: action.payload };
+    case 'reset':     return { count: 0, step: 1 };
+    default:          return state;
+  }
+}
+
+function App() {
+  const [state, dispatch] = React.useReducer(reducer, { count: 0, step: 1 });
+  return (
+    <div>
+      <h2 style={{ margin: '4px 0' }}>Count: {state.count}</h2>
+      <p style={{ color: '#666' }}>Langkah sekarang: {state.step}</p>
+      <button onClick={() => dispatch({ type: 'decrement' })}>− {state.step}</button>{' '}
+      <button onClick={() => dispatch({ type: 'increment' })}>+ {state.step}</button>{' '}
+      <button onClick={() => dispatch({ type: 'reset' })}>Reset</button>
+      <div style={{ marginTop: 10 }}>
+        Ganti langkah:{' '}
+        {[1, 5, 10].map(s => (
+          <button key={s} onClick={() => dispatch({ type: 'setStep', payload: s })}
+            style={{ fontWeight: state.step === s ? 700 : 400, marginRight: 4 }}>
+            {s}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}</script>
+<div class="playground-mount mt-4 mb-4" data-code-id="pg-4-1"></div>
 </section>
 
 <!-- LESSON 6: Custom Hooks -->
@@ -683,6 +739,439 @@ export default TaskManager;</code></pre></div></div>
 <div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 Challenge!</strong> Extend Task Manager ini sebagai latihan: (1) Tambahkan edit task inline, (2) Tambahkan drag-and-drop reordering, (3) Tambahkan due date dengan sorting, (4) Tambahkan search/filter by text. Semua ini bisa ditambahin tanpa ngubah reducer yang udah ada — cukup tambah action type baru!</p></div>
 </section>
 
+<!-- LESSON SENIOR: Custom Hooks — Ekstraksi Logic -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-xs">🔴</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">LEVEL SENIOR: CUSTOM HOOKS — EKSTRAKSI LOGIC YANG BENER 🧬</h2><input type="checkbox" id="check-4-13" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-4-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Level Senior &middot; 14 menit baca</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p>Di lesson 6 lo udah kenalan sama custom hooks. Sekarang kita naikin ke level yang misahin developer yang "bisa bikin custom hook" sama yang "tau kapan HARUS dan kapan JANGAN bikin custom hook". Karena rahasianya: <strong class="text-ink">custom hook yang jelek lebih berbahaya dari nggak ada custom hook sama sekali</strong>. Abstraksi yang salah bikin kode lebih susah dibaca, lebih susah di-debug, dan nyembunyiin bug di balik nama yang keliatan rapi.</p>
+<p>Pertama, luruskan model mentalnya: custom hook itu <strong class="text-ink">bukan</strong> cara berbagi state, tapi cara berbagi <em>stateful logic</em>. Bedanya halus tapi penting. Kalau dua komponen pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useToggle()</code>, mereka nggak share nilai toggle yang sama — masing-masing dapet <strong class="text-ink">state-nya sendiri yang independen</strong>. Yang di-share cuma "resep"-nya. Analoginya kayak resep nasi goreng 🍳: sepuluh orang bisa pakai resep yang sama, tapi masing-masing masak di dapur sendiri dengan wajan sendiri. Mau share nasi goreng yang sama? Itu Context (lesson 4), bukan custom hook.</p>
+<p>Kedua, <strong class="text-ink">Rules of Hooks itu bukan aturan gaya — itu konsekuensi arsitektur</strong>. React nyimpen state tiap hook sebagai <em>linked list berurutan</em> di balik layar, dicocokkan berdasarkan <strong class="text-ink">urutan pemanggilan</strong>, bukan nama. Makanya hook wajib dipanggil: (1) di top-level, nggak boleh di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if</code>/loop/nested function, dan (2) dalam urutan yang sama tiap render. Kalau render pertama manggil 3 hook lalu render kedua cuma 2 (karena ada <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if</code> yang nge-skip), React nyocokin state ke slot yang salah — state lo ketuker. Ini berlaku juga di dalam custom hook: custom hook lo boleh manggil hook lain, TAPI harus tetap top-level di dalam hook itu.</p>
+<p>Ketiga, <strong class="text-ink">komposisi hook</strong> — ini superpower yang sebenarnya. Custom hook bisa manggil custom hook lain, jadi lo bisa nyusun hook kecil-kecil jadi hook yang lebih pintar. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDebounce</code> dibangun dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code>. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useSearch</code> bisa dibangun dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDebounce</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useFetch</code>. Tiap lapisan kecil, fokus, dan testable. Ini persis pola "small functions that compose" dari functional programming, dibawa ke dunia React. 🧱</p>
+<p>Keempat, <strong class="text-ink">konvensi penamaan &amp; return value</strong>. Nama wajib diawali <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">use</code> (biar linter bisa nge-enforce Rules of Hooks). Soal return: kalau hook return <strong class="text-ink">dua nilai yang satu "value" satu "setter"</strong>, pakai array <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[value, setValue]</code> — persis kayak useState, biar user bisa rename bebas (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const [isOpen, toggleOpen] = useToggle()</code>). Kalau return <strong class="text-ink">banyak nilai</strong> (3+), pakai object <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ data, loading, error }</code> biar nggak salah urutan dan bisa di-destructure sebagian. Aturan praktisnya: 2 nilai → array, 3+ → object.</p>
+<p>Kelima — dan ini yang paling sering dilupain junior — <strong class="text-ink">kapan JANGAN bikin custom hook</strong>. Jangan bikin abstraksi cuma karena "kayaknya bakal dipake lagi" (belum tentu — ini namanya <em>speculative abstraction</em>). Aturan sehat: <strong class="text-ink">tunggu sampai lo nulis logic yang sama 2-3 kali</strong> baru ekstrak (prinsip "Rule of Three"). Jangan juga ekstrak cuma buat "mempersingkat komponen" kalau logic-nya cuma dipake sekali dan nggak nyimpen state — itu cukup jadi fungsi biasa (yang nggak manggil hook), bukan custom hook. Dan jangan bikin custom hook yang cuma bungkus satu hook bawaan tanpa nambah value (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMyState = useState</code> itu useless). Custom hook yang bagus: <em>menyembunyikan kompleksitas, bukan sekadar memindahkannya</em>.</p>
+</div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Tiga custom hook produksi: useToggle, useLocalStorage, useDebounce</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState, useEffect, useCallback, useRef } from 'react';
+
+// 🔧 useToggle — 2 nilai (value + toggler) → return ARRAY (kayak useState)
+function useToggle(initial = false) {
+  const [on, setOn] = useState(initial);
+  // useCallback DENGAN deps kosong yang bener: setOn stabil, jadi
+  // toggle referensinya nggak berubah antar render → aman buat React.memo
+  const toggle = useCallback(() =&gt; setOn(prev =&gt; !prev), []);
+  return [on, toggle];
+}
+
+// 🔧 useLocalStorage — sinkron state ke localStorage, auto-restore saat mount
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() =&gt; {
+    try {
+      const saved = localStorage.getItem(key);
+      return saved !== null ? JSON.parse(saved) : initialValue;
+    } catch { return initialValue; }
+  });
+  useEffect(() =&gt; {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+}
+
+// 🔧 useDebounce — return SATU nilai "versi telat". Cocok buat search input.
+function useDebounce(value, delay = 500) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() =&gt; {
+    const id = setTimeout(() =&gt; setDebounced(value), delay);
+    return () =&gt; clearTimeout(id); // cleanup: batalin timer lama tiap value ganti
+  }, [value, delay]);
+  return debounced;
+}</code></pre></div></div>
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Komposisi hook: useSearch dibangun dari useDebounce</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Hook kecil dikomposisikan jadi hook yang lebih pintar.
+// useSearch = useState (input) + useDebounce (nunda) + useEffect (fetch)
+function useSearch(fetcher, delay = 400) {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, delay); // ← komposisi!
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() =&gt; {
+    if (!debouncedQuery) { setResults([]); return; }
+    let ignore = false;              // guard anti race condition
+    setLoading(true);
+    fetcher(debouncedQuery)
+      .then(data =&gt; { if (!ignore) setResults(data); })
+      .finally(() =&gt; { if (!ignore) setLoading(false); });
+    return () =&gt; { ignore = true; }; // cleanup: abaikan respons lama
+  }, [debouncedQuery, fetcher]);
+
+  // 4 nilai → return OBJECT, bukan array
+  return { query, setQuery, results, loading };
+}
+
+// Pemakaian: component-nya jadi tipis banget, semua logic di hook
+function SearchBox() {
+  const { query, setQuery, results, loading } = useSearch(cariProduk);
+  return (
+    &lt;div&gt;
+      &lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;
+      {loading &amp;&amp; &lt;span&gt;⏳&lt;/span&gt;}
+      &lt;ul&gt;{results.map(r =&gt; &lt;li key={r.id}&gt;{r.nama}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Custom hook nggak wajib return apa-apa! Hook kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useDocumentTitle(title)</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useOnClickOutside(ref, handler)</code> cukup ngejalanin side effect di dalam dan return <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code>. Custom hook itu soal "ngebungkus perilaku", bukan wajib "ngasih nilai". Yang bikin dia hook (bukan fungsi biasa) adalah dia manggil hook React di dalamnya.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan ekstrak custom hook cuma biar komponen "keliatan pendek". Kalau logic-nya dipake sekali dan nggak nyimpen state, itu cukup jadi fungsi biasa di luar komponen. Custom hook yang di-ekstrak terlalu dini bikin lo loncat-loncat antar file buat ngerti satu fitur — <em>abstraksi punya ongkos kognitif</em>. Tunggu Rule of Three: ekstrak setelah lo nulis pola yang sama 2-3 kali, bukan sebelumnya.</p></div>
+</section>
+
+<!-- KESALAHAN UMUM -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — DOSA HOOKS ADVANCED YANG PALING SERING 🚨</h2><input type="checkbox" id="check-4-12" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-4-12" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Lima kesalahan yang paling sering muncul di code review — pola: kode salah → kenapa → kode benar</p></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed">
+<p><strong class="text-ink">1. useMemo / useCallback di mana-mana (premature optimization).</strong> Ini dosa nomor satu. Junior yang baru belajar optimasi cenderung bungkus SEMUA kalkulasi pakai useMemo dan SEMUA function pakai useCallback "biar aman". Kenyataannya: dua hook ini punya <em>ongkos</em> — React harus nyimpen hasil + array deps di memory dan bandingin deps tiap render. Buat kalkulasi murah atau function yang nggak dikirim ke komponen ber-<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">memo</code>, ongkosnya lebih besar dari manfaatnya — plus kodenya jadi berisik dan susah dibaca.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #1 — memoize semuanya</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — memoize kalkulasi murah &amp; function yang nggak butuh stabil
+const fullName = useMemo(() =&gt; `${first} ${last}`, [first, last]); // overkill
+const double = useMemo(() =&gt; count * 2, [count]);                   // overkill
+const handleClick = useCallback(() =&gt; setOpen(true), []);          // dikirim ke &lt;button&gt; biasa? sia-sia
+
+// ✅ BENAR — tulis langsung; simpel = cepat dibaca DAN dijalankan
+const fullName = `${first} ${last}`;
+const double = count * 2;
+const handleClick = () =&gt; setOpen(true);
+
+// useMemo/useCallback CUMA saat: (1) kalkulasi beneran berat (filter/sort data gede),
+// (2) referensi dikirim ke komponen React.memo, atau (3) jadi dependency effect lain.</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">2. useRef buat nyimpen state yang HARUSNYA trigger render.</strong> Karena update ref nggak bikin re-render, sebagian orang pakai ref buat "ngehindarin re-render". Masalahnya: kalau nilai itu <em>ditampilin di UI</em>, UI-nya nggak akan update pas ref berubah — lo ngubah data tapi layar diem. Aturan mati: nilai yang keliatan di render → useState. Nilai "di belakang layar" (timer id, DOM node, flag internal) → useRef.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 — ref buat data yang dirender</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — count di ref, dirender di UI → klik tombol, angka NGGAK berubah
+function Counter() {
+  const count = useRef(0);
+  return &lt;button onClick={() =&gt; { count.current++; }}&gt;{count.current}&lt;/button&gt;;
+  // count.current beneran naik di memory, tapi React nggak render ulang → UI beku 😶
+}
+
+// ✅ BENAR — nilai yang tampil di UI wajib pakai useState
+function Counter() {
+  const [count, setCount] = useState(0);
+  return &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;{count}&lt;/button&gt;;
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">3. Bentuk action useReducer yang nggak konsisten.</strong> Reducer nyocokin action lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">action.type</code>. Kalau lo campur-campur: kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ type: 'add', value }</code>, kadang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ type: 'add', payload }</code>, kadang lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">type</code> sama sekali — reducer jatuh ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">default</code> diam-diam dan state nggak berubah, tanpa error. Bug senyap yang bikin pusing. Tetapkan satu konvensi (biasanya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ type, payload }</code>) dan patuhi. Bonus: selalu sediakan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">default</code> yang minimal return state (jangan lempar/ubah tak sengaja).</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #3 — action shape berantakan</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — nama field &amp; type nggak konsisten, ada yang lupa 'type'
+dispatch({ type: 'ADD', value: 'Beli susu' });   // pakai .value
+dispatch({ type: 'add', text: 'Beli telur' });   // pakai .text + huruf beda
+dispatch({ payload: 'Beli roti' });              // LUPA type → jatuh ke default, senyap 💀
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'ADD': return [...state, action.payload]; // baca .payload, tapi dikirim .value → undefined!
+    default: return state;
+  }
+}
+
+// ✅ BENAR — satu konvensi { type, payload }, dipatuhi konsisten
+dispatch({ type: 'ADD_TODO', payload: 'Beli susu' });
+dispatch({ type: 'ADD_TODO', payload: 'Beli telur' });
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'ADD_TODO': return [...state, action.payload];
+    default:         return state; // default aman: state nggak berubah
+  }
+}</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">4. useCallback tanpa deps yang stabil (percuma memoize).</strong> Tujuan useCallback: jaga <em>referensi function tetap sama</em> antar render. Tapi kalau salah satu deps-nya adalah nilai yang berubah tiap render (misal object/array yang dibikin inline, atau function lain yang nggak di-memo), maka useCallback bikin function baru terus — sama aja kayak nggak pakai useCallback, malah nambah ongkos. Sering banget kejadian pas useCallback dikombinasi sama object props yang dibuat inline.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #4 — deps yang selalu berubah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — config object dibikin inline tiap render → deps selalu baru
+function Parent() {
+  const config = { limit: 10 };                    // objek BARU tiap render
+  const load = useCallback(() =&gt; fetchData(config), [config]); // config beda → load beda tiap render
+  return &lt;Child onLoad={load} /&gt;;                   // React.memo di Child jadi sia-sia
+}
+
+// ✅ BENAR — deps berupa nilai primitif yang stabil (atau object di-memo)
+function Parent() {
+  const limit = 10;                                // primitif, stabil
+  const load = useCallback(() =&gt; fetchData({ limit }), [limit]); // load stabil ✅
+  return &lt;Child onLoad={load} /&gt;;
+}
+// Tips: kalau deps HARUS object, memoize objeknya juga: const config = useMemo(() =&gt; ({ limit }), [limit]);</code></pre></div></div>
+<div class="space-y-4 text-[#333] leading-relaxed mt-6">
+<p><strong class="text-ink">5. Baca / tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref.current</code> saat render.</strong> Ingat dari lesson render vs commit: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref.current</code> untuk DOM baru diisi <em>setelah</em> commit, dan render harus pure. Baca ref buat nentuin apa yang dirender = hasil bisa nggak konsisten (ref masih nunjuk nilai lama / null), dan nulis ref saat render = side effect di tempat yang salah. Tempat yang benar buat sentuh ref: event handler atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code>.</p>
+</div>
+<div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #5 — sentuh ref saat render</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Box() {
+  const boxRef = useRef(null);
+
+  // ❌ SALAH — baca DOM ref saat render: saat render pertama boxRef.current masih null,
+  //    dan render harus pure (nggak boleh gantung ke DOM yang belum ada)
+  const width = boxRef.current ? boxRef.current.offsetWidth : 0; // 💥 unreliable
+  return &lt;div ref={boxRef}&gt;Lebar: {width}&lt;/div&gt;;
+}
+
+// ✅ BENAR — ukur DOM di useLayoutEffect/useEffect (setelah commit), simpan ke state
+function Box() {
+  const boxRef = useRef(null);
+  const [width, setWidth] = useState(0);
+  useEffect(() =&gt; {
+    setWidth(boxRef.current.offsetWidth); // ref udah nunjuk DOM asli di sini
+  }, []);
+  return &lt;div ref={boxRef}&gt;Lebar: {width}&lt;/div&gt;;
+}</code></pre></div></div>
+
+<!-- LATIHAN -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — UJI PEMAHAMAN LO</h3>
+<p class="text-sm text-muted mb-4">Jawab dulu di kepala sebelum buka solusinya. Ini gaya soal yang beneran keluar di code review &amp; interview.</p>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Tulis custom hook useToggle dari nol</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useToggle(initial)</code> yang return <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[on, toggle]</code>. Bonus: sediakan juga cara nge-set nilai eksplisit (bukan cuma toggle). Pikirin: kenapa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> sebaiknya pakai updater function <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setOn(prev =&gt; !prev)</code>, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setOn(!on)</code>?</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function useToggle(initial = false) {
+  const [on, setOn] = useState(initial);
+  // updater function → toggle nggak gantung ke nilai `on` dari closure,
+  // jadi deps-nya bisa kosong dan referensinya stabil selamanya
+  const toggle = useCallback(() =&gt; setOn(prev =&gt; !prev), []);
+  const setTrue = useCallback(() =&gt; setOn(true), []);
+  const setFalse = useCallback(() =&gt; setOn(false), []);
+  return [on, toggle, { setTrue, setFalse }];
+}
+
+// Pakai:
+const [isOpen, toggleOpen] = useToggle();
+// &lt;button onClick={toggleOpen}&gt;{isOpen ? 'Tutup' : 'Buka'}&lt;/button&gt;</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Kenapa updater function?</strong> Kalau pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setOn(!on)</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> harus masukin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">on</code> ke deps useCallback — artinya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggle</code> bikin referensi baru tiap <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">on</code> berubah, memoize-nya jadi setengah sia-sia. Dengan updater, deps kosong dan referensi stabil selamanya.</p>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Cari bug — kenapa list-nya nggak pernah update?</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <div class="code-block rounded-xl overflow-hidden mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — tombol "Tambah" diklik, tapi UI diem</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function TodoList() {
+  const items = useRef([]);          // "biar nggak re-render terus", katanya
+  const inputRef = useRef(null);
+
+  function tambah() {
+    items.current.push(inputRef.current.value);
+    inputRef.current.value = '';
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;input ref={inputRef} /&gt;
+      &lt;button onClick={tambah}&gt;Tambah&lt;/button&gt;
+      &lt;ul&gt;{items.current.map((t, i) =&gt; &lt;li key={i}&gt;{t}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+    <p class="text-sm text-[#333] leading-relaxed mb-3"><strong class="text-ink">Bug-nya:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">items</code> disimpan di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code>, jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">push</code> beneran nambah data di memory — TAPI nggak ada yang men-trigger re-render, jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;ul&gt;</code>-nya nggak pernah digambar ulang. Ini persis Kesalahan #2: data yang dirender wajib pakai useState. (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">inputRef</code> tetap boleh ref — itu akses DOM murni, nggak dirender.)</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function TodoList() {
+  const [items, setItems] = useState([]);  // dirender → useState
+  const inputRef = useRef(null);           // akses DOM → useRef (ini udah bener)
+
+  function tambah() {
+    const teks = inputRef.current.value.trim();
+    if (!teks) return;
+    setItems(prev =&gt; [...prev, teks]);      // referensi BARU → React render ulang
+    inputRef.current.value = '';
+  }
+  // ...render sama seperti sebelumnya, tapi sekarang list update ✅
+}</code></pre></div>
+  </div>
+</details>
+
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: useState atau useReducer? Ambil keputusan</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Buat tiap skenario, tentuin: useState atau useReducer? Jawab di kepala dulu, baru cek.</p>
+    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">A.</strong> Toggle dark mode (satu boolean). <strong class="text-ink">B.</strong> Form wizard 4 langkah dengan validasi tiap step, tombol back/next, dan state yang saling gantung. <strong class="text-ink">C.</strong> Nilai input search tunggal. <strong class="text-ink">D.</strong> State keranjang belanja: tambah item, hapus, ubah qty, apply kupon, hitung subtotal.</p>
+    <p class="text-sm text-[#333] leading-relaxed mt-3"><strong class="text-ink">Jawaban:</strong> <strong class="text-ink">A → useState</strong> (satu nilai simpel, useReducer overkill). <strong class="text-ink">B → useReducer</strong> (banyak transisi yang saling gantung, enak dipusatkan). <strong class="text-ink">C → useState</strong> (satu nilai). <strong class="text-ink">D → useReducer</strong> (banyak tipe aksi: ADD/REMOVE/UPDATE_QTY/APPLY_COUPON — reducer bikin logic terpusat &amp; testable). <strong class="text-ink">Pola umum:</strong> banyak <em>tipe update</em> yang saling terkait → useReducer; satu-dua nilai independen → useState. Ragu? Mulai dari useState, refactor ke useReducer pas useState-nya udah mulai numpuk &amp; saling gantung.</p>
+  </div>
+</details>
+</div>
+
+<!-- CHALLENGE -->
+<div class="mt-10">
+<h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — LENGKAPI REDUCER COUNTER</h3>
+<p class="text-sm text-[#333] leading-relaxed mb-4">Counter di bawah pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code>, tapi reducer-nya <strong class="text-ink">baru nangani <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'increment'</code></strong>. Tugas lo: tambahin case <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'decrement'</code> (−1) dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'reset'</code> (balik ke 0) supaya <strong class="text-ink">semua test lulus</strong>. Klik <strong class="text-ink">▶ Test</strong> buat ngecek — starter-nya pasti gagal di test decrement &amp; reset.</p>
+<script type="text/plain" id="ch-4-1">// 🎯 Lengkapi reducer-nya! Klik "▶ Test" buat lihat test yang gagal.
+// Counter harus bisa: increment (+1), decrement (-1), reset (ke 0).
+// Starter ini baru nangani 'increment' — tambahin 'decrement' & 'reset'.
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    // TODO: tambahkan case 'decrement' → return { count: state.count - 1 };
+    // TODO: tambahkan case 'reset'     → return { count: 0 };
+    default:
+      return state;
+  }
+}
+
+function App() {
+  const [state, dispatch] = React.useReducer(reducer, { count: 0 });
+  return (
+    <div>
+      <p>Count: <b data-testid="count">{state.count}</b></p>
+      <button data-act="inc" onClick={() => dispatch({ type: 'increment' })}>+</button>{' '}
+      <button data-act="dec" onClick={() => dispatch({ type: 'decrement' })}>−</button>{' '}
+      <button data-act="reset" onClick={() => dispatch({ type: 'reset' })}>Reset</button>
+    </div>
+  );
+}</script>
+<script type="text/plain" id="ch-4-1-test">var root = document.getElementById('root');
+function countVal() {
+  var el = root.querySelector('[data-testid="count"]');
+  return el ? el.textContent.trim() : null;
+}
+function clickAct(a) {
+  var b = root.querySelector('button[data-act="' + a + '"]');
+  if (b) ReactDOM.flushSync(function () { b.click(); });
+}
+expect('Count awal = 0', countVal() === '0');
+clickAct('inc'); clickAct('inc');
+expect('Setelah 2x increment, count = 2', countVal() === '2');
+clickAct('dec');
+expect('Setelah decrement, count = 1 (butuh case decrement)', countVal() === '1');
+clickAct('inc'); clickAct('reset');
+expect('Setelah reset, count = 0 (butuh case reset)', countVal() === '0');</script>
+<!-- SOLUSI ch-4-1 (untuk maintainer — semua test lulus dengan ini):
+       case 'decrement': return { count: state.count - 1 };
+       case 'reset':     return { count: 0 };
+     Starter gagal karena 'decrement' & 'reset' jatuh ke default (state nggak berubah):
+     test decrement (harap 1) dapat 2, test reset (harap 0) dapat nilai lama. -->
+<div class="challenge-mount mt-4 mb-4" data-code-id="ch-4-1"></div>
+<details class="exercise bg-white rounded-xl shadow-soft mt-4">
+  <summary class="px-5 py-4 flex items-center justify-between">
+    <span class="font-semibold text-ink text-sm">✅ Solusi Challenge — buka kalau udah nyerah (atau mau ngecek)</span>
+    <span class="text-xs text-muted">klik untuk lihat solusi</span>
+  </summary>
+  <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+    <p class="text-sm text-[#333] leading-relaxed mb-3">Cukup tambahin dua <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">case</code> di reducer — tanpa nyentuh komponen sama sekali. Itu keindahan useReducer: nambah perilaku = nambah case, logic tetap terpusat.</p>
+    <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap reducer</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'reset':
+      return { count: 0 };
+    default:
+      return state;
+  }
+}</code></pre></div>
+  </div>
+</details>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 mt-6 fade-in" id="quiz">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — SEBERAPA PAHAM LO SAMA HOOKS ADVANCED? 🎤</h2><p class="text-sm text-muted mt-1">8 soal rasa interview. Skor terbaik lo kesimpen otomatis.</p></div></div>
+<script type="application/json" id="quiz-4">
+[
+  {
+    "q": "Kapan useMemo beneran layak dipakai?",
+    "options": [
+      "Cuma buat kalkulasi berat (filter/sort data besar), nilai yang jadi dependency effect lain, atau props buat komponen React.memo",
+      "Setiap kali komponen punya lebih dari 3 variabel",
+      "Buat semua string yang di-render",
+      "Di semua kalkulasi biar aman"
+    ],
+    "answer": 0,
+    "explain": "useMemo punya ongkos (nyimpen hasil + cek deps tiap render). Buat kalkulasi murah, ongkosnya lebih besar dari manfaatnya. Pakai cuma saat kalkulasi beneran berat, atau saat referensi hasilnya perlu stabil buat effect / React.memo."
+  },
+  {
+    "q": "Secara internal, useCallback(fn, deps) itu ekivalen dengan apa?",
+    "options": [
+      "useRef(fn)",
+      "useMemo(() => fn, deps)",
+      "useEffect(fn, deps)",
+      "useState(fn)"
+    ],
+    "answer": 1,
+    "explain": "useCallback cuma useMemo yang di-spesialisasi buat function. useMemo nge-cache nilai hasil pemanggilan, useCallback nge-cache function-nya sendiri. Konsep sama, target beda."
+  },
+  {
+    "q": "Lo update ref.current yang nilainya ditampilin di UI. Apa yang kejadian?",
+    "options": [
+      "Ref otomatis dikonversi jadi state",
+      "UI langsung update kayak useState",
+      "Nilai berubah di memory, tapi komponen NGGAK re-render jadi UI diem",
+      "React lempar error"
+    ],
+    "answer": 2,
+    "explain": "Update ref NGGAK memicu re-render — itu memang gunanya. Tapi kalau nilainya dirender di UI, layar nggak ikut berubah. Aturan: nilai yang tampil di UI wajib useState; ref cuma buat data 'di belakang layar' (timer id, DOM node, flag)."
+  },
+  {
+    "q": "Kenapa useCallback yang salah satu deps-nya object dibuat inline itu sering percuma?",
+    "options": [
+      "useCallback cuma menerima array kosong",
+      "React otomatis membekukan object inline",
+      "Object nggak boleh jadi dependency",
+      "Object inline itu referensi BARU tiap render, jadi deps selalu berubah → useCallback bikin function baru terus (sama kayak nggak pakai)"
+    ],
+    "answer": 3,
+    "explain": "Tujuan useCallback jaga referensi stabil. Kalau deps-nya object/array inline (referensi baru tiap render), function-nya ikut dibuat ulang tiap render — memoize-nya sia-sia. Solusi: pakai deps primitif, atau memoize objek-nya juga pakai useMemo."
+  },
+  {
+    "q": "Reducer nerima action { payload: 'x' } tapi lupa field type. Apa yang terjadi di reducer yang punya default: return state?",
+    "options": [
+      "Reducer jatuh ke case default → state nggak berubah, tanpa error (bug senyap)",
+      "React nebak type dari payload",
+      "Semua case dijalankan",
+      "React lempar error 'missing action type'"
+    ],
+    "answer": 0,
+    "explain": "Reducer nyocokin action lewat action.type. Kalau type undefined, switch jatuh ke default dan state balik apa adanya — nggak ada yang berubah, nggak ada error. Bug senyap ini alasan kenapa action shape wajib konsisten (biasanya { type, payload })."
+  },
+  {
+    "q": "Kenapa ref.current untuk DOM nggak boleh dibaca saat render (di body komponen)?",
+    "options": [
+      "Karena ref selalu null",
+      "Karena ref.current untuk DOM baru diisi SETELAH commit; saat render dia bisa masih null / nilai lama, dan render harus pure",
+      "Karena membaca ref itu lambat",
+      "Karena React melarang semua akses ref"
+    ],
+    "answer": 1,
+    "explain": "DOM ref baru terisi di commit phase (setelah render). Baca saat render = bisa dapat null (render pertama) atau nilai lama, dan bikin render nggak pure. Tempat yang benar: event handler atau useEffect/useLayoutEffect."
+  },
+  {
+    "q": "Apa yang PALING benar soal custom hook yang dipakai dua komponen berbeda?",
+    "options": [
+      "Perubahan di satu komponen memicu re-render komponen lain",
+      "Kedua komponen berbagi state yang sama",
+      "Tiap komponen dapat state-nya sendiri yang independen; yang di-share cuma logic-nya",
+      "Custom hook otomatis bikin Context"
+    ],
+    "answer": 2,
+    "explain": "Custom hook berbagi stateful LOGIC, bukan state. Tiap pemakaian punya instance state sendiri. Mau share nilai yang sama antar komponen? Itu tugas Context, bukan custom hook."
+  },
+  {
+    "q": "Prinsip 'Rule of Three' untuk custom hook artinya apa?",
+    "options": [
+      "Setiap hook wajib return 3 nilai",
+      "Nama hook maksimal 3 kata",
+      "Custom hook maksimal boleh manggil 3 hook",
+      "Ekstrak jadi custom hook setelah lo nulis pola logic yang sama 2-3 kali, bukan spekulatif di awal"
+    ],
+    "answer": 3,
+    "explain": "Abstraksi punya ongkos kognitif. Jangan bikin custom hook cuma karena 'mungkin dipake lagi'. Tunggu sampai pola yang sama muncul beberapa kali, baru ekstrak — abstraksi yang terbukti dibutuhkan, bukan tebakan."
+  }
+]
+</script>
+<div class="quiz-mount mt-6" data-quiz-id="quiz-4"></div>
+</section>
+
 <!-- SUMMARY/RECAP -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="summary">
 <div class="flex items-start gap-4 mb-6">
@@ -721,16 +1210,7 @@ Gas ke Bab 5 →
 </section>
 </div></main>
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
-<script>
-function toggleSidebar(){const s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay');s.classList.toggle('-translate-x-full');o.classList.toggle('hidden')}
-window.addEventListener('scroll',()=>{const b=document.getElementById('backToTop');if(window.scrollY>300){b.classList.remove('opacity-0','pointer-events-none');b.classList.add('opacity-100')}else{b.classList.add('opacity-0','pointer-events-none');b.classList.remove('opacity-100')}});
-hljs.highlightAll();
-function copyCode(btn){const code=btn.closest('.code-block').querySelector('code').textContent;navigator.clipboard.writeText(code).then(()=>{const orig=btn.textContent;btn.textContent='Tersalin!';setTimeout(()=>btn.textContent=orig,2000)})}
-function getProgress(){const s=localStorage.getItem('react-course-progress');return s?JSON.parse(s):{}}
-function saveProgress(d){localStorage.setItem('react-course-progress',JSON.stringify(d))}
-function updateProgress(){const p=getProgress();const total=document.querySelectorAll('.lesson-checkbox').length;const checked=document.querySelectorAll('.lesson-checkbox:checked').length;p['chapter-4']={completed:checked,total};saveProgress(p);renderGlobalProgress()}
-function renderGlobalProgress(){const p=getProgress();let tc=0,tl=0;for(let i=1;i<=10;i++){const ch=p['chapter-'+i];if(ch){tc+=ch.completed;tl+=ch.total}}const pct=tl>0?Math.round((tc/tl)*100):0;const bar=document.getElementById('progressBar');const text=document.getElementById('progressText');if(bar)bar.style.width=pct+'%';if(text)text.textContent=tc+'/'+tl}
-function markChapterComplete(ch){const p=getProgress();const checks=document.querySelectorAll('.lesson-checkbox');checks.forEach(c=>c.checked=true);p['chapter-'+ch]={completed:checks.length,total:checks.length};saveProgress(p);renderGlobalProgress();const btn=document.getElementById('completeBtn'+ch);if(btn){btn.textContent='✓ Bab Selesai!';btn.classList.add('opacity-75');btn.disabled=true}}
-renderGlobalProgress();
-</script>
+<script src="../assets/course.js"></script>
+<script src="../assets/playground.js"></script>
+<script src="../assets/quiz.js"></script>
 </body></html>
