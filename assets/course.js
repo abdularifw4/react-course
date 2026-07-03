@@ -106,6 +106,96 @@ function renderGlobalProgress() {
   if (text) text.textContent = completed + '/' + total;
 }
 
+/* ---- Landing page dashboard (only runs where #dashboardMount exists) ---- */
+function renderDashboard() {
+  const mount = document.getElementById('dashboardMount');
+  if (!mount) return; // no-op on chapter pages
+  const base = mount.dataset.base || ''; // e.g. "chapters/" from repo root
+  const progress = getProgress();
+
+  // Aggregate overall + per-level completion, track last-touched chapter.
+  let doneAll = 0, totalAll = 0, lastId = -1;
+  const levelAgg = {}; // level key -> { done, total }
+  for (const ch of CHAPTERS) {
+    const p = progress['chapter-' + ch.id];
+    const d = p && Array.isArray(p.done) ? p.done.length : 0;
+    const t = p && p.total ? p.total : 0;
+    doneAll += d;
+    totalAll += t;
+    if (!levelAgg[ch.level]) levelAgg[ch.level] = { done: 0, total: 0 };
+    levelAgg[ch.level].done += d;
+    levelAgg[ch.level].total += t;
+    if (d > 0 && ch.id > lastId) lastId = ch.id;
+  }
+
+  // No progress → render nothing (degrades gracefully, no chrome left behind).
+  if (doneAll === 0 || lastId < 0) { mount.innerHTML = ''; return; }
+
+  const pct = totalAll > 0 ? Math.round((doneAll / totalAll) * 100) : 0;
+  const last = CHAPTERS.find(c => c.id === lastId) || CHAPTERS[0];
+
+  // If the last-touched chapter is fully done, point "Lanjut" to the next one.
+  const lastP = progress['chapter-' + last.id];
+  const lastDone = lastP && lastP.total > 0 && (lastP.done || []).length >= lastP.total;
+  let target = last;
+  if (lastDone) {
+    const nxt = CHAPTERS.find(c => c.id === last.id + 1);
+    if (nxt) target = nxt;
+  }
+  const targetLevel = LEVELS[target.level] || { label: '', dot: '#0B0B0B' };
+
+  // Per-level bars in fixed pedagogical order.
+  const order = ['fondasi', 'menengah', 'mahir', 'senior'];
+  const bars = order.map(key => {
+    const lv = LEVELS[key];
+    const agg = levelAgg[key] || { done: 0, total: 0 };
+    const lp = agg.total > 0 ? Math.round((agg.done / agg.total) * 100) : 0;
+    return `
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="flex items-center gap-1.5 text-xs font-medium text-ink">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:${lv.dot}"></span>${lv.label}
+          </span>
+          <span class="text-xs text-muted tabular-nums">${lp}%</span>
+        </div>
+        <div class="w-full bg-black/[0.06] rounded-full h-1.5">
+          <div class="h-1.5 rounded-full transition-all duration-500" style="width:${lp}%;background:${lv.dot}"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  mount.innerHTML = `
+    <div class="mt-10 bg-white rounded-2xl shadow-card p-6 sm:p-8 border border-black/[0.06]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div>
+          <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Lanjutkan belajar</div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full" style="background:${targetLevel.dot}1A;color:${targetLevel.dot}">${targetLevel.label}</span>
+            <span class="text-xs font-mono text-muted-light tabular-nums">Bab ${String(target.id).padStart(2, '0')}</span>
+          </div>
+          <h3 class="text-2xl font-bold tracking-tight text-ink mb-4">${target.title}</h3>
+          <div class="flex items-center gap-4">
+            <a href="${base}${target.file}" class="press inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-5 pr-4 py-2.5 rounded-full hover:bg-ink-soft transition-colors">
+              Lanjut
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+            <span class="text-sm text-muted"><strong class="text-ink tabular-nums">${doneAll}</strong> dari <span class="tabular-nums">${totalAll}</span> lesson selesai</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-ink">Progress keseluruhan</span>
+            <span class="text-sm font-bold text-ink tabular-nums">${pct}%</span>
+          </div>
+          <div class="w-full bg-black/[0.06] rounded-full h-2 mb-6">
+            <div class="bg-ink h-2 rounded-full transition-all duration-500" style="width:${pct}%"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-6 gap-y-4">${bars}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
 function markChapterComplete(ch) {
   document.querySelectorAll('.lesson-checkbox').forEach(c => c.checked = true);
   updateProgress();
@@ -151,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
   restoreChecks();
   renderGlobalProgress();
+  renderDashboard();
   initBackToTop();
   if (window.hljs) hljs.highlightAll();
 });
