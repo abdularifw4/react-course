@@ -13,9 +13,9 @@ const CHAPTERS = [
   { id: 9,  file: 'chapter-9.html',  short: 'Testing',        title: 'React Testing',         level: 'mahir' },
   { id: 10, file: 'chapter-10.html', short: 'Performance',    title: 'Performance',           level: 'mahir' },
   { id: 11, file: 'chapter-11.html', short: 'Internals',      title: 'React Internals',       level: 'mahir' },
-  { id: 12, file: 'chapter-12.html', short: 'Arsitektur',     title: 'Arsitektur & Patterns', level: 'mahir' },
+  { id: 12, file: 'chapter-12.html', short: 'Arsitektur',     title: 'Arsitektur & Design Patterns', level: 'mahir' },
   { id: 13, file: 'chapter-13.html', short: 'Projects',       title: 'Capstone Projects',     level: 'senior' },
-  { id: 14, file: 'chapter-14.html', short: 'Interview',      title: 'Interview & Career',    level: 'senior' },
+  { id: 14, file: 'chapter-14.html', short: 'Interview',      title: 'Interview Prep & Career',    level: 'senior' },
 ];
 const LEVELS = {
   fondasi:  { label: 'Fondasi',  dot: '#16a34a' },
