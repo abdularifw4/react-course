@@ -26,7 +26,7 @@ function renderQuiz(mount, quizId, questions) {
     mount.innerHTML = `
       <div class="bg-white rounded-2xl p-6 shadow-soft">
         <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-semibold text-muted uppercase tracking-wider">\u{1F9E0} Quiz — Soal ${idx + 1}/${questions.length}</span>
+          <span class="text-xs font-semibold text-muted uppercase tracking-wider">\u{1F9E0} Quiz, soal ${idx + 1}/${questions.length}</span>
           <span class="text-xs text-muted tabular-nums">Skor: ${score}</span>
         </div>
         <p class="font-semibold text-ink mb-4">${esc(q.q)}</p>
@@ -61,7 +61,7 @@ function renderQuiz(mount, quizId, questions) {
     const pct = Math.round(score / questions.length * 100);
     const msg = pct === 100 ? '\u{1F3C6} Sempurna! Lo udah nguasain bab ini.'
       : pct >= 70 ? '\u{1F4AA} Solid! Review lagi soal yang salah, terus lanjut.'
-      : '\u{1F4DA} Belum lulus. Baca ulang babnya — fondasi yang kuat itu segalanya.';
+      : '\u{1F4DA} Belum lulus. Baca ulang babnya. Fondasi yang kuat itu segalanya.';
     mount.innerHTML = `
       <div class="bg-white rounded-2xl p-6 shadow-soft text-center">
         <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Hasil Quiz</p>
@@ -96,7 +96,7 @@ function initChallenges() {
     mount.innerHTML = `
       <div class="playground bg-white">
         <div class="bg-[#0B0B0B] px-4 py-2 flex items-center justify-between">
-          <span class="text-xs text-white/80 font-medium">\u{1F3AF} Challenge — lengkapi kodenya sampai semua test lulus</span>
+          <span class="text-xs text-white/80 font-medium">\u{1F3AF} Challenge, lengkapi kodenya sampai semua test lulus</span>
           <div class="flex items-center gap-2">
             <span class="ch-badge text-xs text-white/50">belum dites</span>
             <button class="ch-run text-xs font-semibold bg-white text-ink px-3 py-1 rounded-lg press">▶ Test</button>
@@ -119,7 +119,7 @@ function initChallenges() {
     // CDN/SRI gagal — degradasi sama seperti playground.js: tampilkan starter read-only
     mounts.forEach(mount => {
       const starterEl = document.getElementById(mount.dataset.codeId);
-      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Challenge gagal dimuat — cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
+      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Challenge gagal dimuat. Cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
       if (starterEl) mount.querySelector('pre').textContent = starterEl.textContent.trim();
     });
   });
