@@ -21,22 +21,22 @@ button:active { transform: scale(.96); }
 .lesson-card { box-shadow: var(--shadow-sm); transition: box-shadow .2s ease; }
 .lesson-card:hover { box-shadow: var(--shadow-md); }
 .nav-link { transition: background .15s ease, color .15s ease; }
-.nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
-.nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
+.nav-link:hover, .nav-link.active { background: #f1e8e2; color: #1f1f1f; }
+.nav-link.active span:first-child { background: #f87666 !important; color: #fff !important; }
 
 /* ===== SIDEBAR TREE (collapsible chapters + lesson sub-links) ===== */
 .side-ch:not(.open) .side-lessons { display: none; }
 .side-ch.open > .side-ch-row .side-chevron { transform: rotate(90deg); }
 .side-lesson { transition: background .12s ease, color .12s ease; }
-.side-lesson.active { background: rgba(0,0,0,0.05); color: #0B0B0B; font-weight: 500; }
+.side-lesson.active { background: #f1e8e2; color: #1f1f1f; font-weight: 500; }
 .lesson-card { scroll-margin-top: 84px; }
 
 .nav-underline { position: relative; }
-.nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #0B0B0B; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #f87666; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .nav-underline:hover::after { transform: scaleX(1); }
 pre code { border-radius: 0; font-size: .825rem; line-height: 1.6; }
 .code-block { box-shadow: var(--shadow-sm); border-radius: .75rem; overflow: hidden; }
-.tip-box { border-left: 3px solid #0B0B0B; background: #F3F0FA; }
+.tip-box { border-left: 3px solid #f87666; background: #faece8; }
 .warning-box { border-left: 3px solid #f59e0b; background: #FFF7ED; }
 .tip-box, .warning-box { position: relative; padding-left: 2.9rem !important; }
 .tip-box::before, .warning-box::before {
@@ -45,7 +45,7 @@ pre code { border-radius: 0; font-size: .825rem; line-height: 1.6; }
   -webkit-mask-size: contain; mask-size: contain;
   -webkit-mask-position: center; mask-position: center;
 }
-.tip-box::before { background-color: #0B0B0B; -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M9.663%2017h4.673M12%203v1m6.364%201.636l-.707.707M21%2012h-1M4%2012H3m3.343-5.657l-.707-.707m2.828%209.9a5%205%200%20117.072%200l-.548.547A3.374%203.374%200%200014%2018.469V19a2%202%200%2011-4%200v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z%27%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M9.663%2017h4.673M12%203v1m6.364%201.636l-.707.707M21%2012h-1M4%2012H3m3.343-5.657l-.707-.707m2.828%209.9a5%205%200%20117.072%200l-.548.547A3.374%203.374%200%200014%2018.469V19a2%202%200%2011-4%200v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z%27%2F%3E%3C%2Fsvg%3E"); }
+.tip-box::before { background-color: #f87666; -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M9.663%2017h4.673M12%203v1m6.364%201.636l-.707.707M21%2012h-1M4%2012H3m3.343-5.657l-.707-.707m2.828%209.9a5%205%200%20117.072%200l-.548.547A3.374%203.374%200%200014%2018.469V19a2%202%200%2011-4%200v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z%27%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M9.663%2017h4.673M12%203v1m6.364%201.636l-.707.707M21%2012h-1M4%2012H3m3.343-5.657l-.707-.707m2.828%209.9a5%205%200%20117.072%200l-.548.547A3.374%203.374%200%200014%2018.469V19a2%202%200%2011-4%200v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z%27%2F%3E%3C%2Fsvg%3E"); }
 .warning-box::before { background-color: #f59e0b; -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M12%209v3.75m0%203.75h.008M10.363%203.591%202.257%2017.086c-.75%201.249.15%202.837%201.638%202.837h16.21c1.489%200%202.389-1.588%201.639-2.837L13.636%203.591c-.75-1.249-2.523-1.249-3.273%200z%27%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke%3D%27%2523000%27%20stroke-width%3D%271.8%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M12%209v3.75m0%203.75h.008M10.363%203.591%202.257%2017.086c-.75%201.249.15%202.837%201.638%202.837h16.21c1.489%200%202.389-1.588%201.639-2.837L13.636%203.591c-.75-1.249-2.523-1.249-3.273%200z%27%2F%3E%3C%2Fsvg%3E"); }
 
 .fade-in { opacity: 0; transform: translateY(16px); animation: enter .4s cubic-bezier(.2,0,0,1) forwards; }
@@ -92,6 +92,13 @@ pre code { border-radius: 0; font-size: .825rem; line-height: 1.6; }
 /* ===== Exercise accordion ===== */
 details.exercise summary { cursor: pointer; list-style: none; }
 details.exercise summary::-webkit-details-marker { display: none; }
+
+
+/* ===== Claude editorial headings (course interior) ===== */
+h1, h2, h3 { text-wrap: balance; }
+.lesson-card h2 { font-family: 'PT Serif', Georgia, serif; font-size: 1.55rem; line-height: 1.22; letter-spacing: -0.01em; }
+#dashboardMount h3 { font-family: 'PT Serif', Georgia, serif; }
+main > header h1 { font-family: 'PT Serif', Georgia, serif; letter-spacing: -0.01em; }
 
 @media print { .no-print { display: none !important; } }
 @media (prefers-reduced-motion: reduce) {

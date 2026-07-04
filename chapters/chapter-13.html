@@ -6,7 +6,7 @@
     <title>Bab 13: Capstone Projects — React Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
@@ -18,27 +18,32 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"PT Serif"', 'Georgia', 'serif'],
                         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     },
                     colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
-                        muted: { DEFAULT: '#666666', light: '#999999' },
-                        lavender: '#F3F0FA',
-                        cream: '#FAF8F1',
-                        surface: '#FAFAFA',
+                        ink: { DEFAULT: '#1f1f1f', soft: '#514d4a' },
+                        muted: { DEFAULT: '#706a66', light: '#9a948f' },
+                        coral: { DEFAULT: '#f87666', deep: '#933f35' },
+                        teal: { DEFAULT: '#02b7bf', dark: '#004754', darkest: '#003943' },
+                        line: '#e4d8d0',
+                        paper: '#ffffff',
+                        lavender: '#f1e8e2',
+                        cream: { DEFAULT: '#fdf9f6', '2': '#f8f3f0', '3': '#f1e8e2' },
+                        surface: '#f8f3f0',
                     },
                 }
             }
         }</script>
     <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen" data-chapter="13">
+<body class="bg-cream text-ink min-h-screen" data-chapter="13">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
-        <div class="p-5 border-b border-black/[0.06]">
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-line z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
+        <div class="p-5 border-b border-line">
             <a href="../index.html" class="flex items-center gap-2.5">
-                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
+                <div class="w-7 h-7 bg-coral rounded-md flex items-center justify-center">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
                 <span class="text-[15px] font-semibold tracking-tight">react course</span>
@@ -46,7 +51,7 @@
         </div>
         <div class="p-3">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
                 <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
@@ -57,7 +62,7 @@
                     <span id="progressText" class="tabular-nums">0/17</span>
                 </div>
                 <div class="w-full bg-black/5 rounded-full h-1.5">
-                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="progressBar" class="bg-coral h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -66,7 +71,7 @@
 
     <!-- Main -->
     <main class="lg:ml-72 min-h-screen">
-        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-line no-print">
             <div class="flex items-center justify-between px-4 lg:px-8 h-16">
                 <div class="flex items-center gap-4">
                     <button onclick="toggleSidebar()" class="lg:hidden press p-2 rounded-lg hover:bg-black/5 transition-colors flex items-center justify-center" style="min-width:40px;min-height:40px">
@@ -77,7 +82,7 @@
                         <h1 class="text-base lg:text-lg font-semibold tracking-tight">Capstone Projects</h1>
                     </div>
                 </div>
-                <a href="chapter-14.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                <a href="chapter-14.html" class="press inline-flex items-center gap-2 bg-coral hover:bg-coral-deep text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
                     Bab 14
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -90,7 +95,7 @@
 <!-- HERO -->
 <section class="mb-10 fade-in">
 <div class="flex items-center gap-3 mb-4">
-<div class="w-12 h-12 bg-ink rounded-2xl flex items-center justify-center"><span class="text-white font-extrabold text-lg tabular-nums">13</span></div>
+<div class="w-12 h-12 bg-coral rounded-2xl flex items-center justify-center"><span class="text-white font-extrabold text-lg tabular-nums">13</span></div>
 <span class="text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#FEF2F2;color:#dc2626">Senior</span>
 </div>
 <h1 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-ink mb-3">Capstone Projects — Bukti Nyata Lo Bisa React</h1>
@@ -98,11 +103,11 @@
 </section>
 
 <!-- INTRO SECTION -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="intro">
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="intro">
 <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm"></span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink mb-1">KENAPA CAPSTONE? PORTFOLIO &gt; SERTIFIKAT</h2><p class="text-sm text-muted">Baca dulu &middot; 8 menit — cara kerja bab ini beda dari bab lain</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Sampai sini lo udah lewatin 12 bab. Hooks? Paham. Router? Bisa. State management, testing, performance, internals, arsitektur? Udah semua. Tapi ada satu kenyataan pahit yang harus gue sampaikan: <strong class="text-ink">recruiter nggak peduli lo udah baca berapa bab</strong>. Yang mereka buka pertama kali itu GitHub lo dan link deploy project lo. Sertifikat course itu kayak SIM teori — lo hafal semua rambu, tapi belum tentu bisa nyetir di jalanan Jakarta jam 5 sore. <strong class="text-ink">Capstone project itu ujian praktiknya.</strong></p>
-<p>Bab ini strukturnya <strong class="text-ink">beda total dari bab lain</strong>. Nggak ada lesson teori, nggak ada quiz. Yang ada: <strong class="text-ink">3 proyek nyata</strong> yang lo bangun sendiri di laptop lo, dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm create vite</code> sampai app yang jalan beneran. Tingkat kesulitannya naik bertahap:</p>
+<p>Bab ini strukturnya <strong class="text-ink">beda total dari bab lain</strong>. Nggak ada lesson teori, nggak ada quiz. Yang ada: <strong class="text-ink">3 proyek nyata</strong> yang lo bangun sendiri di laptop lo, dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">npm create vite</code> sampai app yang jalan beneran. Tingkat kesulitannya naik bertahap:</p>
 <ul class="space-y-2 pl-1">
 <li class="flex items-start gap-3"><span class="mt-0.5">→</span><span><strong class="text-ink">Project 1 — Habit Tracker.</strong> useState, lifting state up, useEffect, localStorage, custom hook. Fondasi yang solid.</span></li>
 <li class="flex items-start gap-3"><span class="mt-0.5">→</span><span><strong class="text-ink">Project 2 — Toko Online Mini.</strong> React Router, fetch API beneran, Context + useReducer, form + validasi, arsitektur by-feature.</span></li>
@@ -114,7 +119,7 @@
 </div>
 <p><strong class="text-ink">Setup umum</strong> — semua project di bab ini pakai stack yang sama: Node.js 18+ dan Vite dengan template React. Cek dulu environment lo:</p>
 </div>
-<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Terminal — setup umum semua project</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># Cek versi Node — minimal 18, ideal 20+
+<div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Terminal — setup umum semua project</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash"># Cek versi Node — minimal 18, ideal 20+
 node -v
 
 # Template dasar setiap project (ganti nama-project):
@@ -129,7 +134,7 @@ git init
 git add .
 git commit -m "milestone 1: setup"</code></pre></div></div>
 <div class="tip-box rounded-xl p-4 mt-6">
-<p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Commit per milestone itu bukan sekadar kebiasaan baik — itu <strong class="text-ink">konten portfolio</strong>. Recruiter yang buka repo lo bakal lihat history: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">milestone 3: toggle check harian</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">milestone 4: persist localStorage</code>. Itu cerita perjalanan yang jauh lebih meyakinkan daripada satu commit raksasa "initial commit" berisi 50 file. Git history = bukti lo kerja bertahap kayak engineer beneran.</p>
+<p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Commit per milestone itu bukan sekadar kebiasaan baik — itu <strong class="text-ink">konten portfolio</strong>. Recruiter yang buka repo lo bakal lihat history: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">milestone 3: toggle check harian</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">milestone 4: persist localStorage</code>. Itu cerita perjalanan yang jauh lebih meyakinkan daripada satu commit raksasa "initial commit" berisi 50 file. Git history = bukti lo kerja bertahap kayak engineer beneran.</p>
 </div>
 <div class="space-y-4 text-[#333] leading-relaxed mt-6">
 <p>Satu lagi: centang checkbox <strong class="text-ink">"Selesai"</strong> di setiap milestone setelah acceptance criteria-nya lolos semua. 17 milestone itu progress bab ini — dan di akhir bab ada <strong class="text-ink">Project Checklist</strong> buat self-assessment sebelum lo pajang project-nya di portfolio. Gas!</p>
@@ -144,27 +149,27 @@ git commit -m "milestone 1: setup"</code></pre></div></div>
 </div>
 
 <!-- P1 MILESTONE 1 -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-1">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 1 — SETUP VITE + STRUKTUR FOLDER</h3><input type="checkbox" id="check-13-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±30 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-1">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 1 — SETUP VITE + STRUKTUR FOLDER</h3><input type="checkbox" id="check-13-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±30 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> project Vite React bernama <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">habit-tracker</code> jalan di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">localhost:5173</code>, boilerplate bawaan dibersihin, struktur folder siap nampung komponen dan hooks, dan ada header app sederhana. Kedengeran remeh? Justru milestone pertama itu yang paling sering bikin orang keder — karena ini pertama kalinya lo mulai dari layar kosong, bukan dari playground yang udah disiapin.</p>
+<p><strong class="text-ink">Target:</strong> project Vite React bernama <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">habit-tracker</code> jalan di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">localhost:5173</code>, boilerplate bawaan dibersihin, struktur folder siap nampung komponen dan hooks, dan ada header app sederhana. Kedengeran remeh? Justru milestone pertama itu yang paling sering bikin orang keder — karena ini pertama kalinya lo mulai dari layar kosong, bukan dari playground yang udah disiapin.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm run dev</code> jalan tanpa error, halaman kebuka di browser</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>File demo bawaan Vite (logo React muter, counter demo, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App.css</code>) udah dibersihkan</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Ada folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/components/</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/hooks/</code>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/utils/</code></span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Halaman menampilkan judul app + tagline, dengan style dasar dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index.css</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">npm run dev</code> jalan tanpa error, halaman kebuka di browser</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>File demo bawaan Vite (logo React muter, counter demo, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App.css</code>) udah dibersihkan</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Ada folder <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/components/</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/hooks/</code>, dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/utils/</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Halaman menampilkan judul app + tagline, dengan style dasar dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">index.css</code></span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Hapus isi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App.jsx</code> dan tulis ulang dari nol — jangan edit-edit sisa demo. Hapus juga <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App.css</code> dan import-nya, cukup satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index.css</code> global. Folder kosong nggak bisa di-commit git — kerjain aja dulu, foldernya keisi di milestone berikutnya.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Hapus isi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App.jsx</code> dan tulis ulang dari nol — jangan edit-edit sisa demo. Hapus juga <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App.css</code> dan import-nya, cukup satu <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">index.css</code> global. Folder kosong nggak bisa di-commit git — kerjain aja dulu, foldernya keisi di milestone berikutnya.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 1 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Terminal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">npm create vite@latest habit-tracker -- --template react
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Terminal</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">npm create vite@latest habit-tracker -- --template react
 cd habit-tracker
 npm install
 npm run dev</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Struktur folder target</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">habit-tracker/
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Struktur folder target</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">habit-tracker/
 └── src/
     ├── main.jsx          # entry point — biarin bawaan Vite
     ├── App.jsx           # komponen utama (kita tulis ulang)
@@ -172,7 +177,7 @@ npm run dev</code></pre></div>
     ├── components/       # HabitForm, HabitList, HabitItem, StatsBar
     ├── hooks/            # useLocalStorage (milestone 4)
     └── utils/            # helper tanggal & streak (milestone 3 & 5)</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">export default function App() {
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">export default function App() {
   return (
     &lt;div className="app"&gt;
       &lt;header className="app-header"&gt;
@@ -185,7 +190,7 @@ npm run dev</code></pre></div>
     &lt;/div&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/index.css</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-css">* { box-sizing: border-box; }
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/index.css</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-css">* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -202,31 +207,31 @@ body {
 
 .app-header h1 { margin: 0 0 4px; }
 .app-header p { margin: 0 0 24px; color: #6b7280; }</code></pre></div>
-<p class="text-sm text-[#333]">Terakhir: hapus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/App.css</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/assets/react.svg</code>, lalu pastikan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">main.jsx</code> cuma import <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">./index.css</code>. Commit: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">git commit -m "milestone 1: setup"</code>.</p>
+<p class="text-sm text-[#333]">Terakhir: hapus <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/App.css</code> dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/assets/react.svg</code>, lalu pastikan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">main.jsx</code> cuma import <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">./index.css</code>. Commit: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">git commit -m "milestone 1: setup"</code>.</p>
 </div>
 </details>
 </section>
 
 <!-- P1 MILESTONE 2 -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-2">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 2 — FORM TAMBAH HABIT + RENDER LIST</h3><input type="checkbox" id="check-13-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-2">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 2 — FORM TAMBAH HABIT + RENDER LIST</h3><input type="checkbox" id="check-13-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Target:</strong> user bisa ngetik nama habit di form, submit, dan habit-nya muncul di list. Ini pola paling fundamental di React — <strong class="text-ink">controlled input → update state → re-render list</strong> — yang bakal lo pakai di hampir setiap app seumur karir lo.</p>
-<p>Yang penting di sini adalah <strong class="text-ink">desain bentuk data-nya</strong>. Habit kita bukan sekadar string — dia butuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id</code> unik (buat key dan toggle nanti) dan tempat nyimpen catatan centang harian. Kita pakai object <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks</code> dengan key tanggal: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ '2026-07-02': true }</code>. Percaya deh, mikirin bentuk data <em>sebelum</em> ngoding itu kebiasaan senior nomor satu.</p>
+<p>Yang penting di sini adalah <strong class="text-ink">desain bentuk data-nya</strong>. Habit kita bukan sekadar string — dia butuh <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">id</code> unik (buat key dan toggle nanti) dan tempat nyimpen catatan centang harian. Kita pakai object <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks</code> dengan key tanggal: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{ '2026-07-02': true }</code>. Percaya deh, mikirin bentuk data <em>sebelum</em> ngoding itu kebiasaan senior nomor satu.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Input controlled — nilainya dari state, bukan dari DOM</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Submit via Enter ataupun tombol; input kosong / cuma spasi ditolak</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Setelah submit, input dikosongkan lagi</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Habit baru punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id</code> unik dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks: {}</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Habit baru punya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">id</code> unik dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks: {}</code></span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>List kosong menampilkan pesan ajakan, bukan halaman blank</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> State <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">habits</code> tinggal di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App</code> (bukan di form!) karena list juga butuh baca dia — ini lifting state up dari Bab 3. Form cukup nerima callback <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onAdd(name)</code>. Buat id unik, browser modern punya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">crypto.randomUUID()</code> — nggak perlu library.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> State <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">habits</code> tinggal di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App</code> (bukan di form!) karena list juga butuh baca dia — ini lifting state up dari Bab 3. Form cukup nerima callback <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">onAdd(name)</code>. Buat id unik, browser modern punya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">crypto.randomUUID()</code> — nggak perlu library.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 2 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/HabitForm.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/HabitForm.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
 
 export default function HabitForm({ onAdd }) {
   const [name, setName] = useState('');
@@ -251,7 +256,7 @@ export default function HabitForm({ onAdd }) {
     &lt;/form&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/HabitList.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">export default function HabitList({ habits }) {
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/HabitList.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">export default function HabitList({ habits }) {
   if (habits.length === 0) {
     return &lt;p className="empty"&gt;Belum ada habit. Tambahin satu di atas! 👆&lt;/p&gt;;
   }
@@ -264,7 +269,7 @@ export default function HabitForm({ onAdd }) {
     &lt;/ul&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
 import HabitForm from './components/HabitForm';
 import HabitList from './components/HabitList';
 
@@ -293,30 +298,30 @@ export default function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<p class="text-sm text-[#333]">Perhatiin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setHabits((prev) =&gt; [...prev, newHabit])</code> — functional updater + spread, bukan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">push()</code>. Mutasi array langsung itu dosa React nomor satu (ingat Bab 3!).</p>
+<p class="text-sm text-[#333]">Perhatiin <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setHabits((prev) =&gt; [...prev, newHabit])</code> — functional updater + spread, bukan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">push()</code>. Mutasi array langsung itu dosa React nomor satu (ingat Bab 3!).</p>
 </div>
 </details>
 </section>
 
 <!-- P1 MILESTONE 3 -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-3">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 3 — TOGGLE CHECK HARIAN</h3><input type="checkbox" id="check-13-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-3">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 3 — TOGGLE CHECK HARIAN</h3><input type="checkbox" id="check-13-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> setiap habit punya tombol centang untuk "hari ini". Klik sekali → tercentang, klik lagi → batal. State-nya tetap di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App</code> (lift-up), dan yang di-update adalah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks[tanggalHariIni]</code> di dalam habit yang diklik — <strong class="text-ink">secara immutable, dua level dalamnya</strong>. Ini latihan update nested state yang paling sering keluar di interview.</p>
+<p><strong class="text-ink">Target:</strong> setiap habit punya tombol centang untuk "hari ini". Klik sekali → tercentang, klik lagi → batal. State-nya tetap di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App</code> (lift-up), dan yang di-update adalah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks[tanggalHariIni]</code> di dalam habit yang diklik — <strong class="text-ink">secara immutable, dua level dalamnya</strong>. Ini latihan update nested state yang paling sering keluar di interview.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Tiap item punya tombol toggle dengan indikator visual jelas ( / )</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Toggle cuma ngubah habit yang diklik — habit lain nggak berubah</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Key tanggal pakai waktu <em>lokal</em>, format <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">YYYY-MM-DD</code></span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Nggak ada mutasi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map</code> + spread, bukan assignment langsung</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Key tanggal pakai waktu <em>lokal</em>, format <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">YYYY-MM-DD</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Nggak ada mutasi: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">map</code> + spread, bukan assignment langsung</span></li>
 </ul>
-<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Jangan pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">new Date().toISOString().slice(0, 10)</code> buat key tanggal! <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toISOString()</code> itu UTC — kalau user di Jakarta (UTC+7) nyentang jam 6 pagi, key-nya masih tanggal <em>kemarin</em>. Bug timezone kayak gini yang bikin app "kadang bener kadang salah" dan susah banget di-debug. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">getFullYear/getMonth/getDate</code> yang lokal.</p></div>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Bikin helper <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">todayKey()</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/utils/date.js</code>. Pola update-nya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">habits.map(h =&gt; h.id === id ? {...h, checks: {...h.checks, [today]: !h.checks[today]}} : h)</code>. Pecah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">HabitItem</code> jadi komponen sendiri biar list-nya bersih.</p></div>
+<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Jangan pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">new Date().toISOString().slice(0, 10)</code> buat key tanggal! <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">toISOString()</code> itu UTC — kalau user di Jakarta (UTC+7) nyentang jam 6 pagi, key-nya masih tanggal <em>kemarin</em>. Bug timezone kayak gini yang bikin app "kadang bener kadang salah" dan susah banget di-debug. Pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">getFullYear/getMonth/getDate</code> yang lokal.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Bikin helper <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">todayKey()</code> di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/utils/date.js</code>. Pola update-nya: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">habits.map(h =&gt; h.id === id ? {...h, checks: {...h.checks, [today]: !h.checks[today]}} : h)</code>. Pecah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">HabitItem</code> jadi komponen sendiri biar list-nya bersih.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 3 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/utils/date.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Format Date object jadi key 'YYYY-MM-DD' pakai waktu LOKAL.
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/utils/date.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Format Date object jadi key 'YYYY-MM-DD' pakai waktu LOKAL.
 // keyOf dipisah karena milestone 5 butuh format tanggal selain hari ini.
 export function keyOf(d) {
   const y = d.getFullYear();
@@ -328,7 +333,7 @@ export function keyOf(d) {
 export function todayKey() {
   return keyOf(new Date());
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/HabitItem.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { todayKey } from '../utils/date';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/HabitItem.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { todayKey } from '../utils/date';
 
 export default function HabitItem({ habit, onToggle }) {
   const doneToday = Boolean(habit.checks[todayKey()]);
@@ -346,7 +351,7 @@ export default function HabitItem({ habit, onToggle }) {
     &lt;/li&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/HabitList.jsx (update)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import HabitItem from './HabitItem';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/HabitList.jsx (update)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import HabitItem from './HabitItem';
 
 export default function HabitList({ habits, onToggle }) {
   if (habits.length === 0) {
@@ -361,7 +366,7 @@ export default function HabitList({ habits, onToggle }) {
     &lt;/ul&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx (update — tambah toggleToday)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx (update — tambah toggleToday)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
 import HabitForm from './components/HabitForm';
 import HabitList from './components/HabitList';
 import { todayKey } from './utils/date';
@@ -398,17 +403,17 @@ export default function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<p class="text-sm text-[#333]">Kenapa spread dua kali? Karena immutability itu berlapis: object habit-nya baru (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{...h}</code>) DAN object checks di dalamnya juga baru (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{...h.checks}</code>). Kalau lo cuma spread level luar tapi mutasi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">h.checks[today] = true</code>, React kadang nggak re-render dan localStorage nanti nyimpen data basi.</p>
+<p class="text-sm text-[#333]">Kenapa spread dua kali? Karena immutability itu berlapis: object habit-nya baru (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{...h}</code>) DAN object checks di dalamnya juga baru (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{...h.checks}</code>). Kalau lo cuma spread level luar tapi mutasi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">h.checks[today] = true</code>, React kadang nggak re-render dan localStorage nanti nyimpen data basi.</p>
 </div>
 </details>
 </section>
 
 <!-- P1 MILESTONE 4 -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-4">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 4 — PERSIST KE LOCALSTORAGE</h3><input type="checkbox" id="check-13-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-4">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 4 — PERSIST KE LOCALSTORAGE</h3><input type="checkbox" id="check-13-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Target:</strong> refresh browser, data habit tetap ada. Analoginya: selama ini state lo kayak nulis di <strong class="text-ink">papan tulis</strong> — begitu kelas bubar (tab ditutup), semuanya kehapus. localStorage itu <strong class="text-ink">lemari arsip</strong> di rumah user: apa yang lo simpen di situ tetap ada besok, minggu depan, sampai user sendiri yang buang.</p>
-<p>Cara paling elegan: bikin <strong class="text-ink">custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code></strong> yang API-nya persis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> — jadi di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App.jsx</code> lo cuma ganti SATU baris. Ini contoh nyata kenapa custom hook disebut "unit arsitektur" di Bab 12: logic persist dibungkus rapi, komponen nggak perlu tahu detailnya.</p>
+<p>Cara paling elegan: bikin <strong class="text-ink">custom hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code></strong> yang API-nya persis <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState</code> — jadi di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App.jsx</code> lo cuma ganti SATU baris. Ini contoh nyata kenapa custom hook disebut "unit arsitektur" di Bab 12: logic persist dibungkus rapi, komponen nggak perlu tahu detailnya.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Tambah habit + centang, refresh halaman → data masih utuh</span></li>
@@ -416,12 +421,12 @@ export default function App() {
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>JSON korup / storage error nggak bikin app crash (try–catch)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hook-nya generik — bisa dipakai buat state apa pun, bukan cuma habits</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Dua bahan: (1) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState(() =&gt; ...)</code> dengan fungsi — dieksekusi sekali doang buat baca storage, dan (2) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> dengan deps <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[key, value]</code> buat nulis setiap kali value berubah. Kasih nama key yang berversi kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'habits-v1'</code> — kalau bentuk datanya berubah nanti, lo tinggal ganti versi tanpa nabrak data lama.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Dua bahan: (1) <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState(() =&gt; ...)</code> dengan fungsi — dieksekusi sekali doang buat baca storage, dan (2) <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useEffect</code> dengan deps <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[key, value]</code> buat nulis setiap kali value berubah. Kasih nama key yang berversi kayak <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">'habits-v1'</code> — kalau bentuk datanya berubah nanti, lo tinggal ganti versi tanpa nabrak data lama.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 4 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/hooks/useLocalStorage.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/hooks/useLocalStorage.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
 
 export default function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() =&gt; {
@@ -445,7 +450,7 @@ export default function useLocalStorage(key, initialValue) {
 
   return [value, setValue];
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx (update — cuma 2 baris yang berubah!)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import HabitForm from './components/HabitForm';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx (update — cuma 2 baris yang berubah!)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import HabitForm from './components/HabitForm';
 import HabitList from './components/HabitList';
 import { todayKey } from './utils/date';
 import useLocalStorage from './hooks/useLocalStorage';
@@ -483,30 +488,30 @@ export default function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<p class="text-sm text-[#333]">Ini momen "oh ternyata gitu"-nya custom hook: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">addHabit</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toggleToday</code> <strong>nggak berubah sama sekali</strong> — karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> return-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[value, setValue]</code> persis kayak useState. Abstraksi yang bagus itu yang nggak kerasa.</p>
+<p class="text-sm text-[#333]">Ini momen "oh ternyata gitu"-nya custom hook: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">addHabit</code> dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">toggleToday</code> <strong>nggak berubah sama sekali</strong> — karena <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> return-nya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[value, setValue]</code> persis kayak useState. Abstraksi yang bagus itu yang nggak kerasa.</p>
 </div>
 </details>
 </section>
 
 <!-- P1 MILESTONE 5 -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-5">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 5 — STREAK COUNTER + STATS</h3><input type="checkbox" id="check-13-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-5">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 5 — STREAK COUNTER + STATS</h3><input type="checkbox" id="check-13-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Target:</strong> hitung <strong class="text-ink">streak</strong> — berapa hari berturut-turut habit dicentang — plus bar statistik: total habit, berapa yang udah dicentang hari ini, dan streak terbaik. Ini fitur yang bikin app lo dari "todo list biasa" jadi "app yang bikin nagih" ala Duolingo.</p>
-<p>Poin arsitekturnya: streak itu <strong class="text-ink">derived state</strong> — dihitung dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks</code>, BUKAN disimpen sebagai state terpisah. Kalau lo nyimpen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">streak</code> di state, lo harus sinkronin dia manual setiap toggle — dan suatu saat pasti lupa, terus datanya nggak konsisten. Rumus emasnya: <em>kalau bisa dihitung dari state lain, jangan jadi state.</em></p>
+<p>Poin arsitekturnya: streak itu <strong class="text-ink">derived state</strong> — dihitung dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks</code>, BUKAN disimpen sebagai state terpisah. Kalau lo nyimpen <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">streak</code> di state, lo harus sinkronin dia manual setiap toggle — dan suatu saat pasti lupa, terus datanya nggak konsisten. Rumus emasnya: <em>kalau bisa dihitung dari state lain, jangan jadi state.</em></p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">calcStreak(checks)</code> murni (pure) di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">utils/</code> — gampang dites</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fungsi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">calcStreak(checks)</code> murni (pure) di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">utils/</code> — gampang dites</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hari ini belum dicentang ≠ streak putus — hitungan mulai dari kemarin</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Tiap habit menampilkan streak-nya (kalau &gt; 0)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>StatsBar: jumlah habit, selesai hari ini, streak terbaik</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Mundur satu-satu dari hari ini: bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Date</code>, cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks[keyOf(d)]</code>, kalau true tambah counter lalu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">d.setDate(d.getDate() - 1)</code>, ulangi sampai ketemu hari bolong. Spesial case: kalau <em>hari ini</em> belum dicentang, mulai ngecek dari kemarin — user belum tentu udah "gagal" hari ini, mungkin cuma belum sempet.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Mundur satu-satu dari hari ini: bikin <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Date</code>, cek <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks[keyOf(d)]</code>, kalau true tambah counter lalu <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">d.setDate(d.getDate() - 1)</code>, ulangi sampai ketemu hari bolong. Spesial case: kalau <em>hari ini</em> belum dicentang, mulai ngecek dari kemarin — user belum tentu udah "gagal" hari ini, mungkin cuma belum sempet.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 5 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/utils/streak.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { keyOf } from './date';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/utils/streak.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { keyOf } from './date';
 
 // Hitung berapa hari BERTURUT-TURUT checks bernilai true,
 // mundur dari hari ini (atau kemarin kalau hari ini belum dicentang).
@@ -526,7 +531,7 @@ export function calcStreak(checks) {
 
   return streak;
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/StatsBar.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { calcStreak } from '../utils/streak';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/StatsBar.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { calcStreak } from '../utils/streak';
 import { todayKey } from '../utils/date';
 
 export default function StatsBar({ habits }) {
@@ -551,7 +556,7 @@ export default function StatsBar({ habits }) {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/HabitItem.jsx (update — tampilkan streak) + App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/HabitItem.jsx
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/HabitItem.jsx (update — tampilkan streak) + App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/HabitItem.jsx
 import { todayKey } from '../utils/date';
 import { calcStreak } from '../utils/streak';
 
@@ -578,19 +583,19 @@ export default function HabitItem({ habit, onToggle }) {
 //   &lt;HabitForm onAdd={addHabit} /&gt;
 //   &lt;HabitList habits={habits} onToggle={toggleToday} /&gt;
 // &lt;/main&gt;</code></pre></div>
-<p class="text-sm text-[#333]">Buat ngetes streak tanpa nunggu 3 hari: buka DevTools → Application → Local Storage, edit JSON <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">habits-v1</code>, tambahin key tanggal kemarin dan kemarinnya lagi secara manual. Ngetes pakai data buatan itu skill debugging yang legit, bukan nyontek.</p>
+<p class="text-sm text-[#333]">Buat ngetes streak tanpa nunggu 3 hari: buka DevTools → Application → Local Storage, edit JSON <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">habits-v1</code>, tambahin key tanggal kemarin dan kemarinnya lagi secara manual. Ngetes pakai data buatan itu skill debugging yang legit, bukan nyontek.</p>
 </div>
 </details>
 </section>
 
 <!-- P1 WRAP-UP -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="p1-wrapup">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 1 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="p1-wrapup">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 1 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Upgrade Ideas</strong> — biar project ini makin standout di portfolio:</p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Edit &amp; hapus habit</strong> — dengan konfirmasi sebelum hapus (latihan conditional rendering + event handling).</span></li>
-<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Heatmap kalender ala GitHub</strong> — grid 30 hari terakhir per habit, makin gelap makin konsisten. Data <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">checks</code>-nya udah siap, tinggal render.</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Heatmap kalender ala GitHub</strong> — grid 30 hari terakhir per habit, makin gelap makin konsisten. Data <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">checks</code>-nya udah siap, tinggal render.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Kategori + warna</strong> — kesehatan, belajar, keuangan; filter list per kategori.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Export/import JSON</strong> — download data sebagai file, upload buat restore. Fitur "data ownership" yang recruiter suka.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Deploy ke Vercel/Netlify</strong> — WAJIB. Project yang nggak bisa diklik itu kayak lamaran tanpa nomor telepon.</span></li>
@@ -614,23 +619,23 @@ export default function HabitItem({ habit, onToggle }) {
 </div>
 
 <!-- P2 MILESTONE 1 (6) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-6">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 6 — SETUP + REACT ROUTER LAYOUT</h3><input type="checkbox" id="check-13-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-6">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 6 — SETUP + REACT ROUTER LAYOUT</h3><input type="checkbox" id="check-13-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> project <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">toko-mini</code> dengan React Router terpasang, satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Layout</code> (navbar yang selalu tampil + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Outlet</code>), dan struktur folder <strong class="text-ink">by-feature</strong>: kode dikelompokkan per fitur (products, cart, checkout), bukan per jenis file. Ingat pelajaran Bab 12 — folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">components/</code> raksasa berisi 40 file itu red flag arsitektur.</p>
+<p><strong class="text-ink">Target:</strong> project <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">toko-mini</code> dengan React Router terpasang, satu <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Layout</code> (navbar yang selalu tampil + <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Outlet</code>), dan struktur folder <strong class="text-ink">by-feature</strong>: kode dikelompokkan per fitur (products, cart, checkout), bukan per jenis file. Ingat pelajaran Bab 12 — folder <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">components/</code> raksasa berisi 40 file itu red flag arsitektur.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-router-dom</code> terinstall, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">BrowserRouter</code> membungkus App di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">main.jsx</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">react-router-dom</code> terinstall, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">BrowserRouter</code> membungkus App di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">main.jsx</code></span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Navbar (brand + link Keranjang) tampil di semua halaman via layout route</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Route <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/</code> merender placeholder katalog</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/features/products</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/features/cart</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/features/checkout</code> udah dibuat</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Route <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/</code> merender placeholder katalog</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Folder <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/features/products</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/features/cart</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/features/checkout</code> udah dibuat</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Layout route = <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Route element={&lt;Layout /&gt;}&gt;</code> TANPA <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">path</code>, dengan route anak di dalamnya. Di dalam Layout, taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Outlet /&gt;</code> di posisi konten halaman. Review Bab 5 kalau lupa mental model-nya.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Layout route = <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;Route element={&lt;Layout /&gt;}&gt;</code> TANPA <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">path</code>, dengan route anak di dalamnya. Di dalam Layout, taruh <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;Outlet /&gt;</code> di posisi konten halaman. Review Bab 5 kalau lupa mental model-nya.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 6 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Terminal + struktur folder by-feature</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">npm create vite@latest toko-mini -- --template react
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Terminal + struktur folder by-feature</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-bash">npm create vite@latest toko-mini -- --template react
 cd toko-mini
 npm install
 npm install react-router-dom
@@ -647,7 +652,7 @@ npm run dev
 #     ├── products/            # ProductListPage, ProductDetailPage, useProducts
 #     ├── cart/                # CartContext, CartPage, CartBadge
 #     └── checkout/            # CheckoutPage</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/main.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import React from 'react';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/main.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -660,7 +665,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     &lt;/BrowserRouter&gt;
   &lt;/React.StrictMode&gt;
 );</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/Layout.jsx + src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/Layout.jsx
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/Layout.jsx + src/App.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/Layout.jsx
 import { Link, Outlet } from 'react-router-dom';
 
 export default function Layout() {
@@ -702,24 +707,24 @@ export default function App() {
 </section>
 
 <!-- P2 MILESTONE 2 (7) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-7">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 7 — FETCH PRODUK + LOADING/ERROR STATE</h3><input type="checkbox" id="check-13-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-7">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 7 — FETCH PRODUK + LOADING/ERROR STATE</h3><input type="checkbox" id="check-13-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> halaman katalog nge-fetch 20 produk dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">https://fakestoreapi.com/products</code> dan merendernya sebagai grid card. Tapi ini API di internet beneran — bisa lambat, bisa error, bisa dibatalkan pas user keburu pindah halaman. App yang cuma handle happy path itu app tutorial; app yang handle <strong class="text-ink">loading, error, dan cleanup</strong> itu app production.</p>
-<p>Bungkus semua logic fetch-nya di custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useProducts</code>. Komponen halaman jadi tinggal mikirin tampilan — chef dan pelayan, ingat Bab 5?</p>
+<p><strong class="text-ink">Target:</strong> halaman katalog nge-fetch 20 produk dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">https://fakestoreapi.com/products</code> dan merendernya sebagai grid card. Tapi ini API di internet beneran — bisa lambat, bisa error, bisa dibatalkan pas user keburu pindah halaman. App yang cuma handle happy path itu app tutorial; app yang handle <strong class="text-ink">loading, error, dan cleanup</strong> itu app production.</p>
+<p>Bungkus semua logic fetch-nya di custom hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useProducts</code>. Komponen halaman jadi tinggal mikirin tampilan — chef dan pelayan, ingat Bab 5?</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Ada 3 kondisi UI: loading, error (dengan pesan manusiawi), sukses (grid)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Respons non-OK (404/500) dianggap error, bukan dianggap data</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fetch dibatalkan pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AbortController</code> di cleanup useEffect</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Tiap card jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Link</code> ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/:id</code> (halamannya nyusul)</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fetch dibatalkan pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">AbortController</code> di cleanup useEffect</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Tiap card jadi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Link</code> ke <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/product/:id</code> (halamannya nyusul)</span></li>
 </ul>
-<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch()</code> itu cuma reject kalau <em>network</em>-nya gagal. Server bales 500 Internal Server Error? Buat fetch itu "sukses"! Makanya wajib cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">res.ok</code> dan lempar error manual. Dan satu lagi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">abort()</code> bikin fetch reject dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">AbortError</code> — itu BUKAN error beneran, jangan sampai nampilin "Gagal memuat" cuma karena user pindah halaman.</p></div>
+<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">fetch()</code> itu cuma reject kalau <em>network</em>-nya gagal. Server bales 500 Internal Server Error? Buat fetch itu "sukses"! Makanya wajib cek <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">res.ok</code> dan lempar error manual. Dan satu lagi: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">abort()</code> bikin fetch reject dengan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">AbortError</code> — itu BUKAN error beneran, jangan sampai nampilin "Gagal memuat" cuma karena user pindah halaman.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 7 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/products/useProducts.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/products/useProducts.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
 
 export default function useProducts() {
   const [products, setProducts] = useState([]);
@@ -748,7 +753,7 @@ export default function useProducts() {
 
   return { products, status };
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/products/ProductListPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Link } from 'react-router-dom';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/products/ProductListPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Link } from 'react-router-dom';
 import useProducts from './useProducts';
 
 export default function ProductListPage() {
@@ -777,23 +782,23 @@ export default function ProductListPage() {
 </section>
 
 <!-- P2 MILESTONE 3 (8) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-8">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 8 — HALAMAN DETAIL PRODUK (ROUTE PARAM)</h3><input type="checkbox" id="check-13-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-8">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 8 — HALAMAN DETAIL PRODUK (ROUTE PARAM)</h3><input type="checkbox" id="check-13-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> klik card di katalog → masuk ke <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/3</code> → halaman detail nge-fetch produk id 3 dan menampilkan gambar besar, judul, harga, deskripsi, plus tombol "Masukkan Keranjang" (belum berfungsi — dihidupkan milestone depan). Konsep kuncinya: <strong class="text-ink">URL itu state</strong>. Id produk hidup di alamat browser, bukan di useState — makanya halaman detail bisa di-refresh, di-bookmark, dan di-share.</p>
+<p><strong class="text-ink">Target:</strong> klik card di katalog → masuk ke <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/product/3</code> → halaman detail nge-fetch produk id 3 dan menampilkan gambar besar, judul, harga, deskripsi, plus tombol "Masukkan Keranjang" (belum berfungsi — dihidupkan milestone depan). Konsep kuncinya: <strong class="text-ink">URL itu state</strong>. Id produk hidup di alamat browser, bukan di useState — makanya halaman detail bisa di-refresh, di-bookmark, dan di-share.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Route <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/:id</code> terdaftar; id dibaca via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useParams</code></span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Buka <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/5</code> langsung dari address bar → tetap jalan</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id</code> masuk dependency array useEffect — pindah produk = fetch ulang</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Id ngaco (misal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/product/999</code>) → tampil pesan "nggak ketemu" + link balik</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Route <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/product/:id</code> terdaftar; id dibaca via <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useParams</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Buka <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/product/5</code> langsung dari address bar → tetap jalan</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">id</code> masuk dependency array useEffect — pindah produk = fetch ulang</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Id ngaco (misal <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/product/999</code>) → tampil pesan "nggak ketemu" + link balik</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Pola fetch-nya sama persis kayak milestone 7, bedanya URL-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">https://fakestoreapi.com/products/${id}</code> dan deps-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[id]</code>. Catatan khusus Fake Store API: id yang nggak ada kadang dibalas body kosong (bukan 404) — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">res.json()</code> bakal gagal atau return null, jadi cek juga <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">!product</code> sebelum render.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Pola fetch-nya sama persis kayak milestone 7, bedanya URL-nya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">https://fakestoreapi.com/products/${id}</code> dan deps-nya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[id]</code>. Catatan khusus Fake Store API: id yang nggak ada kadang dibalas body kosong (bukan 404) — <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">res.json()</code> bakal gagal atau return null, jadi cek juga <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">!product</code> sebelum render.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 8 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/products/ProductDetailPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/products/ProductDetailPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 export default function ProductDetailPage() {
@@ -846,7 +851,7 @@ export default function ProductDetailPage() {
     &lt;/article&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx (update — daftarkan route detail)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Routes, Route } from 'react-router-dom';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx (update — daftarkan route detail)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ProductListPage from './features/products/ProductListPage';
 import ProductDetailPage from './features/products/ProductDetailPage';
@@ -861,30 +866,30 @@ export default function App() {
     &lt;/Routes&gt;
   );
 }</code></pre></div>
-<p class="text-sm text-[#333]">Kenapa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setProduct(null)</code> di awal effect? Biar pas user loncat dari produk 3 ke produk 7, dia nggak lihat data produk 3 nempel sesaat di halaman produk 7. Detail kecil, tapi ini bedanya app yang kerasa "kokoh" sama yang kerasa "glitchy".</p>
+<p class="text-sm text-[#333]">Kenapa <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setProduct(null)</code> di awal effect? Biar pas user loncat dari produk 3 ke produk 7, dia nggak lihat data produk 3 nempel sesaat di halaman produk 7. Detail kecil, tapi ini bedanya app yang kerasa "kokoh" sama yang kerasa "glitchy".</p>
 </div>
 </details>
 </section>
 
 <!-- P2 MILESTONE 4 (9) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-9">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 9 — CART GLOBAL: CONTEXT + USEREDUCER</h3><input type="checkbox" id="check-13-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±90 menit ngoding — ini jantungnya project</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-9">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 9 — CART GLOBAL: CONTEXT + USEREDUCER</h3><input type="checkbox" id="check-13-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±90 menit ngoding — ini jantungnya project</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> keranjang belanja yang bisa diakses dari halaman mana pun: tambah dari halaman detail, badge jumlah item di navbar, dan halaman <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/cart</code> buat ubah qty/hapus item. Analoginya: cart itu <strong class="text-ink">tas belanja yang nempel di badan lo</strong> ke mana pun lo jalan di mall — pindah toko (halaman), isi tasnya ikut. State kayak gini nggak bisa hidup di satu halaman; dia harus global.</p>
+<p><strong class="text-ink">Target:</strong> keranjang belanja yang bisa diakses dari halaman mana pun: tambah dari halaman detail, badge jumlah item di navbar, dan halaman <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/cart</code> buat ubah qty/hapus item. Analoginya: cart itu <strong class="text-ink">tas belanja yang nempel di badan lo</strong> ke mana pun lo jalan di mall — pindah toko (halaman), isi tasnya ikut. State kayak gini nggak bisa hidup di satu halaman; dia harus global.</p>
 <p><strong class="text-ink">Keputusan arsitektur: Context + useReducer, bukan Zustand. Kenapa?</strong> Dua-duanya valid (Bab 8), tapi di sini gue pilih Context + useReducer karena: (1) <strong class="text-ink">zero dependency</strong> — cart logic-nya murni React, nggak nambah package; (2) operasi cart itu <strong class="text-ink">state transition klasik</strong> (ADD/REMOVE/SET_QTY/CLEAR) yang emang jodohnya reducer — semua aturan bisnis ngumpul di satu fungsi pure yang gampang dites; (3) skala state-nya kecil dan update-nya jarang, jadi kelemahan Context (re-render semua consumer) nggak kerasa. Kalau app lo nanti punya banyak state global yang update-nya sering dan saling silang — baru Zustand jadi pilihan yang lebih enak. Yang penting: <strong class="text-ink">lo bisa jelasin alasannya</strong>, bukan cuma ikut-ikutan.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Reducer handle <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ADD</code> (produk sama → qty naik, bukan duplikat), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">REMOVE</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">SET_QTY</code> (qty 0 → item hilang), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">CLEAR</code></span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCart()</code> — komponen nggak pernah nyentuh dispatch mentah</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Reducer handle <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ADD</code> (produk sama → qty naik, bukan duplikat), <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">REMOVE</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">SET_QTY</code> (qty 0 → item hilang), <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">CLEAR</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Custom hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useCart()</code> — komponen nggak pernah nyentuh dispatch mentah</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Badge di navbar update realtime; total harga dihitung, bukan disimpen</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Cart kosong → empty state dengan ajakan balik ke katalog</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Susunannya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">CartProvider</code> bungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;App /&gt;</code> di main.jsx (di dalam BrowserRouter). Di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCart</code>, expose fungsi bernama jelas (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">add</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">remove</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setQty</code>) yang di dalamnya manggil dispatch — Provider Pattern dari Bab 5. Jangan lupa lempar error kalau hook dipakai di luar provider.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Susunannya: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">CartProvider</code> bungkus <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;App /&gt;</code> di main.jsx (di dalam BrowserRouter). Di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useCart</code>, expose fungsi bernama jelas (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">add</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">remove</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setQty</code>) yang di dalamnya manggil dispatch — Provider Pattern dari Bab 5. Jangan lupa lempar error kalau hook dipakai di luar provider.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 9 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/cart/CartContext.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useReducer } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/cart/CartContext.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useReducer } from 'react';
 
 const CartContext = createContext(null);
 
@@ -943,7 +948,7 @@ export function useCart() {
     clear: () =&gt; dispatch({ type: 'CLEAR' }),
   };
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Wiring: main.jsx, Layout.jsx, ProductDetailPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/main.jsx — bungkus App dengan CartProvider
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Wiring: main.jsx, Layout.jsx, ProductDetailPage.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/main.jsx — bungkus App dengan CartProvider
 import { CartProvider } from './features/cart/CartContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -983,7 +988,7 @@ const { add } = useCart();
 // &lt;button className="btn-primary" onClick={() =&gt; add(product)}&gt;
 //   + Masukkan Keranjang
 // &lt;/button&gt;</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/cart/CartPage.jsx (+ route /cart di App.jsx)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Link } from 'react-router-dom';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/cart/CartPage.jsx (+ route /cart di App.jsx)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
 
 export default function CartPage() {
@@ -1032,30 +1037,30 @@ export default function CartPage() {
 // src/App.jsx — tambah route:
 // import CartPage from './features/cart/CartPage';
 // &lt;Route path="/cart" element={&lt;CartPage /&gt;} /&gt;</code></pre></div>
-<p class="text-sm text-[#333]">Perhatiin di case <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ADD</code>: kita cuma ambil field yang cart butuhin (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">id, title, price, image</code>), bukan nyimpen seluruh object produk. Cart nggak perlu deskripsi 3 paragraf — simpan data seminimal yang dibutuhkan.</p>
+<p class="text-sm text-[#333]">Perhatiin di case <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ADD</code>: kita cuma ambil field yang cart butuhin (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">id, title, price, image</code>), bukan nyimpen seluruh object produk. Cart nggak perlu deskripsi 3 paragraf — simpan data seminimal yang dibutuhkan.</p>
 </div>
 </details>
 </section>
 
 <!-- P2 MILESTONE 5 (10) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-10">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">10</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 10 — CHECKOUT FORM + VALIDASI</h3><input type="checkbox" id="check-13-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-10">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">10</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 10 — CHECKOUT FORM + VALIDASI</h3><input type="checkbox" id="check-13-10" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-10" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> halaman <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/checkout</code> dengan form nama, email, alamat — semua controlled — plus validasi yang jalan pas submit. Lolos validasi → tampil pesan sukses, cart dikosongkan, redirect balik ke katalog. Nggak ada backend beneran, tapi <strong class="text-ink">pola form + validasi ini persis yang lo tulis di kerjaan nyata</strong> — cuma nanti submit-nya ke API.</p>
+<p><strong class="text-ink">Target:</strong> halaman <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/checkout</code> dengan form nama, email, alamat — semua controlled — plus validasi yang jalan pas submit. Lolos validasi → tampil pesan sukses, cart dikosongkan, redirect balik ke katalog. Nggak ada backend beneran, tapi <strong class="text-ink">pola form + validasi ini persis yang lo tulis di kerjaan nyata</strong> — cuma nanti submit-nya ke API.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Satu state object untuk semua field, satu handler generik (computed property <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[e.target.name]</code>)</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">validate(form)</code> pure — return object errors, gampang di-unit-test</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Satu state object untuk semua field, satu handler generik (computed property <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[e.target.name]</code>)</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Fungsi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">validate(form)</code> pure — return object errors, gampang di-unit-test</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Error tampil per field, di sebelah field-nya, bahasa manusia</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Submit valid → pesan sukses + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">clear()</code> cart + redirect</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Submit valid → pesan sukses + <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">clear()</code> cart + redirect</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Checkout dengan cart kosong dicegah</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Pasang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">noValidate</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;form&gt;</code> biar validasi bawaan browser nggak nyerobot punya lo. Redirect programatik pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useNavigate()</code> dari react-router-dom. Regex email sederhana <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/^\S+@\S+\.\S+$/</code> udah cukup — validasi email "sempurna" itu jebakan rabbit hole.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Pasang <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">noValidate</code> di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;form&gt;</code> biar validasi bawaan browser nggak nyerobot punya lo. Redirect programatik pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useNavigate()</code> dari react-router-dom. Regex email sederhana <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/^\S+@\S+\.\S+$/</code> udah cukup — validasi email "sempurna" itu jebakan rabbit hole.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 10 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/features/checkout/CheckoutPage.jsx (+ route /checkout)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/features/checkout/CheckoutPage.jsx (+ route /checkout)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../cart/CartContext';
 
@@ -1139,28 +1144,28 @@ export default function CheckoutPage() {
 // src/App.jsx — tambah route:
 // import CheckoutPage from './features/checkout/CheckoutPage';
 // &lt;Route path="/checkout" element={&lt;CheckoutPage /&gt;} /&gt;</code></pre></div>
-<p class="text-sm text-[#333]">Perhatiin redirect-nya: timer hidup di useEffect dengan cleanup, karena setTimeout yang ditinggal di handler bakal tetap jalan walau user udah pindah halaman — resep klasik navigasi hantu. Validasi di sini model "on submit" — paling simpel dan nggak nyebelin. Upgrade UX-nya (opsional): validasi ulang field yang udah pernah error setiap kali diketik, biar error-nya hilang begitu dibenerin. Library kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-hook-form</code> ngelakuin ini semua — tapi lo harus bisa versi manualnya dulu.</p>
+<p class="text-sm text-[#333]">Perhatiin redirect-nya: timer hidup di useEffect dengan cleanup, karena setTimeout yang ditinggal di handler bakal tetap jalan walau user udah pindah halaman — resep klasik navigasi hantu. Validasi di sini model "on submit" — paling simpel dan nggak nyebelin. Upgrade UX-nya (opsional): validasi ulang field yang udah pernah error setiap kali diketik, biar error-nya hilang begitu dibenerin. Library kayak <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">react-hook-form</code> ngelakuin ini semua — tapi lo harus bisa versi manualnya dulu.</p>
 </div>
 </details>
 </section>
 
 <!-- P2 MILESTONE 6 (11) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-11">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">11</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 11 — POLISH: SKELETON &amp; EMPTY STATES</h3><input type="checkbox" id="check-13-11" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-11" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-11">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">11</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 11 — POLISH: SKELETON &amp; EMPTY STATES</h3><input type="checkbox" id="check-13-11" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-11" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Target:</strong> ganti teks "Memuat…" dengan <strong class="text-ink">skeleton loading</strong> (kotak abu-abu berdenyut seukuran konten asli), dan lengkapi error state dengan tombol "Coba lagi". Ini milestone yang misahin project "tugas kuliah" dari project "portfolio". Konten sama, kesan beda 180 derajat — kayak nasi goreng yang sama tapi satu di piring styrofoam, satu di-plating.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Katalog loading → grid 8 skeleton card dengan animasi pulse</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Error state punya tombol retry yang beneran nge-fetch ulang (tanpa reload halaman)</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Skeleton diberi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">aria-hidden="true"</code> — screen reader nggak perlu "baca" kotak abu-abu</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Skeleton diberi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">aria-hidden="true"</code> — screen reader nggak perlu "baca" kotak abu-abu</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Buat retry: tambahin state counter di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useProducts</code>, masukin ke deps array useEffect, dan expose fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">retry()</code> yang naikin counter — effect otomatis jalan ulang. Trik "refetch via deps" ini idiom React yang umum banget.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Buat retry: tambahin state counter di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useProducts</code>, masukin ke deps array useEffect, dan expose fungsi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">retry()</code> yang naikin counter — effect otomatis jalan ulang. Trik "refetch via deps" ini idiom React yang umum banget.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 11 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/Skeleton.jsx + CSS-nya</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/Skeleton.jsx
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/Skeleton.jsx + CSS-nya</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/components/Skeleton.jsx
 export function SkeletonCard() {
   return (
     &lt;div className="product-card skeleton" aria-hidden="true"&gt;
@@ -1189,7 +1194,7 @@ export function SkeletonGrid({ count = 8 }) {
 }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 */</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">useProducts.js (retry) + ProductListPage.jsx (update)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/features/products/useProducts.js — versi final dengan retry
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">useProducts.js (retry) + ProductListPage.jsx (update)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// src/features/products/useProducts.js — versi final dengan retry
 import { useEffect, useState } from 'react';
 
 export default function useProducts() {
@@ -1257,13 +1262,13 @@ export default function ProductListPage() {
 </section>
 
 <!-- P2 WRAP-UP -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="p2-wrapup">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 2 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="p2-wrapup">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 2 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Upgrade Ideas:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Search + filter kategori</strong> — Fake Store API punya endpoint <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">/products/categories</code>; simpan filter aktif di <em>URL query param</em> biar bisa di-share (latihan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useSearchParams</code>).</span></li>
-<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Persist cart ke localStorage</strong> — copy <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> dari Project 1! Tips: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useReducer</code> punya argumen ketiga (lazy init) buat baca storage di awal.</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Search + filter kategori</strong> — Fake Store API punya endpoint <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">/products/categories</code>; simpan filter aktif di <em>URL query param</em> biar bisa di-share (latihan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useSearchParams</code>).</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Persist cart ke localStorage</strong> — copy <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> dari Project 1! Tips: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useReducer</code> punya argumen ketiga (lazy init) buat baca storage di awal.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Migrasi fetch ke TanStack Query</strong> — cache, refetch, dedup gratis; terus bandingin diff-nya di README: "sebelum vs sesudah" itu konten portfolio yang bagus banget.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Sort harga + pagination</strong> — atau infinite scroll pakai IntersectionObserver kalau mau pamer.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Deploy + README dengan screenshot</strong> — plus catatan arsitektur singkat: kenapa by-feature, kenapa Context+useReducer.</span></li>
@@ -1288,22 +1293,22 @@ export default function ProductListPage() {
 </div>
 
 <!-- P3 MILESTONE 1 (12) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-12">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">12</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 12 — LAYOUT DASHBOARD: SIDEBAR + GRID</h3><input type="checkbox" id="check-13-12" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-12" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-12">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">12</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 12 — LAYOUT DASHBOARD: SIDEBAR + GRID</h3><input type="checkbox" id="check-13-12" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-12" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> project <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">dashboard-live</code> dengan layout dashboard klasik: sidebar navigasi di kiri, area konten dengan CSS Grid berisi panel-panel (slot buat chart, statistik, dan tabel). Semua panel masih placeholder — yang penting kerangkanya kokoh dulu. Struktur CSS pakai <strong class="text-ink">CSS variables dari hari pertama</strong>, karena milestone 17 (dark mode) bakal manen investasi ini.</p>
+<p><strong class="text-ink">Target:</strong> project <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">dashboard-live</code> dengan layout dashboard klasik: sidebar navigasi di kiri, area konten dengan CSS Grid berisi panel-panel (slot buat chart, statistik, dan tabel). Semua panel masih placeholder — yang penting kerangkanya kokoh dulu. Struktur CSS pakai <strong class="text-ink">CSS variables dari hari pertama</strong>, karena milestone 17 (dark mode) bakal manen investasi ini.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Layout 2 kolom: sidebar fix 220px + konten fleksibel (CSS Grid)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Area konten = grid 3 kolom; panel chart span 2 kolom, panel tabel span 3</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Semua warna dipakai lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">var(--nama)</code>, nggak ada hex nyebar di komponen</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Semua warna dipakai lewat <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">var(--nama)</code>, nggak ada hex nyebar di komponen</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.shell { display: grid; grid-template-columns: 220px 1fr; }</code> buat kerangka luar, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">grid-column: span 2</code> buat panel lebar. Definisikan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">--bg, --panel, --text, --border</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">:root</code>.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">.shell { display: grid; grid-template-columns: 220px 1fr; }</code> buat kerangka luar, dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">grid-column: span 2</code> buat panel lebar. Definisikan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">--bg, --panel, --text, --border</code> di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">:root</code>.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 12 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Terminal + src/App.jsx + src/components/Sidebar.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Terminal:
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Terminal + src/App.jsx + src/components/Sidebar.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Terminal:
 // npm create vite@latest dashboard-live -- --template react
 // cd dashboard-live &amp;&amp; npm install &amp;&amp; npm run dev
 
@@ -1342,7 +1347,7 @@ export default function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/index.css — CSS variables dari hari pertama</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-css">:root {
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/index.css — CSS variables dari hari pertama</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-css">:root {
   --bg: #f5f6f8;
   --panel: #ffffff;
   --text: #111318;
@@ -1399,23 +1404,23 @@ body {
 </section>
 
 <!-- P3 MILESTONE 2 (13) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-13">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">13</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 13 — SIMULASI DATA STREAM: useLiveData</h3><input type="checkbox" id="check-13-13" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-13">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">13</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 13 — SIMULASI DATA STREAM: useLiveData</h3><input type="checkbox" id="check-13-13" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> custom hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLiveData</code> yang tiap detik ngeluarin titik harga baru pakai algoritma <strong class="text-ink">random walk</strong>: harga berikutnya = harga sekarang ± perubahan acak kecil. Hasilnya grafik yang naik-turun natural kayak harga saham beneran — bayangin <strong class="text-ink">orang mabuk jalan pulang</strong>: tiap langkah arahnya acak, tapi selalu berangkat dari posisi terakhir, nggak teleport. Itulah kenapa random walk keliatan "hidup", beda sama <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Math.random()</code> murni yang loncat-loncat kayak sinyal rusak.</p>
+<p><strong class="text-ink">Target:</strong> custom hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLiveData</code> yang tiap detik ngeluarin titik harga baru pakai algoritma <strong class="text-ink">random walk</strong>: harga berikutnya = harga sekarang ± perubahan acak kecil. Hasilnya grafik yang naik-turun natural kayak harga saham beneran — bayangin <strong class="text-ink">orang mabuk jalan pulang</strong>: tiap langkah arahnya acak, tapi selalu berangkat dari posisi terakhir, nggak teleport. Itulah kenapa random walk keliatan "hidup", beda sama <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Math.random()</code> murni yang loncat-loncat kayak sinyal rusak.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hook return array <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">points</code>: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{ time, price }</code>, maksimal 60 titik terakhir</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hook return array <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">points</code>: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{ time, price }</code>, maksimal 60 titik terakhir</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Interval dibersihkan di cleanup — nggak ada interval zombie saat unmount</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Update state pakai functional updater (bukan closure basi)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Panel statistik menampilkan harga terakhir + arah naik/turun</span></li>
 </ul>
-<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Di dalam callback <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setInterval</code>, JANGAN baca state langsung (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setPoints([...points, baru])</code>) — callback-nya dibuat sekali di mount, jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">points</code> yang dia lihat selamanya array kosong. Ini <strong class="text-ink">stale closure</strong>, bug useEffect paling legendaris (Bab 3 &amp; 11). Solusinya functional updater: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setPoints((prev) =&gt; ...)</code>, plus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useRef</code> buat nyimpen harga terakhir.</p></div>
+<div class="warning-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Di dalam callback <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setInterval</code>, JANGAN baca state langsung (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setPoints([...points, baru])</code>) — callback-nya dibuat sekali di mount, jadi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">points</code> yang dia lihat selamanya array kosong. Ini <strong class="text-ink">stale closure</strong>, bug useEffect paling legendaris (Bab 3 &amp; 11). Solusinya functional updater: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">setPoints((prev) =&gt; ...)</code>, plus <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useRef</code> buat nyimpen harga terakhir.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 13 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/hooks/useLiveData.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useRef, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/hooks/useLiveData.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useRef, useState } from 'react';
 
 const MAX_POINTS = 60;
 
@@ -1445,7 +1450,7 @@ export default function useLiveData({ start = 100, intervalMs = 1000 } = {}) {
 
   return points;
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Upgrade path: dari setInterval ke WebSocket beneran</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Kekuatan custom hook: komponen konsumen NGGAK BERUBAH SAMA SEKALI
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">Upgrade path: dari setInterval ke WebSocket beneran</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Kekuatan custom hook: komponen konsumen NGGAK BERUBAH SAMA SEKALI
 // saat sumber data ganti. Cukup tukar isi useEffect-nya:
 
 export default function useLiveData() {
@@ -1476,7 +1481,7 @@ export default function useLiveData() {
 
 // Pola cleanup-nya identik: clearInterval ↔ ws.close().
 // Chart, tabel, statistik — semua nggak perlu tahu datanya dari mana.</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx (update — panel statistik, kriteria #4)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import useLiveData from './hooks/useLiveData';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx (update — panel statistik, kriteria #4)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import useLiveData from './hooks/useLiveData';
 
 // di dalam komponen App:
 const points = useLiveData({ start: 100, intervalMs: 1000 });
@@ -1494,7 +1499,7 @@ const up = last &amp;&amp; prev &amp;&amp; last.price &gt;= prev.price;
 </details>
 
 <div class="mt-6 space-y-3">
-<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Cobain konsepnya langsung di sini</strong> — ini versi mini <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLiveData</code> yang jalan live di playground. Ingat: playground ini cuma buat <strong class="text-ink">demo konsep</strong> — ketiga project capstone tetap lo kerjakan di editor lokal (VS Code + Vite), bukan di sini, karena butuh routing, npm packages, dan multi-file.</p>
+<p class="text-sm text-[#333] leading-relaxed"><strong class="text-ink">Cobain konsepnya langsung di sini</strong> — ini versi mini <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLiveData</code> yang jalan live di playground. Ingat: playground ini cuma buat <strong class="text-ink">demo konsep</strong> — ketiga project capstone tetap lo kerjakan di editor lokal (VS Code + Vite), bukan di sini, karena butuh routing, npm packages, dan multi-file.</p>
 <script type="text/plain" id="pg-13-1">const { useState, useEffect, useRef } = React;
 
 const MAX_POINTS = 8;
@@ -1552,22 +1557,22 @@ function App() {
 </section>
 
 <!-- P3 MILESTONE 3 (14) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-14">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">14</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 14 — LIVE CHART DENGAN RECHARTS</h3><input type="checkbox" id="check-13-14" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-14">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">14</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 14 — LIVE CHART DENGAN RECHARTS</h3><input type="checkbox" id="check-13-14" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±60 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> panel chart menampilkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">LineChart</code> dari recharts yang bergerak sendiri seiring data masuk dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLiveData</code>. Recharts itu library chart deklaratif — lo susun chart dari komponen JSX (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;LineChart&gt;&lt;XAxis /&gt;&lt;Line /&gt;</code>) persis kayak nyusun UI biasa. Nggak ada imperative canvas API — makanya dia favorit di ekosistem React.</p>
+<p><strong class="text-ink">Target:</strong> panel chart menampilkan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">LineChart</code> dari recharts yang bergerak sendiri seiring data masuk dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLiveData</code>. Recharts itu library chart deklaratif — lo susun chart dari komponen JSX (<code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;LineChart&gt;&lt;XAxis /&gt;&lt;Line /&gt;</code>) persis kayak nyusun UI biasa. Nggak ada imperative canvas API — makanya dia favorit di ekosistem React.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Chart update otomatis tiap detik, nggak flicker, nggak patah-patah</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Responsive — ikut lebar panel via <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ResponsiveContainer</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Responsive — ikut lebar panel via <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ResponsiveContainer</code></span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Sumbu Y menyesuaikan range data (domain auto), tooltip jalan</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm install recharts</code>. Dua properti penting buat data live: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isAnimationActive={false}</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Line&gt;</code> (animasi enter bakal restart tiap detik = kelihatan kejang) dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">dot={false}</code> (60 titik bulat itu berisik). <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ResponsiveContainer</code> butuh parent yang punya tinggi eksplisit.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">npm install recharts</code>. Dua properti penting buat data live: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">isAnimationActive={false}</code> di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;Line&gt;</code> (animasi enter bakal restart tiap detik = kelihatan kejang) dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">dot={false}</code> (60 titik bulat itu berisik). <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ResponsiveContainer</code> butuh parent yang punya tinggi eksplisit.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 14 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/PriceChart.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// npm install recharts
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/PriceChart.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// npm install recharts
 import {
   LineChart, Line, XAxis, YAxis, Tooltip,
   CartesianGrid, ResponsiveContainer,
@@ -1599,7 +1604,7 @@ export default function PriceChart({ points }) {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/App.jsx (update — pasang hook + chart + statistik)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import Sidebar from './components/Sidebar';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/App.jsx (update — pasang hook + chart + statistik)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import Sidebar from './components/Sidebar';
 import PriceChart from './components/PriceChart';
 import useLiveData from './hooks/useLiveData';
 
@@ -1632,29 +1637,29 @@ export default function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-<p class="text-sm text-[#333]">Perhatiin: stroke chart-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">var(--accent)</code> dan grid-nya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">var(--border)</code> — pas dark mode nyala di milestone 17, chart-nya ikut ganti kostum gratis. Investasi CSS variables mulai kebayar.</p>
+<p class="text-sm text-[#333]">Perhatiin: stroke chart-nya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">var(--accent)</code> dan grid-nya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">var(--border)</code> — pas dark mode nyala di milestone 17, chart-nya ikut ganti kostum gratis. Investasi CSS variables mulai kebayar.</p>
 </div>
 </details>
 </section>
 
 <!-- P3 MILESTONE 4 (15) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-15">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">15</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 15 — TABEL TRANSAKSI BESAR + MEMOIZATION</h3><input type="checkbox" id="check-13-15" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±75 menit ngoding</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="milestone-15">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">15</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 15 — TABEL TRANSAKSI BESAR + MEMOIZATION</h3><input type="checkbox" id="check-13-15" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±75 menit ngoding</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> tabel berisi 500 transaksi, dan tiap setengah detik ada transaksi baru masuk di paling atas. Tanpa optimasi, tiap tick React re-render <em>500 baris</em> padahal yang baru cuma <em>satu</em>. Di sinilah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.memo</code> (Bab 10) berubah dari teori jadi penyelamat: baris lama di-skip karena object transaksinya <strong class="text-ink">masih referensi yang sama</strong> — kita kan prepend immutable, bukan bikin ulang semua object. Plus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code> buat filter BUY/SELL biar nggak nge-filter 500 item di setiap render.</p>
+<p><strong class="text-ink">Target:</strong> tabel berisi 500 transaksi, dan tiap setengah detik ada transaksi baru masuk di paling atas. Tanpa optimasi, tiap tick React re-render <em>500 baris</em> padahal yang baru cuma <em>satu</em>. Di sinilah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">React.memo</code> (Bab 10) berubah dari teori jadi penyelamat: baris lama di-skip karena object transaksinya <strong class="text-ink">masih referensi yang sama</strong> — kita kan prepend immutable, bukan bikin ulang semua object. Plus <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useMemo</code> buat filter BUY/SELL biar nggak nge-filter 500 item di setiap render.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useTransactions</code>: mulai 200 transaksi (param <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">initial</code>), nambah 1 tiap 500ms, cap 500</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Row</code> dibungkus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">memo</code> — buktikan pakai React DevTools Profiler / render counter bahwa baris lama nggak re-render</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Filter Semua/Buy/Sell pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useMemo</code> dengan deps <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[txs, filter]</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useTransactions</code>: mulai 200 transaksi (param <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">initial</code>), nambah 1 tiap 500ms, cap 500</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Komponen <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Row</code> dibungkus <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">memo</code> — buktikan pakai React DevTools Profiler / render counter bahwa baris lama nggak re-render</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Filter Semua/Buy/Sell pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useMemo</code> dengan deps <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[txs, filter]</code></span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Key baris = id transaksi, BUKAN index (data-nya bergeser tiap tick — index key = state nyasar, ingat Bab 11)</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Cara membuktikan memo-nya kerja: taruh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.log('render row', tx.id)</code> di dalam Row. Tanpa memo → 500 log per tick. Dengan memo → 1 log per tick. Angka yang lo lihat sendiri itu bahan cerita interview yang nggak bisa dibantah.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Cara membuktikan memo-nya kerja: taruh <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">console.log('render row', tx.id)</code> di dalam Row. Tanpa memo → 500 log per tick. Dengan memo → 1 log per tick. Angka yang lo lihat sendiri itu bahan cerita interview yang nggak bisa dibantah.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 15 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/hooks/useTransactions.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/hooks/useTransactions.js</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useEffect, useState } from 'react';
 
 const NAMES = ['Budi', 'Sari', 'Andi', 'Maya', 'Rizky', 'Dewi', 'Tono', 'Lina'];
 let nextId = 1;
@@ -1686,7 +1691,7 @@ export default function useTransactions({ intervalMs = 500, max = 500, initial =
 
   return txs;
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/TransactionTable.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { memo, useMemo, useState } from 'react';
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/TransactionTable.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { memo, useMemo, useState } from 'react';
 
 // memo: baris cuma re-render kalau props.tx BERGANTI REFERENSI.
 // Transaksi lama nggak pernah dibuat ulang → di-skip. 1 render/tick, bukan 500.
@@ -1733,30 +1738,30 @@ export default function TransactionTable({ txs }) {
 // Pasang di App.jsx:
 // const txs = useTransactions();
 // &lt;section className="panel span-3"&gt;&lt;TransactionTable txs={txs} /&gt;&lt;/section&gt;</code></pre></div>
-<p class="text-sm text-[#333]">Dua hal yang bikin memo-nya beneran jalan di sini: (1) prepend immutable di hook — object lama nggak dibuat ulang, dan (2) <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Row</code> nggak nerima props fungsi inline. Kalau lo iseng nambah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; ...}</code> ke Row, memo-nya langsung mati — fungsi inline itu referensi baru tiap render. Itu materi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useCallback</code> di Bab 10.</p>
+<p class="text-sm text-[#333]">Dua hal yang bikin memo-nya beneran jalan di sini: (1) prepend immutable di hook — object lama nggak dibuat ulang, dan (2) <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">Row</code> nggak nerima props fungsi inline. Kalau lo iseng nambah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; ...}</code> ke Row, memo-nya langsung mati — fungsi inline itu referensi baru tiap render. Itu materi <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useCallback</code> di Bab 10.</p>
 </div>
 </details>
 </section>
 
 <!-- P3 MILESTONE 5 (16) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-16">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">16</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 16 — VIRTUAL LIST BUATAN SENDIRI</h3><input type="checkbox" id="check-13-16" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-16" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±90 menit ngoding — paling menantang di bab ini</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="milestone-16">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">16</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 16 — VIRTUAL LIST BUATAN SENDIRI</h3><input type="checkbox" id="check-13-16" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-16" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±90 menit ngoding — paling menantang di bab ini</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Target:</strong> naikkan jumlah transaksi ke 5.000 — dan DOM langsung ngos-ngosan, memo pun nggak nolong karena 5.000 node DOM itu tetap 5.000 node. Solusinya <strong class="text-ink">windowing</strong>: cuma render baris yang <em>kelihatan di viewport</em>. Analoginya <strong class="text-ink">jendela kereta</strong>— di luar sana ada ribuan kilometer pemandangan, tapi yang perlu "dirender" ke mata lo cuma yang lewat jendela. Sisanya cukup diwakili ruang kosong.</p>
-<p>Kita bikin sendiri dari nol biar lo paham matematikanya — dan di production lo pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-window</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">@tanstack/react-virtual</code> yang udah handle edge case (tinggi dinamis, scroll restore, dsb). Tapi pas interviewer nanya "gimana cara kerja react-window?", lo bisa jawab dari pengalaman, bukan dari README.</p>
+<p>Kita bikin sendiri dari nol biar lo paham matematikanya — dan di production lo pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">react-window</code> atau <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">@tanstack/react-virtual</code> yang udah handle edge case (tinggi dinamis, scroll restore, dsb). Tapi pas interviewer nanya "gimana cara kerja react-window?", lo bisa jawab dari pengalaman, bukan dari README.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>5.000 item, tapi DOM cuma berisi ±30 baris (cek di Elements tab!)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Scrollbar merepresentasikan tinggi total (5.000 × tinggi baris)</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Scroll ngebut nggak bikin blank parah — ada buffer baris di atas/bawah</span></li>
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">VirtualList</code> generik — nerima <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">items</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">rowHeight</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">renderRow</code></span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Komponen <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">VirtualList</code> generik — nerima <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">items</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">rowHeight</code>, <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">renderRow</code></span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Tiga angka kunci: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">startIndex = floor(scrollTop / rowHeight)</code>, jumlah baris kelihatan = <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ceil(tinggiViewport / rowHeight)</code>, posisi tiap baris = <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">(startIndex + i) * rowHeight</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">position: absolute</code>. Scrollbar-nya "dibohongin" pakai div dalam setinggi total. State-nya cuma satu: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">scrollTop</code> dari event onScroll.</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Tiga angka kunci: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">startIndex = floor(scrollTop / rowHeight)</code>, jumlah baris kelihatan = <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ceil(tinggiViewport / rowHeight)</code>, posisi tiap baris = <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">(startIndex + i) * rowHeight</code> dengan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">position: absolute</code>. Scrollbar-nya "dibohongin" pakai div dalam setinggi total. State-nya cuma satu: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">scrollTop</code> dari event onScroll.</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 16 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/components/VirtualList.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/components/VirtualList.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { useState } from 'react';
 
 const BUFFER = 5; // baris ekstra di atas &amp; bawah biar scroll ngebut nggak blank
 
@@ -1794,7 +1799,7 @@ export default function VirtualList({ items, rowHeight = 36, height = 420, rende
     &lt;/div&gt;
   );
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">TransactionTable.jsx (update — pakai VirtualList, 5.000 item)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Naikkan kapasitas di App.jsx — seed 5.000 dari awal lewat param initial,
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">TransactionTable.jsx (update — pakai VirtualList, 5.000 item)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Naikkan kapasitas di App.jsx — seed 5.000 dari awal lewat param initial,
 // biar kriteria "5.000 item" bisa dites detik itu juga:
 // const txs = useTransactions({ initial: 5000, max: 5000 });
 
@@ -1821,29 +1826,29 @@ import VirtualList from './VirtualList';
 // }
 // .tx-row .buy  { color: #16a34a; font-weight: 600; }
 // .tx-row .sell { color: #dc2626; font-weight: 600; }</code></pre></div>
-<p class="text-sm text-[#333]">Sekarang buka DevTools → Elements → expand container list-nya: <strong class="text-ink">±30 div doang</strong>, padahal scrollbar-nya bilang ada 5.000. Itu momen "OHHH" yang worth di-screenshot buat README. Catatan jujur buat interview: versi manual ini asumsinya tinggi baris seragam; begitu tingginya dinamis, matematikanya jadi rumit — di situlah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">react-window</code> earn its keep. Satu lagi: stream masih nge-prepend transaksi baru tiap 500ms, jadi semua baris kegeser satu slot di bawah jendela scroll — kelihatan "loncat" kalau lo lagi scroll di tengah list. Solusi production-nya: pause stream selama user scroll (masuk Upgrade Ideas di bawah).</p>
+<p class="text-sm text-[#333]">Sekarang buka DevTools → Elements → expand container list-nya: <strong class="text-ink">±30 div doang</strong>, padahal scrollbar-nya bilang ada 5.000. Itu momen "OHHH" yang worth di-screenshot buat README. Catatan jujur buat interview: versi manual ini asumsinya tinggi baris seragam; begitu tingginya dinamis, matematikanya jadi rumit — di situlah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">react-window</code> earn its keep. Satu lagi: stream masih nge-prepend transaksi baru tiap 500ms, jadi semua baris kegeser satu slot di bawah jendela scroll — kelihatan "loncat" kalau lo lagi scroll di tengah list. Solusi production-nya: pause stream selama user scroll (masuk Upgrade Ideas di bawah).</p>
 </div>
 </details>
 </section>
 
 <!-- P3 MILESTONE 6 (17) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-17">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">17</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 17 — DARK MODE: CONTEXT + CSS VARIABLES</h3><input type="checkbox" id="check-13-17" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-17" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding — milestone terakhir!</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="milestone-17">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">17</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h3 class="text-xl font-bold text-ink">MILESTONE 17 — DARK MODE: CONTEXT + CSS VARIABLES</h3><input type="checkbox" id="check-13-17" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-13-17" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Milestone &middot; ±45 menit ngoding — milestone terakhir!</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p><strong class="text-ink">Target:</strong> tombol / di topbar yang nge-toggle seluruh dashboard antara light dan dark, pilihannya keinget setelah refresh. Arsitekturnya elegan: <strong class="text-ink">React cuma ngurus SATU hal</strong> — atribut <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-theme</code> di <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;html&gt;</code>. Sisanya kerjaan CSS: karena semua warna dari awal pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">var(--...)</code>, satu blok <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">[data-theme='dark']</code> mengganti seluruh palet — panel, teks, border, bahkan chart — <strong class="text-ink">tanpa satu komponen pun re-render</strong>.</p>
+<p><strong class="text-ink">Target:</strong> tombol / di topbar yang nge-toggle seluruh dashboard antara light dan dark, pilihannya keinget setelah refresh. Arsitekturnya elegan: <strong class="text-ink">React cuma ngurus SATU hal</strong> — atribut <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">data-theme</code> di <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;html&gt;</code>. Sisanya kerjaan CSS: karena semua warna dari awal pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">var(--...)</code>, satu blok <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">[data-theme='dark']</code> mengganti seluruh palet — panel, teks, border, bahkan chart — <strong class="text-ink">tanpa satu komponen pun re-render</strong>.</p>
 <p><strong class="text-ink">Acceptance criteria:</strong></p>
 <ul class="space-y-1.5">
-<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeProvider</code> + hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useTheme()</code> dengan guard error — dan cuma komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ThemeToggle</code> yang manggil hook-nya</span></li>
+<li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span><code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ThemeProvider</code> + hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useTheme()</code> dengan guard error — dan cuma komponen <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">ThemeToggle</code> yang manggil hook-nya</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Pilihan tema persist di localStorage, dibaca lagi saat load</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Seluruh UI ganti warna, termasuk grid &amp; garis chart</span></li>
 <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5"></span><span>Transisi warna halus (CSS transition), nggak "njepret"</span></li>
 </ul>
-<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> provider: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.documentElement.dataset.theme = theme</code>. Ini side effect DOM di luar React — dan justru itu tempatnya useEffect. Initial state pakai lazy initializer yang baca localStorage (pola yang sama kayak useLocalStorage di Project 1 — semuanya nyambung kan?).</p></div>
+<div class="tip-box rounded-xl p-4"><p class="text-sm text-[#333]"><strong class="text-ink">Hint:</strong> Di dalam <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useEffect</code> provider: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">document.documentElement.dataset.theme = theme</code>. Ini side effect DOM di luar React — dan justru itu tempatnya useEffect. Initial state pakai lazy initializer yang baca localStorage (pola yang sama kayak useLocalStorage di Project 1 — semuanya nyambung kan?).</p></div>
 </div>
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
 <summary class="px-5 py-4 flex items-center justify-between"><span class="font-semibold text-ink text-sm">Solusi Milestone 17 — buka kalau udah nyoba sendiri</span><span class="text-xs text-muted">klik untuk lihat solusi</span></summary>
-<div class="px-5 pb-5 border-t border-black/[0.06] pt-4 space-y-4">
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">src/theme/ThemeContext.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useEffect, useState } from 'react';
+<div class="px-5 pb-5 border-t border-line pt-4 space-y-4">
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">src/theme/ThemeContext.jsx</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">import { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext(null);
 
@@ -1873,7 +1878,7 @@ export function useTheme() {
   if (!ctx) throw new Error('useTheme harus di dalam &lt;ThemeProvider&gt;');
   return ctx;
 }</code></pre></div>
-<div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">index.css (palet dark) + wiring main.jsx &amp; topbar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">/* index.css — tambahkan di bawah :root */
+<div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">index.css (palet dark) + wiring main.jsx &amp; topbar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">/* index.css — tambahkan di bawah :root */
 /*
 [data-theme='dark'] {
   --bg: #0f1115;
@@ -1923,8 +1928,8 @@ export default function ThemeToggle() {
 </section>
 
 <!-- P3 WRAP-UP -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="p3-wrapup">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 3 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="p3-wrapup">
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white font-bold text-sm"></span></div><div class="flex-1"><h3 class="text-xl font-bold text-ink mb-1">PROJECT 3 SELESAI — UPGRADE IDEAS &amp; BAHAN INTERVIEW</h3><p class="text-sm text-muted">Wrap-up &middot; 6 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">Upgrade Ideas:</strong></p>
 <ul class="space-y-1.5">
@@ -1932,7 +1937,7 @@ export default function ThemeToggle() {
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Pause/resume stream</strong> — tombol ⏸ yang berhentiin interval/socket. Latihan bagus buat conditional effect. Bonus: auto-pause saat user lagi scroll tabel — ngilangin efek baris "loncat" dari milestone 16.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Multi-chart + alert threshold</strong> — beberapa "aset" sekaligus, plus notifikasi kalau harga nembus batas yang diset user.</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Ganti VirtualList dengan @tanstack/react-virtual</strong> — terus tulis di README perbandingan versi manual vs library. Menunjukkan lo paham di bawah kap mesin.</span></li>
-<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Tema ikut sistem</strong> — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">matchMedia('(prefers-color-scheme: dark)')</code> sebagai default sebelum user milih manual.</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5">→</span><span><strong class="text-ink">Tema ikut sistem</strong> — <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">matchMedia('(prefers-color-scheme: dark)')</code> sebagai default sebelum user milih manual.</span></li>
 </ul>
 <p class="mt-4"><strong class="text-ink">Apa yang bisa lo omongin di interview soal project ini:</strong></p>
 <ul class="space-y-1.5">
@@ -1940,16 +1945,16 @@ export default function ThemeToggle() {
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>"Gue kena <strong class="text-ink">stale closure</strong> di setInterval — state yang kebaca selamanya nilai awal. Gue fix pakai functional updater dan useRef. Gue bisa jelasin kenapa itu terjadi dari sisi closure JavaScript."</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>"React.memo di tabel gue itu <strong class="text-ink">terukur</strong>: dari 500 render per tick jadi 1 — kelihatan di Profiler. Dan gue tau syaratnya: referensi object harus stabil, makanya update-nya immutable prepend."</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>"Buat 5.000 baris, memo aja nggak cukup — gue implement <strong class="text-ink">windowing manual</strong>: DOM cuma pegang 30 node, scrollbar disimulasikan div setinggi total. Production-nya gue pakai react-window, tapi gue ngerti matematikanya."</span></li>
-<li class="flex items-start gap-2"><span class="mt-0.5"></span><span>"Dark mode gue: React cuma nyetel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-theme</code>, palet warnanya diganti CSS variables — <strong class="text-ink">zero re-render</strong> saat toggle."</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5"></span><span>"Dark mode gue: React cuma nyetel <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">data-theme</code>, palet warnanya diganti CSS variables — <strong class="text-ink">zero re-render</strong> saat toggle."</span></li>
 </ul>
 <div class="tip-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Sadar nggak, lima poin di atas itu persis materi Bab 3, 10, dan 11 — cuma sekarang lo ngomonginnya <strong class="text-ink">dari pengalaman, bukan dari hafalan</strong>. Itulah beda kandidat yang "belajar React" sama yang "pernah berantem sama React dan menang". Interviewer bisa nyium bedanya dalam 5 menit.</p></div>
 </div>
 </section>
 
 <!-- PROJECT CHECKLIST (pengganti quiz) -->
-<section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="project-checklist">
+<section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="project-checklist">
 <div class="flex items-start gap-4 mb-6">
-<div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+<div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center flex-shrink-0">
 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 </div>
 <div>
@@ -1962,7 +1967,7 @@ export default function ThemeToggle() {
 <p class="font-semibold text-ink">Habit Tracker (milestone 1–5)</p>
 <ul class="space-y-1.5">
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>Bisa gue jelasin kenapa state habits ada di App, bukan di form?</span></li>
-<li class="flex items-start gap-2"><span class="mt-0.5"></span><span>Bisa gue tulis ulang <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> dari nol tanpa nyontek, termasuk lazy initializer-nya?</span></li>
+<li class="flex items-start gap-2"><span class="mt-0.5"></span><span>Bisa gue tulis ulang <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useLocalStorage</code> dari nol tanpa nyontek, termasuk lazy initializer-nya?</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>Bisa gue ceritain bug timezone toISOString dan cara gue fix?</span></li>
 <li class="flex items-start gap-2"><span class="mt-0.5"></span><span>Udah gue deploy dan link-nya bisa diklik orang?</span></li>
 </ul>
@@ -1984,11 +1989,11 @@ export default function ThemeToggle() {
 <p>Kalau 17 milestone udah tercentang semua dan checklist di atas lolos — lo resmi punya <strong class="text-ink">tiga project portfolio-grade</strong> plus cerita teknis buat interview. Bab 14 bakal ngajarin cara "menjual" semua ini: portfolio, CV, dan strategi interview.</p>
 </div>
 <div class="mt-8 flex flex-col sm:flex-row gap-3">
-<button onclick="markChapterComplete(13)" id="completeBtn13" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<button onclick="markChapterComplete(13)" id="completeBtn13" class="flex items-center justify-center gap-2 bg-coral hover:bg-coral-deep text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
 Tandai Bab Selesai 
 </button>
-<a href="chapter-14.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+<a href="chapter-14.html" class="flex items-center justify-center gap-2 bg-cream-2 hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
 Gas ke Bab 14 →
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
 </a>
@@ -2003,7 +2008,7 @@ Gas ke Bab 14 →
     </main>
 
     <!-- Back to top -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-coral text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-coral-deep no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 

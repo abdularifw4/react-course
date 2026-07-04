@@ -18,10 +18,10 @@ const CHAPTERS = [
   { id: 14, file: 'chapter-14.html', short: 'Interview',      title: 'Interview Prep & Career',    level: 'senior' },
 ];
 const LEVELS = {
-  fondasi:  { label: 'Fondasi',  dot: '#16a34a' },
-  menengah: { label: 'Menengah', dot: '#2563eb' },
-  mahir:    { label: 'Mahir',    dot: '#9333ea' },
-  senior:   { label: 'Senior',   dot: '#dc2626' },
+  fondasi:  { label: 'Fondasi',  dot: '#f87666' },
+  menengah: { label: 'Menengah', dot: '#004754' },
+  mahir:    { label: 'Mahir',    dot: '#933f35' },
+  senior:   { label: 'Senior',   dot: '#003943' },
 };
 
 const STORAGE_KEY = 'react-course-progress-v2';
@@ -86,7 +86,7 @@ function renderSidebar() {
     html += `<div class="side-ch ${isOpen ? 'open' : ''}" data-ch="${ch.id}">
       <div class="side-ch-row flex items-center">
         <a href="${ch.file}" class="nav-link ${active ? 'active' : ''} flex items-center gap-3 flex-1 min-w-0 px-3 py-2 rounded-lg text-sm font-medium ${active ? 'text-ink' : 'text-muted'}">
-          <span class="w-6 h-6 shrink-0 ${active ? 'bg-ink text-white' : 'bg-black/5 text-muted'} rounded flex items-center justify-center text-xs font-bold tabular-nums">${ch.id}</span>
+          <span class="w-6 h-6 shrink-0 ${active ? 'bg-coral text-white' : 'bg-cream-3 text-muted'} rounded flex items-center justify-center text-xs font-bold tabular-nums">${ch.id}</span>
           <span class="truncate">${sideEsc(ch.short)}</span>
         </a>`;
     if (lessons.length) {
@@ -96,7 +96,7 @@ function renderSidebar() {
     }
     html += `</div>`;
     if (lessons.length) {
-      html += `<ul class="side-lessons ml-[1.35rem] pl-2 border-l border-black/[0.07] mt-0.5 mb-1 space-y-px">`;
+      html += `<ul class="side-lessons ml-[1.35rem] pl-2 border-l border-line mt-0.5 mb-1 space-y-px">`;
       for (const ls of lessons) {
         const href = active ? `#${ls.id}` : `${ch.file}#${ls.id}`;
         const done = ls.c && doneSet.has(ls.c);
@@ -258,7 +258,7 @@ function renderDashboard() {
     const nxt = CHAPTERS.find(c => c.id === last.id + 1);
     if (nxt) target = nxt;
   }
-  const targetLevel = LEVELS[target.level] || { label: '', dot: '#0B0B0B' };
+  const targetLevel = LEVELS[target.level] || { label: '', dot: '#f87666' };
 
   // Per-level bars in fixed pedagogical order.
   const order = ['fondasi', 'menengah', 'mahir', 'senior'];
@@ -274,14 +274,14 @@ function renderDashboard() {
           </span>
           <span class="text-xs text-muted tabular-nums">${lp}%</span>
         </div>
-        <div class="w-full bg-black/[0.06] rounded-full h-1.5">
+        <div class="w-full bg-line rounded-full h-1.5">
           <div class="h-1.5 rounded-full transition-all duration-500" style="width:${lp}%;background:${lv.dot}"></div>
         </div>
       </div>`;
   }).join('');
 
   mount.innerHTML = `
-    <div class="mt-10 bg-white rounded-2xl shadow-card p-6 sm:p-8 border border-black/[0.06]">
+    <div class="mt-10 bg-white rounded-2xl shadow-card p-6 sm:p-8 border border-line">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div>
           <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Lanjutkan belajar</div>
@@ -291,7 +291,7 @@ function renderDashboard() {
           </div>
           <h3 class="text-2xl font-bold tracking-tight text-ink mb-4">${target.title}</h3>
           <div class="flex items-center gap-4">
-            <a href="${base}${target.file}" class="press inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-5 pr-4 py-2.5 rounded-full hover:bg-ink-soft transition-colors">
+            <a href="${base}${target.file}" class="press inline-flex items-center gap-2 bg-coral text-white text-sm font-medium pl-5 pr-4 py-2.5 rounded-full hover:bg-coral-deep transition-colors">
               Lanjut
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             </a>
@@ -303,8 +303,8 @@ function renderDashboard() {
             <span class="text-sm font-medium text-ink">Progress keseluruhan</span>
             <span class="text-sm font-bold text-ink tabular-nums">${pct}%</span>
           </div>
-          <div class="w-full bg-black/[0.06] rounded-full h-2 mb-6">
-            <div class="bg-ink h-2 rounded-full transition-all duration-500" style="width:${pct}%"></div>
+          <div class="w-full bg-line rounded-full h-2 mb-6">
+            <div class="bg-coral h-2 rounded-full transition-all duration-500" style="width:${pct}%"></div>
           </div>
           <div class="grid grid-cols-2 gap-x-6 gap-y-4">${bars}</div>
         </div>

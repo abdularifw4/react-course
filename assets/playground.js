@@ -92,15 +92,15 @@ function initPlaygrounds() {
       const initial = codeEl ? codeEl.textContent.trim() : '';
       mount.innerHTML = `
         <div class="playground bg-white">
-          <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+          <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
             <span class="text-xs text-muted font-medium">Live Playground. Edit kodenya, klik Jalankan</span>
             <div class="flex gap-2">
               <button class="pg-reset text-xs text-muted hover:text-ink px-2 py-1 rounded-lg hover:bg-black/5">Reset</button>
-              <button class="pg-run text-xs font-semibold bg-ink text-white px-3 py-1 rounded-lg press">▶ Jalankan</button>
+              <button class="pg-run text-xs font-semibold bg-coral text-white px-3 py-1 rounded-lg press">▶ Jalankan</button>
             </div>
           </div>
           <div class="pg-editor"></div>
-          <div class="border-t border-black/[0.06] bg-[#FAFAFA] px-4 py-1.5"><span class="text-[10px] uppercase tracking-wider font-semibold text-muted">Preview</span></div>
+          <div class="border-t border-line bg-cream-2 px-4 py-1.5"><span class="text-[10px] uppercase tracking-wider font-semibold text-muted">Preview</span></div>
           <iframe title="Preview hasil kode" sandbox="allow-scripts"></iframe>
         </div>`;
       const cm = CodeMirror(mount.querySelector('.pg-editor'), {
