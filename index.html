@@ -18,7 +18,7 @@
     <meta name="twitter:image" content="https://abdularifw4.github.io/react-course/assets/img/og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/course.css">
     <script>
@@ -27,23 +27,34 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"PT Serif"', 'Georgia', 'serif'],
                         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     },
                     colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
-                        muted: { DEFAULT: '#666666', light: '#999999' },
-                        lavender: '#F3F0FA',
-                        cream: '#FAF8F1',
-                        surface: '#FAFAFA',
+                        ink: { DEFAULT: '#1f1f1f', soft: '#514d4a' },
+                        muted: { DEFAULT: '#706a66', light: '#9a948f' },
+                        coral: { DEFAULT: '#f87666', deep: '#933f35' },
+                        line: '#e4d8d0',
+                        paper: '#ffffff',
+                        lavender: '#f1e8e2',
+                        cream: { DEFAULT: '#fdf9f6', '2': '#f8f3f0', '3': '#f1e8e2' },
+                        surface: '#f8f3f0',
                     },
                 }
             }
         }
     </script>
     <style>
-        /* Landing-specific styles (shared tokens live in course.css) */
+        /* ===== Claude-flavored design system (landing only) ===== */
+        body { background: #fdf9f6; }
+        h1, h2 { font-family: 'PT Serif', Georgia, serif; letter-spacing: -0.015em; }
+        .serif { font-family: 'PT Serif', Georgia, serif; }
+        .coral-cta { box-shadow: 0 14px 30px rgba(248,118,102,.32); }
+        .coral-cta:hover { box-shadow: 0 18px 38px rgba(248,118,102,.4); }
+
+        /* Landing-specific styles */
         .nav-underline { position: relative; }
-        .nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #0B0B0B; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+        .nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #f87666; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
         .nav-underline:hover::after { transform: scaleX(1); }
 
         .rail-line { width: 2px; flex: 1 1 auto; border-radius: 999px; margin-top: 6px; }
@@ -58,16 +69,16 @@
         .techcluster { position: relative; width: 100%; max-width: 372px; margin: 0 auto; aspect-ratio: 1 / 1;
             perspective: 900px; transform-style: preserve-3d; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
         .techcluster::before { content: ''; position: absolute; inset: 2%; border-radius: 50%; z-index: 0;
-            background: radial-gradient(circle at 50% 44%, #F3F0FA 0%, rgba(243,240,250,0) 66%); }
+            background: radial-gradient(circle at 50% 44%, #f6e6df 0%, rgba(246,230,223,0) 66%); }
         .tc-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
-        .tc-lines line { stroke: rgba(11,11,11,.13); stroke-width: .45; stroke-linecap: round;
+        .tc-lines line { stroke: rgba(85,32,25,.16); stroke-width: .45; stroke-linecap: round;
             stroke-dasharray: 1.4 3.4; animation: tcflow 3.6s linear infinite; transition: stroke .2s ease, stroke-opacity .2s ease; }
         @keyframes tcflow { to { stroke-dashoffset: -19.2; } }
         .tc-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
-            background: radial-gradient(170px 170px at var(--sx,50%) var(--sy,50%), rgba(97,218,251,.22), rgba(97,218,251,0) 62%); }
+            background: radial-gradient(170px 170px at var(--sx,50%) var(--sy,50%), rgba(248,118,102,.20), rgba(248,118,102,0) 62%); }
         .techcluster.tc-hovering .tc-spot { opacity: 1; }
         .techcluster.tc-focus .tc-lines line { stroke-opacity: .3; }
-        .tc-lines line.tc-active { stroke: #0B0B0B; stroke-width: .85; stroke-opacity: 1; animation-duration: 1.5s; }
+        .tc-lines line.tc-active { stroke: #f87666; stroke-width: .85; stroke-opacity: 1; animation-duration: 1.5s; }
         .orb { position: absolute; z-index: 1;
             transform: translate(-50%, -50%) translate3d(var(--px,0px), var(--py,0px), 0);
             transition: transform .3s cubic-bezier(.2,.8,.2,1); }
@@ -84,7 +95,7 @@
         .tc-spin { animation: tcspin 22s linear infinite; transform-origin: 50% 50%; }
         @keyframes tcspin { to { rotate: 360deg; } }
         .orb-label { position: absolute; left: 50%; top: calc(100% + 7px); transform: translateX(-50%);
-            white-space: nowrap; font-size: 11px; font-weight: 600; color: #0B0B0B; background: #fff;
+            white-space: nowrap; font-size: 11px; font-weight: 600; color: #1f1f1f; background: #fff;
             border: 1px solid rgba(0,0,0,.06); box-shadow: var(--shadow-sm); padding: 2px 9px; border-radius: 999px;
             opacity: 0; transition: opacity .18s ease; pointer-events: none; }
         .orb:hover .orb-label { opacity: 1; }
@@ -96,10 +107,10 @@
         }
     </style>
 </head>
-<body class="bg-white text-ink min-h-screen" data-base="chapters/">
+<body class="bg-cream text-ink min-h-screen" data-base="chapters/">
 
     <!-- ==================== NAVBAR ==================== -->
-    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-black/[0.06] no-print">
+    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-line no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="flex items-center gap-2.5 press">
@@ -117,7 +128,7 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-ink text-white text-[13px] font-medium pl-3.5 pr-3 py-2 rounded-lg hover:bg-ink-soft transition-colors">
+                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-[13px] font-semibold pl-3.5 pr-3 py-2 rounded-full coral-cta hover:bg-coral-deep transition-colors">
                         Mulai
                         <kbd class="bg-white/15 text-white/60 text-[10px] font-mono px-1.5 py-0.5 rounded">Bab 0</kbd>
                     </a>
@@ -127,7 +138,7 @@
                 </div>
             </div>
             <div id="mobileMenu" class="mobile-menu md:hidden">
-                <div class="py-3 space-y-0.5 border-t border-black/[0.06]">
+                <div class="py-3 space-y-0.5 border-t border-line">
                     <a href="#jalur" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Jalur Belajar</a>
                     <a href="#coba" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Coba Playground</a>
                     <a href="#harga" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Harga</a>
@@ -146,18 +157,18 @@
                     <span class="text-xs font-semibold text-ink tracking-tight">Jalur belajar terstruktur, dari awam ke senior</span>
                 </div>
                 <h1 class="text-[2.5rem] sm:text-6xl lg:text-[4rem] font-bold tracking-[-0.04em] leading-[1.02] enter">
-                    Dari nol sampai<br>
-                    <span class="text-muted">senior React developer.</span>
+                    Dari nol sampai <em class="italic text-coral font-normal">senior</em><br>
+                    React developer.
                 </h1>
                 <p class="text-[15px] text-muted leading-relaxed max-w-md mt-6 enter enter-d1">
                     Kurikulum terstruktur berbahasa Indonesia yang nganter lo dari belum bisa JavaScript sampai level senior, lewat praktik langsung.
                 </p>
                 <div class="flex flex-wrap items-center gap-4 mt-9 enter enter-d2">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-ink text-white text-sm font-medium pl-5 pr-4 py-3 rounded-full shadow-soft hover:bg-ink-soft transition-colors">
+                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-sm font-semibold pl-5 pr-4 py-3 rounded-full coral-cta hover:bg-coral-deep transition-colors">
                         <span>Mulai dari Bab 0</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                     </a>
-                    <a href="#jalur" class="press inline-flex items-center gap-2 text-sm font-medium text-ink border border-black/[0.12] px-5 py-3 rounded-full hover:bg-surface transition-colors">
+                    <a href="#jalur" class="press inline-flex items-center gap-2 text-sm font-medium text-ink border border-line px-5 py-3 rounded-full hover:bg-surface transition-colors">
                         Lihat jalur belajar
                     </a>
                 </div>
@@ -187,14 +198,14 @@
                 <div class="lg:hidden">
                     <p class="text-xs font-medium text-muted mb-3 text-center">Stack yang bakal lo kuasai</p>
                     <div class="flex flex-wrap justify-center gap-2.5">
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/react.svg" alt="React" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/typescript.svg" alt="TypeScript" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/nextdotjs.svg" alt="Next.js" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/tailwindcss.svg" alt="Tailwind CSS" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/vite.svg" alt="Vite" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/vitest.svg" alt="Vitest" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/redux.svg" alt="Redux" width="23" height="23"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-black/[0.06] shadow-soft flex items-center justify-center"><img src="assets/img/logos/reactrouter.svg" alt="React Router" width="23" height="23"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/react.svg" alt="React" width="24" height="24"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/typescript.svg" alt="TypeScript" width="24" height="24"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/nextdotjs.svg" alt="Next.js" width="22" height="22"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/tailwindcss.svg" alt="Tailwind CSS" width="24" height="24"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/vite.svg" alt="Vite" width="22" height="22"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/vitest.svg" alt="Vitest" width="22" height="22"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/redux.svg" alt="Redux" width="23" height="23"></span>
+                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/reactrouter.svg" alt="React Router" width="23" height="23"></span>
                     </div>
                 </div>
             </div>
@@ -203,7 +214,7 @@
 
     <!-- ==================== STATS BAR ==================== -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-        <div class="grid grid-cols-3 md:grid-cols-6 gap-px bg-black/[0.06] rounded-2xl overflow-hidden shadow-soft stagger">
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-px bg-line rounded-2xl overflow-hidden shadow-soft stagger">
             <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">15</div><div class="text-xs text-muted mt-1">Bab</div></div>
             <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">152</div><div class="text-xs text-muted mt-1">Lesson</div></div>
             <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">29</div><div class="text-xs text-muted mt-1">Playground</div></div>
@@ -219,7 +230,7 @@
     <!-- ==================== PRODUCT SHOWCASE (real screenshot) ==================== -->
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-16">
         <div class="reveal">
-            <div class="rounded-2xl overflow-hidden shadow-window border border-black/[0.06] max-w-5xl mx-auto bg-white">
+            <div class="rounded-2xl overflow-hidden shadow-window border border-line max-w-5xl mx-auto bg-white">
                 <img src="assets/img/reader.png" width="1600" height="1000" loading="lazy" decoding="async"
                      alt="Halaman belajar React Course: sidebar kurikulum yang bisa dilipat per bab, materi lesson bergaya santai, dan blok kode berwarna."
                      class="block w-full h-auto">
@@ -281,15 +292,15 @@
                     <p class="text-sm text-muted mt-2 max-w-xl">Dari belum pernah nulis JavaScript serius sampai ngerti kenapa React kerja kayak gitu. Fondasi yang bikin sisa course-nya kerasa gampang.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-0.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-0.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">00</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">JavaScript Essentials</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Variabel, function, array method, async. 20% JS yang beneran kepake di React.</p></div>
                     </a>
-                    <a href="chapters/chapter-1.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-1.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">01</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Pengenalan React</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Apa itu React, JSX, Virtual DOM, dan komponen pertama lo.</p></div>
                     </a>
-                    <a href="chapters/chapter-2.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-2.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">02</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Dasar</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Props, state, event handling, styling. Fondasi tiap komponen.</p></div>
                     </a>
@@ -312,23 +323,23 @@
                     <p class="text-sm text-muted mt-2 max-w-xl">Hooks, pattern reusable, TypeScript biar anti bug, dan Next.js untuk aplikasi produksi. Level di mana lo mulai kerasa kayak React developer beneran.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-3.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-3.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">03</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Hooks Dasar</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">useState, useEffect, useRef, useMemo, useCallback, useContext.</p></div>
                     </a>
-                    <a href="chapters/chapter-4.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-4.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">04</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Hooks Advanced</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">useReducer, custom hooks, useTransition untuk UI yang responsif.</p></div>
                     </a>
-                    <a href="chapters/chapter-5.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-5.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">05</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Advanced Patterns</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Compound components, render props, HOC, polymorphic component.</p></div>
                     </a>
-                    <a href="chapters/chapter-6.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-6.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">06</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React &amp; TypeScript</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Typing props, generics, event, utility types. Kode yang anti bug.</p></div>
                     </a>
-                    <a href="chapters/chapter-7.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06] sm:col-span-2">
+                    <a href="chapters/chapter-7.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line sm:col-span-2">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">07</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Next.js</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">App Router, Server Components, data fetching, SEO, server actions.</p></div>
                     </a>
@@ -351,23 +362,23 @@
                     <p class="text-sm text-muted mt-2 max-w-xl">State management, testing, performa, sampai reconciliation dan Fiber. Materi yang jarang diajarin tapi bikin lo beda dari kebanyakan React developer.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-8.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-8.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">08</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">State Management</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Context, Zustand, Redux Toolkit, Jotai, dan kapan pakai yang mana.</p></div>
                     </a>
-                    <a href="chapters/chapter-9.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-9.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">09</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Testing</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Vitest, Testing Library, MSW, dan Playwright untuk E2E.</p></div>
                     </a>
-                    <a href="chapters/chapter-10.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-10.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">10</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Performance</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">memo, code splitting, virtualization, profiler, Server Components.</p></div>
                     </a>
-                    <a href="chapters/chapter-11.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-11.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">11</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Internals</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Reconciliation dan Fiber. Cara React bekerja di balik layar.</p></div>
                     </a>
-                    <a href="chapters/chapter-12.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06] sm:col-span-2">
+                    <a href="chapters/chapter-12.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line sm:col-span-2">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">12</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Arsitektur &amp; Design Patterns</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Struktur folder, design pattern, dan scaling codebase dan tim.</p></div>
                     </a>
@@ -390,11 +401,11 @@
                     <p class="text-sm text-muted mt-2 max-w-xl">Bangun 3 project portfolio-grade dari nol sampai deploy, lalu asah buat interview. Keluar dari sini dengan bukti karya dan mental siap tembus lamaran.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-13.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-13.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FEF2F2;color:#dc2626">13</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Capstone Projects</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">3 project portfolio-grade dari nol sampai deploy.</p></div>
                     </a>
-                    <a href="chapters/chapter-14.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-black/[0.06]">
+                    <a href="chapters/chapter-14.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
                         <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FEF2F2;color:#dc2626">14</span>
                         <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Interview Prep &amp; Career</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">25 Q&amp;A, system design, dan strategi cari kerja.</p></div>
                     </a>
@@ -404,7 +415,7 @@
     </section>
 
     <!-- ==================== KENAPA COURSE INI BEDA (bento) ==================== -->
-    <section class="bg-surface border-y border-black/[0.06] py-20 lg:py-28">
+    <section class="bg-surface border-y border-line py-20 lg:py-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 max-w-2xl reveal">
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Dirancang biar lo bisa, bukan cuma hafal.</h2>
@@ -434,7 +445,7 @@
                     </div>
                     <h3 class="text-base font-semibold mb-1.5">Quiz &amp; challenge auto-grade</h3>
                     <p class="text-sm text-muted leading-relaxed">112 quiz dan 14 coding challenge dinilai otomatis di browser. Skor lo kesimpen, jadi lo tahu persis mana yang belum nyantol.</p>
-                    <div class="mt-5 rounded-xl overflow-hidden border border-black/[0.06]">
+                    <div class="mt-5 rounded-xl overflow-hidden border border-line">
                         <img src="assets/img/quiz.png" width="1200" height="648" loading="lazy" decoding="async"
                              alt="Kartu quiz: satu pertanyaan React dengan empat pilihan jawaban dan skor."
                              class="block w-full h-auto">
@@ -491,7 +502,7 @@
                 </div>
 
                 <div class="flex flex-wrap items-center gap-4 mt-8">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-white text-ink text-sm font-semibold pl-5 pr-4 py-3 rounded-full hover:bg-white/90 transition-colors">
+                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-sm font-semibold pl-5 pr-4 py-3 rounded-full coral-cta hover:bg-coral-deep transition-colors">
                         <span>Mulai dari Bab 0</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                     </a>
@@ -554,7 +565,7 @@
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="border-t border-black/[0.06]">
+    <footer class="border-t border-line">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-start gap-8">
                 <div>
@@ -586,7 +597,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-10 pt-6 border-t border-black/[0.04] flex justify-between items-center">
+            <div class="mt-10 pt-6 border-t border-line/60 flex justify-between items-center">
                 <p class="text-xs text-muted">© 2026 React Course Indonesia</p>
                 <a href="chapters/chapter-0.html" class="text-xs text-muted hover:text-ink">Mulai belajar</a>
             </div>
