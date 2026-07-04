@@ -91,7 +91,7 @@
 <section class="fade-in mb-8">
     <div class="flex items-center gap-3 mb-4">
         <div class="w-12 h-12 bg-ink rounded-2xl flex items-center justify-center"><span class="text-white font-extrabold text-lg">00</span></div>
-        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#F0FDF4;color:#16a34a">🟢 Fondasi</span>
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#F0FDF4;color:#16a34a">Fondasi</span>
     </div>
     <h1 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-ink mb-3">JavaScript Essentials untuk React</h1>
     <p class="text-muted text-base lg:text-lg leading-relaxed max-w-2xl">Belum pernah ngoding JavaScript serius? Santai. Bab ini adalah <strong class="text-ink">jembatan lo dari nol ke React</strong> — cuma materi yang beneran kepake, tanpa teori yang bikin ngantuk. Selesai bab ini, lo siap masuk Bab 1 dengan pede.</p>
@@ -99,10 +99,10 @@
 
 <!-- LESSON 1 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Kenapa Harus Jago JS Dulu? 🏍️</h2><input type="checkbox" id="check-0-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mindset &middot; 7 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Kenapa Harus Jago JS Dulu?</h2><input type="checkbox" id="check-0-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Mindset &middot; 7 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Sebelum kita ngomongin React, gue mau jujur dulu sama lo: <strong class="text-ink">90% error yang bikin pemula frustrasi di React itu sebenarnya bukan error React — itu error JavaScript</strong>. Serius. Lo bakal ketemu pesan kayak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined is not a function</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Cannot read properties of undefined</code>, dan itu semua masalah JS murni, bukan React.</p>
-<p>Analoginya gini: React itu kayak <strong class="text-ink">motor balap</strong>. Kenceng, keren, semua orang pengen naik. Tapi kalau lo belum bisa naik sepeda — belum ngerti keseimbangan, ngerem, belok — naik motor balap itu bukan keren, itu <em>bahaya</em>. JavaScript itu sepedanya. Nggak perlu jadi pembalap dulu, tapi minimal lo harus lancar kayuh, lancar belok, lancar berhenti. 🚲</p>
+<p>Analoginya gini: React itu kayak <strong class="text-ink">motor balap</strong>. Kenceng, keren, semua orang pengen naik. Tapi kalau lo belum bisa naik sepeda — belum ngerti keseimbangan, ngerem, belok — naik motor balap itu bukan keren, itu <em>bahaya</em>. JavaScript itu sepedanya. Nggak perlu jadi pembalap dulu, tapi minimal lo harus lancar kayuh, lancar belok, lancar berhenti.</p>
 <p>Kabar baiknya: lo <strong class="text-ink">nggak perlu belajar SEMUA JavaScript</strong>. JS itu bahasa yang luas banget — ada prototype, generator, proxy, dan segala macam fitur yang bahkan developer senior jarang sentuh. Yang lo butuhin buat React itu cuma sekitar <strong class="text-ink">20% dari JS, tapi 20% yang paling sering dipakai</strong>. Dan 20% itulah isi bab ini: variabel, function, array method, object, destructuring, module, dan async. Itu doang. Beneran.</p>
 <p>Nah, sebelum mulai, lo butuh satu alat yang udah ada di laptop lo sekarang juga: <strong class="text-ink">browser console</strong>. Ini "taman bermain" gratis buat nyobain JavaScript tanpa install apa pun. Cara bukanya:</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Cara Buka Browser Console — Playground Gratis Lo</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Chrome / Edge / Brave:
@@ -124,15 +124,15 @@ typeof 'halo'   // 'string'
 typeof 42       // 'number'
 typeof true     // 'boolean'</code></pre></div>
 <p>Kebiasaan yang gue saranin banget selama ngikutin bab ini: <strong class="text-ink">jangan cuma baca — ketik ulang setiap contoh kode di console</strong>. Ilmu ngoding itu masuknya lewat jari, bukan lewat mata. Orang yang cuma baca tutorial 10 jam kalah sama orang yang praktik 1 jam. Ini bukan motivasi kosong, ini pengalaman semua developer di dunia.</p>
-<p>Satu lagi: di bab ini juga ada <strong class="text-ink">playground interaktif</strong> yang bisa lo edit langsung di halaman ini, plus <strong class="text-ink">challenge</strong> yang ngetes kode lo otomatis. Jadi lo nggak harus bolak-balik ke console terus — tapi console tetap skill wajib karena nanti pas debugging React, lo bakal hidup di sana. 😄</p>
+<p>Satu lagi: di bab ini juga ada <strong class="text-ink">playground interaktif</strong> yang bisa lo edit langsung di halaman ini, plus <strong class="text-ink">challenge</strong> yang ngetes kode lo otomatis. Jadi lo nggak harus bolak-balik ke console terus — tapi console tetap skill wajib karena nanti pas debugging React, lo bakal hidup di sana.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.log()</code> itu bakal jadi <strong>sahabat terbaik lo</strong> selama karir ngoding. Developer senior dengan gaji 2 digit pun masih pakai console.log buat debugging tiap hari. Nggak usah malu — itu alat sah dan powerful! 🛠️</p></div>
-<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Jangan skip bab ini karena "pengen cepet ke React". Pemula yang loncat langsung ke React biasanya balik lagi ke sini setelah 2 minggu frustrasi. Investasi beberapa jam sekarang = hemat berminggu-minggu kebingungan nanti.</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.log()</code> itu bakal jadi <strong>sahabat terbaik lo</strong> selama karir ngoding. Developer senior dengan gaji 2 digit pun masih pakai console.log buat debugging tiap hari. Nggak usah malu — itu alat sah dan powerful!</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Jangan skip bab ini karena "pengen cepet ke React". Pemula yang loncat langsung ke React biasanya balik lagi ke sini setelah 2 minggu frustrasi. Investasi beberapa jam sekarang = hemat berminggu-minggu kebingungan nanti.</p></div>
 </section>
 
 <!-- LESSON 2 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d1" id="lesson-2">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Variabel &amp; Tipe Data — Toples Berlabel 🏷️</h2><input type="checkbox" id="check-0-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 10 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">02</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Variabel &amp; Tipe Data — Toples Berlabel</h2><input type="checkbox" id="check-0-2" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 10 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Oke, materi pertama: <strong class="text-ink">variabel</strong>. Bayangin dapur nenek lo yang penuh <strong class="text-ink">toples berlabel</strong> — ada toples bertuliskan "Gula", "Kopi", "Kerupuk". Label itu nama variabelnya, isi toplesnya itu datanya. Kapan pun lo butuh gula, lo nggak nyari "benda putih manis butiran kecil" — lo langsung ambil toples berlabel "Gula". Variabel itu ya gitu: <strong class="text-ink">nama untuk menyimpan data biar gampang dipanggil lagi</strong>.</p>
 <p>Di JavaScript modern, ada dua cara bikin variabel: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">let</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const</code>. Bedanya simpel: <strong class="text-ink">let boleh diganti isinya, const nggak boleh</strong>.</p>
@@ -180,14 +180,14 @@ typeof sedangPromo;    // 'boolean'</code></pre></div>
 <p>Kenapa ini penting banget buat React? Karena <strong class="text-ink">state di React itu ya variabel-variabel ini</strong>. Jumlah item di keranjang belanja? Number. Nama user? String. Modal lagi kebuka atau nggak? Boolean. Data yang belum datang dari server? Undefined atau null. Nguasain tipe data = nguasain setengah dari state management. Beneran deh.</p>
 <p>Satu kebiasaan kecil yang bakal bikin kode lo kelihatan profesional dari hari pertama: <strong class="text-ink">penamaan variabel</strong>. Konvensi di dunia JavaScript itu <strong class="text-ink">camelCase</strong> — kata pertama huruf kecil, kata berikutnya huruf besar: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">totalHarga</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isLoggedIn</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">daftarProduk</code>. Dan tolong, kasih nama yang <em>jujur</em>: variabel <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">x</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data2</code> itu kayak toples tanpa label — dua minggu lagi lo sendiri lupa isinya apa. Khusus boolean, awali dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">is</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">has</code>, atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">sudah</code> biar kebaca kayak pertanyaan: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isLoading</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hasError</code>. Kode yang enak dibaca itu bukan gaya-gayaan — itu sopan santun ke rekan tim (dan ke diri lo sendiri di masa depan).</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const</code> itu ngunci <strong>label toplesnya</strong>, bukan isinya! Kalau isinya object atau array, isi di dalamnya masih bisa diubah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const keranjang = []; keranjang.push('kopi')</code> itu ✅ sah. Yang dilarang cuma nunjuk toples lain: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">keranjang = []</code> ❌. Konsep ini bakal penting banget pas bahas state React nanti!</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const</code> itu ngunci <strong>label toplesnya</strong>, bukan isinya! Kalau isinya object atau array, isi di dalamnya masih bisa diubah: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">const keranjang = []; keranjang.push('kopi')</code> itu sah. Yang dilarang cuma nunjuk toples lain: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">keranjang = []</code>. Konsep ini bakal penting banget pas bahas state React nanti!</p></div>
 </section>
 
 <!-- LESSON 3 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d2" id="lesson-3">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Function — Mesin Blender Lo 🥤</h2><input type="checkbox" id="check-0-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 12 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">03</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Function — Mesin Blender Lo</h2><input type="checkbox" id="check-0-3" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 12 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p>Kalau variabel itu toples, <strong class="text-ink">function itu mesin blender</strong>: lo masukin bahan (input), mesinnya muter (proses), keluar jus (output). Masukin mangga → keluar jus mangga. Masukin alpukat → keluar jus alpukat. Mesinnya sama, hasilnya tergantung input. Dan yang paling penting: <strong class="text-ink">sekali beli blender, bisa dipakai berkali-kali</strong> — nggak perlu bikin mesin baru tiap mau ngejus. 🥭</p>
+<p>Kalau variabel itu toples, <strong class="text-ink">function itu mesin blender</strong>: lo masukin bahan (input), mesinnya muter (proses), keluar jus (output). Masukin mangga → keluar jus mangga. Masukin alpukat → keluar jus alpukat. Mesinnya sama, hasilnya tergantung input. Dan yang paling penting: <strong class="text-ink">sekali beli blender, bisa dipakai berkali-kali</strong> — nggak perlu bikin mesin baru tiap mau ngejus.</p>
 <p>Ini konsep paling penting di seluruh bab ini, karena — spoiler — <strong class="text-ink">komponen React itu literally cuma function</strong>. Function yang nerima data dan return tampilan. Jadi kalau lo paham function, lo udah paham 70% cara kerja komponen React.</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Function Declaration — Cara Klasik</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Bikin "mesin blender"-nya:
 function buatJus(buah) {
@@ -245,18 +245,18 @@ dobel3(5);   // 10
 const salah = n =&gt; { n * 2 };   // ❌ return undefined! ({} = body biasa)
 const benar = n =&gt; n * 2;       // ✅ implicit return
 const benar2 = n =&gt; { return n * 2; };  // ✅ explicit return</code></pre></div>
-<p>Perhatiin baik-baik contoh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">salah</code> di atas — itu <strong class="text-ink">salah satu bug paling sering di dunia React</strong>. Begitu lo pakai kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>, JavaScript nganggep itu "badan function biasa" dan nunggu kata <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">return</code>. Nggak ada return? Hasilnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code>. Komponen lo bakal blank tanpa error yang jelas, dan lo bakal garuk-garuk kepala setengah jam. Gue pernah. Semua orang pernah. 😅</p>
-<p>Terus, kenapa sih React "penuh arrow function"? Karena di React, lo sering banget butuh <strong class="text-ink">function kecil yang dipakai sekali di tempat</strong> — misalnya "kalau tombol ini diklik, jalankan ini". Nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function handleClick() {...}</code> lengkap tiap kali itu bertele-tele. Arrow function bikin lo bisa nulis logika langsung di tempat dia dipakai, singkat dan jelas. Anggap function declaration itu masak besar buat hajatan, arrow function itu masak mie instan — dua-duanya masak, beda occasion. 🍜</p>
+<p>Perhatiin baik-baik contoh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">salah</code> di atas — itu <strong class="text-ink">salah satu bug paling sering di dunia React</strong>. Begitu lo pakai kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>, JavaScript nganggep itu "badan function biasa" dan nunggu kata <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">return</code>. Nggak ada return? Hasilnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code>. Komponen lo bakal blank tanpa error yang jelas, dan lo bakal garuk-garuk kepala setengah jam. Gue pernah. Semua orang pernah.</p>
+<p>Terus, kenapa sih React "penuh arrow function"? Karena di React, lo sering banget butuh <strong class="text-ink">function kecil yang dipakai sekali di tempat</strong> — misalnya "kalau tombol ini diklik, jalankan ini". Nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function handleClick() {...}</code> lengkap tiap kali itu bertele-tele. Arrow function bikin lo bisa nulis logika langsung di tempat dia dipakai, singkat dan jelas. Anggap function declaration itu masak besar buat hajatan, arrow function itu masak mie instan — dua-duanya masak, beda occasion.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Komponen React itu <strong>cuma function biasa yang namanya diawali huruf kapital</strong> dan return tampilan: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Tombol() { return ... }</code>. Nggak ada sihir. Kalau lo udah bisa bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">buatJus()</code>, lo secara teknis udah bisa bikin komponen. 🤯</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Komponen React itu <strong>cuma function biasa yang namanya diawali huruf kapital</strong> dan return tampilan: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Tombol() { return ... }</code>. Nggak ada sihir. Kalau lo udah bisa bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">buatJus()</code>, lo secara teknis udah bisa bikin komponen.</p></div>
 </section>
 
 <!-- LESSON 4 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-d3" id="lesson-4">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Array Methods — Ban Berjalan Pabrik 🏭</h2><input type="checkbox" id="check-0-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">WAJIB KUASAI &middot; 15 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">04</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Array Methods — Ban Berjalan Pabrik</h2><input type="checkbox" id="check-0-4" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">WAJIB KUASAI &middot; 15 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Oke, ini dia <strong class="text-ink">lesson terpenting di seluruh bab ini</strong>. Kalau lo cuma bisa hafal satu hal dari Bab 0, hafal ini: <strong class="text-ink">array method, terutama <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code></strong>. Kenapa? Karena hampir semua UI di dunia itu list: feed Instagram = list post, marketplace = list produk, WhatsApp = list chat. Dan di React, semua list itu di-render pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code>. Titik. <strong class="text-ink">Map itu jantungnya render list di React.</strong></p>
-<p>Array sendiri itu simpel: <strong class="text-ink">daftar belanjaan</strong>. Satu kertas, banyak item, ada urutannya. Nah, array method itu kayak <strong class="text-ink">ban berjalan di pabrik</strong>: barang-barang lewat satu per satu, dan di tiap pos ada mesin yang ngapa-ngapain — ada pos yang <em>ngubah</em> tiap barang (map), pos yang <em>nyortir buang</em> yang jelek (filter), pos yang <em>nyari satu</em> barang spesifik (find), dan pos yang <em>ngerangkum</em> semuanya jadi satu angka (reduce). 🏭</p>
+<p>Array sendiri itu simpel: <strong class="text-ink">daftar belanjaan</strong>. Satu kertas, banyak item, ada urutannya. Nah, array method itu kayak <strong class="text-ink">ban berjalan di pabrik</strong>: barang-barang lewat satu per satu, dan di tiap pos ada mesin yang ngapa-ngapain — ada pos yang <em>ngubah</em> tiap barang (map), pos yang <em>nyortir buang</em> yang jelek (filter), pos yang <em>nyari satu</em> barang spesifik (find), dan pos yang <em>ngerangkum</em> semuanya jadi satu angka (reduce).</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">map & filter — Duo Paling Sering Dipakai di React</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const harga = [3500, 15000, 8000, 18000];
 
 // MAP — ubah SETIAP item, hasilnya array BARU dengan panjang sama
@@ -338,7 +338,7 @@ function App() {
 
 <div class="space-y-4 text-[#333] leading-relaxed mt-4">
 <p>Lihat kan? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">belanjaan.map(...)</code> ngubah tiap object jadi satu baris <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;li&gt;</code>. Data 4 item → tampilan 4 baris. Nambah data → tampilan otomatis nambah. <strong class="text-ink">Ini persis cara Tokopedia nampilin ribuan produk</strong> — bukan nulis HTML ribuan kali, tapi satu <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code> yang jalanin data dari server.</p>
-<p>Sekarang giliran lo. Challenge pertama di course ini: gabungin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">filter()</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code>. Ubah kodenya sampai semua test hijau. 💪</p>
+<p>Sekarang giliran lo. Challenge pertama di course ini: gabungin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">filter()</code> + <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code>. Ubah kodenya sampai semua test hijau.</p>
 </div>
 
 <!-- Solusi challenge ch-0-1 (untuk reviewer):
@@ -379,13 +379,13 @@ expect('Indomie Goreng (3.5rb) TIDAK tampil', !root.textContent.includes('Indomi
 expect('Air Mineral (4rb) TIDAK tampil', !root.textContent.includes('Air Mineral'));</script>
 <div class="challenge-mount mt-4 mb-4" data-code-id="ch-0-1"></div>
 
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Cara ngebedain method: <strong>map</strong> = "ubah semua" (panjang sama), <strong>filter</strong> = "saring" (bisa lebih pendek), <strong>find</strong> = "cari satu" (bukan array!), <strong>reduce</strong> = "rangkum jadi satu", <strong>some/every</strong> = "cek kondisi" (true/false). Kelimanya <strong>nggak pernah ngubah array asli</strong> — selalu bikin nilai baru. Konsep "bikin baru, jangan ubah yang lama" ini namanya <em>immutability</em>, dan itu aturan emas React!</p></div>
-<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code> butuh lo <strong>me-return sesuatu</strong> di dalam callback-nya. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">arr.map(x =&gt; { x * 2 })</code> menghasilkan array penuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code> — inget pelajaran arrow function tadi! Di React, ini wujudnya jadi list yang tiba-tiba kosong padahal datanya ada.</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Cara ngebedain method: <strong>map</strong> = "ubah semua" (panjang sama), <strong>filter</strong> = "saring" (bisa lebih pendek), <strong>find</strong> = "cari satu" (bukan array!), <strong>reduce</strong> = "rangkum jadi satu", <strong>some/every</strong> = "cek kondisi" (true/false). Kelimanya <strong>nggak pernah ngubah array asli</strong> — selalu bikin nilai baru. Konsep "bikin baru, jangan ubah yang lama" ini namanya <em>immutability</em>, dan itu aturan emas React!</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code> butuh lo <strong>me-return sesuatu</strong> di dalam callback-nya. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">arr.map(x =&gt; { x * 2 })</code> menghasilkan array penuh <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">undefined</code> — inget pelajaran arrow function tadi! Di React, ini wujudnya jadi list yang tiba-tiba kosong padahal datanya ada.</p></div>
 </section>
 
 <!-- LESSON 5 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Object &amp; Destructuring — Bongkar Paket 📦</h2><input type="checkbox" id="check-0-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">WAJIB KUASAI &middot; 13 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">05</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Object &amp; Destructuring — Bongkar Paket</h2><input type="checkbox" id="check-0-5" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">WAJIB KUASAI &middot; 13 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Kalau array itu daftar belanjaan (urutan penting), <strong class="text-ink">object itu KTP</strong>: satu entitas dengan banyak keterangan berlabel — nama, alamat, tanggal lahir. Nggak ada urutan "item ke-3", yang ada "field bernama alamat". Hampir semua data di aplikasi nyata bentuknya object: data user, data produk, response API — semuanya object (atau array berisi object).</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Object — Bikin, Akses, Ubah</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// Object = kumpulan pasangan "kunci: nilai"
@@ -413,7 +413,7 @@ user[key];             // 'Bandung'
 user.kantor?.nama;     // undefined (bukan error, padahal kantor nggak ada!)
 // Tanpa ?. : user.kantor.nama → 💥 TypeError!
 // Di React ini penyelamat pas data dari API belum datang.</code></pre></div>
-<p>Sekarang, materi yang bikin kode React kelihatan "aneh" buat pemula: <strong class="text-ink">destructuring</strong>. Analoginya: lo terima <strong class="text-ink">paket dari kurir</strong>. Cara lama: lo bawa dus utuh ke mana-mana, tiap butuh sesuatu lo buka dus dulu (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.nama</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.kota</code>...). Destructuring: <strong class="text-ink">langsung bongkar dusnya di depan pintu</strong>, ambil barang-barang yang lo butuhin, taruh masing-masing di meja dengan namanya sendiri. Sekali bongkar, semua siap pakai. 📦</p>
+<p>Sekarang, materi yang bikin kode React kelihatan "aneh" buat pemula: <strong class="text-ink">destructuring</strong>. Analoginya: lo terima <strong class="text-ink">paket dari kurir</strong>. Cara lama: lo bawa dus utuh ke mana-mana, tiap butuh sesuatu lo buka dus dulu (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.nama</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">user.kota</code>...). Destructuring: <strong class="text-ink">langsung bongkar dusnya di depan pintu</strong>, ambil barang-barang yang lo butuhin, taruh masing-masing di meja dengan namanya sendiri. Sekali bongkar, semua siap pakai.</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Destructuring, Spread & Rest — Trio Andalan React</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const user = { nama: 'Budi', umur: 25, kota: 'Bandung' };
 
 // DESTRUCTURING — bongkar object jadi variabel:
@@ -484,13 +484,13 @@ function App() {
 <div class="space-y-4 text-[#333] leading-relaxed mt-4">
 <p>Coba edit playground-nya: ganti nama, tambah hobi, atau bikin <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">KartuUser</code> ketiga. Perhatiin juga <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{...userPindahan}</code> — itu spread yang "nuang" semua isi object jadi props. Trik ini bakal lo pakai terus-terusan di React.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Pas nanti lo lihat kode React <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Profil({ nama, foto })</code> — itu <strong>bukan sintaks khusus React</strong>. Itu destructuring parameter JavaScript biasa yang barusan lo pelajarin! React cuma manggil function lo dengan satu argumen object (props), dan lo bongkar di tempat. Mind = blown? 🤯</p></div>
-<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Spread itu <strong>shallow copy</strong> — cuma nyalin lapisan terluar. Kalau object lo nested (object di dalam object), lapisan dalamnya masih "nyambung" ke yang asli. Buat Bab 0 cukup tahu aja dulu; nanti pas state React makin kompleks, ini bakal relevan lagi.</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Pas nanti lo lihat kode React <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Profil({ nama, foto })</code> — itu <strong>bukan sintaks khusus React</strong>. Itu destructuring parameter JavaScript biasa yang barusan lo pelajarin! React cuma manggil function lo dengan satu argumen object (props), dan lo bongkar di tempat. Mind = blown?</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Spread itu <strong>shallow copy</strong> — cuma nyalin lapisan terluar. Kalau object lo nested (object di dalam object), lapisan dalamnya masih "nyambung" ke yang asli. Buat Bab 0 cukup tahu aja dulu; nanti pas state React makin kompleks, ini bakal relevan lagi.</p></div>
 </section>
 
 <!-- LESSON 6 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Template Literals &amp; Conditional — Kalau… Maka… ⚖️</h2><input type="checkbox" id="check-0-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 10 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">06</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Template Literals &amp; Conditional — Kalau… Maka…</h2><input type="checkbox" id="check-0-6" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 10 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Dua materi ringan tapi supersering dipakai. Pertama, <strong class="text-ink">template literals</strong> — cara modern nyambungin teks dengan variabel. Dulu kita nyambung string pakai tanda plus yang ribet dan rawan typo. Sekarang tinggal pakai <strong class="text-ink">backtick</strong> (tanda <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">`</code> — di kiri atas keyboard, sebelah angka 1) dan "lubang" <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">${...}</code>:</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Template Literals — String dengan "Lubang"</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const nama = 'Budi';
@@ -510,7 +510,7 @@ const status = `Kamu ${total &gt; 50000 ? 'dapat gratis ongkir 🎉' : 'belum da
 // Bonus: bisa multi-baris tanpa ribet
 const alamatLabel = `Penerima: ${nama}
 Kota: Bandung`;</code></pre></div>
-<p>Kedua, dan ini yang gede: <strong class="text-ink">conditional</strong> alias percabangan. Aplikasi nyata itu penuh keputusan: <em>kalau</em> user login tampilkan dashboard, <em>kalau</em> belum tampilkan tombol login. <em>Kalau</em> keranjang kosong tampilkan "yuk belanja", <em>kalau</em> ada isinya tampilkan daftarnya. Di React, pola ini namanya <strong class="text-ink">conditional rendering</strong>, dan bahan bakunya tiga: <strong class="text-ink">ternary</strong>, <strong class="text-ink">&amp;&amp;</strong>, dan <strong class="text-ink">||</strong>. Anggap aja ternary itu <strong class="text-ink">lampu lalu lintas</strong>: satu kondisi, dua jalur — hijau lewat sini, merah lewat situ. 🚦</p>
+<p>Kedua, dan ini yang gede: <strong class="text-ink">conditional</strong> alias percabangan. Aplikasi nyata itu penuh keputusan: <em>kalau</em> user login tampilkan dashboard, <em>kalau</em> belum tampilkan tombol login. <em>Kalau</em> keranjang kosong tampilkan "yuk belanja", <em>kalau</em> ada isinya tampilkan daftarnya. Di React, pola ini namanya <strong class="text-ink">conditional rendering</strong>, dan bahan bakunya tiga: <strong class="text-ink">ternary</strong>, <strong class="text-ink">&amp;&amp;</strong>, dan <strong class="text-ink">||</strong>. Anggap aja ternary itu <strong class="text-ink">lampu lalu lintas</strong>: satu kondisi, dua jalur — hijau lewat sini, merah lewat situ.</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Ternary, && dan || — Bahan Baku Conditional Rendering</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const isLoggedIn = true;
 const stok = 0;
 const namaPanggilan = '';
@@ -538,15 +538,15 @@ jumlah ?? 10;    // 0   ← ✅ 0 tetap dipakai, cuma null/undefined yang digant
 // Selain itu semua TRUTHY (termasuk '0', [], {} — hati-hati!)</code></pre></div>
 <p>Kenapa nggak pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">if/else</code> biasa aja? Boleh banget — dan di logika biasa, silakan pakai. Tapi di dalam JSX React nanti, lo cuma bisa naruh <em>ekspresi</em> (sesuatu yang menghasilkan nilai), bukan <em>statement</em> kayak if/else. Ternary dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&amp;&amp;</code> itu ekspresi — makanya mereka jadi senjata utama conditional rendering. Ini alasannya lo latihan sekarang, biar nanti nggak kaget.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Baca ternary itu kayak nanya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">kondisi ? jawabanYa : jawabanTidak</code> — "Udah login<strong>?</strong> Dashboard<strong> :</strong> kalau nggak, halaman login". Tanda tanya = pertanyaan, titik dua = "kalau nggak". Sekali kebaca gini, lo nggak bakal kebalik lagi.</p></div>
-<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem &amp;&amp; &lt;Keranjang /&gt;</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem = 0</code> bakal me-render angka <strong>0</strong> di layar (bukan "nggak render apa-apa")! Karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">0 &amp;&amp; apapun</code> menghasilkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">0</code>, dan React nampilin angka 0. Solusi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem &gt; 0 &amp;&amp; ...</code>. Ini bug legendaris yang nongol di app production beneran!</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Baca ternary itu kayak nanya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">kondisi ? jawabanYa : jawabanTidak</code> — "Udah login<strong>?</strong> Dashboard<strong> :</strong> kalau nggak, halaman login". Tanda tanya = pertanyaan, titik dua = "kalau nggak". Sekali kebaca gini, lo nggak bakal kebalik lagi.</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem &amp;&amp; &lt;Keranjang /&gt;</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem = 0</code> bakal me-render angka <strong>0</strong> di layar (bukan "nggak render apa-apa")! Karena <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">0 &amp;&amp; apapun</code> menghasilkan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">0</code>, dan React nampilin angka 0. Solusi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">jumlahItem &gt; 0 &amp;&amp; ...</code>. Ini bug legendaris yang nongol di app production beneran!</p></div>
 </section>
 
 <!-- LESSON 7 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Modules — Lego yang Bisa Dibagi-bagi 🧱</h2><input type="checkbox" id="check-0-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 8 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">07</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Modules — Lego yang Bisa Dibagi-bagi</h2><input type="checkbox" id="check-0-7" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Dasar &middot; 8 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p>Bayangin lo nulis semua kode aplikasi dalam <strong class="text-ink">SATU file berisi 10.000 baris</strong>. Nyari satu function kayak nyari kaos kaki di kamar yang nggak pernah diberesin. 😵 Makanya JavaScript modern punya <strong class="text-ink">module system</strong>: tiap file = satu module, dan antar-file bisa saling "minjemin" kode pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">export</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">import</code>.</p>
+<p>Bayangin lo nulis semua kode aplikasi dalam <strong class="text-ink">SATU file berisi 10.000 baris</strong>. Nyari satu function kayak nyari kaos kaki di kamar yang nggak pernah diberesin. Makanya JavaScript modern punya <strong class="text-ink">module system</strong>: tiap file = satu module, dan antar-file bisa saling "minjemin" kode pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">export</code> dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">import</code>.</p>
 <p>Analoginya: tiap file itu <strong class="text-ink">kotak lego dengan label</strong>. Kotak "roda", kotak "jendela", kotak "pintu". Mau bangun rumah lego? Ambil (import) jendela dari kotak jendela, pintu dari kotak pintu. Nggak perlu semua lego ditumpuk di satu kotak raksasa. Di project React nyata, tiap komponen biasanya hidup di file sendiri: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Navbar.jsx</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ProductCard.jsx</code>, dst.</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Export — Dua Rasa: Default & Named</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ===== file: matematika.js =====
 
@@ -587,19 +587,19 @@ import hitungLuasLingkaran, { tambah as jumlahkan } from './matematika.js';
 // import axios from 'axios';
 // Import dari file sendiri (pakai ./ atau ../):
 // import Navbar from './components/Navbar';</code></pre></div>
-<p>Aturan mainnya gampang diinget: <strong class="text-ink">default export itu kayak juara umum sekolah</strong> — cuma satu, semua orang tahu, mau lo panggil dengan nama apa pun orangnya tetap itu. <strong class="text-ink">Named export itu kayak absen kelas</strong> — banyak nama, dan lo harus manggil sesuai nama di absen (atau pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> buat kasih nama panggilan). 🏫</p>
+<p>Aturan mainnya gampang diinget: <strong class="text-ink">default export itu kayak juara umum sekolah</strong> — cuma satu, semua orang tahu, mau lo panggil dengan nama apa pun orangnya tetap itu. <strong class="text-ink">Named export itu kayak absen kelas</strong> — banyak nama, dan lo harus manggil sesuai nama di absen (atau pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">as</code> buat kasih nama panggilan).</p>
 <p>Di dunia React, konvensi yang paling umum: <strong class="text-ink">satu komponen per file, di-export sebagai default</strong>. Sementara utility function, konstanta, dan custom hooks biasanya named export. Lo bakal lihat pola ini di hampir semua codebase React yang lo buka.</p>
 <p>Pertanyaan yang mungkin muncul di kepala lo: "kalau kode gue kepecah jadi puluhan file, gimana browser ngegabunginnya?" Jawabannya: ada alat bernama <strong class="text-ink">bundler</strong> (di course ini kita bakal pakai <strong class="text-ink">Vite</strong>) yang tugasnya kayak <strong class="text-ink">koki catering</strong> — dia baca semua "resep" import/export lo, ngumpulin bahan dari semua file, terus nyajiin satu paket rapi yang siap disantap browser. Lo nggak perlu mikirin detailnya sekarang; yang penting lo paham bahwa import/export itu cara lo <em>menyusun</em> kode, dan bundler yang ngurus sisanya. Makanya di project React nanti lo nggak bakal nulis puluhan tag script di HTML — cukup satu entry point, sisanya keurus otomatis.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> Error <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">The requested module does not provide an export named 'X'</code> itu 99% karena <strong>ketuker default vs named</strong> — lo pakai kurung kurawal padahal harusnya nggak, atau sebaliknya. Sekarang lo udah tahu obatnya sebelum kena penyakitnya. 💊</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Error <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">The requested module does not provide an export named 'X'</code> itu 99% karena <strong>ketuker default vs named</strong> — lo pakai kurung kurawal padahal harusnya nggak, atau sebaliknya. Sekarang lo udah tahu obatnya sebelum kena penyakitnya.</p></div>
 </section>
 
 <!-- LESSON 8 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Async — Pesen Kopi Sambil Nunggu ☕</h2><input type="checkbox" id="check-0-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Penting &middot; 14 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">08</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">Async — Pesen Kopi Sambil Nunggu</h2><input type="checkbox" id="check-0-8" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Penting &middot; 14 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p>Ini materi terakhir yang "berat" — tapi tenang, gue bawain pelan-pelan. Pertanyaan pembuka: pas lo buka Tokopedia, dari mana datangnya data produk? <strong class="text-ink">Dari server, lewat internet.</strong> Dan internet itu... butuh waktu. Bisa 100 milidetik, bisa 3 detik kalau sinyal lagi drama. Pertanyaannya: <strong class="text-ink">selama nunggu data, aplikasi lo ngapain?</strong></p>
-<p>Analoginya: lo ke kedai kopi. Sistem <strong class="text-ink">synchronous</strong> (serba nunggu): lo pesen, terus berdiri mematung di depan kasir sampai kopinya jadi — nggak boleh duduk, nggak boleh main HP, antrian di belakang lo ikut macet. Absurd kan? Sistem <strong class="text-ink">asynchronous</strong>: lo pesen, dikasih <strong class="text-ink">nomor antrian</strong>, lo duduk santai scroll HP, dan pas kopinya jadi, barista manggil nomor lo. Semua orang happy. ☕ JavaScript (dan semua app modern) kerjanya pakai sistem kedua — dan "nomor antrian" itu di JS namanya <strong class="text-ink">Promise</strong>.</p>
+<p>Analoginya: lo ke kedai kopi. Sistem <strong class="text-ink">synchronous</strong> (serba nunggu): lo pesen, terus berdiri mematung di depan kasir sampai kopinya jadi — nggak boleh duduk, nggak boleh main HP, antrian di belakang lo ikut macet. Absurd kan? Sistem <strong class="text-ink">asynchronous</strong>: lo pesen, dikasih <strong class="text-ink">nomor antrian</strong>, lo duduk santai scroll HP, dan pas kopinya jadi, barista manggil nomor lo. Semua orang happy. JavaScript (dan semua app modern) kerjanya pakai sistem kedua — dan "nomor antrian" itu di JS namanya <strong class="text-ink">Promise</strong>.</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Evolusi Async: Callback → Promise → Async/Await</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// === ERA 1: CALLBACK (cara lama) ===
 // "Nanti kalau udah selesai, panggil function ini ya"
 ambilUser(function (user) {
@@ -665,17 +665,17 @@ ambilProduk();
 // await response.json()   → nunggu body-nya selesai dibaca & di-parse
 // Dua-duanya "nomor antrian" alias Promise!</code></pre></div>
 <p>Di React nanti, pola ini persis sama, cuma dibungkus: data hasil fetch disimpan ke state, dan selama nunggu lo nampilin loading spinner. Konsep "pending → berhasil / gagal" bakal jadi tiga state UI klasik: <strong class="text-ink">loading, data, error</strong>. Lo bakal ketemu trio ini ratusan kali sepanjang karir. Kenalan dari sekarang = untung besar.</p>
-<p>Satu insight terakhir biar mental model lo bener: <strong class="text-ink">await itu nggak bikin seluruh aplikasi berhenti</strong>. Yang "nunggu" cuma function async itu doang — sisanya (animasi, klik tombol, scroll) tetap jalan normal. Balik ke analogi kedai kopi: pas lo nunggu nomor antrian dipanggil, kasir tetap ngelayanin pelanggan lain, mesin espresso tetap ngebul, musik tetap muter. Itulah kenapa aplikasi web modern kerasa responsif walau lagi ngambil data: nunggu-nya <em>nggak macetin</em> yang lain. Kalau konsep ini udah klik di kepala lo, selamat — lo udah paham sesuatu yang banyak lulusan bootcamp aja masih suka kebalik. 😎</p>
+<p>Satu insight terakhir biar mental model lo bener: <strong class="text-ink">await itu nggak bikin seluruh aplikasi berhenti</strong>. Yang "nunggu" cuma function async itu doang — sisanya (animasi, klik tombol, scroll) tetap jalan normal. Balik ke analogi kedai kopi: pas lo nunggu nomor antrian dipanggil, kasir tetap ngelayanin pelanggan lain, mesin espresso tetap ngebul, musik tetap muter. Itulah kenapa aplikasi web modern kerasa responsif walau lagi ngambil data: nunggu-nya <em>nggak macetin</em> yang lain. Kalau konsep ini udah klik di kepala lo, selamat — lo udah paham sesuatu yang banyak lulusan bootcamp aja masih suka kebalik.</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async function</code> itu <strong>selalu return Promise</strong>, apa pun isinya. Makanya lo nggak bisa "ngambil nilai langsung" dari function async — lo harus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.then()</code> dulu. Kalau lo pernah bingung kenapa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.log(ambilProduk())</code> munculnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Promise {&lt;pending&gt;}</code> — sekarang lo tahu alasannya!</p></div>
-<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch()</code> itu <strong>nggak nganggep HTTP error (404, 500) sebagai error</strong> — dia cuma reject kalau koneksinya gagal total. Makanya wajib cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">response.ok</code> manual kayak contoh di atas. Banyak developer (termasuk yang udah kerja!) kelewat ini dan bingung kenapa error 404-nya "nggak ketangkap".</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">async function</code> itu <strong>selalu return Promise</strong>, apa pun isinya. Makanya lo nggak bisa "ngambil nilai langsung" dari function async — lo harus <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">await</code> atau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.then()</code> dulu. Kalau lo pernah bingung kenapa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">console.log(ambilProduk())</code> munculnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Promise {&lt;pending&gt;}</code> — sekarang lo tahu alasannya!</p></div>
+<div class="warning-box rounded-xl p-4 mt-4"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fetch()</code> itu <strong>nggak nganggep HTTP error (404, 500) sebagai error</strong> — dia cuma reject kalau koneksinya gagal total. Makanya wajib cek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">response.ok</code> manual kayak contoh di atas. Banyak developer (termasuk yang udah kerja!) kelewat ini dan bingung kenapa error 404-nya "nggak ketangkap".</p></div>
 </section>
 
 <!-- LESSON 9 -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-9">
-<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">DOM &amp; Events — Apa yang React Otomatisasi 🤖</h2><input type="checkbox" id="check-0-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Konsep &middot; 9 menit baca</p></div></div>
+<div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">09</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">DOM &amp; Events — Apa yang React Otomatisasi</h2><input type="checkbox" id="check-0-9" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-0-9" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Konsep &middot; 9 menit baca</p></div></div>
 <div class="space-y-4 text-[#333] leading-relaxed">
-<p>Lesson terakhir! Ini singkat, tapi penting banget buat <strong class="text-ink">ngerti kenapa React itu ada</strong>. Jadi gini: halaman web yang lo lihat di browser itu direpresentasikan sebagai <strong class="text-ink">DOM</strong> (Document Object Model) — semacam <strong class="text-ink">pohon keluarga</strong> untuk elemen HTML. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;body&gt;</code> itu kakek, di bawahnya ada anak-anak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;div&gt;</code>, yang punya anak lagi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;h1&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;p&gt;</code>, dan seterusnya. JavaScript bisa manjat pohon ini dan ngubah-ubah isinya — itulah yang bikin halaman web "hidup". 🌳</p>
+<p>Lesson terakhir! Ini singkat, tapi penting banget buat <strong class="text-ink">ngerti kenapa React itu ada</strong>. Jadi gini: halaman web yang lo lihat di browser itu direpresentasikan sebagai <strong class="text-ink">DOM</strong> (Document Object Model) — semacam <strong class="text-ink">pohon keluarga</strong> untuk elemen HTML. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;body&gt;</code> itu kakek, di bawahnya ada anak-anak <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;div&gt;</code>, yang punya anak lagi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;h1&gt;</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;p&gt;</code>, dan seterusnya. JavaScript bisa manjat pohon ini dan ngubah-ubah isinya — itulah yang bikin halaman web "hidup".</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Vanilla DOM — Cara Manual (yang Bakal React Gantikan)</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// HTML-nya: &lt;button id="tombol"&gt;Klik: 0&lt;/button&gt;
 
 // 1. CARI elemennya di pohon DOM:
@@ -701,7 +701,7 @@ tombol.addEventListener('click', () =&gt; {
 //   DI total harga, DI tombol checkout (disabled kalau kosong)...
 // - 4+ tempat harus di-update MANUAL, satu kelupaan = BUG.
 // Ini yang bikin app vanilla JS gede jadi spaghetti. 🍝</code></pre></div>
-<p>Nah, di sinilah React masuk sebagai pahlawan. Filosofinya: <strong class="text-ink">lo nggak perlu lagi nyentuh DOM manual</strong>. Lo cukup deklarasiin "kalau datanya begini, tampilannya begitu" — dan React yang ngurus semua update-nya. Analoginya: vanilla DOM itu kayak <strong class="text-ink">ngecat rumah sendiri</strong> — lo yang mikir tembok mana yang perlu dicat ulang, ngamplas, nutup lantai pakai koran. React itu kayak <strong class="text-ink">nyewa kontraktor</strong>: lo kasih desain akhirnya ("temboknya biru, ada rak di sini"), kontraktor yang mikir cara paling efisien buat ngerjainnya. 🎨</p>
+<p>Nah, di sinilah React masuk sebagai pahlawan. Filosofinya: <strong class="text-ink">lo nggak perlu lagi nyentuh DOM manual</strong>. Lo cukup deklarasiin "kalau datanya begini, tampilannya begitu" — dan React yang ngurus semua update-nya. Analoginya: vanilla DOM itu kayak <strong class="text-ink">ngecat rumah sendiri</strong> — lo yang mikir tembok mana yang perlu dicat ulang, ngamplas, nutup lantai pakai koran. React itu kayak <strong class="text-ink">nyewa kontraktor</strong>: lo kasih desain akhirnya ("temboknya biru, ada rak di sini"), kontraktor yang mikir cara paling efisien buat ngerjainnya.</p>
 <p>Konkretnya, ini perbandingan yang sama persis — counter tadi versi React (belum perlu lo pahami detailnya, cukup rasain bedanya):</p>
 <div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Sneak Peek — Counter yang Sama, Versi React</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">function Tombol() {
   const [jumlahKlik, setJumlahKlik] = React.useState(0);
@@ -725,23 +725,23 @@ tombol.addEventListener('click', () =&gt; {
 // - arrow function    → Lesson 3
 // - template-ish {}   → Lesson 6
 // Lo UDAH SIAP. 🎓</code></pre></div>
-<p>Jadi kenapa lo tetap perlu ngerti DOM dan event walau React ngurusin semuanya? Karena: (1) pas debugging, DevTools nunjukin DOM asli, bukan kode React lo; (2) event React (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange</code>) itu pembungkus tipis dari event DOM asli yang barusan lo pelajarin; dan (3) sesekali lo tetap butuh akses DOM langsung di React (namanya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref</code> — nanti di Bab 4). Paham fondasinya = nggak pernah merasa React itu "sihir". 🧙</p>
+<p>Jadi kenapa lo tetap perlu ngerti DOM dan event walau React ngurusin semuanya? Karena: (1) pas debugging, DevTools nunjukin DOM asli, bukan kode React lo; (2) event React (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onChange</code>) itu pembungkus tipis dari event DOM asli yang barusan lo pelajarin; dan (3) sesekali lo tetap butuh akses DOM langsung di React (namanya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ref</code> — nanti di Bab 4). Paham fondasinya = nggak pernah merasa React itu "sihir".</p>
 </div>
-<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> React itu <strong>bukan pengganti JavaScript — dia justru JavaScript banget</strong>. Semua yang lo pelajarin di bab ini (map, destructuring, arrow function, ternary, async) bakal muncul <em>mentah-mentah</em> di kode React. Itulah kenapa developer yang JS-nya kuat belajar React-nya ngebut. Dan sekarang, itu lo. 🚀</p></div>
+<div class="tip-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> React itu <strong>bukan pengganti JavaScript — dia justru JavaScript banget</strong>. Semua yang lo pelajarin di bab ini (map, destructuring, arrow function, ternary, async) bakal muncul <em>mentah-mentah</em> di kode React. Itulah kenapa developer yang JS-nya kuat belajar React-nya ngebut. Dan sekarang, itu lo.</p></div>
 </section>
 
 <!-- KESALAHAN UMUM -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="kesalahan-umum">
 <div class="flex items-start gap-4 mb-6">
-<div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">⚠️</span></div>
+<div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg"></span></div>
 <div class="flex-1">
-<h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — Jebakan Betmen Pemula 🪤</h2>
+<h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — Jebakan Betmen Pemula</h2>
 <p class="text-sm text-muted mt-1">Tiga bug klasik yang bakal nyelamatin lo berjam-jam debugging kalau lo kenal dari sekarang.</p>
 </div>
 </div>
 <div class="space-y-4 text-[#333] leading-relaxed">
 <p><strong class="text-ink">1. Mutasi array — push vs spread.</strong> Di JavaScript murni, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">push()</code> itu sah. Tapi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">push()</code> <em>mengubah array asli</em> (mutasi) — dan di React, mutasi state itu dosa besar: React nggak sadar datanya berubah, jadi <strong class="text-ink">tampilan nggak ke-update</strong> padahal datanya udah nambah. Biasain dari sekarang: bikin array baru pakai spread.</p>
-<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ Mutasi vs ✅ Immutable</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const keranjang = ['Indomie', 'Kopi'];
+<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Mutasi vs Immutable</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const keranjang = ['Indomie', 'Kopi'];
 
 // ❌ SALAH (kebiasaan yang bakal nyakitin lo di React):
 keranjang.push('Telur');          // ngubah array ASLI (mutasi!)
@@ -757,7 +757,7 @@ const tanpaKopi = keranjang.filter(item =&gt; item !== 'Kopi');      // hapus
 const upperCase = keranjang.map(item =&gt; item.toUpperCase());       // ubah
 // filter & map emang udah return array baru — makanya mereka darling-nya React!</code></pre></div>
 <p><strong class="text-ink">2. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">==</code> vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">===</code>.</strong> Dua sama dengan itu <strong class="text-ink">terlalu baik hati</strong>: dia maksa-maksain dua nilai beda tipe biar "cocok" (type coercion), dan hasilnya sering absurd. Tiga sama dengan itu tegas: nilai DAN tipe harus sama. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">===</code> selalu, tanpa kecuali.</p>
-<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ == yang Baperan vs ✅ === yang Tegas</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ == : "yang penting mirip-mirip lah"
+<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">== yang Baperan vs === yang Tegas</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ == : "yang penting mirip-mirip lah"
 '5' == 5        // true  😱 (string dipaksa jadi number)
 0 == ''         // true  😱
 null == undefined  // true 😱
@@ -777,7 +777,7 @@ userId === targetId;       // false — kelihatan langsung ada yang salah
 
 // RULE: pakai === dan !== SELALU. Lupakan == ada. Titik.</code></pre></div>
 <p><strong class="text-ink">3. Lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">return</code> di arrow function ber-body <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>.</strong> Udah disinggung di Lesson 3, tapi saking seringnya bug ini muncul (apalagi di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">map()</code> pas render list React!), dia layak diulang dengan contoh React-flavored:</p>
-<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">❌ List Kosong Misterius vs ✅ Tiga Cara Benar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const menu = ['Nasi Goreng', 'Mie Ayam', 'Sate'];
+<div class="code-block rounded-xl overflow-hidden mt-4 mb-4"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">List Kosong Misterius vs Tiga Cara Benar</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">const menu = ['Nasi Goreng', 'Mie Ayam', 'Sate'];
 
 // ❌ SALAH — {} tanpa return = semua item jadi undefined:
 const list1 = menu.map(item =&gt; { `&lt;li&gt;${item}&lt;/li&gt;` });
@@ -799,22 +799,22 @@ const list4 = menu.map(item =&gt; ({ nama: item, tersedia: true }));
 // "datanya ada di console.log, tapi listnya nggak muncul di layar"
 // → 90% kasusnya: lupa return di dalam map. Cek arrow function lo!</code></pre></div>
 </div>
-<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Ketiga jebakan ini punya satu kesamaan: <strong>nggak ngasih error message</strong>. Kode jalan, nggak merah-merah, tapi hasilnya salah diam-diam. Bug paling berbahaya bukan yang bikin app crash — tapi yang senyap. Kenali polanya sekarang, dan lo bakal jadi debugger yang jauh lebih cepat dari rata-rata pemula.</p></div>
+<div class="warning-box rounded-xl p-4 mt-6"><p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Ketiga jebakan ini punya satu kesamaan: <strong>nggak ngasih error message</strong>. Kode jalan, nggak merah-merah, tapi hasilnya salah diam-diam. Bug paling berbahaya bukan yang bikin app crash — tapi yang senyap. Kenali polanya sekarang, dan lo bakal jadi debugger yang jauh lebih cepat dari rata-rata pemula.</p></div>
 </section>
 
 <!-- LATIHAN -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="latihan">
 <div class="flex items-start gap-4 mb-6">
-<div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">✏️</span></div>
+<div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg"></span></div>
 <div class="flex-1">
-<h2 class="text-xl font-bold text-ink">LATIHAN — Saatnya Gerakin Jari 💪</h2>
+<h2 class="text-xl font-bold text-ink">LATIHAN — Saatnya Gerakin Jari</h2>
 <p class="text-sm text-muted mt-1">Kerjain dulu di browser console atau playground di atas, BARU buka solusinya. Serius, jangan langsung ngintip — otot ngoding cuma tumbuh kalau dipakai!</p>
 </div>
 </div>
 
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
   <summary class="px-5 py-4 flex items-center justify-between">
-    <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Total Belanja dengan Diskon</span>
+    <span class="font-semibold text-ink text-sm">Latihan 1: Total Belanja dengan Diskon</span>
     <span class="text-xs text-muted">klik untuk lihat solusi</span>
   </summary>
   <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -836,7 +836,7 @@ console.log(total);   // 45000
 
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
   <summary class="px-5 py-4 flex items-center justify-between">
-    <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Bongkar Object User API</span>
+    <span class="font-semibold text-ink text-sm">Latihan 2: Bongkar Object User API</span>
     <span class="text-xs text-muted">klik untuk lihat solusi</span>
   </summary>
   <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -862,7 +862,7 @@ sapa({ nama: 'Joko' });         // 'Halo Joko, role kamu: member' ← default ja
 
 <details class="exercise bg-white rounded-xl shadow-soft mt-4">
   <summary class="px-5 py-4 flex items-center justify-between">
-    <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Fetch + Filter Data API Beneran</span>
+    <span class="font-semibold text-ink text-sm">Latihan 3: Fetch + Filter Data API Beneran</span>
     <span class="text-xs text-muted">klik untuk lihat solusi</span>
   </summary>
   <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -898,9 +898,9 @@ produkMurah();
 <!-- QUIZ -->
 <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
 <div class="flex items-start gap-4 mb-6">
-<div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg">🧠</span></div>
+<div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-lg"></span></div>
 <div class="flex-1">
-<h2 class="text-xl font-bold text-ink">QUIZ BAB 0 — Buktiin Lo Udah Paham 🎯</h2>
+<h2 class="text-xl font-bold text-ink">QUIZ BAB 0 — Buktiin Lo Udah Paham</h2>
 <p class="text-sm text-muted mt-1">8 soal. Nggak ada nilai merah di rapor — salah justru bagus, karena penjelasannya yang bikin nempel.</p>
 </div>
 </div>
@@ -908,49 +908,89 @@ produkMurah();
 [
   {
     "q": "const keranjang = ['kopi']; keranjang.push('teh'); — apa yang terjadi?",
-    "options": ["Error, karena const nggak boleh diubah", "Jalan normal, keranjang jadi ['kopi','teh']", "Jalan, tapi keranjang tetap ['kopi']", "Error, karena push butuh let"],
+    "options": [
+      "Error, karena const nggak boleh diubah",
+      "Jalan normal, keranjang jadi ['kopi','teh']",
+      "Jalan, tapi keranjang tetap ['kopi']",
+      "Error, karena push butuh let"
+    ],
     "answer": 1,
     "explain": "const cuma ngunci LABEL-nya (variabelnya nggak bisa nunjuk array lain), bukan ISI-nya. push() ngubah isi array, jadi sah-sah aja. Yang error itu kalau keranjang = ['baru'] (re-assign). Tapi inget: di React nanti, ngubah isi array langsung (mutasi) tetap dihindari — pakai spread [...keranjang, 'teh']."
   },
   {
     "q": "Apa hasil dari [1, 2, 3].map(x => x * 10)?",
-    "options": ["[10, 20, 30] sebagai array baru", "[1, 2, 3] berubah jadi [10, 20, 30]", "60, karena semua dijumlah", "10, cuma item pertama yang diproses"],
+    "options": [
+      "[10, 20, 30] sebagai array baru",
+      "[1, 2, 3] berubah jadi [10, 20, 30]",
+      "60, karena semua dijumlah",
+      "10, cuma item pertama yang diproses"
+    ],
     "answer": 0,
     "explain": "map() memproses SETIAP item dan mengembalikan ARRAY BARU dengan panjang sama — array aslinya nggak disentuh sama sekali. Inilah kenapa map jadi jantung render list di React: data 3 item masuk, 3 elemen tampilan keluar, data asli tetap aman (immutable)."
   },
   {
     "q": "'7' == 7 dan '7' === 7 — hasilnya berturut-turut?",
-    "options": ["true dan true", "false dan false", "true dan false", "false dan true"],
+    "options": [
+      "true dan true",
+      "false dan false",
+      "true dan false",
+      "false dan true"
+    ],
     "answer": 2,
     "explain": "== melakukan type coercion (maksa string '7' jadi number dulu) sehingga hasilnya true — kelihatan 'jalan' tapi nyembunyiin bug tipe data. === membandingkan nilai DAN tipe: string bukan number, jadi false. Aturan profesional: selalu pakai ===, anggap == nggak pernah ada."
   },
   {
     "q": "Method array mana yang paling tepat untuk 'ambil semua produk dengan stok > 0'?",
-    "options": ["find() — karena nyari barang", "map() — karena memproses semua item", "reduce() — karena merangkum data", "filter() — karena menyaring sesuai kondisi"],
+    "options": [
+      "find() — karena nyari barang",
+      "map() — karena memproses semua item",
+      "reduce() — karena merangkum data",
+      "filter() — karena menyaring sesuai kondisi"
+    ],
     "answer": 3,
     "explain": "filter() menyaring: item yang lolos kondisi masuk ke array baru, sisanya dibuang — persis kebutuhan 'ambil SEMUA yang memenuhi syarat'. find() cuma ngembaliin SATU item pertama yang cocok, map() mengubah semua item (panjangnya tetap), reduce() merangkum jadi satu nilai. Kombinasi filter lalu map adalah pola paling umum di React: saring datanya, render hasilnya."
   },
   {
     "q": "function Profil({ nama, umur }) { ... } — kurung kurawal di parameter itu apa?",
-    "options": ["Sintaks khusus React untuk props", "Destructuring object langsung di parameter", "Cara bikin object baru dari parameter", "Typo, harusnya kurung biasa"],
+    "options": [
+      "Sintaks khusus React untuk props",
+      "Destructuring object langsung di parameter",
+      "Cara bikin object baru dari parameter",
+      "Typo, harusnya kurung biasa"
+    ],
     "answer": 1,
     "explain": "Itu destructuring parameter — JavaScript murni, bukan sihir React! Function-nya nerima SATU object, lalu langsung 'dibongkar' jadi variabel nama dan umur. React manggil komponen lo dengan satu object props, makanya pola ini ada di hampir setiap komponen React: function Profil(props) + const { nama } = props, diringkas jadi satu langkah."
   },
   {
     "q": "Di JSX React: {jumlahItem && <Badge />} dengan jumlahItem = 0. Apa yang tampil di layar?",
-    "options": ["Nggak ada apa-apa (aman)", "Komponen Badge", "Angka 0", "Error"],
+    "options": [
+      "Nggak ada apa-apa (aman)",
+      "Komponen Badge",
+      "Angka 0",
+      "Error"
+    ],
     "answer": 2,
     "explain": "Operator && berhenti di nilai falsy pertama dan MENGEMBALIKAN nilai itu — jadi 0 && apapun hasilnya 0, dan React me-render angka 0 ke layar! Ini bug legendaris di app production. Solusinya: pastikan sisi kiri beneran boolean — jumlahItem > 0 && &lt;Badge /&gt; — atau pakai ternary jumlahItem ? &lt;Badge /&gt; : null."
   },
   {
     "q": "import Button from './Button.js' — tanpa kurung kurawal. Artinya Button.js harus punya...",
-    "options": ["export default", "named export bernama Button", "module.exports", "export bernama apa saja"],
+    "options": [
+      "export default",
+      "named export bernama Button",
+      "module.exports",
+      "export bernama apa saja"
+    ],
     "answer": 0,
     "explain": "Import TANPA kurung kurawal = ngambil DEFAULT export (dan namanya bebas lo tentuin sendiri). Import PAKAI kurung kurawal = named export, dan namanya harus persis sama. Makanya di React lo nulis: import React, { useState } from 'react' — React itu default export, useState itu named export. Sekarang kurung kurawal itu nggak misterius lagi kan?"
   },
   {
     "q": "const dobel = n => { n * 2 }; — berapa hasil dobel(4)?",
-    "options": ["8", "undefined", "Error", "'n * 2' sebagai string"],
+    "options": [
+      "8",
+      "undefined",
+      "Error",
+      "'n * 2' sebagai string"
+    ],
     "answer": 1,
     "explain": "Begitu arrow function pakai kurung kurawal {}, itu dianggap function body biasa yang WAJIB pakai kata return. Nggak ada return = hasilnya undefined. Perbaikannya: n => n * 2 (implicit return, tanpa {}) atau n => { return n * 2; }. Bug ini paling sering muncul di dalam map() pas render list React — datanya ada, tapi layarnya blank."
   }
@@ -966,7 +1006,7 @@ produkMurah();
 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 </div>
 <div>
-<h2 class="text-xl font-bold text-ink">RECAP — BEKAL LO KE BAB 1 📝</h2>
+<h2 class="text-xl font-bold text-ink">RECAP — BEKAL LO KE BAB 1</h2>
 <p class="text-sm text-muted mt-1">Semua ini bakal muncul lagi di React. Bukan "mungkin muncul" — PASTI muncul.</p>
 </div>
 </div>
@@ -984,7 +1024,7 @@ produkMurah();
 <div class="mt-8 flex flex-col sm:flex-row gap-3">
 <button onclick="markChapterComplete(0)" id="completeBtn0" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-Tandai Bab Selesai ✅
+Tandai Bab Selesai 
 </button>
 <a href="chapter-1.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
 Gas ke Bab 1 →
