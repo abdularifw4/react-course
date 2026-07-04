@@ -26,7 +26,7 @@ function renderQuiz(mount, quizId, questions) {
     mount.innerHTML = `
       <div class="bg-white rounded-2xl p-6 shadow-soft">
         <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-semibold text-muted uppercase tracking-wider">\u{1F9E0} Quiz, soal ${idx + 1}/${questions.length}</span>
+          <span class="text-xs font-semibold text-muted uppercase tracking-wider">Quiz, soal ${idx + 1}/${questions.length}</span>
           <span class="text-xs text-muted tabular-nums">Skor: ${score}</span>
         </div>
         <p class="font-semibold text-ink mb-4">${esc(q.q)}</p>
@@ -46,7 +46,7 @@ function renderQuiz(mount, quizId, questions) {
       else opt.classList.add('wrong');
       const ex = mount.querySelector('.quiz-explain');
       /* q.explain: trusted authored HTML (boleh mengandung <code> dsb.) */
-      ex.innerHTML = `<strong>${i === q.answer ? '✅ Benar!' : '❌ Belum tepat.'}</strong> ${q.explain}`;
+      ex.innerHTML = `<strong class="${i === q.answer ? 'text-emerald-600' : 'text-red-600'}">${i === q.answer ? 'Benar.' : 'Belum tepat.'}</strong> ${q.explain}`;
       ex.classList.remove('hidden');
       mount.querySelector('.quiz-next').classList.remove('hidden');
     }));
@@ -59,9 +59,9 @@ function renderQuiz(mount, quizId, questions) {
   function showResult() {
     saveQuizScore(quizId, score, questions.length);
     const pct = Math.round(score / questions.length * 100);
-    const msg = pct === 100 ? '\u{1F3C6} Sempurna! Lo udah nguasain bab ini.'
-      : pct >= 70 ? '\u{1F4AA} Solid! Review lagi soal yang salah, terus lanjut.'
-      : '\u{1F4DA} Belum lulus. Baca ulang babnya. Fondasi yang kuat itu segalanya.';
+    const msg = pct === 100 ? 'Sempurna! Lo udah nguasain bab ini.'
+      : pct >= 70 ? 'Solid! Review lagi soal yang salah, terus lanjut.'
+      : 'Belum lulus. Baca ulang babnya. Fondasi yang kuat itu segalanya.';
     mount.innerHTML = `
       <div class="bg-white rounded-2xl p-6 shadow-soft text-center">
         <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">Hasil Quiz</p>
@@ -96,7 +96,7 @@ function initChallenges() {
     mount.innerHTML = `
       <div class="playground bg-white">
         <div class="bg-[#0B0B0B] px-4 py-2 flex items-center justify-between">
-          <span class="text-xs text-white/80 font-medium">\u{1F3AF} Challenge, lengkapi kodenya sampai semua test lulus</span>
+          <span class="text-xs text-white/80 font-medium">Challenge, lengkapi kodenya sampai semua test lulus</span>
           <div class="flex items-center gap-2">
             <span class="ch-badge text-xs text-white/50">belum dites</span>
             <button class="ch-run text-xs font-semibold bg-white text-ink px-3 py-1 rounded-lg press">▶ Test</button>
@@ -110,7 +110,7 @@ function initChallenges() {
     });
     const saved = (getProgress().challenges || {})[id];
     const badge = mount.querySelector('.ch-badge');
-    if (saved) { badge.textContent = '✅ Lulus'; badge.className = 'ch-badge text-xs text-green-400 font-semibold'; }
+    if (saved) { badge.textContent = 'Lulus'; badge.className = 'ch-badge text-xs text-green-400 font-semibold'; }
     mount.querySelector('.ch-run').addEventListener('click', () => {
       const full = cm.getValue() + '\n\n/* ---- tests ---- */\n' + challengeTestRunner(id, testCode);
       mount.querySelector('iframe').srcdoc = pgSrcdoc(full);
@@ -119,7 +119,7 @@ function initChallenges() {
     // CDN/SRI gagal — degradasi sama seperti playground.js: tampilkan starter read-only
     mounts.forEach(mount => {
       const starterEl = document.getElementById(mount.dataset.codeId);
-      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">⚠ Challenge gagal dimuat. Cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
+      mount.innerHTML = '<div class="playground bg-white p-4"><p class="text-xs text-muted">Challenge gagal dimuat. Cek koneksi, lalu reload halaman.</p><pre class="text-xs mt-2 whitespace-pre-wrap"></pre></div>';
       if (starterEl) mount.querySelector('pre').textContent = starterEl.textContent.trim();
     });
   });
@@ -131,14 +131,14 @@ function initChallenges() {
     if (!mount) return;
     const badge = mount.querySelector('.ch-badge');
     if (e.data.pass === true) {
-      badge.textContent = '✅ Lulus';
+      badge.textContent = 'Lulus';
       badge.className = 'ch-badge text-xs text-green-400 font-semibold';
       const progress = getProgress();
       progress.challenges = progress.challenges || {};
       progress.challenges[e.data.challenge] = true;
       saveProgress(progress);
     } else {
-      badge.textContent = '❌ ' + (typeof e.data.msg === 'string' && e.data.msg ? e.data.msg : 'gagal');
+      badge.textContent = (typeof e.data.msg === 'string' && e.data.msg ? e.data.msg : 'Gagal');
       badge.className = 'ch-badge text-xs text-red-400 font-semibold';
     }
   });
@@ -155,7 +155,7 @@ setTimeout(function() {
   var failed = results.filter(function(r){ return !r.pass; });
   var el = document.createElement('div');
   el.style.cssText = 'margin-top:12px;padding:8px 12px;border-radius:8px;font-size:13px;font-family:ui-monospace,monospace;background:' + (failed.length ? '#FEF2F2' : '#F0FDF4');
-  el.innerHTML = results.map(function(r){ return (r.pass ? '✅ ' : '❌ ') + r.desc; }).join('<br>');
+  el.innerHTML = results.map(function(r){ return (r.pass ? '✓ ' : '✗ ') + r.desc; }).join('<br>');
   document.body.appendChild(el);
   parent.postMessage({challenge: ${JSON.stringify(id)}, pass: failed.length === 0, msg: failed.length ? failed.length + ' test gagal' : ''}, '*');
 }, 300);`;

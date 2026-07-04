@@ -94,7 +94,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">JADI GINI CERITANYA... KENAPA SIH JSX ITU ADA? 🤔</h2>
+                            <h2 class="text-xl font-bold text-ink">JADI GINI CERITANYA... KENAPA SIH JSX ITU ADA?</h2>
                             <input type="checkbox" id="check-2-1" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -103,9 +103,9 @@
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Coba bayangin kamu lagi bikin UI pakai JavaScript vanilla. Mau bikin cuma sekadar heading sama paragraph, kode yang kamu tulis udah kayak nerangin resep ke robot 🤖:</p>
+                    <p>Coba bayangin kamu lagi bikin UI pakai JavaScript vanilla. Mau bikin cuma sekadar heading sama paragraph, kode yang kamu tulis udah kayak nerangin resep ke robot :</p>
 
-                    <p>Nah, di situlah <strong class="text-ink">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak? 😎</p>
+                    <p>Nah, di situlah <strong class="text-ink">JSX</strong> (JavaScript XML) datang sebagai pahlawan. JSX itu ibarat kamu nulis "HTML di dalam JavaScript" — tapi dengan kekuatan penuh JavaScript di belakangnya. Keren nggak?</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
@@ -134,17 +134,17 @@ const list = (
 );</code></pre>
                     </div>
 
-                    <p>Intinya gini: JSX itu <strong class="text-ink">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin 🧠</p>
+                    <p>Intinya gini: JSX itu <strong class="text-ink">bukan HTML</strong>. Dia cuma <em>keliatan</em> kayak HTML. Di balik layar, Babel (tool build-nya) bakal nge-transpile semua JSX kamu jadi fungsi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Jadi browser bisa paham. Mirip kayak penerjemah bahasa — kamu ngomong bahasa manusia, dia nerjemahin ke bahasa mesin</p>
 
-                    <p>Kenapa nggak langsung pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun? 👇</p>
+                    <p>Kenapa nggak langsung pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> aja? Jawabannya simpel: coba liat kode di bawah ini. Mana yang mau kamu maintain selama setahun?</p>
 
-                    <p>Oh iya, satu hal penting — JSX itu mendukung <strong class="text-ink">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Artinya kamu bisa masukin variabel, panggil fungsi, bikin kalkulasi, bahkan nulis kondisi langsung di template UI kamu. Serba bisa pokoknya 💪</p>
+                    <p>Oh iya, satu hal penting — JSX itu mendukung <strong class="text-ink">JavaScript expressions</strong> di dalam kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Artinya kamu bisa masukin variabel, panggil fungsi, bikin kalkulasi, bahkan nulis kondisi langsung di template UI kamu. Serba bisa pokoknya</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
-                            <span class="text-xs text-muted font-medium">JSX vs React.createElement() — pilih mana? 😅</span>
+                            <span class="text-xs text-muted font-medium">JSX vs React.createElement() — pilih mana?</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// Cara LAMA: tanpa JSX (mata berdarah 💀)
@@ -169,7 +169,7 @@ const element = (
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Analogi sederhana:</strong> JSX itu kayak kamu pesan makan di warung. Tinggal bilang "nasi goreng telur mata sapi, pedes, nggak pake kerupuk" — done. Sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> itu kayak kamu kasih instruksi detail ke koki: "ambil nasi 200gram, masukkan wajan, nyalakan api sedang..." — sama hasilnya, tapi capek banget ngomongnya 😂</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">Analogi sederhana:</strong> JSX itu kayak kamu pesan makan di warung. Tinggal bilang "nasi goreng telur mata sapi, pedes, nggak pake kerupuk" — done. Sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code> itu kayak kamu kasih instruksi detail ke koki: "ambil nasi 200gram, masukkan wajan, nyalakan api sedang..." — sama hasilnya, tapi capek banget ngomongnya</p>
                 </div>
             </section>
 
@@ -180,7 +180,7 @@ const element = (
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">ATURAN JSX — KALO NGGAK IKUT, ERROR MENUNGGU 😤</h2>
+                            <h2 class="text-xl font-bold text-ink">ATURAN JSX — KALO NGGAK IKUT, ERROR MENUNGGU</h2>
                             <input type="checkbox" id="check-2-2" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -189,9 +189,9 @@ const element = (
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-ink">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan 🪤</p>
+                    <p>OK jadi tadi kamu udah liat betapa enaknya JSX dibanding <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">createElement()</code>. Tapi hati-hati ya — JSX itu punya <strong class="text-ink">aturan ketat</strong> yang beda dari HTML biasa. Banyak developer pemula yang kena error di sini dan bingung "kok bisa ya padahal di HTML biasa jalan?". Yuk kita bahas satu-satu biar nggak kena jebakan</p>
 
-                    <p><strong class="text-ink font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-ink">Fragment</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget! 🧹</p>
+                    <p><strong class="text-ink font-bold">ATURAN 1: HARUS ADA SATU ROOT ELEMENT.</strong> Setiap komponen React itu harus return tepat <em>satu</em> elemen induk. Nggak boleh return dua elemen sekaligus. Kalau kamu butuh banyak elemen, bungkus pake <strong class="text-ink">Fragment</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;&gt;...&lt;/&gt;</code>). Fragment itu kayak wrapper bayangan — nge-bungkus elemen-elemen kamu tapi nggak nambahin <code>&lt;div&gt;</code> baru di DOM. Clean banget!</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
@@ -225,17 +225,17 @@ function Container({ children }) {
 }</code></pre>
                     </div>
 
-                    <p><strong class="text-ink font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML 😅</p>
+                    <p><strong class="text-ink font-bold">ATURAN 2: SEMUA TAG HARUS DITUTUP.</strong> Di HTML biasa, lu bisa nulis <code>&lt;img&gt;</code> atau <code>&lt;br&gt;</code> begitu aja tanpa tutup. Di JSX? Lupakan. <em>Setiap</em> tag harus ditutup — pake closing tag atau self-closing slash. <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>. Ini salah satu penyebab error paling sering buat orang yang baru migrasi dari HTML</p>
 
-                    <p><strong class="text-ink font-bold">ATURAN 3: camelCase UNTUK ATRIBUT.</strong> Ini yang bikin paling banyak orang salah. Karena JSX itu JavaScript, semua nama atribut harus pakai camelCase. Jadi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code> (bukan <code>class</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">htmlFor</code> (bukan <code>for</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> (bukan <code>onclick</code>). Kebiasaan dari HTML harus dilupain sementara ya 🧠</p>
+                    <p><strong class="text-ink font-bold">ATURAN 3: camelCase UNTUK ATRIBUT.</strong> Ini yang bikin paling banyak orang salah. Karena JSX itu JavaScript, semua nama atribut harus pakai camelCase. Jadi: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code> (bukan <code>class</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">htmlFor</code> (bukan <code>for</code>), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> (bukan <code>onclick</code>). Kebiasaan dari HTML harus dilupain sementara ya</p>
 
-                    <p><strong class="text-ink font-bold">ATURAN 4: MASUKIN JAVASCRIPT PAKAI KURUNG KURAWAL {}</strong>. Mau nampilin variabel? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau nulis kondisi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau panggil fungsi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Tanpa kurung kurawal, JSX nggak akan ngeh itu kode JavaScript — dia anggap cuma text biasa 📝</p>
+                    <p><strong class="text-ink font-bold">ATURAN 4: MASUKIN JAVASCRIPT PAKAI KURUNG KURAWAL {}</strong>. Mau nampilin variabel? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau nulis kondisi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Mau panggil fungsi? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>. Tanpa kurung kurawal, JSX nggak akan ngeh itu kode JavaScript — dia anggap cuma text biasa</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
-                            <span class="text-xs text-muted font-medium">Bener vs Salah — dont be like the wrong side 😂</span>
+                            <span class="text-xs text-muted font-medium">Bener vs Salah — dont be like the wrong side</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
@@ -275,7 +275,7 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ FYI aja nih:</strong> Komentar di JSX itu beda lho dari JavaScript biasa. Kamu nggak bisa pake <code>//</code> di dalam JSX. Harus pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{/* komentar kamu di sini */}</code>. Kalau pake <code>&lt;!-- --&gt;</code> (komentar HTML), teksnya bakal ke-render sebagai tulisan di halaman. Pantesan aja halaman kamu aneh ternyata 😜</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">FYI aja nih:</strong> Komentar di JSX itu beda lho dari JavaScript biasa. Kamu nggak bisa pake <code>//</code> di dalam JSX. Harus pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{/* komentar kamu di sini */}</code>. Kalau pake <code>&lt;!-- --&gt;</code> (komentar HTML), teksnya bakal ke-render sebagai tulisan di halaman. Pantesan aja halaman kamu aneh ternyata</p>
                 </div>
             </section>
 
@@ -286,7 +286,7 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">SI SUPERPOWER KURUNG KURAWAL {} 💎</h2>
+                            <h2 class="text-xl font-bold text-ink">SI SUPERPOWER KURUNG KURAWAL {}</h2>
                             <input type="checkbox" id="check-2-3" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -295,7 +295,7 @@ function ProfilPengguna({ nama, umur, isOnline }) {
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus 🚀</p>
+                    <p>Ini bagian yang paling seru dari JSX. Kurung kurawal <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu kayak "portal" buat masukin kekuatan penuh JavaScript ke dalam template UI kamu. Seriusan, kamu bisa ngapain aja di dalam situ — variabel, fungsi, kalkulasi, kondisi, sampe render array sekaligus</p>
 
                     <p>Nih daftar yang <strong class="text-ink">BOLEH</strong> kamu masukin ke dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code>: <strong class="text-ink">Variabel, string, angka, boolean</strong> — tampilin data dari state atau props. <strong class="text-ink">Ekspresi matematika</strong> — kayak <code>{harga * jumlah}</code>. <strong class="text-ink">Panggilan fungsi</strong> — bikin helper function terus panggil di JSX. <strong class="text-ink">Ternary operator</strong> — buat kondisi singkat kayak <code>{isLogin ? 'Logout' : 'Login'}</code>. <strong class="text-ink">Array</strong> — React bakal otomatis render tiap item-nya satu-satu!</p>
 
@@ -333,15 +333,15 @@ function LoginForm() {
 }</code></pre>
                     </div>
 
-                    <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi) 🎓</p>
+                    <p>Sedangkan yang <strong class="text-amber-600">GAK BOLEH</strong>: pernyataan <code>if/else</code> (pake ternary aja), perulangan <code>for/while</code> (pake <code>.map()</code>), dan deklarasi <code>var/let/const</code> (definisikan di atas JSX). Kenapa? Karena di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> itu cuma boleh <em>expression</em> (yang ngasilin nilai), bukan <em>statement</em> (yang menjalankan aksi)</p>
 
-                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-ink">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini 👇</p>
+                    <p>Kalau kondisinya udah terlalu kompleks buat ternary, triknya gampang: <strong class="text-ink">hitung dulu di luar JSX</strong>, baru masukin hasilnya sebagai variabel. Kode jadi rapi dan nggak pusing dibaca. Check contohnya di bawah ini</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
-                            <span class="text-xs text-muted font-medium">Bukti kehebatan kurung kurawal 🔥</span>
+                            <span class="text-xs text-muted font-medium">Bukti kehebatan kurung kurawal</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">import { useState } from 'react';
@@ -404,7 +404,7 @@ export default DaftarBelanja;</code></pre>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Mau format angka jadi Rupiah? Jangan pake manual string concatenation (udah kuno 😅). Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Intl.NumberFormat('id-ID')</code> — fitur bawaan JavaScript yang gratis, support banyak mata uang, dan nggak perlu install library apapun. Hidden gem banget ini!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">Pro tip:</strong> Mau format angka jadi Rupiah? Jangan pake manual string concatenation (udah kuno ). Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">Intl.NumberFormat('id-ID')</code> — fitur bawaan JavaScript yang gratis, support banyak mata uang, dan nggak perlu install library apapun. Hidden gem banget ini!</p>
                 </div>
             </section>
 
@@ -415,7 +415,7 @@ export default DaftarBelanja;</code></pre>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">GAYA-GAYAAN DI JSX — BIAR GAK CUPU 🎨</h2>
+                            <h2 class="text-xl font-bold text-ink">GAYA-GAYAAN DI JSX — BIAR GAK CUPU</h2>
                             <input type="checkbox" id="check-2-4" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -424,19 +424,19 @@ export default DaftarBelanja;</code></pre>
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>UI tanpa style itu kayak nasi goreng tanpa kecap — masalah sih masih bisa dimakan, tapi nggak ada yang mau liat 👀. Di React (dan JSX tentunya), ada beberapa cara buat kasih style. Masing-masing punya momen dimana dia paling cocok dipake.</p>
+                    <p>UI tanpa style itu kayak nasi goreng tanpa kecap — masalah sih masih bisa dimakan, tapi nggak ada yang mau liat . Di React (dan JSX tentunya), ada beberapa cara buat kasih style. Masing-masing punya momen dimana dia paling cocok dipake.</p>
 
-                    <p><strong class="text-ink">Metode 1: Inline Styles.</strong> Ini paling gampang — langsung tulis style sebagai objek JavaScript di properti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style</code>. Tapi hati-hati, karena ini JavaScript, nama properti CSS-nya harus <strong class="text-ink">camelCase</strong>. Jadi <code>background-color</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code>font-size</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>. Angka buat unit <code>px</code> nggak perlu dikasih tanda petik — React otomatis tambahin. Cocok buat style yang dinamis (bergantung state) 🎯</p>
+                    <p><strong class="text-ink">Metode 1: Inline Styles.</strong> Ini paling gampang — langsung tulis style sebagai objek JavaScript di properti <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">style</code>. Tapi hati-hati, karena ini JavaScript, nama properti CSS-nya harus <strong class="text-ink">camelCase</strong>. Jadi <code>background-color</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code>font-size</code> jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>. Angka buat unit <code>px</code> nggak perlu dikasih tanda petik — React otomatis tambahin. Cocok buat style yang dinamis (bergantung state)</p>
 
-                    <p><strong class="text-ink">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 😂
+                    <p><strong class="text-ink">Metode 2: CSS Modules.</strong> Ini pilihan yang paling seimbang menurut banyak developer. Kamu tulis CSS biasa di file terpisah (nama filenya akhiran <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.module.css</code>), terus import sebagai objek JavaScript. Kelebihannya: nama kelas CSS-nya otomatis jadi unik saat build, jadi nggak akan ada konflik antar komponen. Kayak punya kamar mandi pribadi — nggak perlu antri 
 
-                    <p><strong class="text-ink">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif! 💅</p>
+                    <p><strong class="text-ink">Metode 3: Conditional Class Names.</strong> Teknik ini sering dipake sama Tailwind CSS user (kayak yang di proyek ini!). Intinya: tentukan kelas CSS berdasarkan kondisi, pake template literal atau ternary. Misalnya tombol aktif punya warna hijau, kalau nggak aktif warna abu-abu. Simple tapi efektif!</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
-                            <span class="text-xs text-muted font-medium">3 teknik styling — pick your fighter! ⚔️</span>
+                            <span class="text-xs text-muted font-medium">3 teknik styling — pick your fighter!</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// ====== CARA 1: Inline Styles (langsung di tag) ======
@@ -504,7 +504,7 @@ function TombolStatus({ isActive }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jebakan paling sering:</strong> Lupa kalau properti CSS di inline style itu <strong>wajib camelCase</strong>. Nulis <code>background-color</code> (pake dash) bakal langsung error karena JavaScript nggak ngerti dash di nama properti. Error message-nya juga kadang nggak jelas. Jadi hafalin ini ya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">borderRadius</code>. Semua disambung, tanpa dash! 🔗</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">Jebakan paling sering:</strong> Lupa kalau properti CSS di inline style itu <strong>wajib camelCase</strong>. Nulis <code>background-color</code> (pake dash) bakal langsung error karena JavaScript nggak ngerti dash di nama properti. Error message-nya juga kadang nggak jelas. Jadi hafalin ini ya: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">backgroundColor</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">fontSize</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">borderRadius</code>. Semua disambung, tanpa dash!</p>
                 </div>
             </section>
 
@@ -515,7 +515,7 @@ function TombolStatus({ isActive }) {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">PROPS — KIRIM DATA ANTAR KOMPONEN 📦</h2>
+                            <h2 class="text-xl font-bold text-ink">PROPS — KIRIM DATA ANTAR KOMPONEN</h2>
                             <input type="checkbox" id="check-2-5" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -524,9 +524,9 @@ function TombolStatus({ isActive }) {
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Bayangin kamu lagi pesan ojek online. Kamu kasih tahu driver: "jemput di rumah, tujuan kantor, lewat jalan tol". Driver nggak perlu tau kenapa kamu ke kantor, driver cuma perlu tau <em>data</em> yang kamu kasih. Nah, di React, konsep ini namanya <strong class="text-ink">Props</strong> (Properties). Dia itu kayak data yang kamu lempar dari komponen induk ke komponen anak 🏍️</p>
+                    <p>Bayangin kamu lagi pesan ojek online. Kamu kasih tahu driver: "jemput di rumah, tujuan kantor, lewat jalan tol". Driver nggak perlu tau kenapa kamu ke kantor, driver cuma perlu tau <em>data</em> yang kamu kasih. Nah, di React, konsep ini namanya <strong class="text-ink">Props</strong> (Properties). Dia itu kayak data yang kamu lempar dari komponen induk ke komponen anak</p>
 
-                    <p>Props itu sifatnya <strong class="text-ink">read-only</strong>. Komponen anak <em>nggak boleh</em> mengubah props yang dikasih induk. Ini aturan fundamental React — kalau kamu melanggar ini, aplikasi kamu bakal jadi unpredictable. Mikirin aja kayak driver ojol nggak bisa tiba-tiba ngubah tujuan kamu tanpa kamu bilang 😅</p>
+                    <p>Props itu sifatnya <strong class="text-ink">read-only</strong>. Komponen anak <em>nggak boleh</em> mengubah props yang dikasih induk. Ini aturan fundamental React — kalau kamu melanggar ini, aplikasi kamu bakal jadi unpredictable. Mikirin aja kayak driver ojol nggak bisa tiba-tiba ngubah tujuan kamu tanpa kamu bilang</p>
 
                     <p>Berikut cara-cara mengirim dan menerima props:</p>
 
@@ -617,11 +617,11 @@ function App() {
 }</code></pre>
                     </div>
 
-                    <p>Satu konsep penting yang perlu kamu tau: <strong class="text-ink">Prop Drilling</strong>. Kalau data perlu sampai ke komponen yang sangat dalam (misal App → Navbar → UserMenu → Avatar), kamu harus lempar props dari setiap level. Ini bisa jadi ribet kalau komponennya banyak. Nanti di Bab 8 (State Management) kita bakal bahas cara mengatasinya. Buat sekarang, prop drilling untuk 2-3 level masih oke kok 👍</p>
+                    <p>Satu konsep penting yang perlu kamu tau: <strong class="text-ink">Prop Drilling</strong>. Kalau data perlu sampai ke komponen yang sangat dalam (misal App → Navbar → UserMenu → Avatar), kamu harus lempar props dari setiap level. Ini bisa jadi ribet kalau komponennya banyak. Nanti di Bab 8 (State Management) kita bakal bahas cara mengatasinya. Buat sekarang, prop drilling untuk 2-3 level masih oke kok</p>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Selalu destructure props di parameter fungsi — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Card({ title, author })</code> — daripada akses lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props.title</code>. Kode jadi lebih ringkas, dan kamu langsung keliatan prop apa aja yang dipakai komponen itu. Standar industri modern!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">Pro tip:</strong> Selalu destructure props di parameter fungsi — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function Card({ title, author })</code> — daripada akses lewat <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">props.title</code>. Kode jadi lebih ringkas, dan kamu langsung keliatan prop apa aja yang dipakai komponen itu. Standar industri modern!</p>
                 </div>
             </section>
 
@@ -632,7 +632,7 @@ function App() {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">STATE — DATA YANG BISA BERUBAH 🔄</h2>
+                            <h2 class="text-xl font-bold text-ink">STATE — DATA YANG BISA BERUBAH</h2>
                             <input type="checkbox" id="check-2-6" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -641,7 +641,7 @@ function App() {
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Kalau props itu data statis yang dikasih dari atas (read-only), maka <strong class="text-ink">state</strong> adalah data internal komponen yang <em>bisa berubah</em> sendiri. Bayangin props itu kayak CD musik (isi-nya tetap, kamu cuma putar), sementara state itu kayak Spotify playlist — kamu bisa tambah, hapus, shuffle kapan aja 🎵</p>
+                    <p>Kalau props itu data statis yang dikasih dari atas (read-only), maka <strong class="text-ink">state</strong> adalah data internal komponen yang <em>bisa berubah</em> sendiri. Bayangin props itu kayak CD musik (isi-nya tetap, kamu cuma putar), sementara state itu kayak Spotify playlist — kamu bisa tambah, hapus, shuffle kapan aja</p>
 
                     <p>Di React modern, state dikelola lewat hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState()</code>. Hook ini mengembalikan dua hal: <strong>nilai state saat ini</strong> dan <strong>fungsi buat mengubahnya</strong>. Setiap kali state berubah, React otomatis re-render komponen itu (dan semua anak-anaknya) dengan data terbaru. Ini konsep yang bikin React "reactive"!</p>
 
@@ -703,9 +703,9 @@ function FormPendaftaran() {
 }</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Aturan Emas #1: State itu IMMUTABLE.</strong> Jangan pernah mengubah state langsung. Kalau state kamu objek atau array, <em>selalu buat copy baru</em> sebelum mengubah. Kalau langsung mutasi, React nggak bakal ngeh kalau ada perubahan — dan UI-nya nggak akan update! Ini salah satu penyebab bug paling bikin pusing di React 😤</p>
+                    <p><strong class="text-ink">Aturan Emas #1: State itu IMMUTABLE.</strong> Jangan pernah mengubah state langsung. Kalau state kamu objek atau array, <em>selalu buat copy baru</em> sebelum mengubah. Kalau langsung mutasi, React nggak bakal ngeh kalau ada perubahan — dan UI-nya nggak akan update! Ini salah satu penyebab bug paling bikin pusing di React</p>
 
-                    <p><strong class="text-ink">Aturan Emas #2: Pake Updater Function untuk state yang bergantung pada state sebelumnya.</strong> Kalau kamu butuh nilai state lama buat ngitung nilai baru (misalnya counter +1), jangan tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> — tapi tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(prev =&gt; prev + 1)</code>. Kenapa? Karena React bisa nge-batch update state, dan nilai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> mungkin udah "stale" pas eksekusi 🧠</p>
+                    <p><strong class="text-ink">Aturan Emas #2: Pake Updater Function untuk state yang bergantung pada state sebelumnya.</strong> Kalau kamu butuh nilai state lama buat ngitung nilai baru (misalnya counter +1), jangan tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(count + 1)</code> — tapi tulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(prev =&gt; prev + 1)</code>. Kenapa? Karena React bisa nge-batch update state, dan nilai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">count</code> mungkin udah "stale" pas eksekusi</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
@@ -759,7 +759,7 @@ function ProductCard({ price, taxRate = 0.11 }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Kesalahan Pemula Paling Sering:</strong> Lupa bahwa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> itu <strong>asynchronous</strong> — nilai state nggak langsung berubah di baris berikutnya. Kalau kamu nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(5); console.log(count);</code> — yang ke-log masih nilai <em>lama</em>, bukan 5. Ini bukan bug, ini cara React bekerja. Butuh nilai baru? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> (bahas di Bab 3)!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">Kesalahan Pemula Paling Sering:</strong> Lupa bahwa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setState</code> itu <strong>asynchronous</strong> — nilai state nggak langsung berubah di baris berikutnya. Kalau kamu nulis <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">setCount(5); console.log(count);</code> — yang ke-log masih nilai <em>lama</em>, bukan 5. Ini bukan bug, ini cara React bekerja. Butuh nilai baru? Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useEffect</code> (bahas di Bab 3)!</p>
                 </div>
             </section>
 
@@ -770,7 +770,7 @@ function ProductCard({ price, taxRate = 0.11 }) {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">EVENT HANDLING — REAKSI KETIKA USER AKSI 💥</h2>
+                            <h2 class="text-xl font-bold text-ink">EVENT HANDLING — REAKSI KETIKA USER AKSI</h2>
                             <input type="checkbox" id="check-2-7" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -779,9 +779,9 @@ function ProductCard({ price, taxRate = 0.11 }) {
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Aplikasi tanpa event handling itu kayak restoran tanpa pelayan — makanan ada, tapi nggak ada yang nganterin ke meja kamu 😂. Event handling itu cara kita bikin aplikasi React <em>merespons</em> aksi user: klik tombol, ketik di input, submit form, hover mouse, scroll halaman, dan lain-lain.</p>
+                    <p>Aplikasi tanpa event handling itu kayak restoran tanpa pelayan — makanan ada, tapi nggak ada yang nganterin ke meja kamu . Event handling itu cara kita bikin aplikasi React <em>merespons</em> aksi user: klik tombol, ketik di input, submit form, hover mouse, scroll halaman, dan lain-lain.</p>
 
-                    <p>Di React, event handling mirip dengan HTML biasa tapi ada <strong class="text-ink">3 perbedaan penting</strong>: pertama, nama eventnya pakai camelCase (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> bukan <code>onclick</code>). Kedua, kamu kasih <em>fungsi</em> sebagai handler, bukan string. Ketiga, React pakai <em>Synthetic Events</em> — wrapper buatan React yang konsisten di semua browser 🌐</p>
+                    <p>Di React, event handling mirip dengan HTML biasa tapi ada <strong class="text-ink">3 perbedaan penting</strong>: pertama, nama eventnya pakai camelCase (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick</code> bukan <code>onclick</code>). Kedua, kamu kasih <em>fungsi</em> sebagai handler, bukan string. Ketiga, React pakai <em>Synthetic Events</em> — wrapper buatan React yang konsisten di semua browser</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
                         <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
@@ -856,15 +856,15 @@ function FormLogin() {
 }</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Sintaks inline vs Handler Terpisah:</strong> Kamu bisa tulis handler langsung di JSX (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; setX(true)}</code>) atau pisahkan ke fungsi terpisah (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={handleClick}</code>). Untuk handler yang cuma 1 baris, inline itu oke. Tapi kalau logic-nya lebih dari 2 baris, PISAHKAN. Kode jadi rapi dan bisa di-test 👌</p>
+                    <p><strong class="text-ink">Sintaks inline vs Handler Terpisah:</strong> Kamu bisa tulis handler langsung di JSX (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={() =&gt; setX(true)}</code>) atau pisahkan ke fungsi terpisah (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onClick={handleClick}</code>). Untuk handler yang cuma 1 baris, inline itu oke. Tapi kalau logic-nya lebih dari 2 baris, PISAHKAN. Kode jadi rapi dan bisa di-test</p>
 
-                    <p><strong class="text-ink">Synthetic Events:</strong> React membungkus event browser native dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">SyntheticEvent</code> — objek yang punya API sama persis dengan event native tapi konsisten di semua browser (Chrome, Firefox, Safari). Jadi kamu nggak perlu khawatir tentang perbedaan implementasi event antar browser 🎯</p>
+                    <p><strong class="text-ink">Synthetic Events:</strong> React membungkus event browser native dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">SyntheticEvent</code> — objek yang punya API sama persis dengan event native tapi konsisten di semua browser (Chrome, Firefox, Safari). Jadi kamu nggak perlu khawatir tentang perbedaan implementasi event antar browser</p>
 
                     <p><strong class="text-ink">Event Object yang berguna:</strong> Setiap handler menerima objek <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e</code> (event) yang berisi informasi penting: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target</code> (elemen yang trigger event), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.target.value</code> (nilai input), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> (cegah default behavior), <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.stopPropagation()</code> (hentikan event naik ke parent).</p>
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ Jangan lupa preventDefault!:</strong> Kalau kamu punya form dan handler <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onSubmit</code>, SELALU panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> di baris pertama handler. Kalau nggak, browser bakal nge-reload halaman setiap kali form disubmit — dan semua state kamu hilang! Ini error paling sering buat pemula yang bikin form di React.</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">Jangan lupa preventDefault!:</strong> Kalau kamu punya form dan handler <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">onSubmit</code>, SELALU panggil <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">e.preventDefault()</code> di baris pertama handler. Kalau nggak, browser bakal nge-reload halaman setiap kali form disubmit — dan semua state kamu hilang! Ini error paling sering buat pemula yang bikin form di React.</p>
                 </div>
             </section>
 
@@ -875,7 +875,7 @@ function FormLogin() {
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">MINI PROJECT: KALKULATOR REACT 🧮</h2>
+                            <h2 class="text-xl font-bold text-ink">MINI PROJECT: KALKULATOR REACT</h2>
                             <input type="checkbox" id="check-2-8" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -884,7 +884,7 @@ function FormLogin() {
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Oke, teori udah cukup. Sekarang saatnya kita gabungkan semua yang udah dipelajari — <strong class="text-ink">JSX, props, state, event handling, dan styling</strong> — dalam satu mini project. Kita bikin kalkulator React sederhana yang bisa melakukan operasi matematika dasar. Seru kan? 🎉</p>
+                    <p>Oke, teori udah cukup. Sekarang saatnya kita gabungkan semua yang udah dipelajari — <strong class="text-ink">JSX, props, state, event handling, dan styling</strong> — dalam satu mini project. Kita bikin kalkulator React sederhana yang bisa melakukan operasi matematika dasar. Seru kan?</p>
 
                     <p><strong class="text-ink">Langkah 1: Layout</strong> — Pertama, kita bikin struktur UI kalkulator. Di sini kita pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">display</code> buat nampilin angka, dan grid tombol buat angka 0-9 plus operator (+, -, ×, ÷, =, C).</p>
 
@@ -1046,15 +1046,15 @@ export default Kalkulator;</code></pre>
                     <p><strong class="text-ink">Langkah 3: Challenge!</strong> Kalkulator dasar udah jadi. Sekarang coba extend sendiri sebagai latihan:</p>
 
                     <ul class="list-disc list-inside space-y-2 text-[#333] ml-2">
-                        <li>✅ Tambahkan <strong class="text-ink">keyboard support</strong> — tekan angka/operator di keyboard langsung ke-input ke kalkulator</li>
-                        <li>✅ Tambahkan <strong class="text-ink">history</strong> — simpan 5 operasi terakhir dan tampilin di bawah kalkulator</li>
-                        <li>✅ Tambahkan <strong class="text-ink">animation</strong> — tombol scale-down pas ditekan, display fade-in pas angka berubah</li>
-                        <li>✅ Tambahkan <strong class="text-ink">scientific mode</strong> — sin, cos, tan, akar pangkat, dan memory (M+, M-, MR)</li>
+                        <li>Tambahkan <strong class="text-ink">keyboard support</strong> — tekan angka/operator di keyboard langsung ke-input ke kalkulator</li>
+                        <li>Tambahkan <strong class="text-ink">history</strong> — simpan 5 operasi terakhir dan tampilin di bawah kalkulator</li>
+                        <li>Tambahkan <strong class="text-ink">animation</strong> — tombol scale-down pas ditekan, display fade-in pas angka berubah</li>
+                        <li>Tambahkan <strong class="text-ink">scientific mode</strong> — sin, cos, tan, akar pangkat, dan memory (M+, M-, MR)</li>
                     </ul>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 Pro tip:</strong> Perhatikan pola di kalkulator ini — kita punya <strong>beberapa state terpisah</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">display</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">previousValue</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">operator</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitingForOperand</code>) yang bekerja bareng. Ini pola umum di React: kalau data-nya independen, simpan di state terpisah. Kalau data-nya saling terkait, gabung jadi satu objek state (kayak form di lesson sebelumnya). Pilih yang paling masuk akal!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">Pro tip:</strong> Perhatikan pola di kalkulator ini — kita punya <strong>beberapa state terpisah</strong> (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">display</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">previousValue</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">operator</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">waitingForOperand</code>) yang bekerja bareng. Ini pola umum di React: kalau data-nya independen, simpan di state terpisah. Kalau data-nya saling terkait, gabung jadi satu objek state (kayak form di lesson sebelumnya). Pilih yang paling masuk akal!</p>
                 </div>
             </section>
 
@@ -1066,7 +1066,7 @@ export default Kalkulator;</code></pre>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">LEVEL SENIOR: COMPOSITION OVER CONFIGURATION 🧩</h2>
+                            <h2 class="text-xl font-bold text-ink">LEVEL SENIOR: COMPOSITION OVER CONFIGURATION</h2>
                             <input type="checkbox" id="check-2-14" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -1075,9 +1075,9 @@ export default Kalkulator;</code></pre>
                 </div>
 
                 <div class="space-y-4 text-[#333] leading-relaxed">
-                    <p>Junior nanya "gimana cara bikin komponen jalan?". Senior nanya "<strong class="text-ink">kapan gue harus pecah komponen ini, dan kapan enggak?</strong>". Bedanya tipis tapi jauh — dan itu yang bikin codebase lo umur setahun masih enak diutak-atik, atau malah jadi monster 2000 baris yang semua orang takut sentuh 👻. Lesson ini soal <em>batas komponen</em> (component boundaries) — skill paling underrated di React.</p>
+                    <p>Junior nanya "gimana cara bikin komponen jalan?". Senior nanya "<strong class="text-ink">kapan gue harus pecah komponen ini, dan kapan enggak?</strong>". Bedanya tipis tapi jauh — dan itu yang bikin codebase lo umur setahun masih enak diutak-atik, atau malah jadi monster 2000 baris yang semua orang takut sentuh . Lesson ini soal <em>batas komponen</em> (component boundaries) — skill paling underrated di React.</p>
 
-                    <p><strong class="text-ink">Prinsip inti: composition over configuration.</strong> Artinya: daripada bikin satu komponen raksasa yang lo kendaliin lewat setumpuk prop boolean (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isPrimary</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hasIcon</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">showFooter</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withBorder</code>...), lebih baik bikin komponen kecil yang <em>disusun</em> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> dan slot. Analoginya kayak <strong class="text-ink">LEGO vs mainan action figure</strong>: action figure udah jadi, lo cuma bisa pencet tombol yang tersedia. LEGO? Lo susun sendiri sesuka hati. React lebih suka LEGO 🧱.</p>
+                    <p><strong class="text-ink">Prinsip inti: composition over configuration.</strong> Artinya: daripada bikin satu komponen raksasa yang lo kendaliin lewat setumpuk prop boolean (<code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">isPrimary</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">hasIcon</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">showFooter</code>, <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">withBorder</code>...), lebih baik bikin komponen kecil yang <em>disusun</em> pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> dan slot. Analoginya kayak <strong class="text-ink">LEGO vs mainan action figure</strong>: action figure udah jadi, lo cuma bisa pencet tombol yang tersedia. LEGO? Lo susun sendiri sesuka hati. React lebih suka LEGO .</p>
 
                     <p><strong class="text-ink">Gejala "boolean-prop explosion".</strong> Begitu satu komponen punya 5+ prop boolean yang saling ngatur tampilan, itu alarm. Tiap boolean baru = <em>lipat dua</em> kemungkinan kombinasi yang harus lo tes dan pikirin. <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card compact bordered elevated highlighted /&gt;</code> = 16 kombinasi. Ganti pola: biarin pemanggil yang <em>nyusun isinya</em>.</p>
 
@@ -1146,9 +1146,9 @@ function PageLayout({ header, sidebar, children }) {
 &lt;/PageLayout&gt;</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Kapan sebuah item list layak jadi komponen sendiri?</strong> Ini pertanyaan yang bikin banyak orang ragu. Aturan praktisnya: pecah jadi komponen terpisah kalau item itu (1) punya <em>state sendiri</em> — misal baris yang bisa di-expand, checkbox, atau tombol favorit; (2) punya <em>logika non-trivial</em> — format tanggal, hitung diskon, kondisi tampilan bertingkat; atau (3) bikin blok <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>-nya lebih dari ~10 baris JSX sampai susah dibaca. Kalau item cuma nampilin satu-dua teks statis? Biarin inline, nggak usah dipecah — over-engineering juga dosa 😅.</p>
+                    <p><strong class="text-ink">Kapan sebuah item list layak jadi komponen sendiri?</strong> Ini pertanyaan yang bikin banyak orang ragu. Aturan praktisnya: pecah jadi komponen terpisah kalau item itu (1) punya <em>state sendiri</em> — misal baris yang bisa di-expand, checkbox, atau tombol favorit; (2) punya <em>logika non-trivial</em> — format tanggal, hitung diskon, kondisi tampilan bertingkat; atau (3) bikin blok <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>-nya lebih dari ~10 baris JSX sampai susah dibaca. Kalau item cuma nampilin satu-dua teks statis? Biarin inline, nggak usah dipecah — over-engineering juga dosa .</p>
 
-                    <p>Nih bukti hidupnya. Di bawah ada satu komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ProfilCard</code> yang dipakai berkali-kali cuma dengan ganti props — inilah kekuatan composition: <strong class="text-ink">satu definisi, banyak instance</strong>. Edit props-nya, tambahin card baru, klik Jalankan 👇</p>
+                    <p>Nih bukti hidupnya. Di bawah ada satu komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">ProfilCard</code> yang dipakai berkali-kali cuma dengan ganti props — inilah kekuatan composition: <strong class="text-ink">satu definisi, banyak instance</strong>. Edit props-nya, tambahin card baru, klik Jalankan</p>
                 </div>
 
                 <script type="text/plain" id="pg-2-1">// Satu komponen, dipakai BERKALI-KALI dengan props beda.
@@ -1181,21 +1181,21 @@ function App() {
                 <div class="playground-mount mt-4 mb-4" data-code-id="pg-2-1"></div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">💡 OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> itu cuma prop biasa — cuma dapet perlakuan spesial di JSX (isinya diambil dari antara tag buka-tutup). Artinya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card&gt;halo&lt;/Card&gt;</code> 100% setara dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card children="halo" /&gt;</code>. Begitu paham ini, "slot pattern" nggak kerasa sihir lagi — itu cuma ngoper JSX lewat prop.</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">children</code> itu cuma prop biasa — cuma dapet perlakuan spesial di JSX (isinya diambil dari antara tag buka-tutup). Artinya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card&gt;halo&lt;/Card&gt;</code> 100% setara dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Card children="halo" /&gt;</code>. Begitu paham ini, "slot pattern" nggak kerasa sihir lagi — itu cuma ngoper JSX lewat prop.</p>
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">⚠️ JANGAN TERJERAT!</strong> Composition bukan berarti "pecah SEMUA jadi komponen mikro". Komponen 3-baris yang cuma dipakai sekali dan nggak punya state seringkali cuma nambah file dan lompatan mental tanpa manfaat. Pecah komponen pas ada alasan nyata: <strong>dipakai ulang</strong>, <strong>punya state/logika sendiri</strong>, atau <strong>bikin parent-nya kepanjangan</strong>. Kalau nggak ada satupun dari itu — biarin inline dulu, refactor nanti pas kebutuhannya muncul.</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Composition bukan berarti "pecah SEMUA jadi komponen mikro". Komponen 3-baris yang cuma dipakai sekali dan nggak punya state seringkali cuma nambah file dan lompatan mental tanpa manfaat. Pecah komponen pas ada alasan nyata: <strong>dipakai ulang</strong>, <strong>punya state/logika sendiri</strong>, atau <strong>bikin parent-nya kepanjangan</strong>. Kalau nggak ada satupun dari itu — biarin inline dulu, refactor nanti pas kebutuhannya muncul.</p>
                 </div>
             </section>
 
             <!-- KESALAHAN UMUM -->
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="common-mistakes">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm">⚠️</span></div>
+                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-amber-600 font-bold text-sm"></span></div>
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-1">
-                            <h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — PROPS &amp; LIST YANG SERING NGACO 🚨</h2>
+                            <h2 class="text-xl font-bold text-ink">KESALAHAN UMUM — PROPS &amp; LIST YANG SERING NGACO</h2>
                             <input type="checkbox" id="check-2-13" class="lesson-checkbox hidden" onchange="updateProgress()">
                             <label for="check-2-13" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
                         </div>
@@ -1222,7 +1222,7 @@ function List({ items }) {
 
                 <div class="space-y-4 text-[#333] leading-relaxed mt-6">
                     <p><strong class="text-ink">2. Lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key</code> di list.</strong> Tiap kali lo render array pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>, tiap elemen WAJIB punya prop <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key</code> yang unik &amp; stabil. Tanpa key, React ngasih warning dan diffing-nya jadi nebak-nebak — update jadi lambat dan bisa salah.</p>
-                    <p><strong class="text-ink">3. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list dinamis.</strong> Ini jebakan halus. Index (0,1,2...) itu <em>posisi</em>, bukan <em>identitas</em>. Begitu list bisa di-hapus, di-sort, atau disisipin dari tengah, key index bikin state (isi input, checkbox, fokus) "nyangkut" di posisi dan nyasar ke item yang salah. Coba sendiri di playground bawah 👇.</p>
+                    <p><strong class="text-ink">3. Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list dinamis.</strong> Ini jebakan halus. Index (0,1,2...) itu <em>posisi</em>, bukan <em>identitas</em>. Begitu list bisa di-hapus, di-sort, atau disisipin dari tengah, key index bikin state (isi input, checkbox, fokus) "nyangkut" di posisi dan nyasar ke item yang salah. Coba sendiri di playground bawah .</p>
                 </div>
                 <div class="mt-4 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Kesalahan #2 &amp; #3 — key hilang / index key</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-javascript">// ❌ SALAH — nggak ada key (warning + diff lambat)
 {todos.map(t =&gt; &lt;Row todo={t} /&gt;)}
@@ -1287,12 +1287,12 @@ function Card({ title })  { return &lt;h3&gt;{title}&lt;/h3&gt;; }   // ✅ nila
 
                 <!-- LATIHAN -->
                 <div class="mt-10">
-                    <h3 class="text-lg font-bold text-ink mb-2">✏️ LATIHAN — UJI PEMAHAMAN LO</h3>
+                    <h3 class="text-lg font-bold text-ink mb-2">LATIHAN — UJI PEMAHAMAN LO</h3>
                     <p class="text-sm text-muted mb-4">Jawab di kepala dulu sebelum buka solusinya. Ini gaya soal yang beneran keluar di code review.</p>
 
                     <details class="exercise bg-white rounded-xl shadow-soft mt-4">
                         <summary class="px-5 py-4 flex items-center justify-between">
-                            <span class="font-semibold text-ink text-sm">✏️ Latihan 1: Ubah komponen "configuration" jadi "composition"</span>
+                            <span class="font-semibold text-ink text-sm">Latihan 1: Ubah komponen "configuration" jadi "composition"</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
                         <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -1316,7 +1316,7 @@ function AlertTitle({ children }) { return &lt;strong&gt;{children}&lt;/strong&g
 
                     <details class="exercise bg-white rounded-xl shadow-soft mt-4">
                         <summary class="px-5 py-4 flex items-center justify-between">
-                            <span class="font-semibold text-ink text-sm">✏️ Latihan 2: Cari bug-nya — checkbox yang "loncat" pas item dihapus</span>
+                            <span class="font-semibold text-ink text-sm">Latihan 2: Cari bug-nya — checkbox yang "loncat" pas item dihapus</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
                         <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -1331,7 +1331,7 @@ function AlertTitle({ children }) { return &lt;strong&gt;{children}&lt;/strong&g
 
                     <details class="exercise bg-white rounded-xl shadow-soft mt-4">
                         <summary class="px-5 py-4 flex items-center justify-between">
-                            <span class="font-semibold text-ink text-sm">✏️ Latihan 3: Kapan baris list ini layak jadi komponen sendiri?</span>
+                            <span class="font-semibold text-ink text-sm">Latihan 3: Kapan baris list ini layak jadi komponen sendiri?</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
                         <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
@@ -1348,7 +1348,7 @@ function AlertTitle({ children }) { return &lt;strong&gt;{children}&lt;/strong&g
 
                 <!-- CHALLENGE -->
                 <div class="mt-10">
-                    <h3 class="text-lg font-bold text-ink mb-2">🎯 CHALLENGE — RENDER LIST PRODUK: FILTER + MAP + KEY</h3>
+                    <h3 class="text-lg font-bold text-ink mb-2">CHALLENGE — RENDER LIST PRODUK: FILTER + MAP + KEY</h3>
                     <p class="text-sm text-[#333] leading-relaxed mb-4">Diberi array <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">produk</code>. Tugas lo: render <strong class="text-ink">hanya produk yang stoknya &gt; 0</strong> ke dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;ul&gt;</code>, tiap item jadi <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;li&gt;</code> dengan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">key={p.id}</code> DAN <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">data-id={p.id}</code>, menampilkan nama produk. Starter-nya render SEMUA tanpa filter — perbaiki sampai semua test hijau. Klik <strong class="text-ink">▶ Test</strong> buat ngecek.</p>
                     <script type="text/plain" id="ch-2-1">// 🎯 Perbaiki App() ini sampai semua test lulus. Klik "▶ Test" dulu.
 // Target:
@@ -1407,7 +1407,7 @@ expect('Tiap <li> punya data-id dari p.id (pakai identitas, bukan index)', punya
 
             <!-- QUIZ -->
             <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
-                <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">🧠</span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGERTI PROPS &amp; LIST? 🎤</h2><p class="text-sm text-muted mt-1">8 soal. Skor terbaik lo kesimpen otomatis.</p></div></div>
+                <div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm"></span></div><div class="flex-1"><h2 class="text-xl font-bold text-ink">QUIZ — UDAH NGERTI PROPS &amp; LIST?</h2><p class="text-sm text-muted mt-1">8 soal. Skor terbaik lo kesimpen otomatis.</p></div></div>
                 <script type="application/json" id="quiz-2">
 [
   {
@@ -1509,13 +1509,13 @@ expect('Tiap <li> punya data-id dari p.id (pakai identitas, bukan index)', punya
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS 📝</h2>
+                        <h2 class="text-xl font-bold text-ink">RECAP — YANG UDAH KITA BAHAS</h2>
                         <p class="text-sm text-muted mt-1">Simpen di kepala ya, ini penting buat bab selanjutnya!</p>
                     </div>
                 </div>
                 <ul class="space-y-3 text-[#333]">
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">JSX itu syntax sugar</strong> — dia cuma "pemanis" dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Hasilnya sama, tapi kode kita jadi rapi dan enak dibaca. Kayak pesen makan vs masak sendiri 😄</span></li>
-                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error 🚫</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">JSX itu syntax sugar</strong> — dia cuma "pemanis" dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">React.createElement()</code>. Hasilnya sama, tapi kode kita jadi rapi dan enak dibaca. Kayak pesen makan vs masak sendiri</span></li>
+                    <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">4 aturan emas JSX:</strong> satu root element, semua tag harus ditutup, pakai camelCase buat atribut, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> buat masukin JavaScript. Langgar salah satu = error</span></li>
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Kurung kurawal {} itu superpower</strong> — bisa masukin variabel, fungsi, ternary operator, sampe render array pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code>. Tapi cuma expression ya, bukan statement!</span></li>
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">3 cara styling di React:</strong> inline styles (buat dynamic), CSS Modules (buat skala besar dan aman dari konflik), conditional class names (buat dinamis sederhana). Pilih sesuai kebutuhan!</span></li>
                     <li class="flex items-start gap-3"><span class="text-ink mt-1">✓</span><span><strong class="text-ink">Props = data one-way dari parent ke child.</strong> Read-only, support default values, dan children prop buat komposisi fleksibel. Jangan lupa destructure!</span></li>
@@ -1526,7 +1526,7 @@ expect('Tiap <li> punya data-id dari p.id (pakai identitas, bukan index)', punya
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
                     <button onclick="markChapterComplete(2)" id="completeBtn2" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Tandai Bab Selesai ✅
+                        Tandai Bab Selesai 
                     </button>
                     <a href="chapter-3.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         Gas ke Bab 3 →
