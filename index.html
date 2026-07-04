@@ -61,8 +61,13 @@
             background: radial-gradient(circle at 50% 44%, #F3F0FA 0%, rgba(243,240,250,0) 66%); }
         .tc-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
         .tc-lines line { stroke: rgba(11,11,11,.13); stroke-width: .45; stroke-linecap: round;
-            stroke-dasharray: 1.4 3.4; animation: tcflow 3.6s linear infinite; }
+            stroke-dasharray: 1.4 3.4; animation: tcflow 3.6s linear infinite; transition: stroke .2s ease, stroke-opacity .2s ease; }
         @keyframes tcflow { to { stroke-dashoffset: -19.2; } }
+        .tc-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
+            background: radial-gradient(170px 170px at var(--sx,50%) var(--sy,50%), rgba(97,218,251,.22), rgba(97,218,251,0) 62%); }
+        .techcluster.tc-hovering .tc-spot { opacity: 1; }
+        .techcluster.tc-focus .tc-lines line { stroke-opacity: .3; }
+        .tc-lines line.tc-active { stroke: #0B0B0B; stroke-width: .85; stroke-opacity: 1; animation-duration: 1.5s; }
         .orb { position: absolute; z-index: 1;
             transform: translate(-50%, -50%) translate3d(var(--px,0px), var(--py,0px), 0);
             transition: transform .3s cubic-bezier(.2,.8,.2,1); }
@@ -161,6 +166,7 @@
             <!-- Right: floating tech-ecosystem cluster -->
             <div class="lg:col-span-4 enter enter-d3">
                 <div class="hidden lg:block techcluster" id="techcluster" aria-hidden="true">
+                    <div class="tc-spot"></div>
                     <svg class="tc-lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
                         <line x1="50" y1="50" x2="27" y2="15"/><line x1="50" y1="50" x2="71" y2="13"/>
                         <line x1="50" y1="50" x2="87" y2="41"/><line x1="50" y1="50" x2="78" y2="75"/>
@@ -168,14 +174,14 @@
                         <line x1="50" y1="50" x2="12" y2="43"/><line x1="50" y1="50" x2="51" y2="19"/>
                     </svg>
                     <div class="orb center" data-depth="0.35" style="top:50%;left:50%"><div class="orbf" style="width:82px;height:82px"><img class="tc-spin" src="assets/img/logos/react.svg" alt="" width="44" height="44"></div></div>
-                    <div class="orb" data-depth="1.0" data-name="TypeScript" style="top:15%;left:27%"><div class="orbf" style="width:58px;height:58px;animation-delay:-.3s"><img src="assets/img/logos/typescript.svg" alt="" width="30" height="30"></div><span class="orb-label">TypeScript</span></div>
-                    <div class="orb" data-depth="1.3" data-name="Next.js" style="top:13%;left:71%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.4s"><img src="assets/img/logos/nextdotjs.svg" alt="" width="26" height="26"></div><span class="orb-label">Next.js</span></div>
-                    <div class="orb" data-depth="0.9" data-name="Tailwind CSS" style="top:41%;left:87%"><div class="orbf" style="width:54px;height:54px;animation-delay:-1.1s"><img src="assets/img/logos/tailwindcss.svg" alt="" width="30" height="30"></div><span class="orb-label">Tailwind</span></div>
-                    <div class="orb" data-depth="1.2" data-name="Vite" style="top:75%;left:78%"><div class="orbf" style="width:50px;height:50px;animation-delay:-3.2s"><img src="assets/img/logos/vite.svg" alt="" width="26" height="26"></div><span class="orb-label">Vite</span></div>
-                    <div class="orb" data-depth="1.4" data-name="Vitest" style="top:87%;left:50%"><div class="orbf" style="width:48px;height:48px;animation-delay:-.9s"><img src="assets/img/logos/vitest.svg" alt="" width="25" height="25"></div><span class="orb-label">Vitest</span></div>
-                    <div class="orb" data-depth="1.1" data-name="Redux" style="top:75%;left:21%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.0s"><img src="assets/img/logos/redux.svg" alt="" width="27" height="27"></div><span class="orb-label">Redux</span></div>
-                    <div class="orb" data-depth="1.0" data-name="React Router" style="top:43%;left:12%"><div class="orbf" style="width:50px;height:50px;animation-delay:-1.6s"><img src="assets/img/logos/reactrouter.svg" alt="" width="27" height="27"></div><span class="orb-label">React Router</span></div>
-                    <div class="orb" data-depth="0.7" data-name="JavaScript" style="top:19%;left:51%"><div class="orbf" style="width:46px;height:46px;animation-delay:-3.6s"><img src="assets/img/logos/javascript.svg" alt="" width="24" height="24"></div><span class="orb-label">JavaScript</span></div>
+                    <div class="orb" data-depth="1.0" data-name="TypeScript" data-line="0" style="top:15%;left:27%"><div class="orbf" style="width:58px;height:58px;animation-delay:-.3s"><img src="assets/img/logos/typescript.svg" alt="" width="30" height="30"></div><span class="orb-label">TypeScript</span></div>
+                    <div class="orb" data-depth="1.3" data-name="Next.js" data-line="1" style="top:13%;left:71%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.4s"><img src="assets/img/logos/nextdotjs.svg" alt="" width="26" height="26"></div><span class="orb-label">Next.js</span></div>
+                    <div class="orb" data-depth="0.9" data-name="Tailwind CSS" data-line="2" style="top:41%;left:87%"><div class="orbf" style="width:54px;height:54px;animation-delay:-1.1s"><img src="assets/img/logos/tailwindcss.svg" alt="" width="30" height="30"></div><span class="orb-label">Tailwind</span></div>
+                    <div class="orb" data-depth="1.2" data-name="Vite" data-line="3" style="top:75%;left:78%"><div class="orbf" style="width:50px;height:50px;animation-delay:-3.2s"><img src="assets/img/logos/vite.svg" alt="" width="26" height="26"></div><span class="orb-label">Vite</span></div>
+                    <div class="orb" data-depth="1.4" data-name="Vitest" data-line="4" style="top:87%;left:50%"><div class="orbf" style="width:48px;height:48px;animation-delay:-.9s"><img src="assets/img/logos/vitest.svg" alt="" width="25" height="25"></div><span class="orb-label">Vitest</span></div>
+                    <div class="orb" data-depth="1.1" data-name="Redux" data-line="5" style="top:75%;left:21%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.0s"><img src="assets/img/logos/redux.svg" alt="" width="27" height="27"></div><span class="orb-label">Redux</span></div>
+                    <div class="orb" data-depth="1.0" data-name="React Router" data-line="6" style="top:43%;left:12%"><div class="orbf" style="width:50px;height:50px;animation-delay:-1.6s"><img src="assets/img/logos/reactrouter.svg" alt="" width="27" height="27"></div><span class="orb-label">React Router</span></div>
+                    <div class="orb" data-depth="0.7" data-name="JavaScript" data-line="7" style="top:19%;left:51%"><div class="orbf" style="width:46px;height:46px;animation-delay:-3.6s"><img src="assets/img/logos/javascript.svg" alt="" width="24" height="24"></div><span class="orb-label">JavaScript</span></div>
                 </div>
                 <!-- Mobile: compact logo strip -->
                 <div class="lg:hidden">
@@ -605,16 +611,19 @@
             els.forEach(function (el) { io.observe(el); });
         })();
 
-        // Hero constellation: pointer parallax (layered depth) + subtle 3D tilt
+        // Hero constellation: pointer parallax + 3D tilt + spotlight + line highlight
         (function () {
             var tc = document.getElementById('techcluster');
             if (!tc || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             var orbs = Array.prototype.slice.call(tc.querySelectorAll('.orb'));
+            var lines = Array.prototype.slice.call(tc.querySelectorAll('.tc-lines line'));
             var area = tc.closest('section') || tc;
-            var tx = 0, ty = 0, raf = 0;
+            var tx = 0, ty = 0, sx = 50, sy = 50, raf = 0;
             function apply() {
                 raf = 0;
                 tc.style.transform = 'rotateX(' + (-ty * 3).toFixed(2) + 'deg) rotateY(' + (tx * 3).toFixed(2) + 'deg)';
+                tc.style.setProperty('--sx', sx.toFixed(1) + '%');
+                tc.style.setProperty('--sy', sy.toFixed(1) + '%');
                 for (var i = 0; i < orbs.length; i++) {
                     var d = parseFloat(orbs[i].getAttribute('data-depth') || '1');
                     orbs[i].style.setProperty('--px', (tx * d * 13).toFixed(1) + 'px');
@@ -625,11 +634,22 @@
                 var r = tc.getBoundingClientRect();
                 tx = Math.max(-1.4, Math.min(1.4, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
                 ty = Math.max(-1.4, Math.min(1.4, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
+                sx = Math.max(-15, Math.min(115, (e.clientX - r.left) / r.width * 100));
+                sy = Math.max(-15, Math.min(115, (e.clientY - r.top) / r.height * 100));
+                tc.classList.add('tc-hovering');
                 if (!raf) raf = requestAnimationFrame(apply);
             });
             area.addEventListener('mouseleave', function () {
-                tx = 0; ty = 0; tc.style.transform = '';
+                tx = 0; ty = 0; tc.style.transform = ''; tc.classList.remove('tc-hovering');
                 orbs.forEach(function (o) { o.style.setProperty('--px', '0px'); o.style.setProperty('--py', '0px'); });
+            });
+            // Per tile: light up its connection to the React core, dim the rest
+            orbs.forEach(function (o) {
+                var li = o.getAttribute('data-line');
+                if (li === null) return;
+                var line = lines[+li];
+                o.addEventListener('mouseenter', function () { tc.classList.add('tc-focus'); if (line) line.classList.add('tc-active'); });
+                o.addEventListener('mouseleave', function () { tc.classList.remove('tc-focus'); if (line) line.classList.remove('tc-active'); });
             });
         })();
     </script>
