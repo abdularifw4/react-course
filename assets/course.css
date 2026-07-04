@@ -23,6 +23,14 @@ button:active { transform: scale(.96); }
 .nav-link { transition: background .15s ease, color .15s ease; }
 .nav-link:hover, .nav-link.active { background: #F3F0FA; color: #0B0B0B; }
 .nav-link.active span:first-child { background: #0B0B0B !important; color: white !important; }
+
+/* ===== SIDEBAR TREE (collapsible chapters + lesson sub-links) ===== */
+.side-ch:not(.open) .side-lessons { display: none; }
+.side-ch.open > .side-ch-row .side-chevron { transform: rotate(90deg); }
+.side-lesson { transition: background .12s ease, color .12s ease; }
+.side-lesson.active { background: rgba(0,0,0,0.05); color: #0B0B0B; font-weight: 500; }
+.lesson-card { scroll-margin-top: 84px; }
+
 .nav-underline { position: relative; }
 .nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #0B0B0B; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .nav-underline:hover::after { transform: scaleX(1); }
