@@ -6,7 +6,7 @@
     <title>Bab 1: Pengenalan React — React Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
@@ -18,35 +18,37 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['"PT Serif"', 'Georgia', 'serif'],
                         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     },
                     colors: {
-                        ink: { DEFAULT: '#0B0B0B', soft: '#1A1A1A' },
-                        muted: { DEFAULT: '#666666', light: '#999999' },
-                        lavender: '#F3F0FA',
-                        cream: '#FAF8F1',
-                        surface: '#FAFAFA',
+                        ink: { DEFAULT: '#1f1f1f', soft: '#514d4a' },
+                        muted: { DEFAULT: '#706a66', light: '#9a948f' },
+                        coral: { DEFAULT: '#149eca', deep: '#0a5c7a' },
+                        teal: { DEFAULT: '#02b7bf', dark: '#004754', darkest: '#003943' },
+                        line: '#e4d8d0',
+                        paper: '#ffffff',
+                        lavender: '#f1e8e2',
+                        cream: { DEFAULT: '#fdf9f6', '2': '#f8f3f0', '3': '#f1e8e2' },
+                        surface: '#f8f3f0',
                     },
                 }
             }
         }</script>
     <link rel="stylesheet" href="../assets/course.css">
 </head>
-<body class="bg-white text-ink min-h-screen" data-chapter="1">
+<body class="bg-cream text-ink min-h-screen" data-chapter="1">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-black/[0.06] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
-        <div class="p-5 border-b border-black/[0.06]">
-            <a href="../index.html" class="flex items-center gap-2.5">
-                <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                </div>
-                <span class="text-[15px] font-semibold tracking-tight">react course</span>
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-line z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
+        <div class="p-5 border-b border-line">
+            <a href="../index.html" class="flex items-center justify-center gap-2.5">
+                <img src="../assets/img/lwa-mark.png" alt="Learn With Arif" class="h-7 w-auto" width="61" height="21">
             </a>
         </div>
         <div class="p-3">
             <div class="relative">
-                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-black/[0.06] rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
+                <input type="text" placeholder="Cari bab..." class="w-full bg-surface border border-line rounded-lg px-3.5 py-2.5 pl-9 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-black/20 transition-colors">
                 <svg class="absolute left-3 top-3 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
         </div>
@@ -57,7 +59,7 @@
                     <span id="progressText" class="tabular-nums">0/10</span>
                 </div>
                 <div class="w-full bg-black/5 rounded-full h-1.5">
-                    <div id="progressBar" class="bg-ink h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="progressBar" class="bg-coral h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -66,7 +68,7 @@
 
     <!-- Main -->
     <main class="lg:ml-72 min-h-screen">
-        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] no-print">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-line no-print">
             <div class="flex items-center justify-between px-4 lg:px-8 h-16">
                 <div class="flex items-center gap-4">
                     <button onclick="toggleSidebar()" class="lg:hidden press p-2 rounded-lg hover:bg-black/5 transition-colors flex items-center justify-center" style="min-width:40px;min-height:40px">
@@ -77,7 +79,7 @@
                         <h1 class="text-base lg:text-lg font-semibold tracking-tight">Pengenalan React</h1>
                     </div>
                 </div>
-                <a href="chapter-2.html" class="press inline-flex items-center gap-2 bg-ink hover:bg-ink-soft text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                <a href="chapter-2.html" class="press inline-flex items-center gap-2 bg-coral hover:bg-coral-deep text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
                     Bab 2
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -85,9 +87,9 @@
         </header>
 
         <!-- Content -->
-        <div class="px-4 lg:px-10 py-8 max-w-4xl">
+        <div class="px-4 lg:px-10 py-8 max-w-4xl mx-auto">
 
-                        <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
+                        <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-5">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">05</span>
@@ -96,7 +98,7 @@
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Ekosistem React — Peta Jalan untuk Nggak Nyasar</h2>
                             <input type="checkbox" id="check-1-5" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-5" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Konsep &middot; 8 menit baca</p>
                     </div>
@@ -108,7 +110,7 @@
                     <p>Tenang. Kita bakal pecahin satu-satu. Bayangin React itu kayak <strong class="text-ink">beli mobil</strong>. React itu mesinnya. Tapi mesin doang nggak cukup kan? Lo butuh body, ban, jok, AC, sistem audio — itu semua ekosistemnya. Dan yang paling penting: <strong class="text-ink">nggak semua harus lo pakai sekaligus</strong>.</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">React Tech Stack 2025 — Yang Lo Wajib Tau</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -154,7 +156,7 @@ Netlify        // Alternatif
                     <p><strong class="text-ink">Pertanyaan yang sering muncul:</strong> "Harus pakai Next.js atau Vite + React biasa?" Jawabannya tergantung kebutuhan:</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Vite vs Next.js — Kapan Pakai Yang Mana?</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -187,7 +189,7 @@ Netlify        // Alternatif
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-6">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">06</span>
@@ -196,7 +198,7 @@ Netlify        // Alternatif
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">JSX Deep Dive — Lebih dari Sekadar "HTML di JS"</h2>
                             <input type="checkbox" id="check-1-6" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-6" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Konsep &middot; 12 menit baca</p>
                     </div>
@@ -208,7 +210,7 @@ Netlify        // Alternatif
                     <p>Pertanyaan fundamental: <strong class="text-ink">JSX itu apa sih sebenernya?</strong> Banyak orang pikir JSX = "HTML yang ditulis di JavaScript". <strong>ITUPAYAH BESAR.</strong> JSX itu bukan HTML. JSX itu <em>sugar syntax</em> (syntactic sugar) untuk function call React. Yang sebenarnya terjadi di balik layar:</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">JSX vs React.createElement — Apa yang Sebenarnya Terjadi</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -247,7 +249,7 @@ const element = React.createElement(
                     <p><strong class="text-ink">Aturan-aturan JSX yang WAJIB lo tau (sering bikin error!):</strong></p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">7 Aturan JSX yang Bikin Nggak Error</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -310,7 +312,7 @@ function Good2() {
                     <p><strong class="text-ink">JSX Pro Tips</strong> yang membedakan pemula sama developer berpengalaman:</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">JSX Pro Patterns</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -353,7 +355,7 @@ function Card({ title, desc, image }) {
                     </div>
                 </div>
 
-                <p class="text-sm text-[#333] leading-relaxed mt-4 mb-2"><strong class="text-ink">RASAIN SENDIRI — conditional rendering + list:</strong> Playground di bawah gabungin dua pola paling sering dipakai: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{kondisi &amp;&amp; ...}</code> buat nampilin/sembunyiin, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">.map()</code> buat render list. Klik tombolnya, terus coba ubah stok jadi 0.</p>
+                <p class="text-sm text-[#333] leading-relaxed mt-4 mb-2"><strong class="text-ink">RASAIN SENDIRI — conditional rendering + list:</strong> Playground di bawah gabungin dua pola paling sering dipakai: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{kondisi &amp;&amp; ...}</code> buat nampilin/sembunyiin, dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">.map()</code> buat render list. Klik tombolnya, terus coba ubah stok jadi 0.</p>
 <script type="text/plain" id="pg-1-2">// Conditional rendering (&&, ternary) + list rendering (.map + key)
 function App() {
   const [tampil, setTampil] = React.useState(true);
@@ -386,11 +388,11 @@ function App() {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-4">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">MISTAKE PALING MAHAL!</strong> Pakai <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list render. Ini kelihatan fine saat development, tapi bakal bikin bug aneh pas lo add/remove/reorder items. Selalu pakai ID yang stabil (database ID, UUID). Kalau nggak ada, generate sendiri!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">MISTAKE PALING MAHAL!</strong> Pakai <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">index</code> sebagai key di list render. Ini kelihatan fine saat development, tapi bakal bikin bug aneh pas lo add/remove/reorder items. Selalu pakai ID yang stabil (database ID, UUID). Kalau nggak ada, generate sendiri!</p>
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-7">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">07</span>
@@ -399,7 +401,7 @@ function App() {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Component Composition — Seni Merakit Komponen</h2>
                             <input type="checkbox" id="check-1-7" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-7" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Konsep + Praktik &middot; 15 menit</p>
                     </div>
@@ -411,7 +413,7 @@ function App() {
                     <p>Bayangin lo bikin Card komponen. Versi newbie:</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">BAD: Komponen Rigidity (Nggak Fleksibel)</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -437,7 +439,7 @@ function UserCard() {
                     <p>Sekarang versi pro — pakai <strong class="text-ink">props</strong> dan <strong class="text-ink">composition</strong>:</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">GOOD: Komponen Fleksibel + Composition</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -478,14 +480,14 @@ function Card({ image, title, subtitle, action, children }) {
                     <p><strong class="text-ink">Prinsip Composition yang pro player tau:</strong></p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Composition Patterns — Small to Large</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
                         <pre><code class="language-javascript">// STEP 1: Bikin komponen terkecil (atoms)
 function Button({ variant, children, ...props }) {
   const styles = {
-    primary: 'bg-ink text-white',
+    primary: 'bg-coral text-white',
     ghost: 'bg-transparent border',
   };
   return (
@@ -552,7 +554,7 @@ function Navbar() {
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-8">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">08</span>
@@ -561,7 +563,7 @@ function Navbar() {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Mini Project — Todo App dari Nol</h2>
                             <input type="checkbox" id="check-1-8" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-8" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Praktik &middot; 20 menit</p>
                     </div>
@@ -573,7 +575,7 @@ function Navbar() {
                     <p>Kenapa Todo App? Karena di app kecil ini, lo udah nyentuh <strong class="text-ink">80% konsep React</strong> yang lo butuhin: state, event handling, conditional rendering, list rendering, composition, dan persistence. Ini bukan sembarang latihan — ini fondasi.</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Step 1: Basic Todo — Add &amp; List</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -658,7 +660,7 @@ export default TodoApp;</code></pre>
                     <p><strong class="text-ink">Step 2: Tambah filter (All / Active / Completed)</strong></p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Step 2: Filter + Stats</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -703,7 +705,7 @@ const stats = {
                     <p><strong class="text-ink">Step 3: LocalStorage — bikin data nggak hilang pas refresh</strong></p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Step 3: Persist ke LocalStorage</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -755,7 +757,7 @@ function TodoApp() {
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">01</span>
@@ -764,7 +766,7 @@ function TodoApp() {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Apa Itu React?</h2>
                             <input type="checkbox" id="check-1-1" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Dasar-dasar &middot; 5 menit baca</p>
                     </div>
@@ -776,7 +778,7 @@ function TodoApp() {
                     <p>Nah, <strong class="text-ink">React</strong> lahir dari masalah itu. React itu <strong class="text-ink">library JavaScript</strong> buat bikin user interface yang dibikin oleh Meta (dulu namanya Facebook). Diperkenalin pertama kali tahun 2013, dan sekarang udah dipake jutaan developer di seluruh dunia — termasuk di perusahaan-perusahaan besar kayak Netflix, Airbnb, dan Instagram.</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">React Component — Bikin Komponen</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -813,7 +815,7 @@ function Button({ label, onClick, color = "blue" }) {
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-1" id="lesson-2">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">02</span>
@@ -822,7 +824,7 @@ function Button({ label, onClick, color = "blue" }) {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Setup Environment — Gass Keun!</h2>
                             <input type="checkbox" id="check-1-2" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-2" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Praktik &middot; 10 menit</p>
                     </div>
@@ -831,7 +833,7 @@ function Button({ label, onClick, color = "blue" }) {
                 <div class="space-y-4 text-[#333] leading-relaxed">
                     <p>Oke, sebelum kita mulai ngoding, kita perlu siapin senjatanya dulu. Yang kamu butuhkan cuma satu: <strong class="text-ink">Node.js</strong> versi 18 ke atas. Node.js itu kayak mesin runtime yang bikin JavaScript bisa jalan di luar browser — dan dia juga bawa <strong class="text-ink">npm</strong> (Node Package Manager) buat ngelola semua dependensi proyek kita.</p>
 
-                    <p>Dulu, cara bikin proyek React pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">create-react-app</code>. Tapi sayang, tool itu udah <em>deprecated</em> — artinya udah nggak dianjurkan lagi. Sekarang yang jadi bintang baru itu <strong class="text-ink">Vite</strong></p>
+                    <p>Dulu, cara bikin proyek React pake <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">create-react-app</code>. Tapi sayang, tool itu udah <em>deprecated</em> — artinya udah nggak dianjurkan lagi. Sekarang yang jadi bintang baru itu <strong class="text-ink">Vite</strong></p>
 
                     <p>Vite itu build tool modern yang super cepat. Kenapa? Karena dia pake ES modules secara native, jadi proses build dan hot reload tuh <em>hampir instan</em>. Bener-bener beda 180 derajat sama Create React App yang dulu sering lama banget pas pertama kali jalan.</p>
 
@@ -840,7 +842,7 @@ function Button({ label, onClick, color = "blue" }) {
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-black/10">
                             <span class="text-xs text-muted font-medium">Terminal — Bikin Proyek React Baru dengan Vite</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
@@ -861,7 +863,7 @@ npm run dev
                     </div>
 
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-black/10">
                             <span class="text-xs text-muted font-medium">Struktur Folder Proyek React — Kenalan Yuk!</span>
                         </div>
                         <pre><code class="language-bash">my-react-app/
@@ -880,15 +882,15 @@ npm run dev
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">CATATAN CEPAT:</strong> Folder <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/</code> itu tempat kamu bakal nghabisin paling banyak waktu. Di situlah semua komponen, hooks, styles, dan logika aplikasimu tinggal. Sementara <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">node_modules/</code>? Biarin aja — itu kayak gudang bawaan Vite, nggak perlu disentuh</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">CATATAN CEPAT:</strong> Folder <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/</code> itu tempat kamu bakal nghabisin paling banyak waktu. Di situlah semua komponen, hooks, styles, dan logika aplikasimu tinggal. Sementara <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">node_modules/</code>? Biarin aja — itu kayak gudang bawaan Vite, nggak perlu disentuh</p>
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-4">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">HEY, WAIT!</strong> Pastikan Node.js kamu versi 18 atau ke atas ya. Cek pake perintah <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">node --version</code>. Kalau versimu lebih lama, bisa-bisa nanti ada error aneh pas instalasi. Update dulu ke versi terbaru di <a href="https://nodejs.org" class="text-ink underline">nodejs.org</a></p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">HEY, WAIT!</strong> Pastikan Node.js kamu versi 18 atau ke atas ya. Cek pake perintah <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">node --version</code>. Kalau versimu lebih lama, bisa-bisa nanti ada error aneh pas instalasi. Update dulu ke versi terbaru di <a href="https://nodejs.org" class="text-ink underline">nodejs.org</a></p>
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in fade-in-delay-2" id="lesson-3">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">03</span>
@@ -897,7 +899,7 @@ npm run dev
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Virtual DOM — Rahasia React yang Bikin Cepat</h2>
                             <input type="checkbox" id="check-1-3" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-3" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Konsep inti &middot; 8 menit baca</p>
                     </div>
@@ -909,7 +911,7 @@ npm run dev
                     <p>Setiap kali kamu ngubah satu elemen doang di DOM, browser harus nge-<em>reflow</em> dan nge-<em>repaint</em> seluruh halaman. Bayangin kamu punya form dengan 50 input, terus tiap ketik satu huruf, browser harus re-calculate layout SEMUA elemen. Hasilnya? Aplikasi jadi <strong class="text-ink">lag dan lemot</strong>.</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Virtual DOM — Cara React Update</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -956,7 +958,7 @@ function App() {
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-black/10">
                             <span class="text-xs text-muted font-medium">Perbandingan: Cara Lama vs Cara React</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
@@ -992,7 +994,7 @@ function App() {
                 </div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-4">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm">04</span>
@@ -1001,7 +1003,7 @@ function App() {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Hello World Pertamamu!</h2>
                             <input type="checkbox" id="check-1-4" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-4" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Praktik &middot; 7 menit</p>
                     </div>
@@ -1010,16 +1012,16 @@ function App() {
                 <div class="space-y-4 text-[#333] leading-relaxed">
                     <p>Sekarang waktunya seru-seruannya! Kita bakal nulis kode React pertamamu. Beneran, langsung coba!</p>
 
-                    <p>Buka file <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">src/App.jsx</code> di proyek Vite yang tadi kamu bikin, terus ganti semua isinya dengan kode di bawah ini.</p>
+                    <p>Buka file <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">src/App.jsx</code> di proyek Vite yang tadi kamu bikin, terus ganti semua isinya dengan kode di bawah ini.</p>
 
                     <p>Tapi sebelum itu, ada baiknya kamu paham dulu mindset-nya. Komponen React itu pada dasarnya cuma <strong class="text-ink">fungsi JavaScript biasa</strong> yang nge-return elemen UI. Yap, sesimpel itu! Kamu udah bisa JavaScript? Kamu udah selangkah lebih deket sama React</p>
 
-                    <p>Di contoh ini, kita bakal pake <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> — ini adalah <strong class="text-ink">React Hook</strong> yang bikin komponen fungsional kita punya <em>state</em> (memori). Hook ini nge-return dua hal: nilai state-nya sekarang, dan fungsi buat ngubahnya. Ini fondasi dari semua interaktivitas di React!</p>
+                    <p>Di contoh ini, kita bakal pake <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState</code> — ini adalah <strong class="text-ink">React Hook</strong> yang bikin komponen fungsional kita punya <em>state</em> (memori). Hook ini nge-return dua hal: nilai state-nya sekarang, dan fungsi buat ngubahnya. Ini fondasi dari semua interaktivitas di React!</p>
                 </div>
 
                 <div class="mt-6 space-y-4">
                     <div class="code-block rounded-xl overflow-hidden">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/10">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-black/10">
                             <span class="text-xs text-muted font-medium">src/App.jsx — Hello World + Interaksi</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors duration-200 px-2 py-1 rounded-lg hover:bg-black/5 min-h-[32px] min-w-[32px]">Salin</button>
                         </div>
@@ -1099,7 +1101,7 @@ export default App;</code></pre>
                 </div>
 
                 <div class="mt-6">
-                    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">GILIRAN LO — coba langsung di browser!</strong> Playground di bawah ini React beneran. Edit kodenya, klik <strong>▶ Jalankan</strong>, lihat hasilnya berubah. Perhatiin: <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">nama</code> dilempar sebagai <em>prop</em>, dan <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{umur + 1}</code> itu <em>expression</em> JS yang dieksekusi pas render.</p>
+                    <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">GILIRAN LO — coba langsung di browser!</strong> Playground di bawah ini React beneran. Edit kodenya, klik <strong>▶ Jalankan</strong>, lihat hasilnya berubah. Perhatiin: <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">nama</code> dilempar sebagai <em>prop</em>, dan <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{umur + 1}</code> itu <em>expression</em> JS yang dieksekusi pas render.</p>
 <script type="text/plain" id="pg-1-1">// Komponen React = fungsi yang nge-return JSX.
 // Coba: ganti nama jadi nama lo, ubah umur, lihat badge-nya berubah.
 function App() {
@@ -1130,15 +1132,15 @@ function Badge({ teks }) {
 
                     <p><strong class="text-ink">1. Reaktivitas Otomatis.</strong> Pas kamu ketik nama di input, teks "Halo, {nama}!" langsung berubah. Nggak perlu manual update DOM — React ngurus semuanya. Itu kekuatan state!</p>
 
-                    <p><strong class="text-ink">2. Conditional Rendering.</strong> Lihat bagian <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{klik >= 10 && (...)}</code>? Itu artinya pesan kuning cuma muncul kalau kamu udah klik 10 kali atau lebih. JavaScript biasa yang langsung jadi logika UI!</p>
+                    <p><strong class="text-ink">2. Conditional Rendering.</strong> Lihat bagian <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{klik >= 10 && (...)}</code>? Itu artinya pesan kuning cuma muncul kalau kamu udah klik 10 kali atau lebih. JavaScript biasa yang langsung jadi logika UI!</p>
 
-                    <p><strong class="text-ink">3. Fungsi sebagai Komponen.</strong> Lihat? <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">function App()</code> — cuma fungsi biasa yang nge-return JSX. Simpel banget!</p>
+                    <p><strong class="text-ink">3. Fungsi sebagai Komponen.</strong> Lihat? <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">function App()</code> — cuma fungsi biasa yang nge-return JSX. Simpel banget!</p>
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
                     <p class="text-sm text-[#333]"><strong class="text-ink">COBA UTIK-UTIK!</strong> Sekarang coba beberapa eksperimen ini biar makin ngerasain React:</p>
                     <ul class="mt-2 space-y-1 text-sm text-[#333] list-disc list-inside ml-2">
-                        <li>Ganti default name dari <code class="bg-[#F5F4F1] px-1 py-0.5 rounded text-ink text-xs">'Dunia'</code> jadi nama kamu sendiri</li>
+                        <li>Ganti default name dari <code class="bg-cream-2 px-1 py-0.5 rounded text-ink text-xs">'Dunia'</code> jadi nama kamu sendiri</li>
                         <li>Tambahin state baru buat nge-tracking warna favorit</li>
                         <li>Ubah threshold dari 10 klik jadi 50 klik — lihat apa yang berubah</li>
                     </ul>
@@ -1146,12 +1148,12 @@ function Badge({ teks }) {
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-4">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">KESALAHAN YANG SERING TERJADI:</strong> Lupa import <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> dari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">'react'</code>? Wajar banget, hampir semua developer pernah ngalamin ini Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu cek baris import di atas file ya!</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">KESALAHAN YANG SERING TERJADI:</strong> Lupa import <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState</code> dari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">'react'</code>? Wajar banget, hampir semua developer pernah ngalamin ini Error yang muncul biasanya: <em>"useState is not defined"</em>. Selalu cek baris import di atas file ya!</p>
                 </div>
             </section>
 
             <!-- LESSON SENIOR: Mental Model -->
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-senior">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm"></span>
@@ -1160,7 +1162,7 @@ function Badge({ teks }) {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Level Senior: Mental Model React — <code class="text-ink">UI = f(state)</code></h2>
                             <input type="checkbox" id="check-1-15" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-15" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Level Senior &middot; 10 menit baca</p>
                     </div>
@@ -1169,12 +1171,12 @@ function Badge({ teks }) {
                 <div class="space-y-4 text-[#333] leading-relaxed">
                     <p>Lo udah bisa nulis komponen. Tapi ada satu <strong class="text-ink">pergeseran cara mikir</strong> yang misahin orang yang "bisa React" sama orang yang "mikir React". Kalau lo dateng dari jQuery atau JavaScript vanilla, otak lo terbiasa <strong class="text-ink">imperatif</strong>: "ambil elemen ini, ubah teksnya, tambahin class, sembunyiin yang itu." Langkah demi langkah, lo yang atur DOM-nya sendiri.</p>
 
-                    <p>React itu <strong class="text-ink">deklaratif</strong>. Lo <em>nggak</em> mikir "ubah DOM". Lo mikir: <strong class="text-ink">"untuk state seperti ini, UI-nya harus kelihatan seperti apa?"</strong> Lalu React yang urus caranya nyampe ke sana. Persamaan mental yang wajib lo tanam: <strong class="text-ink"><code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">UI = f(state)</code></strong> — tampilan itu <em>hasil</em> (fungsi) dari state. State berubah, React panggil ulang fungsi komponennya, dapet deskripsi UI baru, terus dia sendiri yang ngitung perubahan DOM minimal. Lo cukup jujur mendeskripsikan "kondisi akhir", bukan "urutan langkah".</p>
+                    <p>React itu <strong class="text-ink">deklaratif</strong>. Lo <em>nggak</em> mikir "ubah DOM". Lo mikir: <strong class="text-ink">"untuk state seperti ini, UI-nya harus kelihatan seperti apa?"</strong> Lalu React yang urus caranya nyampe ke sana. Persamaan mental yang wajib lo tanam: <strong class="text-ink"><code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">UI = f(state)</code></strong> — tampilan itu <em>hasil</em> (fungsi) dari state. State berubah, React panggil ulang fungsi komponennya, dapet deskripsi UI baru, terus dia sendiri yang ngitung perubahan DOM minimal. Lo cukup jujur mendeskripsikan "kondisi akhir", bukan "urutan langkah".</p>
 
                     <p><strong class="text-ink">Analogi warteg vs chef pribadi:</strong> Cara imperatif itu kayak lo masuk dapur dan mandu chef langkah demi langkah — "ambil wajan, nyalain kompor, tuang minyak, masukin bawang..." Capek dan gampang salah urutan. Cara deklaratif itu kayak pesan di warteg: lo bilang <em>"mau nasi + ayam geprek + es teh"</em> (itu state akhirnya), dan dapur yang mikirin gimana bikinnya. Lo cuma deskripsikan <strong>hasil yang lo mau</strong>, bukan resepnya.</p>
 
                     <div class="code-block rounded-xl overflow-hidden mt-4 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">Imperatif (lo yang atur DOM) vs Deklaratif (React yang atur)</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1207,16 +1209,16 @@ function TombolSuka() {
                 </div>
 
                 <div class="tip-box rounded-xl p-4 mt-6">
-                    <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Kalimat sakti yang dipegang developer React berpengalaman: <strong>"Jangan sentuh DOM, ubah state."</strong> Setiap kali tangan lo gatel mau <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.getElementById(...)</code> di dalam komponen React buat ngubah tampilan — berhenti. Tanya: "state apa yang ngedeskripsikan kondisi ini?" 99% kasus, jawabannya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code>, bukan manipulasi DOM langsung.</p>
+                    <p class="text-sm text-[#333]"><strong class="text-ink">OH TERNYATA GITU!</strong> Kalimat sakti yang dipegang developer React berpengalaman: <strong>"Jangan sentuh DOM, ubah state."</strong> Setiap kali tangan lo gatel mau <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">document.getElementById(...)</code> di dalam komponen React buat ngubah tampilan — berhenti. Tanya: "state apa yang ngedeskripsikan kondisi ini?" 99% kasus, jawabannya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState</code>, bukan manipulasi DOM langsung.</p>
                 </div>
 
                 <div class="warning-box rounded-xl p-4 mt-4">
-                    <p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Godaan terbesar pemula eks-jQuery: pas UI nggak update, refleks nyari <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">document.querySelector</code> buat "maksa" ubah tampilan. Itu ngelawan React — lo dan React bakal berebut kontrol DOM, dan hasilnya bug yang lebih parah. Sumber kebenaran cuma SATU: state. UI ngikut, bukan sebaliknya.</p>
+                    <p class="text-sm text-[#333]"><strong class="text-amber-600">JANGAN TERJERAT!</strong> Godaan terbesar pemula eks-jQuery: pas UI nggak update, refleks nyari <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">document.querySelector</code> buat "maksa" ubah tampilan. Itu ngelawan React — lo dan React bakal berebut kontrol DOM, dan hasilnya bug yang lebih parah. Sumber kebenaran cuma SATU: state. UI ngikut, bukan sebaliknya.</p>
                 </div>
             </section>
 
             <!-- KESALAHAN UMUM -->
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-mistakes">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-mistakes">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm"></span>
@@ -1225,7 +1227,7 @@ function TombolSuka() {
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-xl font-bold text-ink">Kesalahan Umum — 6 Jebakan Pemula React</h2>
                             <input type="checkbox" id="check-1-14" class="lesson-checkbox hidden" onchange="updateProgress()">
-                            <label for="check-1-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-[#F5F4F1] transition-colors duration-200">Selesai</label>
+                            <label for="check-1-14" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label>
                         </div>
                         <p class="text-sm text-muted">Debugging &middot; 10 menit baca</p>
                     </div>
@@ -1236,7 +1238,7 @@ function TombolSuka() {
 
                     <p><strong class="text-ink">Kesalahan #1 — Return dua elemen tanpa satu pembungkus</strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#1 Adjacent JSX elements</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1261,9 +1263,9 @@ function App() {
 }</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Kesalahan #2 — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">class</code> padahal harusnya <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">className</code></strong></p>
+                    <p><strong class="text-ink">Kesalahan #2 — <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">class</code> padahal harusnya <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">className</code></strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#2 class vs className</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1279,9 +1281,9 @@ function App() {
 &lt;label htmlFor="email"&gt;Email&lt;/label&gt;</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Kesalahan #3 — Bingung <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">{}</code> untuk expression vs <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">""</code> untuk string</strong></p>
+                    <p><strong class="text-ink">Kesalahan #3 — Bingung <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">{}</code> untuk expression vs <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">""</code> untuk string</strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#3 Curly braces vs quotes</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1304,7 +1306,7 @@ const umur = 20;
 
                     <p><strong class="text-ink">Kesalahan #4 — Manggil komponen kayak fungsi biasa / nama huruf kecil</strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#4 Foo() vs &lt;Foo /&gt;</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1328,9 +1330,9 @@ function Profil() { return &lt;h2&gt;Arif&lt;/h2&gt;; }
 function App() { return &lt;div&gt;&lt;Profil /&gt;&lt;/div&gt;; }</code></pre>
                     </div>
 
-                    <p><strong class="text-ink">Kesalahan #5 — Lupa <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">import</code></strong></p>
+                    <p><strong class="text-ink">Kesalahan #5 — Lupa <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">import</code></strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#5 Forgotten import</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1351,7 +1353,7 @@ import { Badge } from './ui';           // named export</code></pre>
 
                     <p><strong class="text-ink">Kesalahan #6 — Nge-render object langsung sebagai teks</strong></p>
                     <div class="code-block rounded-xl overflow-hidden mt-2 mb-4">
-                        <div class="bg-[#F5F4F1] px-4 py-2 flex items-center justify-between border-b border-black/[0.06]">
+                        <div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line">
                             <span class="text-xs text-muted font-medium">#6 Objects are not valid as a React child</span>
                             <button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button>
                         </div>
@@ -1383,16 +1385,16 @@ import { Badge } from './ui';           // named export</code></pre>
                             <span class="font-semibold text-ink text-sm">Latihan 1: Benerin JSX yang error</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
-                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
+                        <div class="px-5 pb-5 border-t border-line pt-4">
                             <p class="text-sm text-[#333] leading-relaxed mb-3">Kode ini punya <strong>3 error</strong>. Temukan dan perbaiki tanpa lihat solusi dulu:</p>
-                            <div class="code-block rounded-xl overflow-hidden mb-3"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Soal — cari 3 error</span></div><pre><code class="language-javascript">function Kartu() {
+                            <div class="code-block rounded-xl overflow-hidden mb-3"><div class="bg-cream-2 px-4 py-2 border-b border-line"><span class="text-xs text-muted font-medium">Soal — cari 3 error</span></div><pre><code class="language-javascript">function Kartu() {
   return (
     &lt;h2 class="judul"&gt;Halo&lt;/h2&gt;
     &lt;p&gt;Nama saya nama&lt;/p&gt;
   );
 }</code></pre></div>
-                            <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">Solusi:</strong> (1) dua elemen bersebelahan tanpa pembungkus, (2) <code class="bg-[#F5F4F1] px-1 rounded text-xs">class</code> harusnya <code class="bg-[#F5F4F1] px-1 rounded text-xs">className</code>, (3) <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> harusnya <code class="bg-[#F5F4F1] px-1 rounded text-xs">{nama}</code> (dan variabelnya perlu didefinisikan).</p>
-                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Versi benar</span></div><pre><code class="language-javascript">function Kartu({ nama }) {
+                            <p class="text-sm text-[#333] leading-relaxed mb-2"><strong class="text-ink">Solusi:</strong> (1) dua elemen bersebelahan tanpa pembungkus, (2) <code class="bg-cream-2 px-1 rounded text-xs">class</code> harusnya <code class="bg-cream-2 px-1 rounded text-xs">className</code>, (3) <code class="bg-cream-2 px-1 rounded text-xs">nama</code> harusnya <code class="bg-cream-2 px-1 rounded text-xs">{nama}</code> (dan variabelnya perlu didefinisikan).</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 border-b border-line"><span class="text-xs text-muted font-medium">Versi benar</span></div><pre><code class="language-javascript">function Kartu({ nama }) {
   return (
     &lt;&gt;
       &lt;h2 className="judul"&gt;Halo&lt;/h2&gt;
@@ -1408,9 +1410,9 @@ import { Badge } from './ui';           // named export</code></pre>
                             <span class="font-semibold text-ink text-sm">Latihan 2: Komponen Salam pakai prop</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
-                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
-                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-[#F5F4F1] px-1 rounded text-xs">Salam</code> yang nerima prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> dan <code class="bg-[#F5F4F1] px-1 rounded text-xs">waktu</code> (misal "pagi"), lalu render <em>"Selamat pagi, Arif!"</em>. Render tiga kali dengan nama berbeda.</p>
-                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Salam({ nama, waktu }) {
+                        <div class="px-5 pb-5 border-t border-line pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-cream-2 px-1 rounded text-xs">Salam</code> yang nerima prop <code class="bg-cream-2 px-1 rounded text-xs">nama</code> dan <code class="bg-cream-2 px-1 rounded text-xs">waktu</code> (misal "pagi"), lalu render <em>"Selamat pagi, Arif!"</em>. Render tiga kali dengan nama berbeda.</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 border-b border-line"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Salam({ nama, waktu }) {
   return &lt;p&gt;Selamat {waktu}, {nama}! 👋&lt;/p&gt;;
 }
 
@@ -1432,9 +1434,9 @@ function App() {
                             <span class="font-semibold text-ink text-sm">Latihan 3: Conditional rendering status stok</span>
                             <span class="text-xs text-muted">klik untuk lihat solusi</span>
                         </summary>
-                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
-                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-[#F5F4F1] px-1 rounded text-xs">Produk</code> yang nerima prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">nama</code> dan <code class="bg-[#F5F4F1] px-1 rounded text-xs">stok</code> (number). Kalau stok &gt; 0 tampilkan <em>"Tersedia (N)"</em>, kalau 0 tampilkan <em>"Habis"</em>. Pakai ternary.</p>
-                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Produk({ nama, stok }) {
+                        <div class="px-5 pb-5 border-t border-line pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Bikin komponen <code class="bg-cream-2 px-1 rounded text-xs">Produk</code> yang nerima prop <code class="bg-cream-2 px-1 rounded text-xs">nama</code> dan <code class="bg-cream-2 px-1 rounded text-xs">stok</code> (number). Kalau stok &gt; 0 tampilkan <em>"Tersedia (N)"</em>, kalau 0 tampilkan <em>"Habis"</em>. Pakai ternary.</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 border-b border-line"><span class="text-xs text-muted font-medium">Solusi</span></div><pre><code class="language-javascript">function Produk({ nama, stok }) {
   return (
     &lt;div&gt;
       &lt;strong&gt;{nama}&lt;/strong&gt;{' '}
@@ -1444,7 +1446,7 @@ function App() {
     &lt;/div&gt;
   );
 }</code></pre></div>
-                            <p class="text-sm text-muted mt-3"><code class="bg-[#F5F4F1] px-1 rounded text-xs">{kondisi ? A : B}</code> = ternary, cara paling umum conditional rendering di JSX.</p>
+                            <p class="text-sm text-muted mt-3"><code class="bg-cream-2 px-1 rounded text-xs">{kondisi ? A : B}</code> = ternary, cara paling umum conditional rendering di JSX.</p>
                         </div>
                     </details>
                 </div>
@@ -1452,7 +1454,7 @@ function App() {
                 <!-- CHALLENGE -->
                 <div class="mt-10">
                     <h3 class="text-lg font-bold text-ink mb-2">CHALLENGE — KOMPONEN PROFIL DARI PROPS</h3>
-                    <p class="text-sm text-[#333] leading-relaxed mb-4">Bikin komponen <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">&lt;Profil /&gt;</code> yang nampilin <strong class="text-ink">nama</strong> dan <strong class="text-ink">role</strong> dari props, lalu render <strong class="text-ink">dua kartu</strong> di dalam <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">App</code>: <em>Arif — Frontend Dev</em> dan <em>Sinta — Backend Dev</em>. Starter di bawah masih belum lengkap (cuma 1 kartu, role-nya hilang). Perbaiki sampai semua test lulus. Klik <strong class="text-ink">▶ Test</strong>.</p>
+                    <p class="text-sm text-[#333] leading-relaxed mb-4">Bikin komponen <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">&lt;Profil /&gt;</code> yang nampilin <strong class="text-ink">nama</strong> dan <strong class="text-ink">role</strong> dari props, lalu render <strong class="text-ink">dua kartu</strong> di dalam <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">App</code>: <em>Arif — Frontend Dev</em> dan <em>Sinta — Backend Dev</em>. Starter di bawah masih belum lengkap (cuma 1 kartu, role-nya hilang). Perbaiki sampai semua test lulus. Klik <strong class="text-ink">▶ Test</strong>.</p>
 <script type="text/plain" id="ch-1-1">// 🎯 Tugas: <Profil /> harus nampilin NAMA + ROLE dari props.
 //    Lalu render DUA kartu: Arif (Frontend Dev) & Sinta (Backend Dev).
 //    Tiap kartu WAJIB punya className="kartu". Klik ▶ Test buat cek.
@@ -1487,9 +1489,9 @@ expect('Menampilkan role "Backend Dev"', teks.indexOf('Backend Dev') !== -1);</s
                             <span class="font-semibold text-ink text-sm">Solusi challenge (buka kalau udah nyerah / mau bandingin)</span>
                             <span class="text-xs text-muted">klik untuk lihat</span>
                         </summary>
-                        <div class="px-5 pb-5 border-t border-black/[0.06] pt-4">
-                            <p class="text-sm text-[#333] leading-relaxed mb-3">Dua perbaikan: (1) <code class="bg-[#F5F4F1] px-1 rounded text-xs">Profil</code> juga terima &amp; render prop <code class="bg-[#F5F4F1] px-1 rounded text-xs">role</code>; (2) <code class="bg-[#F5F4F1] px-1 rounded text-xs">App</code> render dua kartu (di sini pakai <code class="bg-[#F5F4F1] px-1 rounded text-xs">.map</code> biar rapi).</p>
-                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-[#F5F4F1] px-4 py-2 border-b border-black/[0.06]"><span class="text-xs text-muted font-medium">Solusi lengkap — semua test lulus</span></div><pre><code class="language-javascript">function Profil({ nama, role }) {
+                        <div class="px-5 pb-5 border-t border-line pt-4">
+                            <p class="text-sm text-[#333] leading-relaxed mb-3">Dua perbaikan: (1) <code class="bg-cream-2 px-1 rounded text-xs">Profil</code> juga terima &amp; render prop <code class="bg-cream-2 px-1 rounded text-xs">role</code>; (2) <code class="bg-cream-2 px-1 rounded text-xs">App</code> render dua kartu (di sini pakai <code class="bg-cream-2 px-1 rounded text-xs">.map</code> biar rapi).</p>
+                            <div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 border-b border-line"><span class="text-xs text-muted font-medium">Solusi lengkap — semua test lulus</span></div><pre><code class="language-javascript">function Profil({ nama, role }) {
   return (
     &lt;div className="kartu" style={{ border: '1px solid #ddd', borderRadius: 8, padding: 12, margin: 6 }}&gt;
       &lt;strong&gt;{nama}&lt;/strong&gt;
@@ -1517,7 +1519,7 @@ function App() {
             </section>
 
             <!-- QUIZ -->
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="quiz">
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span class="text-ink font-bold text-sm"></span>
@@ -1622,9 +1624,9 @@ function App() {
                 <div class="quiz-mount mt-6" data-quiz-id="quiz-1"></div>
             </section>
 
-            <section class="lesson-card bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
+            <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="summary">
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
@@ -1644,7 +1646,7 @@ function App() {
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ink mt-1">✓</span>
-                        <span>Bikin proyek React pake Vite — <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">npm create vite@latest</code> — cepat dan modern</span>
+                        <span>Bikin proyek React pake Vite — <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">npm create vite@latest</code> — cepat dan modern</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ink mt-1">✓</span>
@@ -1656,16 +1658,16 @@ function App() {
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ink mt-1">✓</span>
-                        <span>Hook <code class="bg-[#F5F4F1] px-2 py-0.5 rounded text-ink text-xs">useState</code> itu senjata rahasia buat bikin komponen jadi interaktif</span>
+                        <span>Hook <code class="bg-cream-2 px-2 py-0.5 rounded text-ink text-xs">useState</code> itu senjata rahasia buat bikin komponen jadi interaktif</span>
                     </li>
                 </ul>
 
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="markChapterComplete(1)" id="completeBtn1" class="flex items-center justify-center gap-2 bg-ink hover:bg-ink-soft text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <button onclick="markChapterComplete(1)" id="completeBtn1" class="flex items-center justify-center gap-2 bg-coral hover:bg-coral-deep text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Tandai Bab Selesai
                     </button>
-                    <a href="chapter-2.html" class="flex items-center justify-center gap-2 bg-[#F5F4F1] hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
+                    <a href="chapter-2.html" class="flex items-center justify-center gap-2 bg-cream-2 hover:bg-black/5 text-[#333] font-medium px-6 py-3 rounded-xl transition-colors duration-200 min-h-[44px]">
                         Lanjut ke Bab 2
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -1681,7 +1683,7 @@ function App() {
     </main>
 
     <!-- Back to top -->
-    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-ink text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-ink-soft no-print">
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="press fixed bottom-6 right-6 w-11 h-11 bg-coral text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 z-40 hover:bg-coral-deep no-print">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
     </button>
 

@@ -34,7 +34,7 @@ function renderQuiz(mount, quizId, questions) {
           `<div class="quiz-option rounded-xl px-4 py-3 text-sm" data-i="${i}">${esc(o)}</div>`).join('')}
         </div>
         <div class="quiz-explain hidden mt-4 tip-box rounded-xl p-4 text-sm"></div>
-        <button class="quiz-next hidden mt-4 bg-ink text-white text-sm font-medium px-4 py-2 rounded-lg press">
+        <button class="quiz-next hidden mt-4 bg-coral text-white text-sm font-medium px-4 py-2 rounded-lg press">
           ${idx + 1 === questions.length ? 'Lihat Hasil' : 'Lanjut →'}</button>
       </div>`;
     mount.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', () => {
@@ -95,7 +95,7 @@ function initChallenges() {
     const testCode = testEl.textContent.trim();
     mount.innerHTML = `
       <div class="playground bg-white">
-        <div class="bg-[#0B0B0B] px-4 py-2 flex items-center justify-between">
+        <div class="bg-teal-darkest px-4 py-2 flex items-center justify-between">
           <span class="text-xs text-white/80 font-medium">Challenge, lengkapi kodenya sampai semua test lulus</span>
           <div class="flex items-center gap-2">
             <span class="ch-badge text-xs text-white/50">belum dites</span>
