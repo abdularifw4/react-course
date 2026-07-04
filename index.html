@@ -18,7 +18,7 @@
     <meta name="twitter:image" content="https://abdularifw4.github.io/react-course/assets/img/og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/course.css">
     <script>
@@ -34,10 +34,12 @@
                         ink: { DEFAULT: '#1f1f1f', soft: '#514d4a' },
                         muted: { DEFAULT: '#706a66', light: '#9a948f' },
                         coral: { DEFAULT: '#f87666', deep: '#933f35' },
+                        teal: { DEFAULT: '#02b7bf', dark: '#004754', darkest: '#003943', bg: '#def1f2' },
                         line: '#e4d8d0',
                         paper: '#ffffff',
-                        lavender: '#f1e8e2',
                         cream: { DEFAULT: '#fdf9f6', '2': '#f8f3f0', '3': '#f1e8e2' },
+                        pink: { DEFAULT: '#ffd5d0', pale: '#f8e4e4' },
+                        yellow: { DEFAULT: '#ffe7c2', mid: '#fec369' },
                         surface: '#f8f3f0',
                     },
                 }
@@ -46,570 +48,484 @@
     </script>
     <style>
         /* ===== Claude-flavored design system (landing only) ===== */
-        body { background: #fdf9f6; }
-        h1, h2 { font-family: 'PT Serif', Georgia, serif; letter-spacing: -0.015em; }
-        .serif { font-family: 'PT Serif', Georgia, serif; }
-        .coral-cta { box-shadow: 0 14px 30px rgba(248,118,102,.32); }
-        .coral-cta:hover { box-shadow: 0 18px 38px rgba(248,118,102,.4); }
+        body { background: #fdf9f6; color: #1f1f1f; font-family: 'Inter', system-ui, sans-serif; }
+        h1, h2, h3, .serif { font-family: 'PT Serif', Georgia, serif; }
+        h1, h2 { letter-spacing: -0.015em; }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-        /* warm hero wash */
-        .hero-wash { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            background:
-                radial-gradient(55% 55% at 10% -8%, rgba(248,118,102,.13), transparent 60%),
-                radial-gradient(48% 45% at 104% 12%, rgba(2,183,191,.11), transparent 60%); }
-        /* swoosh emphasis (hand-drawn underline) */
+        /* eyebrow + swoosh emphasis */
+        .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif;
+            font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #004754;
+            background: #fff; border: 1px solid #e4d8d0; padding: 8px 14px; border-radius: 999px; }
+        .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #f87666; }
         .hl-swoosh { position: relative; display: inline-block; font-style: italic; color: #f87666; white-space: nowrap; }
         .hl-swoosh::after { content: ""; position: absolute; left: -2%; right: -2%; bottom: -.13em; height: .32em;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 18' preserveAspectRatio='none'><path d='M2 14 C 50 2, 110 18, 198 6' fill='none' stroke='%23f87666' stroke-width='4' stroke-linecap='round'/></svg>");
             background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; }
+        .hl-teal { font-style: italic; color: #00959c; }
+
+        /* buttons */
+        .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .95rem;
+            padding: 13px 22px; border-radius: 999px; transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+        .btn:active { transform: scale(.97); }
+        .btn-coral { background: #f87666; color: #fdf9f6; box-shadow: 0 14px 30px rgba(248,118,102,.32); }
+        .btn-coral:hover { background: #933f35; box-shadow: 0 18px 38px rgba(248,118,102,.4); }
+        .btn-ghost { background: #fff; color: #1f1f1f; border: 1px solid #e4d8d0; }
+        .btn-ghost:hover { background: #f8f3f0; }
+        .btn-arrow { width: 22px; height: 22px; border-radius: 50%; background: currentColor; display: inline-grid; place-items: center; }
+        .btn-arrow svg { width: 12px; height: 12px; color: #f87666; }
+        .btn-coral .btn-arrow { background: #fdf9f6; }
+        .btn-coral .btn-arrow svg { color: #f87666; }
+
         /* meta pills */
         .meta-pill { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e4d8d0;
             border-radius: 999px; padding: 9px 15px; font-size: .85rem; color: #514d4a; font-weight: 500; }
         .meta-pill svg { width: 16px; height: 16px; color: #f87666; }
-        /* twinkling sparkles */
-        .spark { transform-box: fill-box; transform-origin: center; animation: twinkle 3.4s ease-in-out infinite; }
-        @keyframes twinkle { 0%, 100% { opacity: .3; transform: scale(.78); } 50% { opacity: 1; transform: scale(1.15); } }
-        @media (prefers-reduced-motion: reduce) { .spark { animation: none !important; opacity: .8; } }
 
-        /* Landing-specific styles */
+        /* cards (Claude agent-card palette) */
+        .card { border-radius: 22px; border: 1px solid #e4d8d0; background: #fff; }
+        .c-cream { background: #f8f3f0; }
+        .c-blue  { background: #def1f2; border-color: #bcedef; }
+        .c-pink  { background: #f8e4e4; border-color: #ffd5d0; }
+        .c-yellow{ background: #fff3e0; border-color: #ffe7c2; }
+        .c-dark  { background: #003943; border-color: #003943; color: #eafcff; }
+        .soft-shadow { box-shadow: 0 1px 2px rgba(85,32,25,.04), 0 18px 40px -20px rgba(85,32,25,.22); }
+        .chapter-card { transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease; }
+        .chapter-card:hover { transform: translateY(-2px); border-color: #f8a091; box-shadow: 0 10px 24px -12px rgba(248,118,102,.4); }
+        .num-serif { font-family: 'PT Serif', Georgia, serif; }
+
+        /* warm hero wash + sparkles */
+        .hero-wash { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(46% 55% at 8% -8%, rgba(248,118,102,.14), transparent 60%),
+                radial-gradient(42% 45% at 100% 8%, rgba(2,183,191,.12), transparent 60%),
+                radial-gradient(40% 40% at 88% 100%, rgba(255,213,208,.22), transparent 60%); }
+        .spark { transform-box: fill-box; transform-origin: center; animation: twinkle 3.4s ease-in-out infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: .28; transform: scale(.76); } 50% { opacity: 1; transform: scale(1.15); } }
+
+        /* price card */
+        .price-strike { position: relative; color: #9a948f; }
+        .price-strike::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 2px; background: #f87666; transform: rotate(-6deg); }
+
+        /* nav */
         .nav-underline { position: relative; }
         .nav-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #f87666; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
         .nav-underline:hover::after { transform: scaleX(1); }
+        .mobile-menu { transition: max-height .3s ease; max-height: 0; overflow: hidden; }
+        .mobile-menu.open { max-height: 420px; }
 
-        .rail-line { width: 2px; flex: 1 1 auto; border-radius: 999px; margin-top: 6px; }
-        .chapter-card { transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
-        .chapter-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(0,0,0,0.14); }
-
-        /* Scroll reveal (IntersectionObserver-driven, honors reduced-motion) */
+        /* reveal */
         .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
         .reveal.is-visible { opacity: 1; transform: none; }
+        .enter { opacity: 0; transform: translateY(16px); animation: enter .55s cubic-bezier(.2,0,0,1) forwards; }
+        .enter-d1 { animation-delay: 90ms; } .enter-d2 { animation-delay: 180ms; } .enter-d3 { animation-delay: 270ms; } .enter-d4 { animation-delay: 360ms; }
+        @keyframes enter { to { opacity: 1; transform: none; } }
+        .stagger > * { opacity: 0; transform: translateY(16px); animation: enter .5s cubic-bezier(.2,0,0,1) forwards; }
+        .stagger > *:nth-child(1){animation-delay:0ms}.stagger > *:nth-child(2){animation-delay:70ms}.stagger > *:nth-child(3){animation-delay:140ms}.stagger > *:nth-child(4){animation-delay:210ms}.stagger > *:nth-child(5){animation-delay:280ms}.stagger > *:nth-child(6){animation-delay:350ms}
 
-        /* Hero tech-ecosystem constellation */
-        .techcluster { position: relative; width: 100%; max-width: 372px; margin: 0 auto; aspect-ratio: 1 / 1;
+        /* ===== tech-ecosystem constellation ===== */
+        .techcluster { position: relative; width: 100%; max-width: 440px; margin: 0 auto; aspect-ratio: 1 / 1;
             perspective: 900px; transform-style: preserve-3d; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
         .techcluster::before { content: ''; position: absolute; inset: 2%; border-radius: 50%; z-index: 0;
             background: radial-gradient(circle at 50% 44%, #f6e6df 0%, rgba(246,230,223,0) 66%); }
         .tc-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
-        .tc-lines line { stroke: rgba(85,32,25,.16); stroke-width: .45; stroke-linecap: round;
-            stroke-dasharray: 1.4 3.4; animation: tcflow 3.6s linear infinite; transition: stroke .2s ease, stroke-opacity .2s ease; }
+        .tc-lines line { stroke: rgba(85,32,25,.16); stroke-width: .45; stroke-linecap: round; stroke-dasharray: 1.4 3.4; animation: tcflow 3.6s linear infinite; transition: stroke .2s ease, stroke-opacity .2s ease; }
         @keyframes tcflow { to { stroke-dashoffset: -19.2; } }
         .tc-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
-            background: radial-gradient(170px 170px at var(--sx,50%) var(--sy,50%), rgba(248,118,102,.20), rgba(248,118,102,0) 62%); }
+            background: radial-gradient(180px 180px at var(--sx,50%) var(--sy,50%), rgba(248,118,102,.2), rgba(248,118,102,0) 62%); }
         .techcluster.tc-hovering .tc-spot { opacity: 1; }
         .techcluster.tc-focus .tc-lines line { stroke-opacity: .3; }
         .tc-lines line.tc-active { stroke: #f87666; stroke-width: .85; stroke-opacity: 1; animation-duration: 1.5s; }
-        .orb { position: absolute; z-index: 1;
-            transform: translate(-50%, -50%) translate3d(var(--px,0px), var(--py,0px), 0);
-            transition: transform .3s cubic-bezier(.2,.8,.2,1); }
-        .orb.center { z-index: 2; }
-        .orb:hover { z-index: 4; }
-        .orbf { display: flex; align-items: center; justify-content: center; background: #fff;
-            border: 1px solid rgba(0,0,0,0.05); border-radius: 16px;
-            box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 20px -6px rgba(20,10,50,.14), inset 0 1px 0 rgba(255,255,255,.9);
+        .orb { position: absolute; z-index: 1; transform: translate(-50%, -50%) translate3d(var(--px,0px), var(--py,0px), 0); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+        .orb.center { z-index: 2; } .orb:hover { z-index: 4; }
+        .orbf { display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid rgba(85,32,25,.08); border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(85,32,25,.05), 0 8px 20px -6px rgba(85,32,25,.16), inset 0 1px 0 rgba(255,255,255,.9);
             animation: floaty 6s ease-in-out infinite; transition: box-shadow .2s ease, scale .2s cubic-bezier(.2,.8,.2,1); }
-        .orb.center .orbf { border-radius: 22px; box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 16px 40px -10px rgba(20,10,50,.2), inset 0 1px 0 rgba(255,255,255,.9); }
-        .orb:hover .orbf { scale: 1.09; box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 18px 42px -8px rgba(20,10,50,.24), inset 0 1px 0 rgba(255,255,255,.9); }
+        .orb.center .orbf { border-radius: 22px; box-shadow: 0 2px 4px rgba(85,32,25,.06), 0 16px 40px -10px rgba(85,32,25,.22), inset 0 1px 0 rgba(255,255,255,.9); }
+        .orb:hover .orbf { scale: 1.09; box-shadow: 0 2px 6px rgba(85,32,25,.08), 0 18px 42px -8px rgba(248,118,102,.3), inset 0 1px 0 rgba(255,255,255,.9); }
         .orbf img { display: block; }
         @keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -9px; } }
         .tc-spin { animation: tcspin 22s linear infinite; transform-origin: 50% 50%; }
         @keyframes tcspin { to { rotate: 360deg; } }
-        .orb-label { position: absolute; left: 50%; top: calc(100% + 7px); transform: translateX(-50%);
-            white-space: nowrap; font-size: 11px; font-weight: 600; color: #1f1f1f; background: #fff;
-            border: 1px solid rgba(0,0,0,.06); box-shadow: var(--shadow-sm); padding: 2px 9px; border-radius: 999px;
-            opacity: 0; transition: opacity .18s ease; pointer-events: none; }
+        .orb-label { position: absolute; left: 50%; top: calc(100% + 7px); transform: translateX(-50%); white-space: nowrap; font-size: 11px; font-weight: 600; color: #1f1f1f; background: #fff; border: 1px solid #e4d8d0; box-shadow: 0 2px 8px rgba(85,32,25,.12); padding: 2px 9px; border-radius: 999px; opacity: 0; transition: opacity .18s ease; pointer-events: none; }
         .orb:hover .orb-label { opacity: 1; }
 
         @media (prefers-reduced-motion: reduce) {
-            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-            .orbf, .tc-lines line, .tc-spin { animation: none !important; }
+            .reveal, .enter, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
+            .orbf, .tc-lines line, .tc-spin, .spark { animation: none !important; }
             .techcluster, .orb { transition: none !important; }
+            .spark { opacity: .8; }
         }
     </style>
 </head>
-<body class="bg-cream text-ink min-h-screen" data-base="chapters/">
+<body class="min-h-screen" data-base="chapters/">
 
     <!-- ==================== NAVBAR ==================== -->
-    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-line no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="sticky top-0 z-50 bg-cream/80 backdrop-blur-xl border-b border-line no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="flex items-center gap-2.5 press">
-                    <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-coral rounded-lg flex items-center justify-center shadow-sm">
+                        <svg class="w-4 h-4 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </div>
-                    <span class="text-[15px] font-semibold tracking-tight">react course</span>
+                    <span class="text-[15px] font-semibold tracking-tight serif">React Course</span>
                 </a>
-
                 <div class="hidden md:flex items-center gap-1">
-                    <a href="#jalur" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Jalur Belajar</a>
-                    <a href="#coba" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Coba Playground</a>
-                    <a href="#harga" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">Harga</a>
-                    <a href="#faq" class="nav-underline px-3 py-2 text-[13px] font-medium text-muted hover:text-ink transition-colors">FAQ</a>
+                    <a href="#masalah" class="nav-underline px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink transition-colors">Masalahnya</a>
+                    <a href="#jalur" class="nav-underline px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink transition-colors">Jalur Belajar</a>
+                    <a href="#coba" class="nav-underline px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink transition-colors">Coba Playground</a>
+                    <a href="#harga" class="nav-underline px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink transition-colors">Harga</a>
+                    <a href="#faq" class="nav-underline px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink transition-colors">FAQ</a>
                 </div>
-
                 <div class="flex items-center gap-3">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-[13px] font-semibold pl-3.5 pr-3 py-2 rounded-full coral-cta hover:bg-coral-deep transition-colors">
-                        Mulai
-                        <kbd class="bg-white/15 text-white/60 text-[10px] font-mono px-1.5 py-0.5 rounded">Bab 0</kbd>
-                    </a>
-                    <button id="mobileToggle" class="md:hidden p-2 -mr-2 press" aria-label="Buka menu" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+                    <a href="chapters/chapter-0.html" class="btn btn-coral text-[13px]" style="padding:9px 16px">Mulai belajar</a>
+                    <button class="md:hidden p-2 -mr-2" aria-label="Buka menu" onclick="document.getElementById('mm').classList.toggle('open')">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                 </div>
             </div>
-            <div id="mobileMenu" class="mobile-menu md:hidden">
+            <div id="mm" class="mobile-menu md:hidden">
                 <div class="py-3 space-y-0.5 border-t border-line">
-                    <a href="#jalur" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Jalur Belajar</a>
-                    <a href="#coba" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Coba Playground</a>
-                    <a href="#harga" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">Harga</a>
-                    <a href="#faq" class="block px-3 py-2.5 text-sm text-muted hover:text-ink">FAQ</a>
+                    <a href="#masalah" class="block px-3 py-2.5 text-sm text-ink-soft hover:text-ink">Masalahnya</a>
+                    <a href="#jalur" class="block px-3 py-2.5 text-sm text-ink-soft hover:text-ink">Jalur Belajar</a>
+                    <a href="#coba" class="block px-3 py-2.5 text-sm text-ink-soft hover:text-ink">Coba Playground</a>
+                    <a href="#harga" class="block px-3 py-2.5 text-sm text-ink-soft hover:text-ink">Harga</a>
+                    <a href="#faq" class="block px-3 py-2.5 text-sm text-ink-soft hover:text-ink">FAQ</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- ==================== HERO ==================== -->
-    <section class="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-14 lg:pt-16 lg:pb-20">
+    <section class="relative overflow-hidden">
         <div class="hero-wash"></div>
-        <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path class="spark" style="animation-delay:0s"   fill="#9ea5d8" d="M120 80 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
-            <path class="spark" style="animation-delay:.5s"  fill="#fbaf3b" d="M360 54 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
-            <path class="spark" style="animation-delay:1.1s" fill="#02b7bf" d="M900 66 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
-            <path class="spark" style="animation-delay:1.7s" fill="#f87666" d="M1120 180 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
-            <path class="spark" style="animation-delay:2.2s" fill="#fbaf3b" d="M70 330 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
-            <circle class="spark" style="animation-delay:.8s"  cx="470" cy="110" r="3.5" fill="#7fd0b3"/>
-            <circle class="spark" style="animation-delay:1.9s" cx="990" cy="300" r="3"   fill="#f87666"/>
-            <circle class="spark" style="animation-delay:.3s"  cx="270" cy="240" r="2.5" fill="#9ea5d8"/>
+        <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path class="spark" style="animation-delay:0s"   fill="#9ea5d8" d="M140 120 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
+            <path class="spark" style="animation-delay:.5s"  fill="#fbaf3b" d="M380 80 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
+            <path class="spark" style="animation-delay:1.1s" fill="#02b7bf" d="M900 90 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
+            <path class="spark" style="animation-delay:1.7s" fill="#f87666" d="M1080 210 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
+            <path class="spark" style="animation-delay:2.2s" fill="#fbaf3b" d="M110 470 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4z"/>
+            <path class="spark" style="animation-delay:1.3s" fill="#f87666" d="M1120 560 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
+            <circle class="spark" style="animation-delay:.8s"  cx="470" cy="150" r="4" fill="#7fd0b3"/>
+            <circle class="spark" style="animation-delay:1.9s" cx="990" cy="440" r="3.5" fill="#f87666"/>
+            <circle class="spark" style="animation-delay:.3s"  cx="250" cy="330" r="3" fill="#9ea5d8"/>
+            <circle class="spark" style="animation-delay:2.5s" cx="760" cy="620" r="3" fill="#02b7bf"/>
         </svg>
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
-            <!-- Left: copy -->
-            <div class="lg:col-span-8">
-                <div class="inline-flex items-center gap-2 rounded-full bg-paper border border-line px-3.5 py-1.5 mb-6 enter">
-                    <span class="w-1.5 h-1.5 rounded-full bg-coral"></span>
-                    <span class="text-[11px] font-semibold text-ink tracking-[0.09em] uppercase">Jalur belajar terstruktur &middot; Awam ke Senior</span>
-                </div>
-                <h1 class="text-[2.6rem] sm:text-6xl lg:text-[4.15rem] font-bold tracking-[-0.02em] leading-[1.05] enter">
-                    Dari nol sampai <em class="hl-swoosh">senior</em><br>
-                    React developer.
-                </h1>
-                <p class="text-[15px] text-ink-soft leading-relaxed max-w-md mt-7 enter enter-d1">
-                    Kurikulum terstruktur berbahasa Indonesia yang nganter lo dari belum bisa JavaScript sampai level senior, lewat praktik langsung.
-                </p>
-                <div class="flex flex-wrap items-center gap-4 mt-8 enter enter-d2">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-sm font-semibold pl-5 pr-4 py-3 rounded-full coral-cta hover:bg-coral-deep transition-colors">
-                        <span>Mulai dari Bab 0</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                    </a>
-                    <a href="#jalur" class="press inline-flex items-center gap-2 text-sm font-medium text-ink border border-line px-5 py-3 rounded-full hover:bg-cream-2 transition-colors">
-                        Lihat jalur belajar
-                    </a>
-                </div>
-                <div class="flex flex-wrap items-center gap-2.5 mt-7 enter enter-d3">
-                    <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Akses selamanya</span>
-                    <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>React 18/19 &amp; Next.js</span>
-                    <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>3 capstone portfolio</span>
-                </div>
-            </div>
 
-            <!-- Right: floating tech-ecosystem cluster -->
-            <div class="lg:col-span-4 enter enter-d3">
-                <div class="hidden lg:block techcluster" id="techcluster" aria-hidden="true">
-                    <div class="tc-spot"></div>
-                    <svg class="tc-lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
-                        <line x1="50" y1="50" x2="27" y2="15"/><line x1="50" y1="50" x2="71" y2="13"/>
-                        <line x1="50" y1="50" x2="87" y2="41"/><line x1="50" y1="50" x2="78" y2="75"/>
-                        <line x1="50" y1="50" x2="50" y2="87"/><line x1="50" y1="50" x2="21" y2="75"/>
-                        <line x1="50" y1="50" x2="12" y2="43"/><line x1="50" y1="50" x2="51" y2="19"/>
-                    </svg>
-                    <div class="orb center" data-depth="0.35" style="top:50%;left:50%"><div class="orbf" style="width:82px;height:82px"><img class="tc-spin" src="assets/img/logos/react.svg" alt="" width="44" height="44"></div></div>
-                    <div class="orb" data-depth="1.0" data-name="TypeScript" data-line="0" style="top:15%;left:27%"><div class="orbf" style="width:58px;height:58px;animation-delay:-.3s"><img src="assets/img/logos/typescript.svg" alt="" width="30" height="30"></div><span class="orb-label">TypeScript</span></div>
-                    <div class="orb" data-depth="1.3" data-name="Next.js" data-line="1" style="top:13%;left:71%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.4s"><img src="assets/img/logos/nextdotjs.svg" alt="" width="26" height="26"></div><span class="orb-label">Next.js</span></div>
-                    <div class="orb" data-depth="0.9" data-name="Tailwind CSS" data-line="2" style="top:41%;left:87%"><div class="orbf" style="width:54px;height:54px;animation-delay:-1.1s"><img src="assets/img/logos/tailwindcss.svg" alt="" width="30" height="30"></div><span class="orb-label">Tailwind</span></div>
-                    <div class="orb" data-depth="1.2" data-name="Vite" data-line="3" style="top:75%;left:78%"><div class="orbf" style="width:50px;height:50px;animation-delay:-3.2s"><img src="assets/img/logos/vite.svg" alt="" width="26" height="26"></div><span class="orb-label">Vite</span></div>
-                    <div class="orb" data-depth="1.4" data-name="Vitest" data-line="4" style="top:87%;left:50%"><div class="orbf" style="width:48px;height:48px;animation-delay:-.9s"><img src="assets/img/logos/vitest.svg" alt="" width="25" height="25"></div><span class="orb-label">Vitest</span></div>
-                    <div class="orb" data-depth="1.1" data-name="Redux" data-line="5" style="top:75%;left:21%"><div class="orbf" style="width:52px;height:52px;animation-delay:-2.0s"><img src="assets/img/logos/redux.svg" alt="" width="27" height="27"></div><span class="orb-label">Redux</span></div>
-                    <div class="orb" data-depth="1.0" data-name="React Router" data-line="6" style="top:43%;left:12%"><div class="orbf" style="width:50px;height:50px;animation-delay:-1.6s"><img src="assets/img/logos/reactrouter.svg" alt="" width="27" height="27"></div><span class="orb-label">React Router</span></div>
-                    <div class="orb" data-depth="0.7" data-name="JavaScript" data-line="7" style="top:19%;left:51%"><div class="orbf" style="width:46px;height:46px;animation-delay:-3.6s"><img src="assets/img/logos/javascript.svg" alt="" width="24" height="24"></div><span class="orb-label">JavaScript</span></div>
-                </div>
-                <!-- Mobile: compact logo strip -->
-                <div class="lg:hidden">
-                    <p class="text-xs font-medium text-muted mb-3 text-center">Stack yang bakal lo kuasai</p>
-                    <div class="flex flex-wrap justify-center gap-2.5">
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/react.svg" alt="React" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/typescript.svg" alt="TypeScript" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/nextdotjs.svg" alt="Next.js" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/tailwindcss.svg" alt="Tailwind CSS" width="24" height="24"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/vite.svg" alt="Vite" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/vitest.svg" alt="Vitest" width="22" height="22"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/redux.svg" alt="Redux" width="23" height="23"></span>
-                        <span class="w-11 h-11 rounded-xl bg-white border border-line shadow-soft flex items-center justify-center"><img src="assets/img/logos/reactrouter.svg" alt="React Router" width="23" height="23"></span>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 lg:pt-20 text-center">
+            <div class="enter"><span class="eyebrow"><span class="dot"></span>React Course &middot; Bahasa Indonesia</span></div>
+            <p class="serif italic text-[1.15rem] sm:text-[1.4rem] text-teal-dark max-w-2xl mx-auto mt-7 leading-snug enter enter-d1">
+                Nonton tutorial React berbulan-bulan, tetep <span class="hl-teal">nyangkut</span> pas ditanya di interview?
+            </p>
+            <h1 class="text-[2.7rem] sm:text-6xl lg:text-[4.6rem] font-bold leading-[1.05] mt-4 enter enter-d2">
+                Dari nol sampai <em class="hl-swoosh">senior</em><br>React developer.
+            </h1>
+            <p class="text-[15px] sm:text-base text-ink-soft leading-relaxed max-w-xl mx-auto mt-7 enter enter-d3">
+                Kurikulum terstruktur yang nganter lo dari belum bisa JavaScript sampai level senior, lewat praktik langsung, bukan cuma teori.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-9 enter enter-d3">
+                <a href="chapters/chapter-0.html" class="btn btn-coral">Mulai dari Bab 0 <span class="btn-arrow"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></a>
+                <a href="#jalur" class="btn btn-ghost">Lihat jalur belajar</a>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-2.5 mt-8 enter enter-d4">
+                <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Akses selamanya</span>
+                <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>React 18/19 &amp; Next.js</span>
+                <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>3 capstone portfolio</span>
+            </div>
+        </div>
+
+        <!-- constellation scene -->
+        <div class="relative z-10 max-w-4xl mx-auto px-4 pb-16 lg:pb-20">
+            <p class="text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-muted mb-4 enter enter-d4">Stack yang bakal lo kuasai</p>
+            <div class="techcluster" id="techcluster" aria-hidden="true">
+                <div class="tc-spot"></div>
+                <svg class="tc-lines" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
+                    <line x1="50" y1="50" x2="27" y2="15"/><line x1="50" y1="50" x2="71" y2="13"/>
+                    <line x1="50" y1="50" x2="87" y2="41"/><line x1="50" y1="50" x2="78" y2="75"/>
+                    <line x1="50" y1="50" x2="50" y2="87"/><line x1="50" y1="50" x2="21" y2="75"/>
+                    <line x1="50" y1="50" x2="12" y2="43"/><line x1="50" y1="50" x2="51" y2="19"/>
+                </svg>
+                <div class="orb center" data-depth="0.35" style="top:50%;left:50%"><div class="orbf" style="width:84px;height:84px"><img class="tc-spin" src="assets/img/logos/react.svg" alt="" width="46" height="46"></div></div>
+                <div class="orb" data-depth="1.0" data-name="TypeScript" data-line="0" style="top:15%;left:27%"><div class="orbf" style="width:60px;height:60px;animation-delay:-.3s"><img src="assets/img/logos/typescript.svg" alt="" width="31" height="31"></div><span class="orb-label">TypeScript</span></div>
+                <div class="orb" data-depth="1.3" data-name="Next.js" data-line="1" style="top:13%;left:71%"><div class="orbf" style="width:54px;height:54px;animation-delay:-2.4s"><img src="assets/img/logos/nextdotjs.svg" alt="" width="27" height="27"></div><span class="orb-label">Next.js</span></div>
+                <div class="orb" data-depth="0.9" data-name="Tailwind CSS" data-line="2" style="top:41%;left:87%"><div class="orbf" style="width:56px;height:56px;animation-delay:-1.1s"><img src="assets/img/logos/tailwindcss.svg" alt="" width="31" height="31"></div><span class="orb-label">Tailwind</span></div>
+                <div class="orb" data-depth="1.2" data-name="Vite" data-line="3" style="top:75%;left:78%"><div class="orbf" style="width:52px;height:52px;animation-delay:-3.2s"><img src="assets/img/logos/vite.svg" alt="" width="27" height="27"></div><span class="orb-label">Vite</span></div>
+                <div class="orb" data-depth="1.4" data-name="Vitest" data-line="4" style="top:87%;left:50%"><div class="orbf" style="width:50px;height:50px;animation-delay:-.9s"><img src="assets/img/logos/vitest.svg" alt="" width="26" height="26"></div><span class="orb-label">Vitest</span></div>
+                <div class="orb" data-depth="1.1" data-name="Redux" data-line="5" style="top:75%;left:21%"><div class="orbf" style="width:54px;height:54px;animation-delay:-2.0s"><img src="assets/img/logos/redux.svg" alt="" width="28" height="28"></div><span class="orb-label">Redux</span></div>
+                <div class="orb" data-depth="1.0" data-name="React Router" data-line="6" style="top:43%;left:12%"><div class="orbf" style="width:52px;height:52px;animation-delay:-1.6s"><img src="assets/img/logos/reactrouter.svg" alt="" width="28" height="28"></div><span class="orb-label">React Router</span></div>
+                <div class="orb" data-depth="0.7" data-name="JavaScript" data-line="7" style="top:19%;left:51%"><div class="orbf" style="width:48px;height:48px;animation-delay:-3.6s"><img src="assets/img/logos/javascript.svg" alt="" width="25" height="25"></div><span class="orb-label">JavaScript</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card soft-shadow overflow-hidden grid grid-cols-3 md:grid-cols-6 divide-x divide-line reveal">
+            <div class="px-4 py-7 text-center"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">15</div><div class="text-xs text-muted mt-1">Bab</div></div>
+            <div class="px-4 py-7 text-center"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">152</div><div class="text-xs text-muted mt-1">Lesson</div></div>
+            <div class="px-4 py-7 text-center border-t md:border-t-0 border-line"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">29</div><div class="text-xs text-muted mt-1">Playground</div></div>
+            <div class="px-4 py-7 text-center border-t md:border-t-0 border-line"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">112</div><div class="text-xs text-muted mt-1">Quiz</div></div>
+            <div class="px-4 py-7 text-center border-t md:border-t-0 border-line"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">14</div><div class="text-xs text-muted mt-1">Challenge</div></div>
+            <div class="px-4 py-7 text-center border-t md:border-t-0 border-line"><div class="serif text-3xl sm:text-4xl font-bold tabular-nums">3</div><div class="text-xs text-muted mt-1">Capstone</div></div>
+        </div>
+    </section>
+
+    <!-- progress dashboard (rendered by course.js) -->
+    <div id="dashboardMount" data-base="chapters/" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"></div>
+
+    <!-- ==================== MASALAH ==================== -->
+    <section id="masalah" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+            <span class="eyebrow"><span class="dot"></span>Kenapa banyak yang stuck</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-[3rem] font-bold mt-5 leading-tight">Masalahnya bukan lo <em class="hl-swoosh">nggak usaha</em>.</h2>
+            <p class="text-ink-soft mt-4">Tapi cara belajarnya. Ini tiga jebakan yang bikin kebanyakan orang mentok di level junior.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5 stagger">
+            <div class="card c-cream p-7">
+                <div class="serif text-[2.6rem] leading-none font-bold text-coral">01</div>
+                <h3 class="text-lg font-bold mt-3">Nonton doang, jarang ngoding</h3>
+                <p class="text-sm text-ink-soft leading-relaxed mt-2">Playlist tutorial 40 jam kelar, tapi pas disuruh bikin dari nol malah blank. Paham beda sama bisa.</p>
+            </div>
+            <div class="card c-pink p-7">
+                <div class="serif text-[2.6rem] leading-none font-bold text-coral">02</div>
+                <h3 class="text-lg font-bold mt-3">Nggak ngerti isi perut React</h3>
+                <p class="text-sm text-ink-soft leading-relaxed mt-2">Bisa nulis useState, tapi nggak tahu kenapa. Pas interview nanya reconciliation atau key, langsung keringetan.</p>
+            </div>
+            <div class="card c-blue p-7">
+                <div class="serif text-[2.6rem] leading-none font-bold text-teal-dark">03</div>
+                <h3 class="text-lg font-bold mt-3">Portfolio kosong</h3>
+                <p class="text-sm text-ink-soft leading-relaxed mt-2">Cuma punya clone todo-list yang sama kayak sejuta orang lain. Recruiter nggak punya alasan buat milih lo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== JALUR BELAJAR ==================== -->
+    <section id="jalur" class="border-y border-line bg-cream-2/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+                <span class="eyebrow"><span class="dot"></span>15 bab &middot; 4 level</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-[3rem] font-bold mt-5 leading-tight">Empat level, satu jalan lurus ke <em class="hl-swoosh">senior</em>.</h2>
+                <p class="text-ink-soft mt-4">Tiap bab dibangun di atas bab sebelumnya. Nggak ada lompatan yang bikin bingung.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-5 stagger">
+                <!-- Fondasi -->
+                <div class="card c-cream p-7 sm:p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-9 h-9 rounded-full bg-coral text-cream flex items-center justify-center serif font-bold">1</span>
+                        <div><div class="font-bold serif text-lg">Fondasi</div><div class="text-xs text-muted">3 bab &middot; Awam ke paham cara React berpikir</div></div>
+                    </div>
+                    <p class="text-sm text-ink-soft leading-relaxed mb-4">Dari belum pernah nulis JavaScript serius sampai ngerti kenapa React kerja kayak gitu.</p>
+                    <div class="space-y-1.5">
+                        <a href="chapters/chapter-0.html" class="chapter-card flex items-center gap-3 bg-paper border border-line rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral w-6 tabular-nums">00</span><span class="text-sm font-medium">JavaScript Essentials</span></a>
+                        <a href="chapters/chapter-1.html" class="chapter-card flex items-center gap-3 bg-paper border border-line rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral w-6 tabular-nums">01</span><span class="text-sm font-medium">Pengenalan React</span></a>
+                        <a href="chapters/chapter-2.html" class="chapter-card flex items-center gap-3 bg-paper border border-line rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral w-6 tabular-nums">02</span><span class="text-sm font-medium">React Dasar</span></a>
                     </div>
                 </div>
+                <!-- Menengah -->
+                <div class="card c-blue p-7 sm:p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-9 h-9 rounded-full bg-teal-dark text-cream flex items-center justify-center serif font-bold">2</span>
+                        <div><div class="font-bold serif text-lg">Menengah</div><div class="text-xs text-teal-dark/70">5 bab &middot; Bisa bikin fitur beneran</div></div>
+                    </div>
+                    <p class="text-sm text-teal-dark/90 leading-relaxed mb-4">Hooks, pattern reusable, TypeScript biar anti bug, dan Next.js untuk aplikasi produksi.</p>
+                    <div class="space-y-1.5">
+                        <a href="chapters/chapter-3.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-teal/30 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-teal-dark w-6 tabular-nums">03</span><span class="text-sm font-medium text-ink">React Hooks Dasar</span></a>
+                        <a href="chapters/chapter-4.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-teal/30 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-teal-dark w-6 tabular-nums">04</span><span class="text-sm font-medium text-ink">Hooks Advanced</span></a>
+                        <a href="chapters/chapter-5.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-teal/30 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-teal-dark w-6 tabular-nums">05</span><span class="text-sm font-medium text-ink">Advanced Patterns</span></a>
+                        <a href="chapters/chapter-6.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-teal/30 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-teal-dark w-6 tabular-nums">06</span><span class="text-sm font-medium text-ink">React &amp; TypeScript</span></a>
+                        <a href="chapters/chapter-7.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-teal/30 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-teal-dark w-6 tabular-nums">07</span><span class="text-sm font-medium text-ink">Next.js</span></a>
+                    </div>
+                </div>
+                <!-- Mahir -->
+                <div class="card c-pink p-7 sm:p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-9 h-9 rounded-full bg-coral-deep text-cream flex items-center justify-center serif font-bold">3</span>
+                        <div><div class="font-bold serif text-lg">Mahir</div><div class="text-xs text-coral-deep/80">5 bab &middot; Skala besar &amp; isi perut React</div></div>
+                    </div>
+                    <p class="text-sm text-ink-soft leading-relaxed mb-4">State management, testing, performa, sampai reconciliation &amp; Fiber. Materi yang jarang diajarin.</p>
+                    <div class="space-y-1.5">
+                        <a href="chapters/chapter-8.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-pink rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral-deep w-6 tabular-nums">08</span><span class="text-sm font-medium text-ink">State Management</span></a>
+                        <a href="chapters/chapter-9.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-pink rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral-deep w-6 tabular-nums">09</span><span class="text-sm font-medium text-ink">React Testing</span></a>
+                        <a href="chapters/chapter-10.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-pink rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral-deep w-6 tabular-nums">10</span><span class="text-sm font-medium text-ink">Performance</span></a>
+                        <a href="chapters/chapter-11.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-pink rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral-deep w-6 tabular-nums">11</span><span class="text-sm font-medium text-ink">React Internals</span></a>
+                        <a href="chapters/chapter-12.html" class="chapter-card flex items-center gap-3 bg-paper/80 border border-pink rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral-deep w-6 tabular-nums">12</span><span class="text-sm font-medium text-ink">Arsitektur &amp; Design Patterns</span></a>
+                    </div>
+                </div>
+                <!-- Senior -->
+                <div class="card c-dark p-7 sm:p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-9 h-9 rounded-full bg-coral text-cream flex items-center justify-center serif font-bold">4</span>
+                        <div><div class="font-bold serif text-lg text-cream">Senior</div><div class="text-xs text-cream/60">2 bab &middot; Portfolio &amp; siap kerja</div></div>
+                    </div>
+                    <p class="text-sm text-cream/80 leading-relaxed mb-4">Bangun 3 project portfolio-grade dari nol sampai deploy, lalu asah buat interview.</p>
+                    <div class="space-y-1.5">
+                        <a href="chapters/chapter-13.html" class="chapter-card flex items-center gap-3 bg-white/[0.06] border border-white/10 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral w-6 tabular-nums">13</span><span class="text-sm font-medium text-cream">Capstone Projects</span></a>
+                        <a href="chapters/chapter-14.html" class="chapter-card flex items-center gap-3 bg-white/[0.06] border border-white/10 rounded-xl px-3.5 py-2.5"><span class="num-serif text-sm font-bold text-coral w-6 tabular-nums">14</span><span class="text-sm font-medium text-cream">Interview Prep &amp; Career</span></a>
+                    </div>
+                    <div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-cream/70 text-xs"><svg class="w-4 h-4 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Keluar dengan bukti karya, bukan cuma sertifikat.</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== STATS BAR ==================== -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-        <div class="grid grid-cols-3 md:grid-cols-6 gap-px bg-line rounded-2xl overflow-hidden shadow-soft stagger">
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">15</div><div class="text-xs text-muted mt-1">Bab</div></div>
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">152</div><div class="text-xs text-muted mt-1">Lesson</div></div>
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">29</div><div class="text-xs text-muted mt-1">Playground</div></div>
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">112</div><div class="text-xs text-muted mt-1">Quiz</div></div>
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">14</div><div class="text-xs text-muted mt-1">Challenge</div></div>
-            <div class="bg-white px-4 py-6 text-center"><div class="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums">3</div><div class="text-xs text-muted mt-1">Capstone</div></div>
+    <!-- ==================== COBA PLAYGROUND (live) ==================== -->
+    <section id="coba" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+            <span class="eyebrow"><span class="dot"></span>Bukan screenshot</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-[3rem] font-bold mt-5 leading-tight">Editornya <em class="hl-swoosh">beneran</em> jalan. Coba, deh.</h2>
+            <p class="text-ink-soft mt-4">Ubah kodenya, pencet Jalankan, lihat hasilnya seketika. 29 playground kayak gini tersebar di semua bab, jadi lo nggak cuma baca teori.</p>
         </div>
-    </section>
-
-    <!-- ==================== PROGRESS DASHBOARD (rendered by course.js) ==================== -->
-    <div id="dashboardMount" data-base="chapters/" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></div>
-
-    <!-- ==================== PRODUCT SHOWCASE (real screenshot) ==================== -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-16">
-        <div class="reveal">
-            <div class="rounded-2xl overflow-hidden shadow-window border border-line max-w-5xl mx-auto bg-white">
-                <img src="assets/img/reader.png" width="1600" height="1000" loading="lazy" decoding="async"
-                     alt="Halaman belajar React Course: sidebar kurikulum yang bisa dilipat per bab, materi lesson bergaya santai, dan blok kode berwarna."
-                     class="block w-full h-auto">
-            </div>
-            <p class="text-center text-sm text-muted mt-5 max-w-xl mx-auto">Satu layar yang bersih: kurikulum terstruktur di sidebar, materi bergaya lo/gue, dan blok kode. Ini tampilan aslinya, bukan mockup.</p>
-        </div>
-    </section>
-
-    <!-- ==================== LIVE PLAYGROUND SHOWCASE ==================== -->
-    <section id="coba" class="bg-lavender py-20 lg:py-28 mt-8">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-2xl mb-10 reveal">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Belajar sambil ngoding, langsung di browser.</h2>
-                <p class="text-muted mt-4">Ini bukan screenshot. Editor di bawah beneran jalan: ubah kodenya, pencet Jalankan, dan lihat hasilnya seketika. 29 playground kayak gini tersebar di seluruh bab, jadi lo nggak cuma baca teori.</p>
-            </div>
-
-            <div class="reveal">
-                <script type="text/plain" id="pg-landing">function App() {
-  const [suka, setSuka] = React.useState(0);
+        <div class="reveal soft-shadow rounded-2xl overflow-hidden border border-line">
+            <script type="text/plain" id="pg-landing">function App() {
+  const [n, setN] = React.useState(3);
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', padding: 14 }}>
-      <h2 style={{ margin: '0 0 6px', fontSize: 20 }}>Halo, calon Senior React Dev.</h2>
-      <p style={{ color: '#666', margin: '0 0 14px' }}>
-        Klik tombolnya, terus coba ubah angkanya di kode. Ini React beneran, jalan di browser lo.
-      </p>
-      <button
-        onClick={() => setSuka(suka + 1)}
-        style={{ padding: '8px 16px', borderRadius: 10, border: '1px solid #0B0B0B',
-                 background: '#0B0B0B', color: '#fff', cursor: 'pointer', fontSize: 14 }}>
-        Aku suka course ini ({suka})
+    <div style={{ fontFamily: 'system-ui', padding: 16 }}>
+      <h2 style={{ margin: 0, fontSize: 20 }}>Kliknya jalan beneran.</h2>
+      <p style={{ color: '#666', margin: '6px 0 14px' }}>Ubah angka atau teksnya, langsung ke-render.</p>
+      <button onClick={() => setN(n + 1)}
+        style={{ padding: '8px 16px', borderRadius: 10, border: 0,
+                 background: '#f87666', color: '#fff', cursor: 'pointer', fontSize: 14 }}>
+        Klik aku ({n})
       </button>
     </div>
   );
 }</script>
-                <div class="playground-mount" data-code-id="pg-landing"></div>
-            </div>
+            <div class="playground-mount" data-code-id="pg-landing"></div>
         </div>
     </section>
 
-    <!-- ==================== JALUR BELAJAR (centerpiece) ==================== -->
-    <section id="jalur" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div class="mb-14 max-w-2xl reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Empat level. Satu jalan lurus dari nol ke senior.</h2>
-            <p class="text-muted mt-4">Tiap bab dibangun di atas bab sebelumnya, jadi nggak ada lompatan yang bikin bingung. Ikutin urutannya, dan lo bakal ngerasain diri lo naik level.</p>
-        </div>
-
-        <!-- LEVEL 1 - FONDASI -->
-        <div class="flex gap-4 sm:gap-8 reveal">
-            <div class="flex flex-col items-center shrink-0">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0" style="background:#16a34a">1</div>
-                <div class="rail-line" style="background:linear-gradient(#16a34a,#2563eb)"></div>
+    <!-- ==================== KENAPA BEDA (agent cards) ==================== -->
+    <section class="border-y border-line bg-cream-2/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+                <span class="eyebrow"><span class="dot"></span>Kenapa course ini beda</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-[3rem] font-bold mt-5 leading-tight">Dirancang biar lo <em class="hl-swoosh">bisa</em>,<br>bukan cuma hafal.</h2>
             </div>
-            <div class="flex-1 min-w-0 pb-12">
-                <div class="mb-4">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#F0FDF4;color:#16a34a">Fondasi</span>
-                        <span class="text-xs text-muted tabular-nums">3 bab. Dari awam ke paham cara React berpikir.</span>
-                    </div>
-                    <p class="text-sm text-muted mt-2 max-w-xl">Dari belum pernah nulis JavaScript serius sampai ngerti kenapa React kerja kayak gitu. Fondasi yang bikin sisa course-nya kerasa gampang.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-0.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">00</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">JavaScript Essentials</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Variabel, function, array method, async. 20% JS yang beneran kepake di React.</p></div>
-                    </a>
-                    <a href="chapters/chapter-1.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">01</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Pengenalan React</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Apa itu React, JSX, Virtual DOM, dan komponen pertama lo.</p></div>
-                    </a>
-                    <a href="chapters/chapter-2.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#F0FDF4;color:#16a34a">02</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Dasar</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Props, state, event handling, styling. Fondasi tiap komponen.</p></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- LEVEL 2 - MENENGAH -->
-        <div class="flex gap-4 sm:gap-8 reveal">
-            <div class="flex flex-col items-center shrink-0">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0" style="background:#2563eb">2</div>
-                <div class="rail-line" style="background:linear-gradient(#2563eb,#9333ea)"></div>
-            </div>
-            <div class="flex-1 min-w-0 pb-12">
-                <div class="mb-4">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#EFF6FF;color:#2563eb">Menengah</span>
-                        <span class="text-xs text-muted tabular-nums">5 bab. Bisa bikin fitur beneran.</span>
-                    </div>
-                    <p class="text-sm text-muted mt-2 max-w-xl">Hooks, pattern reusable, TypeScript biar anti bug, dan Next.js untuk aplikasi produksi. Level di mana lo mulai kerasa kayak React developer beneran.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-3.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">03</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Hooks Dasar</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">useState, useEffect, useRef, useMemo, useCallback, useContext.</p></div>
-                    </a>
-                    <a href="chapters/chapter-4.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">04</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Hooks Advanced</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">useReducer, custom hooks, useTransition untuk UI yang responsif.</p></div>
-                    </a>
-                    <a href="chapters/chapter-5.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">05</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Advanced Patterns</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Compound components, render props, HOC, polymorphic component.</p></div>
-                    </a>
-                    <a href="chapters/chapter-6.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">06</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React &amp; TypeScript</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Typing props, generics, event, utility types. Kode yang anti bug.</p></div>
-                    </a>
-                    <a href="chapters/chapter-7.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line sm:col-span-2">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#EFF6FF;color:#2563eb">07</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Next.js</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">App Router, Server Components, data fetching, SEO, server actions.</p></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- LEVEL 3 - MAHIR -->
-        <div class="flex gap-4 sm:gap-8 reveal">
-            <div class="flex flex-col items-center shrink-0">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0" style="background:#9333ea">3</div>
-                <div class="rail-line" style="background:linear-gradient(#9333ea,#dc2626)"></div>
-            </div>
-            <div class="flex-1 min-w-0 pb-12">
-                <div class="mb-4">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#FAF5FF;color:#9333ea">Mahir</span>
-                        <span class="text-xs text-muted tabular-nums">5 bab. Skala besar dan isi perut React.</span>
-                    </div>
-                    <p class="text-sm text-muted mt-2 max-w-xl">State management, testing, performa, sampai reconciliation dan Fiber. Materi yang jarang diajarin tapi bikin lo beda dari kebanyakan React developer.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-8.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">08</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">State Management</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Context, Zustand, Redux Toolkit, Jotai, dan kapan pakai yang mana.</p></div>
-                    </a>
-                    <a href="chapters/chapter-9.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">09</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Testing</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Vitest, Testing Library, MSW, dan Playwright untuk E2E.</p></div>
-                    </a>
-                    <a href="chapters/chapter-10.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">10</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Performance</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">memo, code splitting, virtualization, profiler, Server Components.</p></div>
-                    </a>
-                    <a href="chapters/chapter-11.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">11</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">React Internals</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Reconciliation dan Fiber. Cara React bekerja di balik layar.</p></div>
-                    </a>
-                    <a href="chapters/chapter-12.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line sm:col-span-2">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FAF5FF;color:#9333ea">12</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Arsitektur &amp; Design Patterns</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">Struktur folder, design pattern, dan scaling codebase dan tim.</p></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- LEVEL 4 - SENIOR -->
-        <div class="flex gap-4 sm:gap-8 reveal">
-            <div class="flex flex-col items-center shrink-0">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0" style="background:#dc2626">4</div>
-                <div class="rail-line" style="background:linear-gradient(#dc2626,rgba(220,38,38,0))"></div>
-            </div>
-            <div class="flex-1 min-w-0 pb-2">
-                <div class="mb-4">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#FEF2F2;color:#dc2626">Senior</span>
-                        <span class="text-xs text-muted tabular-nums">2 bab. Portfolio dan siap kerja.</span>
-                    </div>
-                    <p class="text-sm text-muted mt-2 max-w-xl">Bangun 3 project portfolio-grade dari nol sampai deploy, lalu asah buat interview. Keluar dari sini dengan bukti karya dan mental siap tembus lamaran.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-3">
-                    <a href="chapters/chapter-13.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FEF2F2;color:#dc2626">13</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Capstone Projects</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">3 project portfolio-grade dari nol sampai deploy.</p></div>
-                    </a>
-                    <a href="chapters/chapter-14.html" class="chapter-card press bg-white rounded-xl p-4 flex items-start gap-3 border border-line">
-                        <span class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums" style="background:#FEF2F2;color:#dc2626">14</span>
-                        <div class="min-w-0"><h4 class="text-sm font-semibold text-ink leading-snug">Interview Prep &amp; Career</h4><p class="text-xs text-muted mt-0.5 leading-relaxed">25 Q&amp;A, system design, dan strategi cari kerja.</p></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== KENAPA COURSE INI BEDA (bento) ==================== -->
-    <section class="bg-surface border-y border-line py-20 lg:py-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 max-w-2xl reveal">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Dirancang biar lo bisa, bukan cuma hafal.</h2>
-                <p class="text-muted mt-4">Course ini bukan sekadar bacaan teori. Ini yang bikin materinya nempel dan kepake beneran.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 reveal">
-                <!-- A: wide dark tile with real playground screenshot -->
-                <div class="lg:col-span-2 bg-[#003943] text-cream rounded-2xl p-7 sm:p-9 min-h-[220px] grid sm:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div class="grid lg:grid-cols-3 gap-5 reveal">
+                <!-- big dark: playground -->
+                <div class="card c-dark p-7 sm:p-9 lg:col-span-2 grid sm:grid-cols-2 gap-6 items-center">
                     <div>
-                        <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Live playground di browser</h3>
-                        <p class="text-sm text-white/70 leading-relaxed">Edit JSX langsung di halaman, pencet jalanin, lihat hasilnya seketika. 29 editor interaktif tanpa perlu install apa pun di laptop lo.</p>
+                        <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-5"><svg class="w-5 h-5 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+                        <h3 class="text-xl font-bold text-cream serif">Live playground di browser</h3>
+                        <p class="text-sm text-cream/70 leading-relaxed mt-2">Edit JSX, pencet jalanin, lihat hasilnya seketika. 29 editor interaktif tanpa perlu install apa pun.</p>
                     </div>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-lifted bg-white">
-                        <img src="assets/img/playground.png" width="1300" height="913" loading="lazy" decoding="async"
-                             alt="Live playground: editor JSX di bagian atas dan pane preview yang me-render hasilnya secara langsung."
-                             class="block w-full h-auto">
-                    </div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 soft-shadow bg-white"><img src="assets/img/playground.png" width="1300" height="913" loading="lazy" decoding="async" alt="Live playground: editor JSX dan pane preview yang me-render hasilnya langsung." class="block w-full h-auto"></div>
                 </div>
-                <!-- B -->
-                <div class="bg-white rounded-2xl p-7 shadow-soft flex flex-col min-h-[220px]">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h3 class="text-base font-semibold mb-1.5">Quiz &amp; challenge auto-grade</h3>
-                    <p class="text-sm text-muted leading-relaxed">112 quiz dan 14 coding challenge dinilai otomatis di browser. Skor lo kesimpen, jadi lo tahu persis mana yang belum nyantol.</p>
-                    <div class="mt-5 rounded-xl overflow-hidden border border-line">
-                        <img src="assets/img/quiz.png" width="1200" height="648" loading="lazy" decoding="async"
-                             alt="Kartu quiz: satu pertanyaan React dengan empat pilihan jawaban dan skor."
-                             class="block w-full h-auto">
-                    </div>
+                <!-- pink: quiz -->
+                <div class="card c-pink p-7">
+                    <div class="w-10 h-10 bg-coral rounded-xl flex items-center justify-center mb-5"><svg class="w-5 h-5 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                    <h3 class="text-base font-bold serif">Quiz &amp; challenge auto-grade</h3>
+                    <p class="text-sm text-ink-soft leading-relaxed mt-1.5">112 quiz dan 14 coding challenge dinilai otomatis. Skor lo kesimpen.</p>
+                    <div class="mt-4 rounded-xl overflow-hidden border border-line"><img src="assets/img/quiz.png" width="1200" height="648" loading="lazy" decoding="async" alt="Kartu quiz dengan pertanyaan React dan pilihan jawaban." class="block w-full h-auto"></div>
                 </div>
-                <!-- C -->
-                <div class="bg-white rounded-2xl p-7 shadow-soft flex flex-col min-h-[200px]">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h3 class="text-base font-semibold mb-1.5">React Internals</h3>
-                    <p class="text-sm text-muted leading-relaxed">Reconciliation dan Fiber dibedah sampai paham. Materi yang jarang diajarin, tapi sering bikin lo menang di interview.</p>
+                <!-- cream: internals -->
+                <div class="card c-cream p-7">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5"><svg class="w-5 h-5 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+                    <h3 class="text-base font-bold serif">React Internals</h3>
+                    <p class="text-sm text-ink-soft leading-relaxed mt-1.5">Reconciliation dan Fiber dibedah sampai paham. Materi yang bikin lo menang di interview.</p>
                 </div>
-                <!-- D: lavender tint -->
-                <div class="bg-lavender rounded-2xl p-7 flex flex-col min-h-[200px]">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    </div>
-                    <h3 class="text-base font-semibold mb-1.5">3 capstone project portfolio-grade</h3>
-                    <p class="text-sm text-muted leading-relaxed">Bikin aplikasi nyata dari nol sampai deploy. Hasil yang bisa langsung lo pajang di CV dan tunjukin ke recruiter.</p>
+                <!-- blue: capstone -->
+                <div class="card c-blue p-7">
+                    <div class="w-10 h-10 bg-teal-dark rounded-xl flex items-center justify-center mb-5"><svg class="w-5 h-5 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
+                    <h3 class="text-base font-bold serif">3 capstone portfolio-grade</h3>
+                    <p class="text-sm text-ink-soft leading-relaxed mt-1.5">Aplikasi nyata dari nol sampai deploy. Bisa langsung lo pajang di CV.</p>
                 </div>
-                <!-- E -->
-                <div class="bg-white rounded-2xl p-7 shadow-soft flex flex-col min-h-[200px]">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h3 class="text-base font-semibold mb-1.5">Interview prep lengkap</h3>
-                    <p class="text-sm text-muted leading-relaxed">25 Q&amp;A yang sering keluar plus latihan system design. Masuk ruang interview dengan jawaban yang udah lo latih.</p>
+                <!-- paper: interview -->
+                <div class="card p-7">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center mb-5"><svg class="w-5 h-5 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+                    <h3 class="text-base font-bold serif">Interview prep lengkap</h3>
+                    <p class="text-sm text-ink-soft leading-relaxed mt-1.5">25 Q&amp;A yang sering keluar plus latihan system design.</p>
                 </div>
-                <!-- F: wide closing tile -->
-                <div class="lg:col-span-3 bg-cream rounded-2xl p-7 sm:p-9 flex flex-col sm:flex-row sm:items-center gap-5">
-                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center shrink-0">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-semibold mb-1.5">Bahasa manusia, bukan textbook</h3>
-                        <p class="text-sm text-muted leading-relaxed max-w-3xl">Gaya lo/gue, analogi dari kehidupan sehari-hari. Kerasa kayak diajarin mentor senior yang asik, bukan baca dokumentasi yang kaku.</p>
-                    </div>
+                <!-- yellow wide: bahasa manusia -->
+                <div class="card c-yellow p-7 lg:col-span-3 flex flex-col sm:flex-row sm:items-center gap-5">
+                    <div class="w-10 h-10 bg-ink rounded-xl flex items-center justify-center shrink-0"><svg class="w-5 h-5 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+                    <div><h3 class="text-base font-bold serif">Bahasa manusia, bukan textbook</h3><p class="text-sm text-ink-soft leading-relaxed mt-1 max-w-3xl">Gaya lo/gue, analogi dari kehidupan sehari-hari. Kerasa kayak diajarin mentor senior yang asik, bukan baca dokumentasi kaku.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== HARGA / FINAL CTA ==================== -->
-    <section id="harga" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div class="bg-[#003943] text-cream rounded-[28px] px-6 sm:px-10 lg:px-16 py-14 lg:py-20 shadow-lifted overflow-hidden relative reveal">
-            <div class="max-w-2xl">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Siap jadi React developer yang dicari?</h2>
-                <p class="text-white/70 mt-4 text-[15px] leading-relaxed max-w-xl">Satu kali bayar untuk 15 bab, 152 lesson, 29 playground, 3 capstone project, dan interview prep. Tanpa langganan bulanan, tanpa materi yang tiba-tiba dikunci.</p>
+    <!-- ==================== BIG IDEA ==================== -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center reveal">
+        <svg class="w-10 h-10 text-coral/40 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+        <blockquote class="serif text-2xl sm:text-3xl lg:text-[2.5rem] font-bold leading-snug max-w-3xl mx-auto">
+            Yang bikin lo di-hire bukan sertifikat. Tapi <em class="hl-swoosh">tiga project</em> yang bisa lo tunjukin, dan pemahaman yang bisa lo buktiin di interview.
+        </blockquote>
+        <p class="text-sm text-muted mt-6">Itu filosofi yang bikin course ini disusun dari nol sampai capstone.</p>
+    </section>
 
-                <div class="flex flex-wrap items-end gap-x-3 gap-y-1 mt-8">
-                    <span class="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">Rp 5.000.000</span>
-                    <span class="text-white/50 text-sm pb-1.5">sekali bayar, akses selamanya</span>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-4 mt-8">
-                    <a href="chapters/chapter-0.html" class="press inline-flex items-center gap-2 bg-coral text-cream text-sm font-semibold pl-5 pr-4 py-3 rounded-full coral-cta hover:bg-coral-deep transition-colors">
-                        <span>Mulai dari Bab 0</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                    </a>
-                    <a href="#jalur" class="press inline-flex items-center gap-2 text-sm font-medium text-white/80 border border-white/20 px-5 py-3 rounded-full hover:bg-white/10 transition-colors">
-                        Lihat jalur belajar
-                    </a>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-8 text-[13px] text-white/60">
-                    <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Akses seumur hidup</span>
-                    <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>React 18/19 dan Next.js App Router</span>
-                    <span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>100.000+ kata materi</span>
-                </div>
+    <!-- ==================== HARGA ==================== -->
+    <section id="harga" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div class="card soft-shadow p-8 sm:p-12 text-center reveal">
+            <span class="eyebrow"><span class="dot"></span>Sekali bayar, akses selamanya</span>
+            <h2 class="text-3xl sm:text-4xl font-bold mt-5">Siap jadi React developer yang <em class="hl-swoosh">dicari</em>?</h2>
+            <div class="flex items-center justify-center gap-3 mt-7">
+                <span class="serif text-2xl price-strike">Rp 15-30 juta</span>
+                <span class="text-xs text-muted">(bootcamp)</span>
+            </div>
+            <div class="serif text-5xl sm:text-6xl font-bold tabular-nums mt-2">Rp 5.000.000</div>
+            <p class="text-sm text-muted mt-2">Sekali bayar. Tanpa langganan bulanan.</p>
+            <a href="chapters/chapter-0.html" class="btn btn-coral mt-8">Mulai dari Bab 0 <span class="btn-arrow"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></a>
+            <div class="grid sm:grid-cols-3 gap-3 mt-9 text-left max-w-xl mx-auto">
+                <div class="flex items-center gap-2 text-[13px] text-ink-soft"><svg class="w-4 h-4 text-coral shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Akses seumur hidup</div>
+                <div class="flex items-center gap-2 text-[13px] text-ink-soft"><svg class="w-4 h-4 text-coral shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>React 18/19 &amp; App Router</div>
+                <div class="flex items-center gap-2 text-[13px] text-ink-soft"><svg class="w-4 h-4 text-coral shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>100.000+ kata materi</div>
             </div>
         </div>
     </section>
 
     <!-- ==================== FAQ ==================== -->
-    <section id="faq" class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 pb-20 lg:pb-28">
-        <div class="mb-12 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Pertanyaan umum</h2>
+    <section id="faq" class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-10 reveal">Pertanyaan umum</h2>
+        <div class="space-y-2.5 reveal">
+            <details class="group card overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4"><span class="text-[15px] font-semibold">Gue belum bisa JavaScript sama sekali, bisa ikut?</span><svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                <div class="px-5 pb-4 text-sm text-ink-soft leading-relaxed">Bisa. Course-nya mulai dari <strong class="text-ink">Bab 0: JavaScript Essentials</strong>, cuma 20% JS yang beneran kepake di React. Cukup modal ngerti HTML dasar.</div>
+            </details>
+            <details class="group card overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4"><span class="text-[15px] font-semibold">Berapa lama sampai job-ready?</span><svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                <div class="px-5 pb-4 text-sm text-ink-soft leading-relaxed">Tergantung ritme, dan nggak ada jaminan instan. Kalau konsisten 1-2 jam sehari, kebanyakan orang nyelesein materi inti dalam <strong class="text-ink">3-4 bulan</strong>. Yang dilihat recruiter adalah 3 capstone project-nya.</div>
+            </details>
+            <details class="group card overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4"><span class="text-[15px] font-semibold">Kenapa Rp 5 juta?</span><svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                <div class="px-5 pb-4 text-sm text-ink-soft leading-relaxed">Bootcamp React rata-rata Rp 15-30 juta buat cakupan mirip. Course ini <strong class="text-ink">sekali bayar, akses selamanya</strong>: 100.000+ kata materi, 29 playground, 14 challenge, 3 capstone, dan interview prep.</div>
+            </details>
+            <details class="group card overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4"><span class="text-[15px] font-semibold">Materinya update React terbaru?</span><svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                <div class="px-5 pb-4 text-sm text-ink-soft leading-relaxed">Iya. Semua pakai <strong class="text-ink">React 18/19</strong> (Server Components, useTransition) dan <strong class="text-ink">Next.js App Router</strong>, bukan pola lama class component.</div>
+            </details>
+            <details class="group card overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4"><span class="text-[15px] font-semibold">Cocok buat siapa? Ada sertifikat?</span><svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary>
+                <div class="px-5 pb-4 text-sm text-ink-soft leading-relaxed">Cocok buat pemula total, career switcher, sampai developer yang mau naik ke level senior. Soal sertifikat: <strong class="text-ink">nggak ada sertifikat resmi</strong>. Yang lo bawa keluar adalah 3 project portfolio nyata.</div>
+            </details>
         </div>
-        <div class="space-y-2 reveal">
-            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
-                    <span class="text-[15px] font-medium">Gue gaptek, belum bisa JavaScript sama sekali, bisa ikut?</span>
-                    <svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Bisa. Course-nya sengaja mulai dari <strong class="text-ink">Bab 0: JavaScript Essentials</strong>, dari variabel, function, sampai async, cuma 20% JS yang beneran kepake di React. Cukup modal ngerti HTML dasar. Selesai Bab 0, lo udah siap masuk React dengan pede.</div>
-            </details>
-            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
-                    <span class="text-[15px] font-medium">Berapa lama sampai job-ready?</span>
-                    <svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Tergantung ritme lo, dan nggak ada jaminan instan. Kalau konsisten 1 sampai 2 jam sehari, kebanyakan orang nyelesein materi inti dalam <strong class="text-ink">3 sampai 4 bulan</strong>. Yang bikin beda bukan cuma nonton, tapi ngerjain playground, challenge, dan 3 capstone project sampai kelar. Portfolio itu yang dilihat recruiter.</div>
-            </details>
-            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
-                    <span class="text-[15px] font-medium">Kenapa Rp 5 juta?</span>
-                    <svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Bootcamp React di Indonesia rata-rata Rp 15 sampai 30 juta buat cakupan yang mirip. Course ini <strong class="text-ink">sekali bayar, akses selamanya</strong>, tanpa langganan bulanan. Isinya 100.000+ kata materi, 29 playground interaktif, 14 challenge auto-grade, 3 capstone project, dan interview prep lengkap. Lo bayar sekali buat sesuatu yang bisa lo buka ulang kapan pun.</div>
-            </details>
-            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
-                    <span class="text-[15px] font-medium">Materinya update React terbaru?</span>
-                    <svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Iya. Semua materi pakai <strong class="text-ink">React 18/19</strong> (hooks modern, Server Components, useTransition) dan <strong class="text-ink">Next.js App Router</strong>, pendekatan yang dipakai di produksi sekarang, bukan pola lama class component.</div>
-            </details>
-            <details class="group rounded-xl bg-surface shadow-soft overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer list-none px-5 py-4">
-                    <span class="text-[15px] font-medium">Cocok buat siapa? Ada sertifikat?</span>
-                    <svg class="w-4 h-4 text-muted shrink-0 ml-3 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-4 text-sm text-muted leading-relaxed">Cocok buat pemula total yang mau serius, career switcher dari bidang lain, sampai developer yang udah bisa React tapi mau naik ke level senior (internals, arsitektur, performa). Soal sertifikat: <strong class="text-ink">nggak ada sertifikat resmi</strong>. Yang lo bawa keluar adalah 3 project portfolio nyata dan pemahaman yang bisa dibuktiin di interview. Buat recruiter, itu jauh lebih berarti.</div>
-            </details>
+    </section>
+
+    <!-- ==================== FINAL CTA ==================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+        <div class="relative overflow-hidden rounded-[32px] bg-teal-darkest text-cream px-6 sm:px-12 py-16 lg:py-24 text-center reveal">
+            <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-90" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <path class="spark" style="animation-delay:0s" fill="#f87666" d="M120 80 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/>
+                <path class="spark" style="animation-delay:1s" fill="#fbaf3b" d="M880 90 l2.6 7 7 2.6 -7 2.6 -2.6 7 -2.6 -7 -7 -2.6 7 -2.6z"/>
+                <circle class="spark" style="animation-delay:.6s" cx="780" cy="300" r="4" fill="#5eecf0"/>
+                <circle class="spark" style="animation-delay:1.6s" cx="200" cy="300" r="3.5" fill="#f87666"/>
+            </svg>
+            <div class="relative z-10">
+                <h2 class="serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-2xl mx-auto">Mulai hari ini. <em class="hl-swoosh" style="color:#ffd5d0">Senior</em> itu jalan, bukan gelar.</h2>
+                <p class="text-cream/70 mt-5 max-w-xl mx-auto">15 bab, 152 lesson, 29 playground, 3 capstone project. Semuanya nunggu di Bab 0.</p>
+                <a href="chapters/chapter-0.html" class="btn btn-coral mt-8">Mulai dari Bab 0 <span class="btn-arrow"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></a>
+            </div>
         </div>
     </section>
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="border-t border-line">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-start gap-8">
                 <div>
                     <div class="flex items-center gap-2.5 mb-3">
-                        <div class="w-7 h-7 bg-ink rounded-md flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        </div>
-                        <span class="text-[15px] font-semibold tracking-tight">react course</span>
+                        <div class="w-8 h-8 bg-coral rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+                        <span class="text-[15px] font-semibold serif">React Course</span>
                     </div>
                     <p class="text-sm text-muted max-w-xs">Kursus React premium berbahasa Indonesia. Dari nol sampai senior, dibuat untuk developer Indonesia.</p>
                 </div>
@@ -617,25 +533,25 @@
                     <div>
                         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Course</div>
                         <div class="space-y-2">
-                            <a href="#jalur" class="block text-sm text-muted hover:text-ink">Jalur Belajar</a>
-                            <a href="#coba" class="block text-sm text-muted hover:text-ink">Coba Playground</a>
-                            <a href="#harga" class="block text-sm text-muted hover:text-ink">Harga</a>
-                            <a href="#faq" class="block text-sm text-muted hover:text-ink">FAQ</a>
+                            <a href="#masalah" class="block text-sm text-ink-soft hover:text-ink">Masalahnya</a>
+                            <a href="#jalur" class="block text-sm text-ink-soft hover:text-ink">Jalur Belajar</a>
+                            <a href="#harga" class="block text-sm text-ink-soft hover:text-ink">Harga</a>
+                            <a href="#faq" class="block text-sm text-ink-soft hover:text-ink">FAQ</a>
                         </div>
                     </div>
                     <div>
                         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Mulai</div>
                         <div class="space-y-2">
-                            <a href="chapters/chapter-0.html" class="block text-sm text-muted hover:text-ink">Bab 0, JS Essentials</a>
-                            <a href="chapters/chapter-13.html" class="block text-sm text-muted hover:text-ink">Capstone Projects</a>
-                            <a href="chapters/chapter-14.html" class="block text-sm text-muted hover:text-ink">Interview Prep</a>
+                            <a href="chapters/chapter-0.html" class="block text-sm text-ink-soft hover:text-ink">Bab 0, JS Essentials</a>
+                            <a href="chapters/chapter-13.html" class="block text-sm text-ink-soft hover:text-ink">Capstone Projects</a>
+                            <a href="chapters/chapter-14.html" class="block text-sm text-ink-soft hover:text-ink">Interview Prep</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-10 pt-6 border-t border-line/60 flex justify-between items-center">
+            <div class="mt-10 pt-6 border-t border-line flex justify-between items-center">
                 <p class="text-xs text-muted">© 2026 React Course Indonesia</p>
-                <a href="chapters/chapter-0.html" class="text-xs text-muted hover:text-ink">Mulai belajar</a>
+                <a href="chapters/chapter-0.html" class="text-xs text-ink-soft hover:text-ink">Mulai belajar</a>
             </div>
         </div>
     </footer>
@@ -643,17 +559,14 @@
     <script src="assets/course.js"></script>
     <script src="assets/playground.js"></script>
     <script>
-        // Scroll reveal via IntersectionObserver (no scroll listeners)
+        // Scroll reveal (IntersectionObserver, no scroll listeners)
         (function () {
             var els = document.querySelectorAll('.reveal');
             if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                els.forEach(function (el) { el.classList.add('is-visible'); });
-                return;
+                els.forEach(function (el) { el.classList.add('is-visible'); }); return;
             }
             var io = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) {
-                    if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
-                });
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
             }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
             els.forEach(function (el) { io.observe(el); });
         })();
@@ -669,8 +582,7 @@
             function apply() {
                 raf = 0;
                 tc.style.transform = 'rotateX(' + (-ty * 3).toFixed(2) + 'deg) rotateY(' + (tx * 3).toFixed(2) + 'deg)';
-                tc.style.setProperty('--sx', sx.toFixed(1) + '%');
-                tc.style.setProperty('--sy', sy.toFixed(1) + '%');
+                tc.style.setProperty('--sx', sx.toFixed(1) + '%'); tc.style.setProperty('--sy', sy.toFixed(1) + '%');
                 for (var i = 0; i < orbs.length; i++) {
                     var d = parseFloat(orbs[i].getAttribute('data-depth') || '1');
                     orbs[i].style.setProperty('--px', (tx * d * 13).toFixed(1) + 'px');
@@ -690,10 +602,8 @@
                 tx = 0; ty = 0; tc.style.transform = ''; tc.classList.remove('tc-hovering');
                 orbs.forEach(function (o) { o.style.setProperty('--px', '0px'); o.style.setProperty('--py', '0px'); });
             });
-            // Per tile: light up its connection to the React core, dim the rest
             orbs.forEach(function (o) {
-                var li = o.getAttribute('data-line');
-                if (li === null) return;
+                var li = o.getAttribute('data-line'); if (li === null) return;
                 var line = lines[+li];
                 o.addEventListener('mouseenter', function () { tc.classList.add('tc-focus'); if (line) line.classList.add('tc-active'); });
                 o.addEventListener('mouseleave', function () { tc.classList.remove('tc-focus'); if (line) line.classList.remove('tc-active'); });
