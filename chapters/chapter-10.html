@@ -24,7 +24,7 @@
                     colors: {
                         ink: { DEFAULT: '#1f1f1f', soft: '#514d4a' },
                         muted: { DEFAULT: '#706a66', light: '#9a948f' },
-                        coral: { DEFAULT: '#f87666', deep: '#933f35' },
+                        coral: { DEFAULT: '#149eca', deep: '#0a5c7a' },
                         teal: { DEFAULT: '#02b7bf', dark: '#004754', darkest: '#003943' },
                         line: '#e4d8d0',
                         paper: '#ffffff',
@@ -42,11 +42,8 @@
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-line z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 overflow-y-auto no-print">
         <div class="p-5 border-b border-line">
-            <a href="../index.html" class="flex items-center gap-2.5">
-                <div class="w-7 h-7 bg-coral rounded-md flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                </div>
-                <span class="text-[15px] font-semibold tracking-tight">react course</span>
+            <a href="../index.html" class="flex items-center justify-center gap-2.5">
+                <img src="../assets/img/lwa-mark.png" alt="Learn With Arif" class="h-7 w-auto" width="61" height="21">
             </a>
         </div>
         <div class="p-3">
@@ -90,7 +87,7 @@
         </header>
 
         <!-- Content -->
-        <div class="px-4 lg:px-10 py-8 max-w-4xl">
+        <div class="px-4 lg:px-10 py-8 max-w-4xl mx-auto">
 <section class="lesson-card bg-white rounded-2xl p-6 lg:p-8 mb-6 fade-in" id="lesson-1"><div class="flex items-start gap-4 mb-6"><div class="w-10 h-10 bg-lavender rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-ink font-bold text-sm">01</span></div><div class="flex-1"><div class="flex items-center gap-3 mb-1"><h2 class="text-xl font-bold text-ink">REACT.MEMO & USEMEMO — BERHENTI RE-RENDER YANG NGGAK PERLU</h2><input type="checkbox" id="check-10-1" class="lesson-checkbox hidden" onchange="updateProgress()"><label for="check-10-1" class="lesson-label text-xs text-muted cursor-pointer px-2 py-1 rounded-lg hover:bg-cream-2 transition-colors duration-200">Selesai</label></div><p class="text-sm text-muted">Memoization &middot; 12 menit baca</p></div></div><div class="space-y-4 text-[#333] leading-relaxed"><p>Performance masalah nomor satu di React: <strong class="text-ink">unnecessary re-render</strong>. Setiap kali state berubah, React re-render SEMUA komponen di tree — bahkan yang nggak relate ke state yang berubah. Di app kecil, nggak terasa. Di app besar, ini bisa bikin UI jadi choppy dan lambat.</p><p>Analoginya: React tanpa memoization itu kayak <strong class="text-ink">kantor tanpa pintu</strong> — tiap ada pengumuman, semua karyawan berhenti kerja dan denger, termasuk yang nggak terkait. React.memo itu kayak memasang pintu — cuma departemen yang relevan yang dengar. Oh ternyata gitu!</p><p><strong class="text-ink">React.memo()</strong> nge-wrap komponen supaya cuma re-render kalau props-nya berubah. React bandingin props sebelum dan sesudah pakai shallow comparison. Kalau sama, skip re-render. Cocok buat komponen yang sering receive props yang sama — list items, card components, display-only components.</p><p><strong class="text-ink">useMemo</strong> memoize computed value. Misal: filtered list dari array 10,000 item — tanpa useMemo, filter jalan setiap render. Dengan useMemo, cuma jalan kalau dependency berubah. Tapi hati-hati: useMemo sendiri punya cost (memory untuk store result). Jangan memoize SEMUA — hanya yang expensive. Gunakan React Profiler untuk identify bottleneck dulu.</p><p><strong class="text-ink">useCallback</strong> memoize function reference. Berguna kalau kamu pass callback ke child komponen yang di-memo. Tanpa useCallback, function baru tercipta setiap render → child re-render meski React.memo aktif. Tapi sebenarnya useCallback jarang needed — React Compiler (baru!) bisa auto-memoize tanpa manual wrapper.</p><div class="mt-6 space-y-4"><div class="code-block rounded-xl overflow-hidden"><div class="bg-cream-2 px-4 py-2 flex items-center justify-between border-b border-line"><span class="text-xs text-muted font-medium">React.memo — Skip Unnecessary Re-render</span><button onclick="copyCode(this)" class="text-xs text-muted hover:text-ink transition-colors px-2 py-1 rounded-lg hover:bg-black/5">Salin</button></div><pre><code class="language-tsx">// ✅ Tanpa memo — re-render SETIAP kali parent render
 function UserCard({ name, role }: { name: string; role: string }) {
   console.log("UserCard rendered:", name);
