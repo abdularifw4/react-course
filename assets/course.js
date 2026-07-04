@@ -43,11 +43,33 @@ function currentChapter() {
   return v === undefined ? null : Number(v);
 }
 
-/* ---- Sidebar (rendered dynamically) ---- */
+/* ---- Sidebar (collapsible chapters + lesson sub-links) ---- */
+const SIDEBAR_EXPAND_KEY = 'sidebar-expanded';
+function getExpanded() {
+  try { return new Set(JSON.parse(localStorage.getItem(SIDEBAR_EXPAND_KEY) || '[]')); }
+  catch { return new Set(); }
+}
+function setExpanded(set) {
+  try { localStorage.setItem(SIDEBAR_EXPAND_KEY, JSON.stringify([...set])); } catch { /* storage blocked */ }
+}
+function sideEsc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function sideMark(done) {
+  return done
+    ? '<svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>'
+    : '<span class="w-[5px] h-[5px] rounded-full bg-black/20"></span>';
+}
+
 function renderSidebar() {
   const mount = document.getElementById('sidebarNav');
   if (!mount) return;
   const cur = currentChapter();
+  const LES = window.LESSONS || {};
+  const progress = getProgress();
+  const expanded = getExpanded();
+  if (cur !== null) expanded.add(cur); // current chapter is always open
+
   let html = '';
   let lastLevel = null;
   for (const ch of CHAPTERS) {
@@ -57,11 +79,103 @@ function renderSidebar() {
       html += `<p class="px-3 mt-4 mb-1.5 text-[10px] font-semibold text-muted uppercase tracking-wider flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full" style="background:${lv.dot}"></span>${lv.label}</p>`;
     }
     const active = ch.id === cur;
-    html += `<a href="${ch.file}" class="nav-link ${active ? 'active' : ''} flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium ${active ? 'text-ink' : 'text-muted'}">
-      <span class="w-6 h-6 ${active ? 'bg-ink text-white' : 'bg-black/5 text-muted'} rounded flex items-center justify-center text-xs font-bold tabular-nums">${ch.id}</span>
-      ${ch.short}</a>`;
+    const lessons = LES[String(ch.id)] || [];
+    const isOpen = expanded.has(ch.id);
+    const doneSet = new Set(((progress['chapter-' + ch.id] || {}).done) || []);
+
+    html += `<div class="side-ch ${isOpen ? 'open' : ''}" data-ch="${ch.id}">
+      <div class="side-ch-row flex items-center">
+        <a href="${ch.file}" class="nav-link ${active ? 'active' : ''} flex items-center gap-3 flex-1 min-w-0 px-3 py-2 rounded-lg text-sm font-medium ${active ? 'text-ink' : 'text-muted'}">
+          <span class="w-6 h-6 shrink-0 ${active ? 'bg-ink text-white' : 'bg-black/5 text-muted'} rounded flex items-center justify-center text-xs font-bold tabular-nums">${ch.id}</span>
+          <span class="truncate">${sideEsc(ch.short)}</span>
+        </a>`;
+    if (lessons.length) {
+      html += `<button class="side-toggle shrink-0 p-2 rounded-md text-muted-light hover:text-ink hover:bg-black/5" aria-label="Buka daftar lesson bab ${ch.id}" aria-expanded="${isOpen}" data-ch="${ch.id}">
+          <svg class="side-chevron w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>`;
+    }
+    html += `</div>`;
+    if (lessons.length) {
+      html += `<ul class="side-lessons ml-[1.35rem] pl-2 border-l border-black/[0.07] mt-0.5 mb-1 space-y-px">`;
+      for (const ls of lessons) {
+        const href = active ? `#${ls.id}` : `${ch.file}#${ls.id}`;
+        const done = ls.c && doneSet.has(ls.c);
+        const numHtml = ls.n != null ? `<span class="tabular-nums text-muted-light mr-1">${ls.n}.</span>` : '';
+        html += `<li><a href="${href}" class="side-lesson ${active ? 'is-current-ch' : ''} flex items-center gap-2 pl-2.5 pr-2 py-1.5 rounded-md text-[13px] leading-snug text-muted hover:text-ink hover:bg-black/[0.03]" data-target="${ls.id}">
+            <span class="side-mark shrink-0 w-3.5 h-3.5 flex items-center justify-center">${sideMark(done)}</span>
+            <span class="truncate">${numHtml}${sideEsc(ls.t)}</span>
+          </a></li>`;
+      }
+      html += `</ul>`;
+    }
+    html += `</div>`;
   }
   mount.innerHTML = html;
+}
+
+/* Toggle expand/collapse (event-delegated) + close mobile drawer on lesson tap */
+function initSidebar() {
+  const mount = document.getElementById('sidebarNav');
+  if (!mount) return;
+  mount.addEventListener('click', (e) => {
+    const tog = e.target.closest('.side-toggle');
+    if (tog) {
+      e.preventDefault();
+      const id = Number(tog.dataset.ch);
+      const box = tog.closest('.side-ch');
+      const open = box.classList.toggle('open');
+      tog.setAttribute('aria-expanded', String(open));
+      const set = getExpanded();
+      open ? set.add(id) : set.delete(id);
+      setExpanded(set);
+      return;
+    }
+    const les = e.target.closest('.side-lesson');
+    if (les && window.matchMedia('(max-width: 1023px)').matches) {
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar && !sidebar.classList.contains('-translate-x-full')) setTimeout(toggleSidebar, 60);
+    }
+  });
+}
+
+/* Keep sidebar lesson marks in sync with progress on the current chapter */
+function updateSidebarDone() {
+  const cur = currentChapter();
+  const mount = document.getElementById('sidebarNav');
+  if (cur === null || !mount) return;
+  const box = mount.querySelector(`.side-ch[data-ch="${cur}"]`);
+  if (!box) return;
+  const done = new Set((getProgress()['chapter-' + cur] || {}).done || []);
+  const lessons = (window.LESSONS || {})[String(cur)] || [];
+  for (const ls of lessons) {
+    if (!ls.c) continue;
+    const link = box.querySelector(`.side-lesson[data-target="${CSS.escape(ls.id)}"]`);
+    const mark = link && link.querySelector('.side-mark');
+    if (mark) mark.innerHTML = sideMark(done.has(ls.c));
+  }
+}
+
+/* Scrollspy: highlight the lesson currently in view (current chapter only) */
+function initScrollspy() {
+  const cur = currentChapter();
+  const mount = document.getElementById('sidebarNav');
+  if (cur === null || !mount || !('IntersectionObserver' in window)) return;
+  const links = [...mount.querySelectorAll('.side-lesson.is-current-ch')];
+  const map = new Map();
+  links.forEach(a => { const s = document.getElementById(a.dataset.target); if (s) map.set(s, a); });
+  if (!map.size) return;
+  const visible = new Set();
+  const setActive = (a) => {
+    links.forEach(l => l.classList.toggle('active', l === a));
+    if (a) a.scrollIntoView({ block: 'nearest' });
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
+    let best = null, top = Infinity;
+    visible.forEach(s => { const t = s.getBoundingClientRect().top; if (t < top) { top = t; best = s; } });
+    setActive(best ? map.get(best) : null);
+  }, { rootMargin: '0px 0px -55% 0px', threshold: 0 });
+  map.forEach((a, s) => io.observe(s));
 }
 
 /* ---- Per-lesson progress (fixes old no-op restoreChecks) ---- */
@@ -74,6 +188,7 @@ function updateProgress() {
   progress['chapter-' + cur] = { done, total: boxes.length };
   saveProgress(progress);
   renderGlobalProgress();
+  updateSidebarDone();
 }
 
 function restoreChecks() {
@@ -90,6 +205,7 @@ function restoreChecks() {
     const btn = document.getElementById('completeBtn' + cur);
     if (btn) { btn.textContent = '✓ Bab Selesai!'; btn.classList.add('opacity-75'); btn.disabled = true; }
   }
+  updateSidebarDone();
 }
 
 function renderGlobalProgress() {
@@ -239,9 +355,11 @@ function initBackToTop() {
 /* ---- Init ---- */
 document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
+  initSidebar();
   restoreChecks();
   renderGlobalProgress();
   renderDashboard();
   initBackToTop();
+  initScrollspy();
   if (window.hljs) hljs.highlightAll();
 });
