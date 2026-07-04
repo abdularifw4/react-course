@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Course - Belajar React dari Nol sampai Senior</title>
     <meta name="description" content="Kursus React premium berbahasa Indonesia. 15 bab, 152 lesson, 29 playground interaktif, 3 capstone project, dan interview prep. Dari belum bisa JavaScript sampai level senior.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abdularifw4.github.io/react-course/">
+    <meta property="og:title" content="React Course - Dari Nol sampai Senior React Developer">
+    <meta property="og:description" content="Kursus React premium berbahasa Indonesia. 15 bab, 152 lesson, 29 playground interaktif, 3 capstone project. Dari belum bisa JavaScript sampai level senior.">
+    <meta property="og:image" content="https://abdularifw4.github.io/react-course/assets/img/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="React Course - Dari Nol sampai Senior React Developer">
+    <meta name="twitter:description" content="15 bab, 152 lesson, 29 playground interaktif, 3 capstone project. Dari belum bisa JavaScript sampai level senior.">
+    <meta name="twitter:image" content="https://abdularifw4.github.io/react-course/assets/img/og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -138,6 +149,18 @@
 
     <!-- ==================== PROGRESS DASHBOARD (rendered by course.js) ==================== -->
     <div id="dashboardMount" data-base="chapters/" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></div>
+
+    <!-- ==================== PRODUCT SHOWCASE (real screenshot) ==================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-16">
+        <div class="reveal">
+            <div class="rounded-2xl overflow-hidden shadow-window border border-black/[0.06] max-w-5xl mx-auto bg-white">
+                <img src="assets/img/reader.png" width="1600" height="1000" loading="lazy" decoding="async"
+                     alt="Halaman belajar React Course: sidebar kurikulum yang bisa dilipat per bab, materi lesson bergaya santai, dan blok kode berwarna."
+                     class="block w-full h-auto">
+            </div>
+            <p class="text-center text-sm text-muted mt-5 max-w-xl mx-auto">Satu layar yang bersih: kurikulum terstruktur di sidebar, materi bergaya lo/gue, dan blok kode. Ini tampilan aslinya, bukan mockup.</p>
+        </div>
+    </section>
 
     <!-- ==================== LIVE PLAYGROUND SHOWCASE ==================== -->
     <section id="coba" class="bg-lavender py-20 lg:py-28 mt-8">
@@ -323,17 +346,19 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 reveal">
-                <!-- A: wide dark tile -->
-                <div class="lg:col-span-2 bg-ink text-white rounded-2xl p-7 sm:p-9 flex flex-col justify-between min-h-[220px]">
+                <!-- A: wide dark tile with real playground screenshot -->
+                <div class="lg:col-span-2 bg-ink text-white rounded-2xl p-7 sm:p-9 min-h-[220px] grid sm:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div>
                         <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-5">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Live playground di browser</h3>
-                        <p class="text-sm text-white/70 leading-relaxed max-w-lg">Edit JSX langsung di halaman, pencet jalanin, lihat hasilnya seketika. 29 editor interaktif tanpa perlu install apa pun di laptop lo.</p>
+                        <p class="text-sm text-white/70 leading-relaxed">Edit JSX langsung di halaman, pencet jalanin, lihat hasilnya seketika. 29 editor interaktif tanpa perlu install apa pun di laptop lo.</p>
                     </div>
-                    <div class="mt-6 inline-flex items-center gap-2 self-start bg-white/[0.07] border border-white/10 rounded-lg px-3 py-1.5">
-                        <span class="font-mono text-[12px] text-white/80">React.useState(0)</span>
+                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-lifted bg-white">
+                        <img src="assets/img/playground.png" width="1300" height="913" loading="lazy" decoding="async"
+                             alt="Live playground: editor JSX di bagian atas dan pane preview yang me-render hasilnya secara langsung."
+                             class="block w-full h-auto">
                     </div>
                 </div>
                 <!-- B -->
@@ -343,6 +368,11 @@
                     </div>
                     <h3 class="text-base font-semibold mb-1.5">Quiz &amp; challenge auto-grade</h3>
                     <p class="text-sm text-muted leading-relaxed">112 quiz dan 14 coding challenge dinilai otomatis di browser. Skor lo kesimpen, jadi lo tahu persis mana yang belum nyantol.</p>
+                    <div class="mt-5 rounded-xl overflow-hidden border border-black/[0.06]">
+                        <img src="assets/img/quiz.png" width="1200" height="648" loading="lazy" decoding="async"
+                             alt="Kartu quiz: satu pertanyaan React dengan empat pilihan jawaban dan skor."
+                             class="block w-full h-auto">
+                    </div>
                 </div>
                 <!-- C -->
                 <div class="bg-white rounded-2xl p-7 shadow-soft flex flex-col min-h-[200px]">
